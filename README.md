@@ -28,3 +28,5 @@ The exact automatic **random discovery slot cadence per level** has intentionall
 
 ## Next implementation phase
 Connect the Daily Habits / XP system to `addXP()` and replace the development XP buttons. Then add collectible artwork and polished level-up/revelation animations.
+
+deployment refresh
