@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#211a39">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="HP Fitness RPG">
+  <title>Harry Potter Fitness RPG</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <div><div class="eyebrow">FITNESS • LIFESTYLE • JOURNEY</div><h1>Harry Potter Fitness RPG</h1></div>
+      <span id="networkBadge" class="badge">Loading…</span>
+    </header>
+
+    <main>
+      <section id="view-home" class="view active">
+        <div class="hero card">
+          <div class="hero-row"><div><span class="eyebrow" id="bookLabel">Before Hogwarts</span><h2 id="levelTitle">Level 0</h2><p id="storyBeat">Your journey is ready to begin.</p></div><div class="level-orb" id="levelOrb">0</div></div>
+          <div class="progress-track"><div id="xpBar" class="progress-fill"></div></div>
+          <div class="progress-meta"><span id="xpText">0 / 500 XP</span><span id="checkpointText">Checkpoint 1</span></div>
+        </div>
+
+        <div class="grid two">
+          <div class="card stat"><span>Owned collectibles</span><strong id="ownedCount">0 / 385</strong></div>
+          <div class="card stat"><span>Total saga progress</span><strong id="sagaPct">0%</strong></div>
+        </div>
+
+        <div class="card">
+          <div class="section-head"><div><span class="eyebrow">DEVELOPMENT TESTER</span><h3>Test XP progression</h3></div></div>
+          <p class="muted">Temporary testing controls until your daily habit tracker is connected. They only affect this device's local save.</p>
+          <div class="xp-controls"><button data-xp="100">+100 XP</button><button data-xp="300">+300 XP</button><button data-xp="500">+500 XP</button></div>
+        </div>
+
+        <div class="card">
+          <div class="section-head"><h3>Latest journey events</h3></div>
+          <div id="eventLog" class="event-log"><p class="muted">No events yet.</p></div>
+        </div>
+      </section>
+
+      <section id="view-journey" class="view">
+        <div class="section-head"><div><span class="eyebrow">168 LEVELS</span><h2>Journey</h2></div></div>
+        <div id="journeyList" class="journey-list"></div>
+      </section>
+
+      <section id="view-collection" class="view">
+        <div class="section-head"><div><span class="eyebrow">385 COLLECTIBLES</span><h2>Collection</h2></div></div>
+        <div class="filter-row">
+          <select id="categoryFilter"><option value="all">All categories</option></select>
+          <select id="rarityFilter"><option value="all">All rarities</option><option>Mythic</option><option>Legendary</option><option>Epic</option><option>Rare</option></select>
+          <select id="statusFilter"><option value="all">All states</option><option value="owned">Owned</option><option value="eligible">Eligible</option><option value="locked">Locked</option></select>
+        </div>
+        <div id="collectionGrid" class="collection-grid"></div>
+      </section>
+
+      <section id="view-settings" class="view">
+        <div class="section-head"><div><span class="eyebrow">DEVICE & SAVE</span><h2>Settings</h2></div></div>
+        <div class="card"><h3>Install on iPhone Home Screen</h3><p>Open this site in <strong>Safari</strong> → tap <strong>Share</strong> → <strong>Add to Home Screen</strong>. Once installed it launches in standalone app mode.</p><p id="installState" class="muted"></p></div>
+        <div class="card"><h3>Offline & local save</h3><p>Your app shell and content data are cached for offline use. Progress is saved locally on this device using browser storage.</p></div>
+        <div class="card"><h3>Save backup</h3><div class="settings-buttons"><button id="exportSave">Export save</button><label class="button-like">Import save<input id="importSave" type="file" accept="application/json" hidden></label></div></div>
+        <div class="card danger"><h3>Reset development save</h3><p class="muted">Use only while testing.</p><button id="resetSave">Reset all local progress</button></div>
+        <div class="card"><h3>Build status</h3><p><strong>Phase 1:</strong> PWA shell + 168-level data + 385-card collection + local save + offline support.</p><p class="muted">Next: connect daily habit XP and finalize the exact automatic random-slot cadence.</p></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button data-view="home" class="active">Home</button>
+      <button data-view="journey">Journey</button>
+      <button data-view="collection">Collection</button>
+      <button data-view="settings">Settings</button>
+    </nav>
+  </div>
+
+  <dialog id="levelDialog"><div class="dialog-inner"><span class="eyebrow">LEVEL UP</span><h2 id="dialogTitle"></h2><p id="dialogStory"></p><div id="dialogRewards"></div><button id="closeDialog">Continue</button></div></dialog>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

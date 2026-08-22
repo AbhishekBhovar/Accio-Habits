@@ -1,0 +1,6954 @@
+[
+  {
+    "level": 1,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Character — Harry Potter [Mythic]"
+  },
+  {
+    "level": 1,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Character — Lord Voldemort [Mythic]"
+  },
+  {
+    "level": 1,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Spell / Magic — Avada Kedavra [Mythic]"
+  },
+  {
+    "level": 1,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Lily Potter [Legendary]"
+  },
+  {
+    "level": 1,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — James Potter [Legendary]"
+  },
+  {
+    "level": 1,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Vernon Dursley [Rare]"
+  },
+  {
+    "level": 1,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Petunia Dursley [Rare]"
+  },
+  {
+    "level": 1,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Dudley Dursley [Rare]"
+  },
+  {
+    "level": 1,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Object / Artefact — Deluminator [Epic]"
+  },
+  {
+    "level": 1,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Object / Artefact — Sirius's Flying Motorbike [Rare]"
+  },
+  {
+    "level": 1,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Privet Drive / No. 4 [Legendary]"
+  },
+  {
+    "level": 1,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Mythic: Lily's Sacrifice / The Boy Who Lived"
+  },
+  {
+    "level": 3,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: The Hogwarts Letters Overwhelm Privet Drive"
+  },
+  {
+    "level": 4,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Character — Rubeus Hagrid [Legendary]"
+  },
+  {
+    "level": 4,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Incendio [Rare]"
+  },
+  {
+    "level": 4,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Mythic: Harry Learns the Truth About Himself & His Parents"
+  },
+  {
+    "level": 4,
+    "book": 1,
+    "checkpoint": 1,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Hagrid Gives Harry His Birthday Cake"
+  },
+  {
+    "level": 5,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Quirinus Quirrell [Epic]"
+  },
+  {
+    "level": 5,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Diagon Alley [Legendary]"
+  },
+  {
+    "level": 5,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Leaky Cauldron [Rare]"
+  },
+  {
+    "level": 5,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Enters Diagon Alley"
+  },
+  {
+    "level": 5,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Shops for His Hogwarts Supplies"
+  },
+  {
+    "level": 5,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Discovers He's Famous"
+  },
+  {
+    "level": 6,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Griphook [Rare]"
+  },
+  {
+    "level": 6,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Gringotts [Rare]"
+  },
+  {
+    "level": 6,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Enters Gringotts / Discovers His Inheritance"
+  },
+  {
+    "level": 7,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Creature — Hedwig [Mythic]"
+  },
+  {
+    "level": 7,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Harry's Wand [Mythic]"
+  },
+  {
+    "level": 7,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Spell / Magic — Twin Cores / Priori Incantatem [Legendary]"
+  },
+  {
+    "level": 7,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Garrick Ollivander [Rare]"
+  },
+  {
+    "level": 7,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry's Wand Chooses Him"
+  },
+  {
+    "level": 8,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Draco Malfoy [Legendary]"
+  },
+  {
+    "level": 8,
+    "book": 1,
+    "checkpoint": 2,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Meets Draco → Learns About Slytherin"
+  },
+  {
+    "level": 9,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Molly Weasley [Legendary]"
+  },
+  {
+    "level": 9,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Fred Weasley [Epic]"
+  },
+  {
+    "level": 9,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — George Weasley [Epic]"
+  },
+  {
+    "level": 9,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Percy Weasley [Rare]"
+  },
+  {
+    "level": 9,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Platform 9¾ & Hogwarts Express [Rare]"
+  },
+  {
+    "level": 9,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry's First Chocolate Frog"
+  },
+  {
+    "level": 10,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Character — Hermione Granger [Mythic]"
+  },
+  {
+    "level": 10,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Character — Ron Weasley [Legendary]"
+  },
+  {
+    "level": 10,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Neville Longbottom [Legendary]"
+  },
+  {
+    "level": 10,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Peter Pettigrew / Scabbers [Legendary]"
+  },
+  {
+    "level": 10,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Vincent Crabbe [Rare]"
+  },
+  {
+    "level": 10,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Gregory Goyle [Rare]"
+  },
+  {
+    "level": 10,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Dean Thomas [Rare]"
+  },
+  {
+    "level": 10,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Seamus Finnigan [Rare]"
+  },
+  {
+    "level": 10,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Reparo [Rare]"
+  },
+  {
+    "level": 10,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Meets Ron"
+  },
+  {
+    "level": 10,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Meets Hermione"
+  },
+  {
+    "level": 11,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Location — Hogwarts Castle [Mythic]"
+  },
+  {
+    "level": 11,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Character — Albus Dumbledore [Mythic]"
+  },
+  {
+    "level": 11,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Severus Snape [Legendary]"
+  },
+  {
+    "level": 11,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Minerva McGonagall [Legendary]"
+  },
+  {
+    "level": 11,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Madam Pomfrey [Rare]"
+  },
+  {
+    "level": 11,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Filius Flitwick [Rare]"
+  },
+  {
+    "level": 11,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Pomona Sprout [Rare]"
+  },
+  {
+    "level": 11,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Argus Filch [Rare]"
+  },
+  {
+    "level": 11,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Meets the Hogwarts Ghosts"
+  },
+  {
+    "level": 12,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Sorting Hat [Mythic]"
+  },
+  {
+    "level": 12,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Gryffindor Common Room [Rare]"
+  },
+  {
+    "level": 12,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Draco Malfoy — 12"
+  },
+  {
+    "level": 12,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogwarts Castle — 12"
+  },
+  {
+    "level": 12,
+    "book": 1,
+    "checkpoint": 3,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry Is Sorted into Gryffindor"
+  },
+  {
+    "level": 13,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Object / Artefact — Remembrall [Rare]"
+  },
+  {
+    "level": 13,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: First Flying Lesson / Harry Catches the Remembrall"
+  },
+  {
+    "level": 14,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Oliver Wood [Rare]"
+  },
+  {
+    "level": 14,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Object / Artefact — Nimbus 2000 [Epic]"
+  },
+  {
+    "level": 14,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Quidditch Pitch [Epic]"
+  },
+  {
+    "level": 14,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 14"
+  },
+  {
+    "level": 14,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry Discovers Flying / Becomes Gryffindor Seeker"
+  },
+  {
+    "level": 14,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Receives the Nimbus 2000"
+  },
+  {
+    "level": 15,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Creature — Fluffy [Rare]"
+  },
+  {
+    "level": 15,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Alohomora [Epic]"
+  },
+  {
+    "level": 15,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: The Trio Discover Fluffy & the Trapdoor"
+  },
+  {
+    "level": 16,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Creature — Mountain Troll [Rare]"
+  },
+  {
+    "level": 16,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Wingardium Leviosa [Epic]"
+  },
+  {
+    "level": 16,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 16"
+  },
+  {
+    "level": 16,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Wingardium Leviosa — 16"
+  },
+  {
+    "level": 16,
+    "book": 1,
+    "checkpoint": 4,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: The Troll — The Trio Become Friends"
+  },
+  {
+    "level": 17,
+    "book": 1,
+    "checkpoint": 5,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Object / Artefact — Golden Snitch [Rare]"
+  },
+  {
+    "level": 17,
+    "book": 1,
+    "checkpoint": 5,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Quidditch Pitch — 17"
+  },
+  {
+    "level": 17,
+    "book": 1,
+    "checkpoint": 5,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry's First Quidditch Match"
+  },
+  {
+    "level": 17,
+    "book": 1,
+    "checkpoint": 5,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: The Jinxed Broom — Hermione Sets Snape's Robes on Fire"
+  },
+  {
+    "level": 18,
+    "book": 1,
+    "checkpoint": 5,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Invisibility Cloak [Mythic]"
+  },
+  {
+    "level": 18,
+    "book": 1,
+    "checkpoint": 5,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry's First Christmas at Hogwarts"
+  },
+  {
+    "level": 18,
+    "book": 1,
+    "checkpoint": 5,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Receives the Invisibility Cloak"
+  },
+  {
+    "level": 19,
+    "book": 1,
+    "checkpoint": 5,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Mirror of Erised [Epic]"
+  },
+  {
+    "level": 19,
+    "book": 1,
+    "checkpoint": 5,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry Sees His Family in the Mirror of Erised"
+  },
+  {
+    "level": 20,
+    "book": 1,
+    "checkpoint": 5,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Philosopher's Stone [Epic]"
+  },
+  {
+    "level": 20,
+    "book": 1,
+    "checkpoint": 5,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: The Trio Discover Nicolas Flamel / Understand the Stone"
+  },
+  {
+    "level": 21,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Firenze [Rare]"
+  },
+  {
+    "level": 21,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Creature — Centaurs [Rare]"
+  },
+  {
+    "level": 21,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Creature — Norbert / Norberta [Rare]"
+  },
+  {
+    "level": 21,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Creature — Fang [Rare]"
+  },
+  {
+    "level": 21,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Forbidden Forest [Legendary]"
+  },
+  {
+    "level": 21,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Hagrid's Hut [Epic]"
+  },
+  {
+    "level": 21,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Rubeus Hagrid — 21"
+  },
+  {
+    "level": 21,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Norbert — Hatching & Goodbye"
+  },
+  {
+    "level": 22,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Creature — Unicorn [Rare]"
+  },
+  {
+    "level": 22,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Lord Voldemort — 22"
+  },
+  {
+    "level": 22,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Forbidden Forest — 22"
+  },
+  {
+    "level": 22,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Forbidden Forest Detention / Harry Encounters Voldemort"
+  },
+  {
+    "level": 23,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Petrificus Totalus [Epic]"
+  },
+  {
+    "level": 23,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 23-24"
+  },
+  {
+    "level": 23,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: The Trio Go Through the Trapdoor / Hogwarts Defences"
+  },
+  {
+    "level": 24,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 23-24"
+  },
+  {
+    "level": 24,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Lord Voldemort — 24"
+  },
+  {
+    "level": 24,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogwarts Castle — 24"
+  },
+  {
+    "level": 24,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry Stops Voldemort Taking the Philosopher's Stone"
+  },
+  {
+    "level": 24,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Ten Points to Neville"
+  },
+  {
+    "level": 24,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Gryffindor Wins the House Cup"
+  },
+  {
+    "level": 24,
+    "book": 1,
+    "checkpoint": 6,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Hagrid Gives Harry His Parents' Photo Album"
+  },
+  {
+    "level": 25,
+    "book": 2,
+    "checkpoint": 7,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Character — Dobby [Legendary]"
+  },
+  {
+    "level": 25,
+    "book": 2,
+    "checkpoint": 7,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Meets Dobby in His Bedroom"
+  },
+  {
+    "level": 26,
+    "book": 2,
+    "checkpoint": 7,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Dobby — 26"
+  },
+  {
+    "level": 27,
+    "book": 2,
+    "checkpoint": 7,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Object / Artefact — Flying Ford Anglia [Rare]"
+  },
+  {
+    "level": 27,
+    "book": 2,
+    "checkpoint": 7,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Fred Weasley — 27"
+  },
+  {
+    "level": 27,
+    "book": 2,
+    "checkpoint": 7,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "George Weasley — 27"
+  },
+  {
+    "level": 27,
+    "book": 2,
+    "checkpoint": 7,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Fred, George & Ron Rescue Harry"
+  },
+  {
+    "level": 28,
+    "book": 2,
+    "checkpoint": 7,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Ginny Weasley [Legendary]"
+  },
+  {
+    "level": 28,
+    "book": 2,
+    "checkpoint": 7,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Arthur Weasley [Legendary]"
+  },
+  {
+    "level": 28,
+    "book": 2,
+    "checkpoint": 7,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — The Burrow [Legendary]"
+  },
+  {
+    "level": 28,
+    "book": 2,
+    "checkpoint": 7,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Experiences the Burrow for the First Time"
+  },
+  {
+    "level": 29,
+    "book": 2,
+    "checkpoint": 8,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Knockturn Alley / Borgin and Burkes [Rare]"
+  },
+  {
+    "level": 29,
+    "book": 2,
+    "checkpoint": 8,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Object / Artefact — Vanishing Cabinet [Rare]"
+  },
+  {
+    "level": 29,
+    "book": 2,
+    "checkpoint": 8,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Draco Malfoy — 29"
+  },
+  {
+    "level": 29,
+    "book": 2,
+    "checkpoint": 8,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Diagon Alley — 29"
+  },
+  {
+    "level": 29,
+    "book": 2,
+    "checkpoint": 8,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Floos into Knockturn Alley"
+  },
+  {
+    "level": 29,
+    "book": 2,
+    "checkpoint": 8,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Flourish & Blotts / Lucius Confrontation"
+  },
+  {
+    "level": 30,
+    "book": 2,
+    "checkpoint": 8,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Arthur Weasley — 30"
+  },
+  {
+    "level": 31,
+    "book": 2,
+    "checkpoint": 8,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Flying Ford Anglia — 31"
+  },
+  {
+    "level": 31,
+    "book": 2,
+    "checkpoint": 8,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Platform 9¾ & Hogwarts Express — 31"
+  },
+  {
+    "level": 31,
+    "book": 2,
+    "checkpoint": 8,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry & Ron Fly the Ford Anglia to Hogwarts"
+  },
+  {
+    "level": 32,
+    "book": 2,
+    "checkpoint": 8,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Gilderoy Lockhart [Epic]"
+  },
+  {
+    "level": 32,
+    "book": 2,
+    "checkpoint": 8,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Ford Anglia Crashes into the Whomping Willow"
+  },
+  {
+    "level": 33,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Colin Creevey [Rare]"
+  },
+  {
+    "level": 33,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Lumos [Epic]"
+  },
+  {
+    "level": 33,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: First Mandrake Lesson"
+  },
+  {
+    "level": 33,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Lockhart's Cornish Pixies"
+  },
+  {
+    "level": 33,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Hears the Basilisk"
+  },
+  {
+    "level": 34,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Justin Finch-Fletchley [Rare]"
+  },
+  {
+    "level": 34,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: The Writing Appears on the Wall"
+  },
+  {
+    "level": 34,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Ron's Slug Curse Backfires"
+  },
+  {
+    "level": 34,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Nearly Headless Nick's Deathday Party"
+  },
+  {
+    "level": 34,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Professor Binns Explains the Chamber of Secrets"
+  },
+  {
+    "level": 35,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Spell / Magic — Expelliarmus [Mythic]"
+  },
+  {
+    "level": 35,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Draco Malfoy — 35"
+  },
+  {
+    "level": 35,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: The Rogue Bludger Targets Harry"
+  },
+  {
+    "level": 35,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Lockhart Removes Harry's Arm Bones"
+  },
+  {
+    "level": 35,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Dobby Confesses in the Hospital Wing"
+  },
+  {
+    "level": 35,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Colin's Melted Camera / “The Chamber Has Been Opened Again”"
+  },
+  {
+    "level": 36,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Spell / Magic — Parseltongue [Legendary]"
+  },
+  {
+    "level": 36,
+    "book": 2,
+    "checkpoint": 9,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry Speaks Parseltongue at Hogwarts"
+  },
+  {
+    "level": 37,
+    "book": 2,
+    "checkpoint": 10,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Spell / Magic — Polyjuice Potion [Legendary]"
+  },
+  {
+    "level": 37,
+    "book": 2,
+    "checkpoint": 10,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Moaning Myrtle [Rare]"
+  },
+  {
+    "level": 38,
+    "book": 2,
+    "checkpoint": 10,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 38"
+  },
+  {
+    "level": 38,
+    "book": 2,
+    "checkpoint": 10,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Polyjuice Infiltration"
+  },
+  {
+    "level": 39,
+    "book": 2,
+    "checkpoint": 10,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Tom Riddle's Diary [Legendary]"
+  },
+  {
+    "level": 40,
+    "book": 2,
+    "checkpoint": 10,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Tom Riddle's Diary — 40"
+  },
+  {
+    "level": 41,
+    "book": 2,
+    "checkpoint": 11,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Hermione Is Petrified"
+  },
+  {
+    "level": 42,
+    "book": 2,
+    "checkpoint": 11,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Cornelius Fudge [Epic]"
+  },
+  {
+    "level": 42,
+    "book": 2,
+    "checkpoint": 11,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Rubeus Hagrid — 42-43"
+  },
+  {
+    "level": 43,
+    "book": 2,
+    "checkpoint": 11,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Creature — Aragog [Rare]"
+  },
+  {
+    "level": 43,
+    "book": 2,
+    "checkpoint": 11,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Rubeus Hagrid — 42-43"
+  },
+  {
+    "level": 43,
+    "book": 2,
+    "checkpoint": 11,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Fang — 43"
+  },
+  {
+    "level": 43,
+    "book": 2,
+    "checkpoint": 11,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry & Ron Meet Aragog"
+  },
+  {
+    "level": 44,
+    "book": 2,
+    "checkpoint": 11,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Flying Ford Anglia — 44"
+  },
+  {
+    "level": 45,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Creature — Basilisk [Epic]"
+  },
+  {
+    "level": 46,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Chamber of Secrets [Epic]"
+  },
+  {
+    "level": 46,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Moaning Myrtle — 46"
+  },
+  {
+    "level": 46,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Parseltongue — 46"
+  },
+  {
+    "level": 46,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Moaning Myrtle — 46: original Chamber victim"
+  },
+  {
+    "level": 47,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Obliviate / Memory Charm [Epic]"
+  },
+  {
+    "level": 47,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Obliviate / Memory Charm — 47"
+  },
+  {
+    "level": 47,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Lockhart Is Exposed as a Fraud / Obliviate Backfires"
+  },
+  {
+    "level": 47,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Lockhart Tries to Flee Rather Than Rescue Ginny"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Creature — Fawkes [Legendary]"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Sword of Gryffindor [Legendary]"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Lord Voldemort — 48"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Ginny Weasley — 48"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Dobby — 48"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Fawkes — 48"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Basilisk — 48"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sorting Hat — 48"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Tom Riddle's Diary — 48"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogwarts Castle — 48"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Chamber of Secrets — 48"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Parseltongue — 48"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Lord Voldemort — 48: Tom Riddle identity"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Tom Riddle's Diary — 48: Riddle=Voldemort"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry Defeats the Basilisk & Destroys Riddle's Diary"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Tom Riddle Reveals Himself"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "checkpoint": 12,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Frees Dobby"
+  },
+  {
+    "level": 49,
+    "book": 3,
+    "checkpoint": 13,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Inflates Aunt Marge"
+  },
+  {
+    "level": 50,
+    "book": 3,
+    "checkpoint": 13,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Character — Sirius Black [Legendary]"
+  },
+  {
+    "level": 50,
+    "book": 3,
+    "checkpoint": 13,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Rides the Knight Bus"
+  },
+  {
+    "level": 50,
+    "book": 3,
+    "checkpoint": 13,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry First Sees the Mysterious Black Dog"
+  },
+  {
+    "level": 51,
+    "book": 3,
+    "checkpoint": 13,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Cornelius Fudge — 51"
+  },
+  {
+    "level": 52,
+    "book": 3,
+    "checkpoint": 13,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Fidelius Charm [Epic]"
+  },
+  {
+    "level": 52,
+    "book": 3,
+    "checkpoint": 13,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sirius Black — 52"
+  },
+  {
+    "level": 52,
+    "book": 3,
+    "checkpoint": 13,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Learns Sirius Was Supposedly His Parents' Betrayer"
+  },
+  {
+    "level": 53,
+    "book": 3,
+    "checkpoint": 14,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Character — Remus Lupin [Legendary]"
+  },
+  {
+    "level": 53,
+    "book": 3,
+    "checkpoint": 14,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Creature — Dementors [Mythic]"
+  },
+  {
+    "level": 53,
+    "book": 3,
+    "checkpoint": 14,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Sybill Trelawney [Rare]"
+  },
+  {
+    "level": 53,
+    "book": 3,
+    "checkpoint": 14,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Creature — Crookshanks [Epic]"
+  },
+  {
+    "level": 53,
+    "book": 3,
+    "checkpoint": 14,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Platform 9¾ & Hogwarts Express — 53"
+  },
+  {
+    "level": 53,
+    "book": 3,
+    "checkpoint": 14,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Lupin Drives Off the Dementor / Fire / Chocolate"
+  },
+  {
+    "level": 54,
+    "book": 3,
+    "checkpoint": 14,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Creature — Buckbeak [Epic]"
+  },
+  {
+    "level": 54,
+    "book": 3,
+    "checkpoint": 14,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Rubeus Hagrid — 54"
+  },
+  {
+    "level": 55,
+    "book": 3,
+    "checkpoint": 14,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Creature — Boggart [Rare]"
+  },
+  {
+    "level": 55,
+    "book": 3,
+    "checkpoint": 14,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Riddikulus [Epic]"
+  },
+  {
+    "level": 55,
+    "book": 3,
+    "checkpoint": 14,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Neville Longbottom — 55"
+  },
+  {
+    "level": 55,
+    "book": 3,
+    "checkpoint": 14,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Lupin's Boggart Lesson"
+  },
+  {
+    "level": 57,
+    "book": 3,
+    "checkpoint": 15,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Cho Chang [Epic]"
+  },
+  {
+    "level": 57,
+    "book": 3,
+    "checkpoint": 15,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Cedric Diggory [Rare]"
+  },
+  {
+    "level": 57,
+    "book": 3,
+    "checkpoint": 15,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Dementors — 57"
+  },
+  {
+    "level": 57,
+    "book": 3,
+    "checkpoint": 15,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Nimbus 2000 — 57"
+  },
+  {
+    "level": 57,
+    "book": 3,
+    "checkpoint": 15,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Quidditch Pitch — 57"
+  },
+  {
+    "level": 57,
+    "book": 3,
+    "checkpoint": 15,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Nimbus 2000 Is Destroyed"
+  },
+  {
+    "level": 58,
+    "book": 3,
+    "checkpoint": 15,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Spell / Magic — Expecto Patronum [Mythic]"
+  },
+  {
+    "level": 58,
+    "book": 3,
+    "checkpoint": 15,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 58-72"
+  },
+  {
+    "level": 58,
+    "book": 3,
+    "checkpoint": 15,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Lupin Begins Teaching Harry the Patronus"
+  },
+  {
+    "level": 59,
+    "book": 3,
+    "checkpoint": 15,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 58-72"
+  },
+  {
+    "level": 59,
+    "book": 3,
+    "checkpoint": 15,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Expecto Patronum — 59"
+  },
+  {
+    "level": 60,
+    "book": 3,
+    "checkpoint": 15,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Object / Artefact — Firebolt [Epic]"
+  },
+  {
+    "level": 60,
+    "book": 3,
+    "checkpoint": 15,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 58-72"
+  },
+  {
+    "level": 61,
+    "book": 3,
+    "checkpoint": 16,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Marauder's Map [Legendary]"
+  },
+  {
+    "level": 61,
+    "book": 3,
+    "checkpoint": 16,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 58-72"
+  },
+  {
+    "level": 61,
+    "book": 3,
+    "checkpoint": 16,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Fred & George Give Harry the Marauder's Map"
+  },
+  {
+    "level": 62,
+    "book": 3,
+    "checkpoint": 16,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Hogsmeade [Rare]"
+  },
+  {
+    "level": 62,
+    "book": 3,
+    "checkpoint": 16,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 58-72"
+  },
+  {
+    "level": 62,
+    "book": 3,
+    "checkpoint": 16,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry's First Hogsmeade / Honeydukes"
+  },
+  {
+    "level": 63,
+    "book": 3,
+    "checkpoint": 16,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 58-72"
+  },
+  {
+    "level": 63,
+    "book": 3,
+    "checkpoint": 16,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Firebolt — 63"
+  },
+  {
+    "level": 63,
+    "book": 3,
+    "checkpoint": 16,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Quidditch Pitch — 63"
+  },
+  {
+    "level": 64,
+    "book": 3,
+    "checkpoint": 16,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 58-72"
+  },
+  {
+    "level": 64,
+    "book": 3,
+    "checkpoint": 16,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Peter Pettigrew / Scabbers — 64"
+  },
+  {
+    "level": 64,
+    "book": 3,
+    "checkpoint": 16,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Crookshanks — 64-68"
+  },
+  {
+    "level": 64,
+    "book": 3,
+    "checkpoint": 16,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Sirius Stands Over Ron's Bed with a Knife"
+  },
+  {
+    "level": 65,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 58-72"
+  },
+  {
+    "level": 65,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Buckbeak — 65"
+  },
+  {
+    "level": 65,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Crookshanks — 64-68"
+  },
+  {
+    "level": 66,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Shrieking Shack [Rare]"
+  },
+  {
+    "level": 66,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 58-72"
+  },
+  {
+    "level": 66,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Crookshanks — 64-68"
+  },
+  {
+    "level": 67,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Animagus Transformation [Rare]"
+  },
+  {
+    "level": 67,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 58-72"
+  },
+  {
+    "level": 67,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sirius Black — 67-72"
+  },
+  {
+    "level": 67,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Crookshanks — 64-68"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 58-72"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sirius Black — 67-72"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Remus Lupin — 68-69"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Peter Pettigrew / Scabbers — 68"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Crookshanks — 64-68"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Marauder's Map — 68"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Shrieking Shack — 68"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Animagus Transformation — 68"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Sirius Black — 68: innocent / godfather"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Peter Pettigrew / Scabbers — 68: Scabbers = Peter Pettigrew"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Crookshanks — 68: helped Sirius / recognised Pettigrew"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Marauder's Map — 68: Moony/Wormtail/Padfoot/Prongs identities"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Fidelius Charm — 68: Pettigrew was Secret Keeper"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Sirius's Innocence & Pettigrew's Betrayal Are Revealed"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry Spares Pettigrew"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Sirius Offers Harry a Home"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "checkpoint": 17,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Scabbers Is Revealed as Pettigrew"
+  },
+  {
+    "level": 69,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 58-72"
+  },
+  {
+    "level": 69,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sirius Black — 67-72"
+  },
+  {
+    "level": 69,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Remus Lupin — 68-69"
+  },
+  {
+    "level": 69,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Lupin Transforms"
+  },
+  {
+    "level": 70,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 58-72"
+  },
+  {
+    "level": 70,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sirius Black — 67-72"
+  },
+  {
+    "level": 70,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Expecto Patronum — 70"
+  },
+  {
+    "level": 71,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Time-Turner [Epic]"
+  },
+  {
+    "level": 71,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 58-72"
+  },
+  {
+    "level": 71,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sirius Black — 67-72"
+  },
+  {
+    "level": 71,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Hermione Reveals the Time-Turner"
+  },
+  {
+    "level": 71,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Trelawney Gives Her Real Wormtail Prophecy"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 58-72"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sirius Black — 67-72"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Buckbeak — 72"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Firebolt — 72"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogwarts Castle — 72"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Quidditch Pitch — 72"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Expecto Patronum — 72"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Buckbeak — 72: rescued"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Firebolt — 72: gift from Sirius"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Expecto Patronum — 72: full stag / Harry saved himself"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Patronus Across the Lake — Harry Realises He Saved Himself"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry & Hermione Save Sirius and Buckbeak"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Finally Wins the Quidditch Cup"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Learns Sirius Sent the Firebolt"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "checkpoint": 18,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Sirius Signs Harry's Hogsmeade Permission"
+  },
+  {
+    "level": 73,
+    "book": 4,
+    "checkpoint": 19,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Creature — Nagini [Legendary]"
+  },
+  {
+    "level": 73,
+    "book": 4,
+    "checkpoint": 19,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Little Hangleton / Riddle House & Graveyard [Rare]"
+  },
+  {
+    "level": 73,
+    "book": 4,
+    "checkpoint": 19,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Lord Voldemort — 73"
+  },
+  {
+    "level": 73,
+    "book": 4,
+    "checkpoint": 19,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Peter Pettigrew / Scabbers — 73"
+  },
+  {
+    "level": 74,
+    "book": 4,
+    "checkpoint": 19,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Narcissa Malfoy [Epic]"
+  },
+  {
+    "level": 74,
+    "book": 4,
+    "checkpoint": 19,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Bill Weasley [Rare]"
+  },
+  {
+    "level": 74,
+    "book": 4,
+    "checkpoint": 19,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Viktor Krum [Rare]"
+  },
+  {
+    "level": 74,
+    "book": 4,
+    "checkpoint": 19,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Barty Crouch Sr. [Rare]"
+  },
+  {
+    "level": 74,
+    "book": 4,
+    "checkpoint": 19,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Ludo Bagman [Rare]"
+  },
+  {
+    "level": 74,
+    "book": 4,
+    "checkpoint": 19,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "The Burrow — 74"
+  },
+  {
+    "level": 74,
+    "book": 4,
+    "checkpoint": 19,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Quidditch World Cup"
+  },
+  {
+    "level": 75,
+    "book": 4,
+    "checkpoint": 19,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Morsmordre / Dark Mark [Rare]"
+  },
+  {
+    "level": 75,
+    "book": 4,
+    "checkpoint": 19,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Morsmordre / Dark Mark — 75"
+  },
+  {
+    "level": 75,
+    "book": 4,
+    "checkpoint": 19,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Death Eaters Attack the Campsite / Dark Mark"
+  },
+  {
+    "level": 77,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Character — Barty Crouch Jr. [Legendary]"
+  },
+  {
+    "level": 77,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 78,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Imperio / Imperius Curse [Legendary]"
+  },
+  {
+    "level": 78,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Crucio / Cruciatus Curse [Legendary]"
+  },
+  {
+    "level": 78,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Neville Longbottom — 78"
+  },
+  {
+    "level": 78,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 78,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Imperio / Imperius Curse — 78"
+  },
+  {
+    "level": 78,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 78,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Resists the Imperius Curse"
+  },
+  {
+    "level": 78,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Fake Moody Demonstrates the Unforgivable Curses"
+  },
+  {
+    "level": 78,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Fake Moody Tells Harry He'd Make a Good Auror"
+  },
+  {
+    "level": 79,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Fleur Delacour [Rare]"
+  },
+  {
+    "level": 79,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Igor Karkaroff [Rare]"
+  },
+  {
+    "level": 79,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 79,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 80,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Goblet of Fire [Epic]"
+  },
+  {
+    "level": 80,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 80,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 80,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Cedric Diggory — 80"
+  },
+  {
+    "level": 80,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Viktor Krum — 80"
+  },
+  {
+    "level": 80,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 80,
+    "book": 4,
+    "checkpoint": 20,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry's Name Comes Out of the Goblet of Fire"
+  },
+  {
+    "level": 81,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Rita Skeeter [Epic]"
+  },
+  {
+    "level": 81,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 81,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 81,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 82,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 82,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Rubeus Hagrid — 82"
+  },
+  {
+    "level": 82,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 82,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 82,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Learns the First Task Is Dragons"
+  },
+  {
+    "level": 83,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Creature — Hungarian Horntail [Rare]"
+  },
+  {
+    "level": 83,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Accio [Legendary]"
+  },
+  {
+    "level": 83,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Stupefy [Epic]"
+  },
+  {
+    "level": 83,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 83,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 83,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hungarian Horntail — 83"
+  },
+  {
+    "level": 83,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Accio — 83"
+  },
+  {
+    "level": 83,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 83,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Faces the Hungarian Horntail"
+  },
+  {
+    "level": 84,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 84,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 84,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 84,
+    "book": 4,
+    "checkpoint": 21,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Draco Becomes a Ferret"
+  },
+  {
+    "level": 85,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 85,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 85,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 86,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 86,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 86,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Viktor Krum — 86"
+  },
+  {
+    "level": 86,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 86,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: The Yule Ball — Hermione/Krum + Harry & Ron's Disasters"
+  },
+  {
+    "level": 87,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 87,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 87,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 87,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Solves the Golden Egg"
+  },
+  {
+    "level": 88,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 88,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 88,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Dobby — 88-89"
+  },
+  {
+    "level": 88,
+    "book": 4,
+    "checkpoint": 22,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 89,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Creature — Merpeople [Rare]"
+  },
+  {
+    "level": 89,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 89,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 89,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Dobby — 88-89"
+  },
+  {
+    "level": 89,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Cedric Diggory — 89"
+  },
+  {
+    "level": 89,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Viktor Krum — 89"
+  },
+  {
+    "level": 89,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 89,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Completes the Second Task"
+  },
+  {
+    "level": 90,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 90,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 90,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Sr. — 90"
+  },
+  {
+    "level": 90,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 91,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Bellatrix Lestrange [Legendary]"
+  },
+  {
+    "level": 91,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 91,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 91,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 92,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 92,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 92,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Cedric Diggory — 92-95"
+  },
+  {
+    "level": 92,
+    "book": 4,
+    "checkpoint": 23,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 93,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Triwizard Cup [Epic]"
+  },
+  {
+    "level": 93,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Impedimenta [Epic]"
+  },
+  {
+    "level": 93,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 93,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 93,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Cedric Diggory — 92-95"
+  },
+  {
+    "level": 93,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 93,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Impedimenta — 93"
+  },
+  {
+    "level": 93,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry & Cedric Decide to Take the Cup Together"
+  },
+  {
+    "level": 94,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 94,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Lord Voldemort — 94"
+  },
+  {
+    "level": 94,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Peter Pettigrew / Scabbers — 94"
+  },
+  {
+    "level": 94,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 94,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Cedric Diggory — 92-95"
+  },
+  {
+    "level": 94,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Avada Kedavra — 94"
+  },
+  {
+    "level": 94,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Crucio / Cruciatus Curse — 94"
+  },
+  {
+    "level": 94,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 94,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Voldemort Returns"
+  },
+  {
+    "level": 94,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Cedric's Death"
+  },
+  {
+    "level": 95,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Protego [Epic]"
+  },
+  {
+    "level": 95,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 80-95"
+  },
+  {
+    "level": 95,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 95,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Cedric Diggory — 92-95"
+  },
+  {
+    "level": 95,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry's Wand — 95"
+  },
+  {
+    "level": 95,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Expelliarmus — 95"
+  },
+  {
+    "level": 95,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Twin Cores / Priori Incantatem — 95"
+  },
+  {
+    "level": 95,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 95,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Twin Cores / Priori Incantatem — 95: graveyard connection"
+  },
+  {
+    "level": 95,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Priori Incantatem / Harry Escapes Voldemort"
+  },
+  {
+    "level": 95,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Returns Cedric's Body"
+  },
+  {
+    "level": 96,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Character — Alastor Moody [Rare]"
+  },
+  {
+    "level": 96,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Veritaserum [Rare]"
+  },
+  {
+    "level": 96,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 78-96"
+  },
+  {
+    "level": 96,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Cornelius Fudge — 96"
+  },
+  {
+    "level": 96,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogwarts Castle — 96"
+  },
+  {
+    "level": 96,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 77-96"
+  },
+  {
+    "level": 96,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Barty Crouch Jr. — 96: fake Moody identity revealed"
+  },
+  {
+    "level": 96,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Alastor Moody — 96: real Moody rescued/discovered"
+  },
+  {
+    "level": 96,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Moody Is Revealed as Barty Crouch Jr."
+  },
+  {
+    "level": 96,
+    "book": 4,
+    "checkpoint": 24,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Hermione Exposes Rita Skeeter"
+  },
+  {
+    "level": 97,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 97,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Dementors — 97"
+  },
+  {
+    "level": 97,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Privet Drive / No. 4 — 97"
+  },
+  {
+    "level": 97,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Expecto Patronum — 97"
+  },
+  {
+    "level": 97,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Dementors Attack / Harry Saves Dudley with Patronus"
+  },
+  {
+    "level": 98,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Kingsley Shacklebolt [Rare]"
+  },
+  {
+    "level": 98,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Nymphadora Tonks [Rare]"
+  },
+  {
+    "level": 98,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Arabella Figg [Rare]"
+  },
+  {
+    "level": 98,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 98,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: “Remember My Last, Petunia”"
+  },
+  {
+    "level": 99,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Mundungus Fletcher [Rare]"
+  },
+  {
+    "level": 99,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Object / Artefact — Extendable Ears [Rare]"
+  },
+  {
+    "level": 99,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Grimmauld Place [Legendary]"
+  },
+  {
+    "level": 99,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 99,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Molly Weasley — 99"
+  },
+  {
+    "level": 99,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Alastor Moody — 99"
+  },
+  {
+    "level": 99,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Kingsley Shacklebolt — 99"
+  },
+  {
+    "level": 99,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Nymphadora Tonks — 99"
+  },
+  {
+    "level": 99,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Fidelius Charm — 99"
+  },
+  {
+    "level": 99,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Reunites with Sirius at Grimmauld Place"
+  },
+  {
+    "level": 100,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Character — Dolores Umbridge [Legendary]"
+  },
+  {
+    "level": 100,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Ministry of Magic [Epic]"
+  },
+  {
+    "level": 100,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 100,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Cornelius Fudge — 100-104"
+  },
+  {
+    "level": 100,
+    "book": 5,
+    "checkpoint": 25,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry's Ministry Hearing"
+  },
+  {
+    "level": 101,
+    "book": 5,
+    "checkpoint": 26,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Character — Luna Lovegood [Legendary]"
+  },
+  {
+    "level": 101,
+    "book": 5,
+    "checkpoint": 26,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Creature — Thestrals [Rare]"
+  },
+  {
+    "level": 101,
+    "book": 5,
+    "checkpoint": 26,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 101,
+    "book": 5,
+    "checkpoint": 26,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Cornelius Fudge — 100-104"
+  },
+  {
+    "level": 101,
+    "book": 5,
+    "checkpoint": 26,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Platform 9¾ & Hogwarts Express — 101"
+  },
+  {
+    "level": 102,
+    "book": 5,
+    "checkpoint": 26,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 102,
+    "book": 5,
+    "checkpoint": 26,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Dolores Umbridge — 102-104"
+  },
+  {
+    "level": 102,
+    "book": 5,
+    "checkpoint": 26,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Cornelius Fudge — 100-104"
+  },
+  {
+    "level": 103,
+    "book": 5,
+    "checkpoint": 26,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 103,
+    "book": 5,
+    "checkpoint": 26,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Dolores Umbridge — 102-104"
+  },
+  {
+    "level": 103,
+    "book": 5,
+    "checkpoint": 26,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Cornelius Fudge — 100-104"
+  },
+  {
+    "level": 103,
+    "book": 5,
+    "checkpoint": 26,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: “I Must Not Tell Lies”"
+  },
+  {
+    "level": 104,
+    "book": 5,
+    "checkpoint": 26,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 104,
+    "book": 5,
+    "checkpoint": 26,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Dolores Umbridge — 102-104"
+  },
+  {
+    "level": 104,
+    "book": 5,
+    "checkpoint": 26,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Cornelius Fudge — 100-104"
+  },
+  {
+    "level": 105,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Marietta Edgecombe [Rare]"
+  },
+  {
+    "level": 105,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Hog's Head [Rare]"
+  },
+  {
+    "level": 105,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 105,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogsmeade — 105"
+  },
+  {
+    "level": 106,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Object / Artefact — DA Galleons [Rare]"
+  },
+  {
+    "level": 106,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 106,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Ginny Weasley — 106"
+  },
+  {
+    "level": 106,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Neville Longbottom — 106"
+  },
+  {
+    "level": 106,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Dumbledore's Army Forms"
+  },
+  {
+    "level": 107,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Room of Requirement [Epic]"
+  },
+  {
+    "level": 107,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Reducto [Epic]"
+  },
+  {
+    "level": 107,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 107,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Expelliarmus — 107"
+  },
+  {
+    "level": 107,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Expecto Patronum — 107"
+  },
+  {
+    "level": 107,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Protego — 107"
+  },
+  {
+    "level": 107,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Stupefy — 107"
+  },
+  {
+    "level": 107,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Reducto — 107"
+  },
+  {
+    "level": 107,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Room of Requirement Becomes DA Headquarters"
+  },
+  {
+    "level": 108,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 108,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Arthur Weasley — 108"
+  },
+  {
+    "level": 108,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Nagini — 108"
+  },
+  {
+    "level": 108,
+    "book": 5,
+    "checkpoint": 27,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Sees Arthur's Attack / Saves Him"
+  },
+  {
+    "level": 109,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Object / Artefact — Two-Way Mirror [Epic]"
+  },
+  {
+    "level": 109,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — St Mungo's [Rare]"
+  },
+  {
+    "level": 109,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Occlumency / Legilimency [Rare]"
+  },
+  {
+    "level": 109,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 109,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Severus Snape — 109"
+  },
+  {
+    "level": 109,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Occlumency / Legilimency — 109-116"
+  },
+  {
+    "level": 109,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Sirius Gives Harry the Two-Way Mirror"
+  },
+  {
+    "level": 109,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: St Mungo's / Harry Discovers Neville's Parents"
+  },
+  {
+    "level": 110,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 110,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Dolores Umbridge — 110"
+  },
+  {
+    "level": 110,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Quidditch Pitch — 110"
+  },
+  {
+    "level": 110,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Occlumency / Legilimency — 109-116"
+  },
+  {
+    "level": 110,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry's First Kiss with Cho"
+  },
+  {
+    "level": 110,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Madam Puddifoot Disaster"
+  },
+  {
+    "level": 110,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: “Weasley Is Our King”"
+  },
+  {
+    "level": 111,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Creature — Grawp [Rare]"
+  },
+  {
+    "level": 111,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 111,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Rubeus Hagrid — 111"
+  },
+  {
+    "level": 111,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Fang — 111"
+  },
+  {
+    "level": 111,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Occlumency / Legilimency — 109-116"
+  },
+  {
+    "level": 111,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Gives The Quibbler Interview"
+  },
+  {
+    "level": 112,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 112,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Fred Weasley — 112"
+  },
+  {
+    "level": 112,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "George Weasley — 112"
+  },
+  {
+    "level": 112,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Occlumency / Legilimency — 109-116"
+  },
+  {
+    "level": 112,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Fred & George's Great Escape"
+  },
+  {
+    "level": 112,
+    "book": 5,
+    "checkpoint": 28,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Fred & George's Magical Swamp"
+  },
+  {
+    "level": 113,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 113,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Dolores Umbridge — 113"
+  },
+  {
+    "level": 113,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Occlumency / Legilimency — 109-116"
+  },
+  {
+    "level": 114,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 114,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Occlumency / Legilimency — 109-116"
+  },
+  {
+    "level": 114,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Dumbledore Escapes Arrest"
+  },
+  {
+    "level": 115,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 115,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sirius Black — 115"
+  },
+  {
+    "level": 115,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Remus Lupin — 115"
+  },
+  {
+    "level": 115,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Severus Snape — 115"
+  },
+  {
+    "level": 115,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Levicorpus — 115"
+  },
+  {
+    "level": 115,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Occlumency / Legilimency — 109-116"
+  },
+  {
+    "level": 115,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Sees Snape's Worst Memory"
+  },
+  {
+    "level": 115,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Confronts Sirius & Lupin About James Bullying Snape"
+  },
+  {
+    "level": 116,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 116,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Forbidden Forest — 116"
+  },
+  {
+    "level": 116,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Occlumency / Legilimency — 109-116"
+  },
+  {
+    "level": 116,
+    "book": 5,
+    "checkpoint": 29,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Umbridge Meets the Centaurs"
+  },
+  {
+    "level": 117,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 117,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Neville Longbottom — 117"
+  },
+  {
+    "level": 117,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Thestrals — 117"
+  },
+  {
+    "level": 117,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Ministry of Magic — 117-120"
+  },
+  {
+    "level": 117,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Protego — 117"
+  },
+  {
+    "level": 117,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Stupefy — 117"
+  },
+  {
+    "level": 117,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Impedimenta — 117"
+  },
+  {
+    "level": 117,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Reducto — 117"
+  },
+  {
+    "level": 117,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: DA Travels to London on Thestrals"
+  },
+  {
+    "level": 117,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: The Prophecy Orb Is Destroyed"
+  },
+  {
+    "level": 118,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 118,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sirius Black — 118"
+  },
+  {
+    "level": 118,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Bellatrix Lestrange — 118"
+  },
+  {
+    "level": 118,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Ministry of Magic — 117-120"
+  },
+  {
+    "level": 118,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Sirius Dies"
+  },
+  {
+    "level": 119,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 119,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Lord Voldemort — 119"
+  },
+  {
+    "level": 119,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Ministry of Magic — 117-120"
+  },
+  {
+    "level": 119,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Dumbledore vs Voldemort"
+  },
+  {
+    "level": 119,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Voldemort Possesses Harry"
+  },
+  {
+    "level": 120,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 97-120"
+  },
+  {
+    "level": 120,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Cornelius Fudge — 120-121"
+  },
+  {
+    "level": 120,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Two-Way Mirror — 120"
+  },
+  {
+    "level": 120,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogwarts Castle — 120"
+  },
+  {
+    "level": 120,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Ministry of Magic — 117-120"
+  },
+  {
+    "level": 120,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry Learns the Full Prophecy"
+  },
+  {
+    "level": 120,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Umbridge Is Chased Out of Hogwarts"
+  },
+  {
+    "level": 120,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Discovers Sirius's Mirror Too Late"
+  },
+  {
+    "level": 120,
+    "book": 5,
+    "checkpoint": 30,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Luna Comforts Harry After Sirius's Death"
+  },
+  {
+    "level": 121,
+    "book": 6,
+    "checkpoint": 31,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Rufus Scrimgeour [Rare]"
+  },
+  {
+    "level": 121,
+    "book": 6,
+    "checkpoint": 31,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Apparition / Disapparition [Epic]"
+  },
+  {
+    "level": 121,
+    "book": 6,
+    "checkpoint": 31,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Cornelius Fudge — 120-121"
+  },
+  {
+    "level": 121,
+    "book": 6,
+    "checkpoint": 31,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Privet Drive / No. 4 — 121"
+  },
+  {
+    "level": 121,
+    "book": 6,
+    "checkpoint": 31,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 121"
+  },
+  {
+    "level": 121,
+    "book": 6,
+    "checkpoint": 31,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Dumbledore Comes to Privet Drive"
+  },
+  {
+    "level": 121,
+    "book": 6,
+    "checkpoint": 31,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Dumbledore Gives the Dursleys a Lesson in Hospitality"
+  },
+  {
+    "level": 122,
+    "book": 6,
+    "checkpoint": 31,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Bellatrix Lestrange — 122"
+  },
+  {
+    "level": 122,
+    "book": 6,
+    "checkpoint": 31,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Narcissa Malfoy — 122-123"
+  },
+  {
+    "level": 123,
+    "book": 6,
+    "checkpoint": 31,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Spell / Magic — Unbreakable Vow [Epic]"
+  },
+  {
+    "level": 123,
+    "book": 6,
+    "checkpoint": 31,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Severus Snape — 123"
+  },
+  {
+    "level": 123,
+    "book": 6,
+    "checkpoint": 31,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Narcissa Malfoy — 122-123"
+  },
+  {
+    "level": 124,
+    "book": 6,
+    "checkpoint": 31,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Horace Slughorn [Epic]"
+  },
+  {
+    "level": 125,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Draco Malfoy — 125-126"
+  },
+  {
+    "level": 125,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Room of Requirement — 125"
+  },
+  {
+    "level": 125,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Vanishing Cabinet — Draco/Borgin plot reconnects to the Book-2 cabinet"
+  },
+  {
+    "level": 126,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Draco Malfoy — 125-126"
+  },
+  {
+    "level": 126,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Platform 9¾ & Hogwarts Express — 126"
+  },
+  {
+    "level": 127,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Half-Blood Prince's Potions Book [Epic]"
+  },
+  {
+    "level": 127,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Levicorpus [Epic]"
+  },
+  {
+    "level": 127,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Muffliato [Epic]"
+  },
+  {
+    "level": 127,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 127,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Levicorpus — 127"
+  },
+  {
+    "level": 127,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Levicorpus — Harry connects the Prince's spell to James using it on Snape"
+  },
+  {
+    "level": 127,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Begins Using the Half-Blood Prince's Book / Excels at Potions"
+  },
+  {
+    "level": 127,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Discovers Levicorpus / Connects It to James"
+  },
+  {
+    "level": 128,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Felix Felicis [Rare]"
+  },
+  {
+    "level": 128,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Amortentia / Love Potion [Rare]"
+  },
+  {
+    "level": 128,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 128,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Horace Slughorn — 128"
+  },
+  {
+    "level": 128,
+    "book": 6,
+    "checkpoint": 32,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Wins Felix Felicis"
+  },
+  {
+    "level": 129,
+    "book": 6,
+    "checkpoint": 33,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 129,
+    "book": 6,
+    "checkpoint": 33,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Dumbledore Shows Harry Voldemort's Past"
+  },
+  {
+    "level": 130,
+    "book": 6,
+    "checkpoint": 33,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Merope Gaunt [Rare]"
+  },
+  {
+    "level": 130,
+    "book": 6,
+    "checkpoint": 33,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Marvolo Gaunt [Rare]"
+  },
+  {
+    "level": 130,
+    "book": 6,
+    "checkpoint": 33,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Morfin Gaunt [Rare]"
+  },
+  {
+    "level": 130,
+    "book": 6,
+    "checkpoint": 33,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 131,
+    "book": 6,
+    "checkpoint": 33,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Hufflepuff's Cup [Epic]"
+  },
+  {
+    "level": 131,
+    "book": 6,
+    "checkpoint": 33,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Hepzibah Smith [Rare]"
+  },
+  {
+    "level": 131,
+    "book": 6,
+    "checkpoint": 33,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 131,
+    "book": 6,
+    "checkpoint": 33,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Lord Voldemort — 131"
+  },
+  {
+    "level": 132,
+    "book": 6,
+    "checkpoint": 33,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 133,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Object / Artefact — Opal Necklace [Rare]"
+  },
+  {
+    "level": 133,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 133,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Draco Malfoy — 133-136"
+  },
+  {
+    "level": 133,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Katie Bell Is Cursed"
+  },
+  {
+    "level": 134,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 134,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Draco Malfoy — 133-136"
+  },
+  {
+    "level": 134,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Takes Luna to Slughorn's Party"
+  },
+  {
+    "level": 135,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Object / Artefact — Poisoned Mead [Rare]"
+  },
+  {
+    "level": 135,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 135,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Draco Malfoy — 133-136"
+  },
+  {
+    "level": 135,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Ron Is Poisoned / Harry Uses a Bezoar"
+  },
+  {
+    "level": 136,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Sectumsempra [Legendary]"
+  },
+  {
+    "level": 136,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 136,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Draco Malfoy — 133-136"
+  },
+  {
+    "level": 136,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Half-Blood Prince's Potions Book — 136"
+  },
+  {
+    "level": 136,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sectumsempra — 136"
+  },
+  {
+    "level": 136,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Uses Sectumsempra on Draco"
+  },
+  {
+    "level": 136,
+    "book": 6,
+    "checkpoint": 34,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Hides the Prince's Book"
+  },
+  {
+    "level": 137,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 137,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Ginny Weasley — 137"
+  },
+  {
+    "level": 137,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry & Ginny Kiss"
+  },
+  {
+    "level": 138,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 138,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Horace Slughorn — 138-139"
+  },
+  {
+    "level": 138,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Aragog — 138"
+  },
+  {
+    "level": 138,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Felix Felicis — 138-139"
+  },
+  {
+    "level": 138,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Aragog Dies"
+  },
+  {
+    "level": 138,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Felix Felicis / Aragog's Funeral / Drunk Slughorn"
+  },
+  {
+    "level": 139,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 139,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Lord Voldemort — 139-140"
+  },
+  {
+    "level": 139,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Horace Slughorn — 138-139"
+  },
+  {
+    "level": 139,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Felix Felicis — 138-139"
+  },
+  {
+    "level": 139,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry Obtains Slughorn's True Memory"
+  },
+  {
+    "level": 140,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 140,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Lord Voldemort — 139-140"
+  },
+  {
+    "level": 140,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Tom Riddle's Diary — 140"
+  },
+  {
+    "level": 140,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Lord Voldemort — 140: Horcrux system"
+  },
+  {
+    "level": 140,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Tom Riddle's Diary — 140: Horcrux"
+  },
+  {
+    "level": 140,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Hufflepuff's Cup — 140/160: Horcrux"
+  },
+  {
+    "level": 140,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Nagini — identified by Dumbledore as a suspected Horcrux"
+  },
+  {
+    "level": 140,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry Learns About Horcruxes"
+  },
+  {
+    "level": 140,
+    "book": 6,
+    "checkpoint": 35,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry Commits to Dumbledore's Horcrux Mission"
+  },
+  {
+    "level": 141,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Slytherin's Locket [Legendary]"
+  },
+  {
+    "level": 141,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Creature — Inferi [Rare]"
+  },
+  {
+    "level": 141,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Horcrux Cave [Rare]"
+  },
+  {
+    "level": 141,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Aguamenti [Rare]"
+  },
+  {
+    "level": 141,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 141,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry & Dumbledore Retrieve the Cave Locket"
+  },
+  {
+    "level": 142,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 142,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Draco Malfoy — 142"
+  },
+  {
+    "level": 142,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Vanishing Cabinet — 142-143"
+  },
+  {
+    "level": 142,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Vanishing Cabinet — paired route into Hogwarts / Draco's true plan"
+  },
+  {
+    "level": 142,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Draco Cannot Bring Himself to Kill Dumbledore"
+  },
+  {
+    "level": 143,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Fenrir Greyback [Rare]"
+  },
+  {
+    "level": 143,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — The Carrows [Rare]"
+  },
+  {
+    "level": 143,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 143,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Severus Snape — 143-145"
+  },
+  {
+    "level": 143,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Fawkes — 143"
+  },
+  {
+    "level": 143,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Fang — 143"
+  },
+  {
+    "level": 143,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Vanishing Cabinet — 142-143"
+  },
+  {
+    "level": 143,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Unbreakable Vow — 143"
+  },
+  {
+    "level": 143,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Dumbledore Dies"
+  },
+  {
+    "level": 143,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Fawkes's Lament"
+  },
+  {
+    "level": 144,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 127-144"
+  },
+  {
+    "level": 144,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Severus Snape — 143-145"
+  },
+  {
+    "level": 144,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Half-Blood Prince's Potions Book — 144"
+  },
+  {
+    "level": 144,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogwarts Castle — 144"
+  },
+  {
+    "level": 144,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sectumsempra — 144"
+  },
+  {
+    "level": 144,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Severus Snape — 144: Half-Blood Prince"
+  },
+  {
+    "level": 144,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Half-Blood Prince's Potions Book — 144: owner = Severus Snape"
+  },
+  {
+    "level": 144,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Sectumsempra — 144: Prince = Snape"
+  },
+  {
+    "level": 144,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Slytherin's Locket — cave locket revealed as fake; R.A.B. note"
+  },
+  {
+    "level": 144,
+    "book": 6,
+    "checkpoint": 36,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Snape Reveals Himself as the Half-Blood Prince"
+  },
+  {
+    "level": 145,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Severus Snape — 143-145"
+  },
+  {
+    "level": 145,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Privet Drive / No. 4 — 145"
+  },
+  {
+    "level": 145,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 145,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Dudley Tells Harry He Isn't a Waste of Space"
+  },
+  {
+    "level": 145,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Leaves Privet Drive Forever"
+  },
+  {
+    "level": 145,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Learns About Dumbledore's Past / Begins Doubting Him"
+  },
+  {
+    "level": 146,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "George Weasley — 146"
+  },
+  {
+    "level": 146,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Alastor Moody — 146-147"
+  },
+  {
+    "level": 146,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hedwig — 146"
+  },
+  {
+    "level": 146,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 146"
+  },
+  {
+    "level": 146,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 146,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Hedwig's Death"
+  },
+  {
+    "level": 146,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Battle of the Seven Potters"
+  },
+  {
+    "level": 146,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: George Loses an Ear"
+  },
+  {
+    "level": 147,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Alastor Moody — 146-147"
+  },
+  {
+    "level": 147,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 147,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Moody's Death"
+  },
+  {
+    "level": 148,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Xenophilius Lovegood [Rare]"
+  },
+  {
+    "level": 148,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Kingsley Shacklebolt — 148"
+  },
+  {
+    "level": 148,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "The Burrow — 148"
+  },
+  {
+    "level": 148,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 148,
+    "book": 7,
+    "checkpoint": 37,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Bill & Fleur's Wedding / Ministry Falls"
+  },
+  {
+    "level": 149,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Regulus Black [Rare]"
+  },
+  {
+    "level": 149,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Regulus Black — 149"
+  },
+  {
+    "level": 149,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Grimmauld Place — 149"
+  },
+  {
+    "level": 149,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 149,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Fidelius Charm — 149"
+  },
+  {
+    "level": 149,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Regulus Black — 149: R.A.B. = Regulus"
+  },
+  {
+    "level": 149,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Slytherin's Locket — 149: R.A.B. story / true locket"
+  },
+  {
+    "level": 149,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Slytherin's Locket — R.A.B. = Regulus; true locket trail revealed"
+  },
+  {
+    "level": 149,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: R.A.B. / Regulus's Story Is Revealed"
+  },
+  {
+    "level": 149,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Kreacher's Transformation / Begins Caring for the Trio"
+  },
+  {
+    "level": 150,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Dolores Umbridge — 150"
+  },
+  {
+    "level": 150,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Slytherin's Locket — 150-154"
+  },
+  {
+    "level": 150,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Ministry of Magic — 150"
+  },
+  {
+    "level": 150,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 150"
+  },
+  {
+    "level": 150,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 150,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: The Trio Infiltrate the Ministry"
+  },
+  {
+    "level": 151,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Slytherin's Locket — 150-154"
+  },
+  {
+    "level": 151,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 151,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Potterwatch"
+  },
+  {
+    "level": 151,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Ron Leaves Harry & Hermione"
+  },
+  {
+    "level": 152,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Godric's Hollow [Rare]"
+  },
+  {
+    "level": 152,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Nagini — 152"
+  },
+  {
+    "level": 152,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry's Wand — 152"
+  },
+  {
+    "level": 152,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Slytherin's Locket — 150-154"
+  },
+  {
+    "level": 152,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 152,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Visits James & Lily's Graves"
+  },
+  {
+    "level": 152,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Bathilda Bagshot Is Revealed as Nagini"
+  },
+  {
+    "level": 152,
+    "book": 7,
+    "checkpoint": 38,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Godric's Hollow — Nagini Attacks / Harry's Wand Breaks"
+  },
+  {
+    "level": 153,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 153,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sword of Gryffindor — 153-154"
+  },
+  {
+    "level": 153,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Slytherin's Locket — 150-154"
+  },
+  {
+    "level": 153,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Deluminator — 153"
+  },
+  {
+    "level": 153,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 153,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Silver Doe / Sword of Gryffindor"
+  },
+  {
+    "level": 153,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Ron Returns via the Deluminator"
+  },
+  {
+    "level": 154,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 154,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sword of Gryffindor — 153-154"
+  },
+  {
+    "level": 154,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Slytherin's Locket — 150-154"
+  },
+  {
+    "level": 154,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 154,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Ron Destroys the Locket"
+  },
+  {
+    "level": 155,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Elder Wand [Mythic]"
+  },
+  {
+    "level": 155,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Resurrection Stone [Legendary]"
+  },
+  {
+    "level": 155,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 155,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Invisibility Cloak — 155"
+  },
+  {
+    "level": 155,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 155,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Invisibility Cloak — 155: Deathly Hallow"
+  },
+  {
+    "level": 155,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Elder Wand — 155: Hallow"
+  },
+  {
+    "level": 155,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Resurrection Stone — 155: Hallow"
+  },
+  {
+    "level": 156,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 156,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 156,
+    "book": 7,
+    "checkpoint": 39,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Chooses Horcruxes Over Hallows"
+  },
+  {
+    "level": 157,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Malfoy Manor [Rare]"
+  },
+  {
+    "level": 157,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 157,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Draco Malfoy — 157"
+  },
+  {
+    "level": 157,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Bellatrix Lestrange — 157"
+  },
+  {
+    "level": 157,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Crucio / Cruciatus Curse — 157"
+  },
+  {
+    "level": 157,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 157,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: The Trio Are Captured by Snatchers"
+  },
+  {
+    "level": 158,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 158,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Dobby — 158"
+  },
+  {
+    "level": 158,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Two-Way Mirror — 158"
+  },
+  {
+    "level": 158,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Malfoy Manor — 158"
+  },
+  {
+    "level": 158,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 158,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Two-Way Mirror — 158: blue eye = Aberforth connection"
+  },
+  {
+    "level": 158,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Dobby Rescues Everyone from Malfoy Manor & Dies"
+  },
+  {
+    "level": 158,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Malfoy Manor Escape"
+  },
+  {
+    "level": 158,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: The Blue Eye / Aberforth's Mirror / Harry Calls for Help"
+  },
+  {
+    "level": 159,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Location — Shell Cottage [Rare]"
+  },
+  {
+    "level": 159,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 159,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Griphook — 159-160"
+  },
+  {
+    "level": 159,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 159,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Buries Dobby by Hand"
+  },
+  {
+    "level": 160,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 160,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Griphook — 159-160"
+  },
+  {
+    "level": 160,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hufflepuff's Cup — 160-163"
+  },
+  {
+    "level": 160,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Gringotts — 160"
+  },
+  {
+    "level": 160,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Imperio / Imperius Curse — 160"
+  },
+  {
+    "level": 160,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Polyjuice Potion — 160"
+  },
+  {
+    "level": 160,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Apparition / Disapparition — 145-160"
+  },
+  {
+    "level": 160,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Gringotts Break-In / Hufflepuff's Cup Recovered"
+  },
+  {
+    "level": 160,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Hermione Disguises Herself as Bellatrix"
+  },
+  {
+    "level": 160,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Gringotts Dragon Escape"
+  },
+  {
+    "level": 160,
+    "book": 7,
+    "checkpoint": 40,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Realises the Final Horcrux Is at Hogwarts"
+  },
+  {
+    "level": 161,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Character — Aberforth Dumbledore [Rare]"
+  },
+  {
+    "level": 161,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 161,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Neville Longbottom — 161"
+  },
+  {
+    "level": 161,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hufflepuff's Cup — 160-163"
+  },
+  {
+    "level": 161,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogwarts Castle — 161-168"
+  },
+  {
+    "level": 161,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogsmeade — 161"
+  },
+  {
+    "level": 161,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hog's Head — 161"
+  },
+  {
+    "level": 161,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry Returns to Hogwarts"
+  },
+  {
+    "level": 161,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: The DA Reunites"
+  },
+  {
+    "level": 162,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "discovery",
+    "guaranteed": true,
+    "text": "Object / Artefact — Ravenclaw's Diadem [Epic]"
+  },
+  {
+    "level": 162,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "eligibility",
+    "guaranteed": false,
+    "text": "Spell / Magic — Fiendfyre [Rare]"
+  },
+  {
+    "level": 162,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 162,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hufflepuff's Cup — 160-163"
+  },
+  {
+    "level": 162,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Ravenclaw's Diadem — 162"
+  },
+  {
+    "level": 162,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogwarts Castle — 161-168"
+  },
+  {
+    "level": 162,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Room of Requirement — 162"
+  },
+  {
+    "level": 162,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Fiendfyre — 162"
+  },
+  {
+    "level": 162,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Ravenclaw's Diadem — 162: Horcrux"
+  },
+  {
+    "level": 162,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Diadem Destroyed / Fiendfyre"
+  },
+  {
+    "level": 162,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Grey Lady / Voldemort / Location of Ravenclaw's Diadem"
+  },
+  {
+    "level": 163,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 163,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Ginny Weasley — 163"
+  },
+  {
+    "level": 163,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Remus Lupin — 163"
+  },
+  {
+    "level": 163,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Bellatrix Lestrange — 163"
+  },
+  {
+    "level": 163,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Molly Weasley — 163"
+  },
+  {
+    "level": 163,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Fred Weasley — 163"
+  },
+  {
+    "level": 163,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Kingsley Shacklebolt — 163"
+  },
+  {
+    "level": 163,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Nymphadora Tonks — 163"
+  },
+  {
+    "level": 163,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hufflepuff's Cup — 160-163"
+  },
+  {
+    "level": 163,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogwarts Castle — 161-168"
+  },
+  {
+    "level": 163,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Chamber of Secrets — 163"
+  },
+  {
+    "level": 163,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Stupefy — 163"
+  },
+  {
+    "level": 163,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Molly Defeats Bellatrix"
+  },
+  {
+    "level": 163,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Fred Dies / Lupin & Tonks Are Found Dead"
+  },
+  {
+    "level": 164,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 164,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Severus Snape — 164-165"
+  },
+  {
+    "level": 164,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogwarts Castle — 161-168"
+  },
+  {
+    "level": 164,
+    "book": 7,
+    "checkpoint": 41,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Shrieking Shack — 164"
+  },
+  {
+    "level": 165,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 165,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Severus Snape — 164-165"
+  },
+  {
+    "level": 165,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogwarts Castle — 161-168"
+  },
+  {
+    "level": 165,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Parseltongue — 165"
+  },
+  {
+    "level": 165,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Occlumency / Legilimency — 165"
+  },
+  {
+    "level": 165,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Harry Potter — 165: carries Voldemort soul fragment"
+  },
+  {
+    "level": 165,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Severus Snape — 165: true allegiance"
+  },
+  {
+    "level": 165,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Nagini — 165-167: Horcrux / destroyed"
+  },
+  {
+    "level": 165,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Parseltongue — 165: soul-fragment origin explained"
+  },
+  {
+    "level": 165,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: The Prince's Tale — The Truth About Snape"
+  },
+  {
+    "level": 165,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry Learns He Must Die"
+  },
+  {
+    "level": 166,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 166,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Resurrection Stone — 166"
+  },
+  {
+    "level": 166,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogwarts Castle — 161-168"
+  },
+  {
+    "level": 166,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Forbidden Forest — 166"
+  },
+  {
+    "level": 166,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Avada Kedavra — 166"
+  },
+  {
+    "level": 166,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Nagini — 165-167: Horcrux / destroyed"
+  },
+  {
+    "level": 166,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Resurrection Stone — 166: inside Snitch"
+  },
+  {
+    "level": 166,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Mythic: The Forest Again — Harry Walks Willingly to Voldemort"
+  },
+  {
+    "level": 166,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: King's Cross — Harry Chooses to Return"
+  },
+  {
+    "level": 166,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: James, Lily, Sirius & Lupin Accompany Harry"
+  },
+  {
+    "level": 166,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Harry Returns to the Battle After King's Cross"
+  },
+  {
+    "level": 167,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 167,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Neville Longbottom — 167"
+  },
+  {
+    "level": 167,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Narcissa Malfoy — 167"
+  },
+  {
+    "level": 167,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Nagini — 167"
+  },
+  {
+    "level": 167,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sword of Gryffindor — 167"
+  },
+  {
+    "level": 167,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Sorting Hat — 167"
+  },
+  {
+    "level": 167,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogwarts Castle — 161-168"
+  },
+  {
+    "level": 167,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Narcissa Malfoy — 167: lies to Voldemort to protect Draco"
+  },
+  {
+    "level": 167,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Nagini — 165-167: Horcrux / destroyed"
+  },
+  {
+    "level": 167,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Narcissa Lies to Voldemort"
+  },
+  {
+    "level": 167,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Neville Draws Gryffindor's Sword & Destroys Nagini"
+  },
+  {
+    "level": 167,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Epic: Neville Defies Voldemort"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry Potter — 153-168"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Lord Voldemort — 168"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Harry's Wand — 168"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Elder Wand — 168"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Hogwarts Castle — 161-168"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Expelliarmus — 168"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Avada Kedavra — 168"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Twin Cores / Priori Incantatem — 168"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "evolution",
+    "guaranteed": true,
+    "text": "Reparo — 168"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Elder Wand — 168: true master = Harry"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Expelliarmus — 168: final-duel defining spell"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "revelation",
+    "guaranteed": true,
+    "text": "Twin Cores / Priori Incantatem — 168 Elder Wand payoff"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Mythic: Voldemort Falls — Harry Completes His Journey"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "moment",
+    "guaranteed": true,
+    "text": "G — Legendary: Harry Reveals the Elder Wand's True Master"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "checkpoint": 42,
+    "type": "moment",
+    "guaranteed": false,
+    "text": "POOL — Rare: Harry Repairs His Wand & Returns the Elder Wand"
+  }
+]
