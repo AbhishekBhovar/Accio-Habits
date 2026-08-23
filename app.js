@@ -3,10 +3,10 @@ const stateKey = 'hpFitnessRpgSave_v1';
 
 async function loadData(){
   const [levels,collectibles,config,identity] = await Promise.all([
-    fetch('./data/levels.json').then(r=>r.json()),
-    fetch('./data/collectibles.json').then(r=>r.json()),
-    fetch('./data/game-config.json').then(r=>r.json()),
-    fetch('./data/identity-rules.json').then(r=>r.json())
+    fetch('./levels.json').then(r=>r.json()),
+    fetch('./collectibles.json').then(r=>r.json()),
+    fetch('./game-config.json').then(r=>r.json()),
+    fetch('./identity-rules.json').then(r=>r.json())
   ]);
   Object.assign(DATA,{levels,collectibles,config,identity});
 }
