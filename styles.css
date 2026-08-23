@@ -230,3 +230,83 @@ body{
 }
 .sleep-gridline{background:rgba(244,202,85,.11)}
 .sleep-bar-shell{border-bottom-color:rgba(244,202,85,.20)}
+
+
+/* HP40 — brighter Gryffindor scarlet + gold refinement */
+:root{
+  --bg:#09080a;
+  --bg2:#160b0d;
+  --panel:#1a1013;
+  --panel2:#241216;
+  --panel3:#2d151a;
+  --line:#593038;
+  --line2:#7a424c;
+  --text:#fff9ed;
+  --muted:#cdbdb3;
+  --accent:#e1263f;
+  --accent2:#b5122d;
+  --gold:#f2c94c;
+  --good:#76e3a4;
+}
+body{
+  background:
+    radial-gradient(circle at 50% -10%,rgba(218,30,58,.20) 0,rgba(46,13,20,.45) 36%,#09080a 72%);
+}
+.eyebrow{color:#f2c94c}
+
+.status-zone{
+  background:
+    radial-gradient(circle at 82% 15%,rgba(242,201,76,.19),transparent 30%),
+    linear-gradient(180deg,#2a1016,#140b0e);
+  border-bottom-color:rgba(242,201,76,.23);
+}
+.compact-hero{
+  background:linear-gradient(145deg,#40141d,#1a0f12);
+  border-color:#a33a49;
+}
+.level-orb{
+  background:linear-gradient(145deg,#ed2947,#b5122d);
+  border-color:#f2c94c;
+  box-shadow:0 0 30px rgba(242,201,76,.22);
+}
+.progress-fill,.dash-track i{
+  background:linear-gradient(90deg,#df203c 0%,#ef3a4e 55%,#f2c94c 100%);
+}
+.primary{
+  background:linear-gradient(135deg,#d71938,#ef344b);
+  border-color:#f2c94c;
+  color:#fffbed;
+}
+.habit-xp{color:#f2c94c}
+.mission-dot.filled{
+  background:linear-gradient(90deg,#e3213e,#f2c94c);
+}
+.stepper button:not(.undo-control):not(:disabled){
+  background:linear-gradient(145deg,#dc1f3d,#a90f29);
+  border-color:#f2c94c;
+  color:#fffbed;
+}
+.bottom-nav button.active{
+  background:linear-gradient(145deg,#c81734,#8e1025);
+  color:#ffe38a;
+  box-shadow:inset 0 0 0 1px rgba(242,201,76,.20);
+}
+.book-tabs button.active{
+  border-color:#f2c94c;
+  background:#551623;
+}
+.book-tabs button>span{background:#6d1b2c}
+.collection-total,.gallery-hero,.archive-hero{
+  background:linear-gradient(135deg,#561625,#211116);
+  border-color:#9a4a55;
+}
+.year-tabs button.active{
+  background:#6a192b;
+  border-color:#f2c94c;
+}
+.activity-ring{
+  background:conic-gradient(#f2c94c calc(var(--pct)*1%),#3a2227 0);
+}
+.habit-stat-track i,.sleep-bar-shell i{
+  background:linear-gradient(90deg,#e4213f,#f2c94c);
+}
