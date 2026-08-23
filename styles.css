@@ -310,3 +310,30 @@ body{
 .habit-stat-track i,.sleep-bar-shell i{
   background:linear-gradient(90deg,#e4213f,#f2c94c);
 }
+
+/* HP41 — Mountain Journey */
+#view-journey{padding-bottom:96px}
+.mountain-journey{position:relative;min-height:2200px;overflow:hidden;background:radial-gradient(circle at 72% 7%,rgba(242,201,76,.28),transparent 18%),linear-gradient(180deg,#0a0a0b 0%,#111014 18%,#0a0a0c 100%);color:#fff8e9}
+.journey-level-card{position:sticky;top:92px;z-index:8;margin:18px 24px 0;padding:18px 20px;border:1px solid rgba(242,201,76,.35);border-radius:18px;background:rgba(12,10,10,.86);backdrop-filter:blur(10px)}
+.journey-level-card .level-title{font-size:28px;font-weight:800;color:#fff3cf}.journey-level-card .level-meta{margin-top:8px;color:#f2d78a}
+.journey-copy{position:absolute;z-index:6;left:30px;top:220px;max-width:270px}.journey-copy .eyebrow{color:#f2c94c;font-size:18px;letter-spacing:.12em}.journey-copy h2{margin:10px 0 0;font-size:30px;line-height:1.08;font-weight:800}
+.mountain-stage{position:relative;height:1850px;margin-top:80px}
+.mountain-bg{position:absolute;inset:0;clip-path:polygon(49% 0%,64% 9%,76% 20%,87% 39%,96% 60%,100% 100%,0 100%,4% 76%,13% 58%,21% 42%,31% 27%,42% 14%);background:radial-gradient(circle at 50% 10%,rgba(242,201,76,.14),transparent 24%),linear-gradient(90deg,#111316 0%,#1a1b1f 48%,#0c0d10 100%);box-shadow:inset 0 0 120px #000}
+.mountain-bg:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(168deg,rgba(255,255,255,.025) 0 2px,transparent 2px 22px),radial-gradient(circle at 35% 64%,rgba(214,40,58,.06),transparent 20%);mix-blend-mode:screen}
+.journey-summit{position:absolute;z-index:5;top:68px;left:50%;transform:translateX(-50%);text-align:center}.summit-glow{position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(242,201,76,.46),rgba(242,201,76,.10) 45%,transparent 72%);left:50%;top:50%;transform:translate(-50%,-50%)}.castle-silhouette{position:relative;font-size:88px;filter:brightness(.55) sepia(1) saturate(1.6)}
+.mountain-path{position:absolute;left:50%;bottom:70px;top:260px;width:68%;transform:translateX(-50%);display:flex;flex-direction:column-reverse;align-items:center;justify-content:space-between;z-index:3}
+.mountain-path:before{content:"";position:absolute;inset:0 49% 0 49%;width:8px;border-radius:999px;background:linear-gradient(180deg,#f2c94c,#f7d76b 35%,#e98935 60%,#f2c94c);box-shadow:0 0 14px rgba(242,201,76,.8);transform:skewX(-8deg)}
+.mountain-step{position:relative;z-index:4;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#171310;border:1px solid #6e5a2c;color:#a68c55;font-size:10px;font-weight:800}
+.mountain-step:nth-child(odd){transform:translateX(-46px)}.mountain-step:nth-child(even){transform:translateX(46px)}.mountain-step.done{background:#7d1b2c;color:#ffe49b;border-color:#f2c94c}.mountain-step.current{width:38px;height:38px;background:#e1263f;color:#fff8e8;border:2px solid #f2c94c;box-shadow:0 0 22px rgba(242,201,76,.6)}
+.book-checkpoint{position:absolute;z-index:5;width:230px;display:flex;align-items:center;gap:10px}.book-checkpoint.left{left:4%}.book-checkpoint.right{right:4%;flex-direction:row-reverse}
+.book-banner{flex:1;padding:10px 12px;border:1px solid rgba(242,201,76,.45);box-shadow:0 8px 24px rgba(0,0,0,.25)}.book-red .book-banner{background:linear-gradient(90deg,#8c1529,#c51e39)}.book-gold .book-banner{background:linear-gradient(90deg,#7b4a0b,#c58b18)}.book-banner strong,.book-banner span{display:block}.book-banner strong{font-size:18px;color:#fff5dd}.book-banner span{font-size:12px;color:#f8e5b1}
+.book-icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:#0f0d0d;border:2px solid #f2c94c;color:#f2c94c;font-size:23px}.book-red .book-icon{border-color:#e1263f}.book-checkpoint.hallows .book-icon{font-size:27px;font-family:Georgia,serif}.book-checkpoint.phoenix-gold .book-icon{color:#f2c94c;border-color:#f2c94c}
+.journey-legend{margin:20px 24px 0;padding:16px 18px;border:1px solid rgba(242,201,76,.25);border-radius:16px;background:#100d0d;display:grid;gap:8px;color:#e6d7bd;font-size:13px}.journey-legend b{color:#f2c94c}
+
+/* HP41 — Sleep visual consistency with Daily Missions */
+#view-today .sleep-section-title,#view-today h2.sleep-heading,#view-today .sleep-heading{font-size:clamp(32px,8vw,44px)!important;font-weight:800!important;color:#fff8ed!important;letter-spacing:-.02em!important}
+#view-today .sleep-card{background:#1d1217!important;border:1px solid #4b2c35!important;border-radius:24px!important;padding:22px!important}
+#view-today .sleep-card label{color:#cdbdb3!important;font-size:15px!important;font-weight:700!important}
+#sleepXpPreview{color:#f2c94c!important;font-weight:800!important}
+#view-today .sleep-card input{background:#160e12!important;border:1px solid #5a3440!important;border-radius:20px!important;color:#fff8ed!important;min-height:74px!important;font-size:22px!important}
+#saveSleep{margin-top:18px!important;min-height:68px!important;border-radius:22px!important;background:linear-gradient(135deg,#d71938,#ef344b)!important;border:1px solid #f2c94c!important;color:#fffbed!important;font-size:22px!important;font-weight:800!important}

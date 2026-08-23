@@ -290,16 +290,44 @@ function renderAchievements(){const status=calculateDayStatus(),week=currentWeek
 // ---------- Journey map ----------
 function bookForLevel(level){return Math.min(7,Math.max(1,Math.ceil(level/24)));}
 function renderJourney(){
-  if(!ui.journeyBook)ui.journeyBook=bookForLevel(Math.max(1,save.currentLevel));
-  document.querySelector('#bookTabs').innerHTML=Array.from({length:7},(_,i)=>{const b=i+1;return `<button data-book="${b}" class="${ui.journeyBook===b?'active':''}"><span>${b}</span><small>${BOOK_NAMES[b]}</small></button>`;}).join('');
-  document.querySelectorAll('[data-book]').forEach(b=>b.onclick=()=>{ui.journeyBook=Number(b.dataset.book);renderJourney();});
-  const rows=DATA.levels.filter(l=>l.book===ui.journeyBook),map=document.querySelector('#journeyMap');map.className=`journey-map book-theme-${ui.journeyBook}`;
-  const h=1500,w=360,points=rows.map((l,i)=>({x:70+Math.round((Math.sin(i*.92)+1)*105),y:145+i*52,row:l}));
-  const path=points.map((p,i)=>`${i?'L':'M'} ${p.x} ${p.y}`).join(' ');
-  const nodes=points.map((p,i)=>{const l=p.row,cls=l.level<save.currentLevel?'done':l.level===save.currentLevel?'current':'locked',checkpoint=l.level%4===0;return `<button class="map-node ${cls} ${checkpoint?'checkpoint':''}" data-level="${l.level}" style="left:${(p.x/w)*100}%;top:${p.y}px"><span>${cls==='done'?'✓':l.level}</span>${checkpoint?'<em>✦</em>':''}</button>`;}).join('');
-  map.innerHTML=`<div class="map-sky"><div class="castle-mark">🏰</div><div><span>BOOK ${ui.journeyBook}</span><strong>${escapeHtml(BOOK_NAMES[ui.journeyBook])}</strong></div></div><svg class="map-path" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><path d="${path}"/></svg>${nodes}<div class="map-footer-rune">MISCHIEF MANAGED • ${rows.filter(l=>l.level<=save.currentLevel).length}/24 LEVELS</div>`;
-  map.style.height=`${h+80}px`;
-  map.querySelectorAll('[data-level]').forEach(n=>n.onclick=()=>showJourneyNode(Number(n.dataset.level)));
+  const root=document.querySelector('#journeyContent');
+  if(!root)return;
+  const books=[
+    {book:1,name:"Philosopher's Stone",range:"1–24",icon:"🪽",cls:"book-red"},
+    {book:2,name:"Chamber of Secrets",range:"25–48",icon:"⚗️",cls:"book-gold"},
+    {book:3,name:"Prisoner of Azkaban",range:"49–72",icon:"🌿",cls:"book-red"},
+    {book:4,name:"Goblet of Fire",range:"73–96",icon:"🏆",cls:"book-gold"},
+    {book:5,name:"Order of the Phoenix",range:"97–120",icon:"🦅",cls:"book-red phoenix-gold"},
+    {book:6,name:"Half-Blood Prince",range:"121–144",icon:"📕",cls:"book-gold"},
+    {book:7,name:"Deathly Hallows",range:"145–168",icon:"△",cls:"book-red hallows"}
+  ];
+  const current=Math.max(1,save.currentLevel||1);
+  const levelReq=levelRequirement(current),inLevel=Math.max(0,save.levelXP||0);
+  const pct=Math.max(0,Math.min(100,(inLevel/Math.max(1,levelReq))*100));
+  const nodes=Array.from({length:168},(_,idx)=>{
+    const n=idx+1,done=n<current,here=n===current;
+    return `<div class="mountain-step ${done?'done':''} ${here?'current':''}"><span>${n}</span></div>`;
+  }).join('');
+  const checkpoints=books.map((b,idx)=>{
+    const top=((168-(idx*24+24))/167)*88+5;
+    const side=idx%2===0?'left':'right';
+    return `<div class="book-checkpoint ${b.cls} ${side}" style="top:${top}%">
+      <div class="book-banner"><strong>BOOK ${b.book}</strong><span>Levels ${b.range}</span></div>
+      <div class="book-icon">${b.icon}</div>
+    </div>`;
+  }).join('');
+  root.innerHTML=`
+    <section class="mountain-journey">
+      <div class="journey-summit"><div class="summit-glow"></div><div class="castle-silhouette">🏰</div></div>
+      <div class="journey-copy"><div class="eyebrow">THE JOURNEY CONTINUES</div><h2>Climb. Conquer.<br>Become Legendary.</h2></div>
+      <div class="journey-level-card">
+        <div class="level-title">⚡ Level ${current}</div>
+        <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+        <div class="level-meta">${inLevel.toLocaleString()} / ${levelReq.toLocaleString()} XP</div>
+      </div>
+      <div class="mountain-stage"><div class="mountain-bg"></div><div class="mountain-path">${nodes}</div>${checkpoints}</div>
+      <div class="journey-legend"><span>🚩 Book checkpoint</span><span>• Level step</span><span><b>168</b> levels • <b>7</b> books</span></div>
+    </section>`;
 }
 function showJourneyNode(level){const l=DATA.levels[level-1],status=level<save.currentLevel?'Completed':level===save.currentLevel?'Current level':'Locked',detail=document.querySelector('#journeyNodeDetail');detail.hidden=false;detail.innerHTML=`<div class="node-detail-head"><span class="map-node-chip">${level}</span><div><span class="eyebrow">${status.toUpperCase()}</span><h3>${escapeHtml(status==='Locked'?'Unknown chapter':l.storyBeat)}</h3></div></div><p>${status==='Locked'?'Continue your journey to reveal this chapter.':`Book ${l.book}: ${escapeHtml(l.bookName)} • Checkpoint ${l.checkpoint}`}</p>`;detail.scrollIntoView({behavior:'smooth',block:'nearest'});}
 
@@ -377,7 +405,7 @@ function updateNetwork(){const b=document.querySelector('#networkBadge');b.textC
 window.addEventListener('online',updateNetwork);window.addEventListener('offline',updateNetwork);
 
 try{
-  await loadData();ensureCurrentWeek();finalizePastDays();updateHighestSleepStage();ui.journeyBook=bookForLevel(Math.max(1,save.currentLevel));setupUI();render();updateNetwork();persist();queueMigratedReveals();
+  await loadData();ensureCurrentWeek();finalizePastDays();updateHighestSleepStage();setupUI();render();updateNetwork();persist();queueMigratedReveals();
 }catch(err){console.error(err);const b=document.querySelector('#networkBadge');b.textContent='Load error';b.style.color='#fb7185';alert('The app could not finish loading. Please refresh once while online.');}
 
 if('serviceWorker' in navigator){window.addEventListener('load',async()=>{try{const reg=await navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'});await reg.update();}catch(err){console.warn('Service worker update failed',err);}});}
