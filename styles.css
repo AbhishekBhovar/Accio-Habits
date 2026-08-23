@@ -1618,3 +1618,338 @@ body{font-size:14px!important}
   .storybook-facts>div{min-height:92px!important;height:100%!important}
   .bottom-nav button{font-size:11px!important;padding:10px 5px!important}
 }
+
+
+/* =========================================================
+   Phase 3.21 — DIRECT component correction
+   Targets the exact rendered Today structures seen on iPhone.
+   ========================================================= */
+
+/* One content column. Book card and Story card MUST align. */
+#view-home{
+  padding-left:14px!important;
+  padding-right:14px!important;
+}
+#view-home > *{
+  box-sizing:border-box!important;
+  max-width:100%!important;
+}
+#statusZone.compact-journey-header,
+.today-story-shell{
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+
+/* ---------- TOP BOOK / LEVEL CARD ---------- */
+#statusZone.compact-journey-header{
+  padding:16px!important;
+  border:2px solid #e7b844!important;
+  border-radius:20px!important;
+  background:
+    linear-gradient(135deg,#45172a 0%,#291822 48%,#352812 100%)!important;
+  box-shadow:
+    0 8px 22px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,224,130,.08)!important;
+}
+
+/* Strip old nested background so the top card is ONE card, not cards inside cards. */
+#statusZone .compact-hero,
+#statusZone .level-card,
+#statusZone .journey-current{
+  background:transparent!important;
+  border:0!important;
+  padding:0!important;
+  margin:0!important;
+}
+
+/* Explicit readable typography — no 7px/8px leftovers. */
+#statusZone #bookLabel{
+  font-size:12px!important;
+  line-height:1.25!important;
+  letter-spacing:.10em!important;
+  font-weight:800!important;
+  color:#ffd866!important;
+  margin-bottom:6px!important;
+}
+#statusZone #storyBeat{
+  font-size:23px!important;
+  line-height:1.12!important;
+  font-weight:800!important;
+  color:#fff8e8!important;
+  margin-bottom:12px!important;
+}
+#statusZone .progress-track,
+#statusZone .progress-bar{
+  height:7px!important;
+  margin:0 0 7px!important;
+  background:#171419!important;
+  border:1px solid #74604f!important;
+}
+#statusZone .progress-fill,
+#statusZone .progress-bar>span{
+  background:linear-gradient(90deg,#c22c52,#ffda62)!important;
+}
+#xpText,#checkpointText{
+  font-size:13px!important;
+  line-height:1.2!important;
+  color:#f0dfc8!important;
+}
+
+/* Stats: larger and evenly spaced. */
+#statusZone .status-summary{
+  margin-top:13px!important;
+  padding-top:12px!important;
+  border-top:1px solid rgba(255,218,98,.30)!important;
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+}
+#statusZone .status-summary>*{
+  min-width:0!important;
+  min-height:58px!important;
+  padding:0 12px!important;
+}
+#statusZone .status-summary>*+*{
+  border-left:1px solid rgba(255,218,98,.24)!important;
+}
+#statusZone .status-summary span,
+#statusZone .status-summary small{
+  font-size:12px!important;
+  line-height:1.2!important;
+  color:#e5d7c7!important;
+}
+#statusZone .status-summary strong{
+  font-size:23px!important;
+  line-height:1.05!important;
+  color:#fff8e8!important;
+  margin-top:4px!important;
+}
+#todayXp,#bestStreakText,#sagaPct{
+  font-size:11.5px!important;
+  color:#d7cabd!important;
+  margin-top:5px!important;
+}
+
+/* Route: properly readable, still compact. */
+.mini-book-route{
+  margin-top:12px!important;
+  padding-top:11px!important;
+  border-top:1px solid rgba(255,218,98,.30)!important;
+}
+.mini-route-head{
+  font-size:11px!important;
+  line-height:1.2!important;
+  letter-spacing:.12em!important;
+  color:#f6e2bd!important;
+}
+.mini-route-head b{
+  font-size:12px!important;
+  color:#ffda62!important;
+}
+.mini-route-line{
+  margin-top:9px!important;
+}
+.mini-route-line i{
+  width:28px!important;
+  height:28px!important;
+  background:#231d24!important;
+  border:2px solid #6e5964!important;
+}
+.mini-route-line i.current{
+  background:#b4264c!important;
+  border-color:#ffda62!important;
+  box-shadow:0 0 0 3px rgba(255,218,98,.18)!important;
+}
+.mini-route-line em{
+  font-size:11px!important;
+  color:#f5eadc!important;
+}
+
+/* ---------- YOUR STORY: ONE CARD ONLY ---------- */
+/* Remove the redundant outer rectangle entirely. */
+.today-story-shell{
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  margin-top:16px!important;
+  margin-bottom:18px!important;
+}
+.today-story-shell > .section-head{
+  margin:0 0 9px!important;
+  padding:0 2px!important;
+  min-height:0!important;
+}
+.today-story-shell > .section-head h3{
+  font-size:25px!important;
+  line-height:1.1!important;
+  margin:0!important;
+  color:#fff8e8!important;
+}
+.today-story-shell > .section-head .muted{
+  display:none!important;
+}
+.today-story-shell #eventLog{
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+}
+
+/* The generated story preview is the ONLY story card. */
+.today-story-shell .story-preview{
+  width:100%!important;
+  margin:0!important;
+  padding:17px!important;
+  border:2px solid #c7385d!important;
+  border-left:6px solid #ffda62!important;
+  border-radius:20px!important;
+  background:
+    radial-gradient(circle at 94% 12%,rgba(255,218,98,.10),transparent 22%),
+    linear-gradient(140deg,#4a1729 0%,#2a1722 54%,#332411 100%)!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.22)!important;
+}
+
+/* Make every line in the story comfortably readable. */
+.story-preview-top{
+  display:grid!important;
+  grid-template-columns:54px 1fr!important;
+  align-items:center!important;
+  gap:13px!important;
+  margin:0!important;
+}
+.story-seal{
+  width:54px!important;
+  height:54px!important;
+  min-width:54px!important;
+  font-size:27px!important;
+  background:#b5264c!important;
+  border:2px solid #ffda62!important;
+}
+.story-kicker{
+  font-size:12px!important;
+  line-height:1.2!important;
+  letter-spacing:.12em!important;
+  color:#ffda62!important;
+  margin:0 0 5px!important;
+}
+.story-preview-top h3{
+  font-size:24px!important;
+  line-height:1.1!important;
+  color:#fff8e8!important;
+  margin:0!important;
+}
+.story-hook{
+  font-size:17px!important;
+  line-height:1.45!important;
+  color:#fff0d7!important;
+  margin:16px 0 13px!important;
+}
+
+/* Mystery box: smaller than parent but consistent, not another giant bubble. */
+.current-mystery{
+  margin:0!important;
+  padding:14px 15px!important;
+  border-radius:13px!important;
+  background:#151c28!important;
+  border:1px solid #53657c!important;
+  border-left:5px solid #ffda62!important;
+}
+.current-mystery span{
+  font-size:11px!important;
+  line-height:1.2!important;
+  color:#ffda62!important;
+}
+.current-mystery strong{
+  display:block!important;
+  font-size:16px!important;
+  line-height:1.35!important;
+  margin-top:5px!important;
+  color:#fff8e8!important;
+}
+.story-cliff{
+  font-size:14px!important;
+  line-height:1.4!important;
+  color:#e7d4c3!important;
+  margin:12px 1px!important;
+}
+.story-preview-footer{
+  margin-top:12px!important;
+  padding-top:12px!important;
+  border-top:1px solid rgba(255,218,98,.25)!important;
+}
+.story-preview-footer b{
+  font-size:22px!important;
+  color:#ffda62!important;
+}
+.story-preview-footer small{
+  font-size:12px!important;
+  color:#ddcfbd!important;
+}
+.story-mystery-token{
+  min-width:42px!important;
+  min-height:48px!important;
+  border-color:#b68c43!important;
+  background:#37252a!important;
+  color:#ffda62!important;
+}
+
+/* ---------- WEEKLY / DAILY: brighter identities ---------- */
+.zone-weekly{
+  border:2px solid #e2b844!important;
+  background:linear-gradient(140deg,#251e12,#171b24 52%)!important;
+}
+.zone-daily{
+  border:2px solid #b92d50!important;
+  background:linear-gradient(140deg,#25131b,#17191f 50%)!important;
+}
+.zone-recovery{
+  border:2px solid #d1aa43!important;
+  background:linear-gradient(140deg,#231f13,#151b24 52%)!important;
+}
+
+/* Stop the old CSS from shrinking these again. */
+.zone-weekly .weekly-info strong,
+.zone-daily .habit-copy strong{
+  font-size:14px!important;
+  line-height:1.2!important;
+}
+.zone-weekly .weekly-info small,
+.zone-daily .habit-copy small{
+  font-size:12px!important;
+  line-height:1.25!important;
+}
+.compact-zone-label{
+  font-size:12px!important;
+  color:#ffda62!important;
+}
+
+/* iPhone 16 Pro: exact alignment and readable touch layout. */
+@media(max-width:430px){
+  #view-home{padding-left:12px!important;padding-right:12px!important}
+  #statusZone.compact-journey-header,
+  .today-story-shell{
+    width:100%!important;
+    margin-left:0!important;
+    margin-right:0!important;
+  }
+  #statusZone.compact-journey-header{padding:15px!important}
+  #statusZone #storyBeat{font-size:22px!important}
+  #statusZone .status-summary strong{font-size:21px!important}
+  .today-story-shell > .section-head h3{font-size:24px!important}
+  .today-story-shell .story-preview{padding:15px!important}
+  .story-preview-top h3{font-size:22px!important}
+  .story-hook{font-size:16px!important}
+  .current-mystery strong{font-size:15.5px!important}
+}
+
+/* Kill legacy nested-border artefacts on the exact Today story structure. */
+.today-story-shell .story-preview-host,
+.today-story-shell .zone-story,
+.today-story-shell .card{
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}

@@ -248,6 +248,7 @@ function renderHome(){
     log.innerHTML=homeStoryPreviewHtml();
     log.classList.add('story-preview-host');
     const card=log.closest('.card, .dashboard-card, section');
+    if(card)card.classList.add('today-story-shell');
     const heading=card?.querySelector('h3');
     if(heading)heading.textContent='Your Story';
     const sub=card?.querySelector('.muted');
