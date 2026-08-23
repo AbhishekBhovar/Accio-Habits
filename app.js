@@ -1,8 +1,10 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '3.4.0';
-const DEV_MODE = new URLSearchParams(location.search).get('dev') === '1';
+const APP_VERSION = '3.8.0';
+const PARAMS = new URLSearchParams(location.search);
+const DEV_MODE = PARAMS.get('dev') === '1';
+const FRESH_PREVIEW = PARAMS.get('fresh') === '1';
 const CATEGORY_META = {
   'Character': {icon:'🧙',title:'Characters',subtitle:'Witches, wizards, friends and foes'},
   'Creature': {icon:'🐉',title:'Creatures',subtitle:'A magical field guide'},
@@ -85,6 +87,10 @@ function avg(values){return values.length?values.reduce((a,b)=>a+b,0)/values.len
 function getDaily(key=localDateKey()){
   if(!save.daily[key]) save.daily[key]={habits:{},sleep:null,finalized:false,disciplineScore:null,perfectRoutine:false,perfectDay:false,exceptionalDay:false,weeklyCreditsToday:0};
   return save.daily[key];
+}
+function displayDaily(key=localDateKey()){
+  if(FRESH_PREVIEW && key===localDateKey()) return {habits:{},sleep:null,finalized:false,disciplineScore:null,perfectRoutine:false,perfectDay:false,exceptionalDay:false,weeklyCreditsToday:0};
+  return getDaily(key);
 }
 function normalizeWeek(week){
   return Object.assign(week,{weights:week.weights||0,weightDays:week.weightDays||[],cardio:week.cardio||0,cardioLog:week.cardioLog||[],sportActual:week.sportActual||0,sportBankUsed:week.sportBankUsed||0,sportDueRemaining:Number.isFinite(week.sportDueRemaining)?week.sportDueRemaining:3,sauna:week.sauna||0,saunaLog:week.saunaLog||[],saunaXpDays:week.saunaXpDays||[],finalized:!!week.finalized});
@@ -174,10 +180,11 @@ function completeHabit(id){
   if(!wasPerfect&&now.perfectRoutine){playChime('perfect');toast('✨ All daily missions complete!','perfect');}
 }
 function saveSleep(){
+  if(FRESH_PREVIEW)return toast('Fresh-day preview is view-only. Your real progress is unchanged.','warn');
   ensureAudio();const day=getDaily(),main=Math.max(0,Number(document.querySelector('#sleepHours').value)||0),nap=Math.max(0,Number(document.querySelector('#napHours').value)||0);if(main<=0){toast('Enter your main sleep hours first.','warn');return;}
   const before=calculateDayStatus(),newXp=sleepXP(main),oldXp=day.sleep?.xpAwarded||0,delta=Math.max(0,newXp-oldXp);day.sleep={mainHours:main,napHours:nap,xpAwarded:Math.max(oldXp,newXp),scoreXp:newXp,savedAt:Date.now()};updateHighestSleepStage();if(delta)addXP(delta,'Sleep');else{persist();render();}const after=calculateDayStatus();toast(`Sleep saved • ${newXp}/50 XP`);if(!before.perfectDay&&after.perfectDay){playChime('perfect');toast('🌟 PERFECT DAY achieved!','perfect');}}
 function calculateDayStatus(key=localDateKey()){
-  const day=getDaily(key);let earned=0,max=DATA.habits.dailyMaxXP;
+  const day=displayDaily(key);let earned=0,max=DATA.habits.dailyMaxXP;
   for(const h of DATA.habits.dailyHabits){if(h.id==='sleep'){earned+=day.sleep?.scoreXp||0;continue;}const entry=day.habits[h.id];if(entry?.completed)earned+=entry.xpAwarded||h.xp;}
   const controllable=DATA.habits.dailyHabits.filter(h=>h.id!=='sleep'),perfectRoutine=controllable.every(h=>day.habits[h.id]?.completed===true),sleepHours=day.sleep?.mainHours||0,perfectDay=perfectRoutine&&sleepHours>=8&&sleepHours<=9,exceptionalDay=perfectDay&&(day.weeklyCreditsToday||0)>=DATA.habits.achievements.exceptionalDayWeeklyCredits;
   return {earned,max,discipline:max?earned/max:0,perfectRoutine,perfectDay,exceptionalDay};
@@ -206,7 +213,7 @@ function currentWeekStatus(){const week=ensureCurrentWeek(),today=localDateKey()
 function renderHome(){
   const row=currentRow(),next=nextLevelRow();document.querySelector('#levelOrb').textContent=save.currentLevel;document.querySelector('#levelTitle').textContent=save.currentLevel?`Level ${save.currentLevel}`:'Level 0';document.querySelector('#storyBeat').textContent=row?.storyBeat||'Your journey is ready to begin.';document.querySelector('#bookLabel').textContent=row?`BOOK ${row.book} • ${row.bookName}`:'BEFORE HOGWARTS';
   const xpNeed=next?.xpRequired||0,inside=xpIntoCurrent(),pct=save.currentLevel>=168?100:Math.max(0,Math.min(100,(inside/xpNeed)*100));document.querySelector('#xpBar').style.width=`${pct}%`;document.querySelector('#xpText').textContent=save.currentLevel>=168?'Saga complete':`${inside.toLocaleString()} / ${xpNeed.toLocaleString()} XP`;document.querySelector('#checkpointText').textContent=row?`Checkpoint ${row.checkpoint}`:'Checkpoint 1';
-  const owned=Object.keys(save.owned).length,today=calculateDayStatus(),liveStreak=save.streak.current+(today.discipline>=.8&&!getDaily().finalized?1:0);document.querySelector('#ownedCount').textContent=`${owned} / ${DATA.collectibles.length}`;document.querySelector('#sagaPct').textContent=`${((save.currentLevel/168)*100).toFixed(1)}% saga`;document.querySelector('#todayScore').textContent=`${Math.round(today.discipline*100)}%`;document.querySelector('#todayXp').textContent=`${today.earned} / ${today.max} daily XP`;document.querySelector('#streakText').textContent=`${liveStreak} 🔥`;document.querySelector('#bestStreakText').textContent=`Best ${Math.max(save.streak.best,liveStreak)}`;
+  const owned=Object.keys(save.owned).length,today=calculateDayStatus(),liveStreak=save.streak.current+(today.discipline>=.8&&!displayDaily().finalized?1:0);document.querySelector('#ownedCount').textContent=`${owned} / ${DATA.collectibles.length}`;document.querySelector('#sagaPct').textContent=`${((save.currentLevel/168)*100).toFixed(1)}% saga`;document.querySelector('#todayScore').textContent=`${Math.round(today.discipline*100)}%`;document.querySelector('#todayXp').textContent=`${today.earned} / ${today.max} daily XP`;document.querySelector('#streakText').textContent=`${liveStreak} 🔥`;document.querySelector('#bestStreakText').textContent=`Best ${Math.max(save.streak.best,liveStreak)}`;
   const banner=document.querySelector('#victoryBanner'),statusZone=document.querySelector('#statusZone');banner.hidden=!(today.perfectRoutine||today.perfectDay);statusZone.classList.toggle('is-perfect',today.perfectDay);statusZone.classList.toggle('is-routine-complete',today.perfectRoutine&&!today.perfectDay);
   if(today.perfectDay){document.querySelector('#victoryTitle').textContent='✨ PERFECT DAY ✨';document.querySelector('#victoryText').textContent=`All daily missions complete + optimal 8–9h sleep • ${today.earned}/${today.max} XP`;}
   else if(today.perfectRoutine){document.querySelector('#victoryTitle').textContent='⭐ DAILY MISSIONS COMPLETE';document.querySelector('#victoryText').textContent='You cleared every controllable mission. Log 8–9h sleep to turn this into a Perfect Day.';}
@@ -225,6 +232,11 @@ function renderHome(){
     const statusZone=document.querySelector('#statusZone');
     if(card&&statusZone&&statusZone.parentNode===card.parentNode&&statusZone.nextSibling!==card)statusZone.after(card);
   }
+  document.body.classList.toggle('fresh-preview',FRESH_PREVIEW);
+  let preview=document.querySelector('#freshPreviewNotice');
+  if(FRESH_PREVIEW){
+    if(!preview){preview=document.createElement('div');preview.id='freshPreviewNotice';preview.className='fresh-preview-notice';preview.innerHTML='<strong>Fresh-day preview</strong><span>Showing Today with no daily missions or sleep logged. Your real progress is unchanged.</span>';const story=document.querySelector('#eventLog')?.closest('.card, .dashboard-card, section');story?.before(preview);}
+  }else preview?.remove();
 }
 
 function eventTimelineHtml(e,i){
@@ -239,13 +251,13 @@ function eventTimelineHtml(e,i){
 
 function habitRowsHtml(habits,day){return habits.map(h=>{const entry=day.habits[h.id],done=entry?.completed,sub=done?`Completed • +${entry.xpAwarded||h.xp} XP`:h.rule;return `<button class="habit-row ${done?'done':''}" data-habit="${h.id}" ${done?'disabled':''}><span class="habit-icon">${h.icon}</span><span class="habit-copy"><strong>${escapeHtml(h.name)}</strong><small>${escapeHtml(sub)}</small></span><span class="habit-xp">${done?'✓':`+${h.xp}`}</span></button>`;}).join('');}
 function renderDailyHabits(){
-  const day=getDaily(),list=document.querySelector('#dailyHabitList'),habits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),completed=habits.filter(h=>day.habits[h.id]?.completed).length;document.querySelector('#routineBadge').textContent=`${completed} / ${habits.length}`;document.querySelector('#todayDateLabel').textContent=prettyDate(localDateKey());
+  const day=displayDaily(),list=document.querySelector('#dailyHabitList'),habits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),completed=habits.filter(h=>day.habits[h.id]?.completed).length;document.querySelector('#routineBadge').textContent=`${completed} / ${habits.length}`;document.querySelector('#todayDateLabel').textContent=prettyDate(localDateKey());
   const panel=list.closest('.daily-panel');
   if(completed===habits.length){list.innerHTML=`<div class="routine-complete-strip"><span>✨</span><div><strong>All ${habits.length} daily missions complete</strong><small>Your checklist is tucked away for the rest of today.</small></div></div><details class="completed-details"><summary>View completed missions</summary><div class="completed-list">${habitRowsHtml(habits,day)}</div></details>`;panel?.classList.add('routine-is-complete');}
   else {list.innerHTML=habitRowsHtml(habits,day);panel?.classList.remove('routine-is-complete');}
-  list.querySelectorAll('[data-habit]').forEach(b=>b.onclick=()=>completeHabit(b.dataset.habit));
+  list.querySelectorAll('[data-habit]').forEach(b=>{if(FRESH_PREVIEW){b.disabled=true;b.classList.add('preview-disabled')}else b.onclick=()=>completeHabit(b.dataset.habit)});
 }
-function renderSleep(){const day=getDaily(),s=day.sleep;if(document.activeElement!==document.querySelector('#sleepHours'))document.querySelector('#sleepHours').value=s?.mainHours??'';if(document.activeElement!==document.querySelector('#napHours'))document.querySelector('#napHours').value=s?.napHours??'';const preview=s?.scoreXp??sleepXP(document.querySelector('#sleepHours').value),summary=sleepSummary();document.querySelector('#sleepXpPreview').textContent=`${preview} / 50 XP`;document.querySelector('#sleep7Day').textContent=summary.count?`7-day avg: ${summary.sevenAvg.toFixed(1)}h`:'7-day avg: —';document.querySelector('#sleepStage').textContent=`Current: Stage ${stageRoman(summary.stage)}`;document.querySelector('#sleepHighest').textContent=`Highest: Stage ${stageRoman(save.sleep.highestStage)}`;document.querySelector('#sleepHours')?.closest('.sleep-card')?.classList.toggle('sleep-is-saved',!!s?.mainHours);}
+function renderSleep(){const day=displayDaily(),s=day.sleep;if(document.activeElement!==document.querySelector('#sleepHours'))document.querySelector('#sleepHours').value=s?.mainHours??'';if(document.activeElement!==document.querySelector('#napHours'))document.querySelector('#napHours').value=s?.napHours??'';const preview=s?.scoreXp??sleepXP(document.querySelector('#sleepHours').value),summary=sleepSummary();document.querySelector('#sleepXpPreview').textContent=`${preview} / 50 XP`;document.querySelector('#sleep7Day').textContent=summary.count?`7-day avg: ${summary.sevenAvg.toFixed(1)}h`:'7-day avg: —';document.querySelector('#sleepStage').textContent=`Current: Stage ${stageRoman(summary.stage)}`;document.querySelector('#sleepHighest').textContent=`Highest: Stage ${stageRoman(save.sleep.highestStage)}`;document.querySelector('#sleepHours')?.closest('.sleep-card')?.classList.toggle('sleep-is-saved',!!s?.mainHours);}
 function missionProgressDots(value,target){return Array.from({length:target},(_,i)=>`<span class="mission-dot ${i<value?'filled':''}"></span>`).join('');}
 function renderWeekly(){
   const week=ensureCurrentWeek();document.querySelector('#weekLabel').textContent=`${prettyDate(weekKey())} – ${weekEndFromKey(weekKey()).toLocaleDateString(undefined,{day:'numeric',month:'short'})}`;
@@ -397,7 +409,7 @@ function escapeHtml(s){return String(s??'').replace(/[&<>'"]/g,m=>({'&':'&amp;',
 
 function setupUI(){
   document.querySelectorAll('.bottom-nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.bottom-nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===`view-${b.dataset.view}`));if(b.dataset.view==='journey')renderJourney();if(b.dataset.view==='collection')renderCollection();if(b.dataset.view==='stats')renderStats();if(b.dataset.view==='settings')renderSettings();window.scrollTo({top:0,behavior:'smooth'});});
-  document.querySelector('#saveSleep').onclick=saveSleep;document.querySelector('#sleepHours').oninput=renderSleep;
+  document.querySelector('#saveSleep').onclick=saveSleep;document.querySelector('#sleepHours').oninput=renderSleep;if(FRESH_PREVIEW){document.querySelector('#saveSleep').disabled=true;document.querySelector('#sleepHours').disabled=true;document.querySelector('#napHours').disabled=true;}
   document.querySelector('#revealNext').onclick=()=>closeReveal(false);document.querySelector('#revealSkip').onclick=()=>closeReveal(true);
   document.querySelector('#soundToggle').onclick=()=>{save.soundEnabled=!save.soundEnabled;persist();renderSettings();if(save.soundEnabled)playChime('success');};
   document.querySelector('#exportSave').onclick=()=>{const blob=new Blob([JSON.stringify(save,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`hp-fitness-rpg-save-${localDateKey()}.json`;a.click();URL.revokeObjectURL(a.href);};

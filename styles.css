@@ -396,3 +396,86 @@ button,.button-like{background:#2c2427 !important;border-color:#76575d !importan
 
 /* Keep ordinary text warm, but subtitles quieter for hierarchy. */
 .muted,.weekly-info small,.habit-copy small,.zone-heading p,.page-title p{color:#baa996 !important}
+
+/* ===== Phase 3.8 — Clean Hogwarts palette + low-noise surfaces =====
+   Cool charcoal foundation, burgundy identity, true gold highlights, cream text.
+   No brown-on-brown utility surfaces. */
+:root{
+  --bg:#090d13;--bg2:#0e141c;--panel:#151b24;--panel2:#1b2230;--panel3:#202938;
+  --line:#303b4b;--line2:#465267;--text:#fff6e5;--muted:#b8bec8;
+  --accent:#8f2942;--accent2:#681d31;--gold:#f2c94c;--good:#69bd8b;
+  --parchment:#f1dfbd;--burgundy:#7c2239;--amber:#f0b93f;--midnight:#0b1119;--forest:#244b39
+}
+html{background:var(--bg)!important}
+body{background:linear-gradient(180deg,#0b1017 0%,#10151d 52%,#090d13 100%)!important;color:var(--text)!important}
+main{background:transparent!important}
+.topbar,.bottom-nav{background:rgba(7,11,17,.97)!important}
+.topbar{border-bottom:1px solid rgba(242,201,76,.13)!important}
+
+/* Ordinary cards: cool neutral and quiet. */
+.card,.dashboard-card,.mission-panel,.settings-card{
+  background:#151b24!important;border:1px solid #2f3a49!important;box-shadow:none!important
+}
+.weekly-mission,.habit-row,.records-grid>div,.sleep-mini-stats span,.achievement-mini,.museum-card,.book-tabs button,.year-tabs button{
+  background:#1a2230!important;border-color:#344153!important;box-shadow:none!important
+}
+.sleep-input-row input{background:#0c121a!important;border-color:#3a4758!important}
+
+/* Burgundy is identity, not the background of every box. */
+.compact-hero{background:#171d27!important;border-color:#4a3b43!important}
+.level-orb{background:#8f2942!important;border-color:#f2c94c!important;box-shadow:none!important}
+.story-preview,.chapter-story-card{background:#171d27!important;border:1px solid #6e3647!important;box-shadow:inset 4px 0 0 #8f2942!important}
+.story-seal,.chapter-icon{background:#7c2239!important;border-color:#f2c94c!important}
+.current-mystery,.chapter-question{background:#0e151f!important;border:1px solid #334253!important;border-left:4px solid #f2c94c!important}
+
+/* True gold: high contrast and sparse. */
+.eyebrow,.zone-heading>.eyebrow,.story-preview-top small,.map-sky span,.gallery-door span{color:#f2c94c!important}
+.victory-banner{background:#171d27!important;border:1px solid #a4862f!important;box-shadow:inset 4px 0 0 #f2c94c!important}
+.victory-banner h3,.victory-banner .victory-spark,.victory-seal{color:#ffe69a!important}
+.progress-fill,.dash-track i,.mission-dot.filled{background:#f2c94c!important}
+.sauna-mission .mission-dot.filled{background:#f2c94c!important}
+
+/* Success stays green but small and deliberate. */
+.routine-complete-strip{background:#16241d!important;border:1px solid #3d654e!important;box-shadow:inset 4px 0 0 #69bd8b!important}
+.habit-row.done{background:#16241d!important;border-color:#365a46!important}
+.badge{background:#0d141c!important;border-color:#334052!important}
+
+/* Remove box-on-box visual clutter from KPI area. */
+.status-summary{display:flex!important;gap:0!important;border-top:1px solid #293442!important;margin-top:12px!important;padding-top:10px!important}
+.status-kpi{flex:1!important;background:transparent!important;border:0!important;border-radius:0!important;padding:3px 10px!important;box-shadow:none!important}
+.status-kpi+ .status-kpi{border-left:1px solid #293442!important}
+.status-kpi:first-child{padding-left:0!important}.status-kpi:last-child{padding-right:0!important}
+.status-kpi strong{font-size:18px!important}.status-kpi span,.status-kpi small{font-size:9px!important}
+
+/* Fewer container edges in Today. */
+.status-zone,.status-zone.is-perfect,.status-zone.is-routine-complete{background:#0f151d!important;border-bottom:0!important}
+.action-zone{background:#0b1017!important;border-top:0!important;border-bottom:0!important}
+.daily-panel.routine-is-complete{padding:12px!important}
+.completed-details{background:transparent!important;border:0!important}
+
+/* Make fresh state breathe: mission rows are slimmer and more scannable. */
+.habit-row{padding:9px 11px!important;min-height:54px!important}
+.habit-icon{font-size:19px!important}.habit-copy strong{font-size:12px!important}.habit-copy small{font-size:9px!important}
+.weekly-mission{padding:10px 11px!important}.weekly-icon{font-size:20px!important}.weekly-info strong{font-size:12px!important}
+
+/* Story remains the clear visual hero. */
+.story-preview{margin-top:0!important;padding:17px!important}
+.story-preview h3{font-family:Georgia,serif!important;color:#fff3d6!important}
+.story-preview>p{color:#e8dac4!important}
+
+/* Collection and Journey stay coherent with the same neutral base. */
+.gallery-door,.collection-total,.gallery-hero,.stats-hero{background:#151b24!important;border-color:#344153!important}
+.journey-map{background:#111821!important;border-color:#475466!important}
+.book-tabs button.active{background:#24202a!important;border-color:#8f2942!important}
+.bottom-nav button.active{background:#7c2239!important;color:#fff0bd!important}
+
+/* Fresh-day visual preview is explicit and safe. */
+.fresh-preview-notice{max-width:760px;margin:0 auto 12px;padding:10px 13px;border:1px solid #536173;border-radius:14px;background:#121923;color:#fff3d6;display:flex;gap:7px;align-items:baseline;flex-wrap:wrap}
+.fresh-preview-notice strong{font-size:11px;color:#f2c94c}.fresh-preview-notice span{font-size:9px;color:#b8bec8}
+.fresh-preview .preview-disabled{opacity:1!important;cursor:default!important}
+.fresh-preview #saveSleep{opacity:.45!important}
+
+/* Buttons: neutral by default; burgundy only for primary actions. */
+button,.button-like{background:#1d2633!important;border-color:#3b495b!important}
+.primary{background:#8f2942!important;border-color:#c75b72!important;color:#fff7e8!important}
+.ghost-button{background:#111821!important}

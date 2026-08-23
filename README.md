@@ -1,18 +1,18 @@
-# Harry Potter Fitness RPG — Phase 3.6 Contrast Hierarchy
+# Harry Potter Fitness RPG — Phase 3.8 Clean + Fresh Preview
 
-Replace in the repository root:
-
+Replace in the repo root:
 - `app.js`
 - `styles.css`
 - `service-worker.js`
 
 ## What changed
-- Much darker neutral page background.
-- Standard cards are visibly lighter than the page.
-- Nested mission/input/control boxes use a distinct third surface shade.
-- Story cards retain a dedicated burgundy narrative identity.
-- Success treatment is restrained green/gold rather than a large gradient.
-- Borders are warmer and clearer so card edges no longer disappear.
-- Phase 3.5 surface-consistency rules remain in place.
-- No changes to XP, habits, saves, Stats logic or Settings logic.
-- PWA cache bumped to v3.6.0.
+- Removes the muddy brown-on-brown palette.
+- Uses cool near-black/navy charcoal for page and utility surfaces.
+- Uses burgundy only as the signature accent.
+- Uses a brighter true gold sparingly for emphasis.
+- Flattens the three top KPI boxes into one quieter status strip.
+- Reduces borders/shadows and visual container noise.
+- Keeps Story as the strongest visual element.
+- Adds a safe `?fresh=1` preview mode that shows Today with no daily missions or sleep logged without altering real save data.
+- Preview mode disables task/sleep inputs so it cannot accidentally modify progress.
+- PWA cache bumped to v3.8.0.
