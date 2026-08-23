@@ -337,3 +337,15 @@ body{
 #sleepXpPreview{color:#f2c94c!important;font-weight:800!important}
 #view-today .sleep-card input{background:#160e12!important;border:1px solid #5a3440!important;border-radius:20px!important;color:#fff8ed!important;min-height:74px!important;font-size:22px!important}
 #saveSleep{margin-top:18px!important;min-height:68px!important;border-radius:22px!important;background:linear-gradient(135deg,#d71938,#ef344b)!important;border:1px solid #f2c94c!important;color:#fffbed!important;font-size:22px!important;font-weight:800!important}
+
+/* HP42 — Sleep input typography correction */
+#view-today .sleep-card input{
+  font-size:17px!important;
+  font-weight:700!important;
+}
+#view-today .sleep-card input::placeholder{
+  font-size:17px!important;
+  font-weight:700!important;
+  color:#a99a94!important;
+  opacity:1!important;
+}
