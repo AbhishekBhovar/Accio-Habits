@@ -209,6 +209,26 @@ function sleepSummary(){const seven=sleepEntries(7),sevenAvg=avg(seven.map(x=>x.
 function currentWeekDates(offsetWeeks=0){const start=addDays(mondayOf(),offsetWeeks*7);return Array.from({length:7},(_,i)=>localDateKey(addDays(start,i)));}
 function currentWeekStatus(){const week=ensureCurrentWeek(),today=localDateKey(),elapsed=currentWeekDates().filter(k=>k<=today),statuses=elapsed.map(k=>calculateDayStatus(k)),avgDiscipline=statuses.length?avg(statuses.map(s=>s.discipline)):0,routineDays=statuses.filter(s=>s.perfectRoutine).length,ss=sleepSummary();return {week,avgDiscipline,routineDays,perfectWeek:avgDiscipline>=.9&&week.weights>=4&&week.cardio>=4&&week.sportDueRemaining===0&&week.sauna>=5&&routineDays>=3,optimalSleepWeek:ss.count===7&&ss.sevenAvg>=8&&ss.sevenAvg<=9};}
 
+function currentBookProgress(){
+  const level=Math.max(1,save.currentLevel||1),book=bookForLevel(level),bookStart=(book-1)*24+1,bookDone=Math.max(0,Math.min(24,save.currentLevel-(bookStart-1))),checkpoint=Math.max(1,Math.min(6,Math.ceil(Math.max(1,bookDone)/4)));
+  return {book,bookDone,checkpoint};
+}
+function miniBookRouteHtml(){
+  const {book,bookDone,checkpoint}=currentBookProgress();
+  return `<div class="mini-book-route" aria-label="Book ${book} progress"><div class="mini-route-head"><span>BOOK ${book} ROUTE</span><b>${bookDone}/24</b></div><div class="mini-route-line">${Array.from({length:6},(_,i)=>{const cp=i+1,state=cp<checkpoint?'done':cp===checkpoint?'current':'locked';return `<i class="${state}"><em>${cp}</em></i>`;}).join('')}</div></div>`;
+}
+function simplifyTodaySectionChrome(){
+  const clean=(selector,label,removeInnerTitle=false)=>{
+    const el=document.querySelector(selector);if(!el)return;const host=el.closest('section,.card,.dashboard-card,.weekly-panel,.daily-panel,.sleep-card')||el.parentElement;if(!host)return;
+    const prev=host.previousElementSibling;
+    if(prev&&/build your week|today.?s routine|recovery/i.test(prev.textContent||''))prev.classList.add('redundant-zone-heading');
+    let compact=host.querySelector(':scope > .compact-zone-label');if(!compact){compact=document.createElement('span');compact.className='compact-zone-label';host.prepend(compact);}compact.textContent=label;
+    const head=host.querySelector('.section-head');if(head){const eyebrow=head.querySelector('.eyebrow,.section-label');if(eyebrow)eyebrow.classList.add('redundant-eyebrow');const title=head.querySelector('h2,h3');if(title&&removeInnerTitle)title.classList.add('redundant-inner-title');}
+  };
+  clean('#weeklyMissionList','WEEKLY MISSIONS',true);
+  clean('#dailyHabitList','DAILY MISSIONS',false);
+  clean('#sleepHours','SLEEP',true);
+}
 // ---------- render Today ----------
 function renderHome(){
   const row=currentRow(),next=nextLevelRow();document.querySelector('#levelOrb').textContent=save.currentLevel;document.querySelector('#levelTitle').textContent=save.currentLevel?`Level ${save.currentLevel}`:'Level 0';document.querySelector('#storyBeat').textContent=row?.storyBeat||'Your journey is ready to begin.';document.querySelector('#bookLabel').textContent=row?`BOOK ${row.book} • ${row.bookName} • LEVEL ${save.currentLevel}`:'BEFORE HOGWARTS';
@@ -221,7 +241,8 @@ function renderHome(){
   if(banner) banner.hidden=true;
   statusZone.classList.toggle('is-perfect',today.perfectDay);
   statusZone.classList.toggle('is-routine-complete',today.perfectRoutine&&!today.perfectDay);
-  renderWeekly();renderDailyHabits();renderSleep();renderAchievements();decorateTodayZones();
+  if(statusZone){let route=statusZone.querySelector('.mini-book-route');if(!route){const summary=statusZone.querySelector('.status-summary');route=document.createElement('div');route.innerHTML=miniBookRouteHtml();const node=route.firstElementChild;summary?summary.after(node):statusZone.append(node);}else route.outerHTML=miniBookRouteHtml();}
+  renderWeekly();renderDailyHabits();renderSleep();renderAchievements();decorateTodayZones();simplifyTodaySectionChrome();
   const log=document.querySelector('#eventLog');
   if(log){
     log.innerHTML=homeStoryPreviewHtml();
@@ -337,6 +358,42 @@ const STORY_TEASERS = {
  24:{hook:'Harry reaches the final chamber.',mystery:'Was the Trio right about who wanted the Stone?',cliff:'The answer reaches all the way back to the night Harry received his scar.',icon:'⚡'}
 };
 
+
+const STORY_PASSAGES = {
+  1:{
+    title:'The night everything changed',
+    passage:'Before Harry could remember anything, the wizarding world already knew his name. One terrible night ended with his parents gone, Voldemort vanished, and Harry alive with a lightning-shaped scar. By morning, he was being carried away from magic and toward a childhood in which nobody would willingly tell him the truth.',
+    knows:'Harry does not know any of this yet. He only knows the Dursleys have raised him and that questions about his parents are unwelcome.',
+    mystery:'Why did Voldemort fail to kill Harry — and why did the whole wizarding world celebrate his survival?'
+  },
+  2:{
+    title:'Number Four, Privet Drive',
+    passage:'Ten years later, Harry has learned to expect very little from life with the Dursleys. He is treated as an inconvenience, kept away from anything unusual, and given almost no connection to the parents he barely remembers. Yet strange accidents seem to happen around him whenever fear, anger or desperation take over.',
+    knows:'Harry believes his parents died in a car crash and has no idea why odd things happen around him.',
+    mystery:'What are the Dursleys so determined to stop Harry discovering?'
+  },
+  3:{
+    title:'A letter that should not exist',
+    passage:'The ordinary rules of Privet Drive are beginning to break. A letter arrives addressed to Harry with impossible precision — even identifying the cupboard where he sleeps. The harder the Dursleys try to keep it away from him, the more determined the mysterious sender becomes.',
+    knows:'Someone outside the Dursley household knows exactly who Harry is and where he lives.',
+    mystery:'Who is writing to Harry, and why is Uncle Vernon so frightened of the message?'
+  },
+  4:{
+    title:'The truth comes knocking',
+    passage:'Running from the letters has only delayed the inevitable. Far from home, with the Dursleys convinced they have finally escaped whatever is pursuing Harry, someone is still coming. The story Harry has been told about his parents is about to collide with a much larger truth.',
+    knows:'The Dursleys have lied about more than they admit, and the letters are connected to Harry himself.',
+    mystery:'Who was Harry before the Dursleys decided what he was allowed to know?'
+  }
+};
+function storyPassage(level){
+  const t=storyTeaser(level),row=DATA.levels[level-1];
+  return STORY_PASSAGES[level]||{
+    title:row?.storyBeat||'A page from the journey',
+    passage:`Harry’s story has reached ${row?.storyBeat||'another turning point'}. The people, places and clues already uncovered are beginning to connect, but the full meaning of this chapter is still taking shape.`,
+    knows:`Harry knows only what has been revealed up to Level ${level}.`,
+    mystery:t.mystery
+  };
+}
 function genericStoryTeaser(row){
   if(!row)return {hook:'The story is waiting.',mystery:'What happens next?',cliff:'Complete your missions to continue.',icon:'✦'};
   const s=String(row.storyBeat||'').toLowerCase();
@@ -379,10 +436,12 @@ function renderJourney(){
   const rows=DATA.levels.filter(l=>l.book===ui.journeyBook),map=document.querySelector('#journeyMap');
   const groups=Array.from({length:6},(_,i)=>rows.slice(i*4,i*4+4));
   const checkpointCards=groups.map((g,i)=>{const first=g[0],last=g[g.length-1],cp=first.checkpoint,done=last.level<=save.currentLevel,current=first.level<=save.currentLevel+1&&last.level>=save.currentLevel+1,locked=first.level>save.currentLevel+1;const teaser=storyTeaser(Math.min(last.level,Math.max(first.level,save.currentLevel+1)));const title=locked?'A hidden chapter':(current?teaser.hook:first.storyBeat);const icon=locked?'🔒':teaser.icon;return `<button class="journey-stop ${done?'done':current?'current':'locked'}" data-level="${current?Math.min(last.level,save.currentLevel+1):first.level}"><div class="journey-stop-art"><span>${icon}</span><i>ARTWORK<br>PLACEHOLDER</i></div><div class="journey-stop-copy"><small>CHECKPOINT ${cp} • LEVELS ${first.level}–${last.level}</small><strong>${escapeHtml(title)}</strong><span>${done?'Chapter explored':current?`${xpRemainingForNext().toLocaleString()} XP to the next reveal`:'Keep journeying to reveal'}</span></div><b>›</b></button>`;}).join('');
-  const next=nextLevelRow(),teaser=(ui.journeyBook===activeBook&&next)?storyTeaser(next.level):null;
-  const intro=teaser?`<div class="journey-feature"><div><small>YOUR STORY NOW</small><h3>${escapeHtml(teaser.hook)}</h3><p>${escapeHtml(teaser.cliff)}</p></div><div class="journey-mystery"><span>CURRENT MYSTERY</span><strong>${escapeHtml(teaser.mystery)}</strong></div></div>`:`<div class="journey-feature"><div><small>BOOK ${ui.journeyBook}</small><h3>${escapeHtml(BOOK_NAMES[ui.journeyBook])}</h3><p>${ui.journeyBook<activeBook?'A completed part of your adventure. Revisit its chapters below.':'The pages ahead are still sealed.'}</p></div></div>`;
+  const currentLevel=Math.max(1,save.currentLevel||1),currentTeaser=(ui.journeyBook===activeBook)?storyTeaser(currentLevel):null,currentStory=DATA.levels[currentLevel-1]?.storyBeat||'The journey begins';
+  const passage=currentTeaser?storyPassage(currentLevel):null;
+  const intro=currentTeaser?`<div class="journey-feature"><div><small>WHERE THE STORY STANDS • LEVEL ${currentLevel}</small><h3>${escapeHtml(currentStory)}</h3><p>${escapeHtml(currentTeaser.hook)} ${escapeHtml(currentTeaser.cliff)}</p></div><div class="journey-mystery"><span>UNANSWERED</span><strong>${escapeHtml(currentTeaser.mystery)}</strong></div><details class="journey-storybook"><summary><span>📖</span><strong>Open story passage</strong><b>＋</b></summary><div class="journey-storybook-page"><small>FROM THE STORY</small><h4>${escapeHtml(passage.title)}</h4><p>${escapeHtml(passage.passage)}</p><div class="storybook-facts"><div><span>WHAT HARRY KNOWS</span><p>${escapeHtml(passage.knows)}</p></div><div><span>WHAT REMAINS MYSTERIOUS</span><p>${escapeHtml(passage.mystery)}</p></div></div><footer><b>${xpRemainingForNext().toLocaleString()} XP</b><small>until the next revelation</small></footer></div></details></div>`:`<div class="journey-feature"><div><small>BOOK ${ui.journeyBook}</small><h3>${escapeHtml(BOOK_NAMES[ui.journeyBook])}</h3><p>${ui.journeyBook<activeBook?'A completed part of your adventure. Revisit its chapters below.':'The pages ahead are still sealed.'}</p></div></div>`;
   map.style.height='auto';
-  map.innerHTML=`<div class="journey-book-banner"><div class="journey-book-art">🏰<i>BOOK ART<br>PLACEHOLDER</i></div><div><small>BOOK ${ui.journeyBook}</small><h2>${escapeHtml(BOOK_NAMES[ui.journeyBook])}</h2><span>${rows.filter(l=>l.level<=save.currentLevel).length}/24 levels explored</span></div></div>${intro}<div class="journey-stops">${checkpointCards}</div>`;
+  const explored=rows.filter(l=>l.level<=save.currentLevel).length;
+  map.innerHTML=`<div class="journey-book-banner"><div class="journey-book-art">🏰<i>BOOK ART<br>PLACEHOLDER</i></div><div><small>BOOK ${ui.journeyBook}</small><h2>${escapeHtml(BOOK_NAMES[ui.journeyBook])}</h2><span>${explored}/24 levels explored</span></div><div class="journey-banner-route">${Array.from({length:6},(_,i)=>{const cp=i+1,done=explored>=cp*4,current=explored<cp*4&&explored>=(cp-1)*4;return `<i class="${done?'done':current?'current':''}"><em>${cp}</em></i>`;}).join('')}</div></div>${intro}<div class="journey-stops">${checkpointCards}</div>`;
   map.querySelectorAll('[data-level]').forEach(n=>n.onclick=()=>showJourneyNode(Number(n.dataset.level)));
   const detail=document.querySelector('#journeyNodeDetail');detail.hidden=true;detail.innerHTML='';
 }
