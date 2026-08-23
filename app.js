@@ -312,7 +312,7 @@ function renderJourney(){
     {book:7,name:"Deathly Hallows",range:"145–168",icon:"△",cls:"book-red hallows"}
   ];
   const current=Math.max(1,save.currentLevel||1);
-  const levelReq=levelRequirement(current),inLevel=Math.max(0,save.levelXP||0);
+  const levelReq=(DATA.levels[current-1]?.xpRequired||500),inLevel=Math.max(0,xpIntoCurrent());
   const pct=Math.max(0,Math.min(100,(inLevel/Math.max(1,levelReq))*100));
   const nodes=Array.from({length:168},(_,idx)=>{
     const n=idx+1,done=n<current,here=n===current;
