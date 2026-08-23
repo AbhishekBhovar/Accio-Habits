@@ -971,3 +971,238 @@ main,.app-main{
   #statusZone.compact-journey-header{margin-left:12px!important;margin-right:12px!important}
   .story-preview,.zone-story{margin-left:12px!important;margin-right:12px!important}
 }
+
+
+/* ===== Phase 3.14 — One-screen daily missions + ultra-compact journey header ===== */
+
+/* ---------- Ultra-compact top journey summary ---------- */
+#statusZone.compact-journey-header,
+.status-zone.compact-journey-header{
+  padding:8px 14px 8px!important;
+  margin:5px 0 7px!important;
+  border-radius:15px!important;
+}
+
+.compact-journey-header .compact-hero,
+.compact-journey-header .level-card,
+.compact-journey-header .journey-current,
+#statusZone .compact-hero,
+#statusZone .level-card{
+  padding:7px 8px!important;
+  grid-template-columns:1fr!important;
+  grid-template-areas:
+    "book"
+    "beat"
+    "progress"
+    "meta"!important;
+  row-gap:2px!important;
+  margin-bottom:0!important;
+}
+
+/* Level now lives in the BOOK line — remove the duplicate giant title + orb. */
+#levelTitle,#levelOrb{display:none!important}
+
+#bookLabel{
+  font-size:8px!important;
+  line-height:1!important;
+  letter-spacing:.13em!important;
+  margin:0 0 2px!important;
+}
+#storyBeat{
+  font-size:15px!important;
+  font-weight:800!important;
+  line-height:1.08!important;
+  margin:1px 0 3px!important;
+  color:#fff7e8!important;
+}
+.compact-journey-header .progress-track,
+.compact-journey-header .progress-bar,
+#statusZone .progress-track,
+#statusZone .progress-bar{
+  height:4px!important;
+  min-height:4px!important;
+  margin:3px 0 1px!important;
+}
+#xpText,#checkpointText{
+  font-size:8px!important;
+}
+.compact-journey-header .progress-meta,
+.compact-journey-header .xp-meta{
+  margin-top:0!important;
+}
+
+/* Even tighter status strip. */
+.compact-journey-header .status-summary,
+#statusZone .status-summary{
+  margin:4px 0 0!important;
+  padding:5px 0 0!important;
+}
+.compact-journey-header .status-summary > *,
+#statusZone .status-summary > *{
+  min-height:31px!important;
+  padding:0 8px!important;
+}
+.compact-journey-header .status-summary span,
+.compact-journey-header .status-summary small,
+#statusZone .status-summary span,
+#statusZone .status-summary small{
+  font-size:7px!important;
+}
+.compact-journey-header .status-summary strong,
+#statusZone .status-summary strong{
+  font-size:14px!important;
+  margin-top:2px!important;
+}
+#todayXp,#bestStreakText,#sagaPct{
+  font-size:7px!important;
+  margin-top:2px!important;
+}
+
+/* ---------- Weekly/Daily headings: keep the label, remove duplicated prose ---------- */
+.zone-weekly .zone-heading h2,
+.zone-weekly .zone-heading p,
+.zone-daily .zone-heading h2,
+.zone-daily .zone-heading p{
+  display:none!important;
+}
+.zone-weekly .zone-heading,
+.zone-daily .zone-heading{
+  margin:0 0 6px!important;
+  padding:0!important;
+}
+.zone-weekly .zone-heading .eyebrow,
+.zone-weekly .zone-heading .section-label,
+.zone-daily .zone-heading .eyebrow,
+.zone-daily .zone-heading .section-label{
+  font-size:9px!important;
+  letter-spacing:.17em!important;
+  margin:0!important;
+}
+
+/* Tighten the weekly mission board a bit more. */
+.zone-weekly{
+  padding:9px!important;
+}
+.zone-weekly .weekly-list{gap:4px!important}
+.zone-weekly .weekly-mission{
+  padding:6px 8px!important;
+  min-height:46px!important;
+  border-radius:10px!important;
+  gap:6px!important;
+}
+.zone-weekly .weekly-icon{font-size:17px!important}
+.zone-weekly .weekly-info{gap:6px!important}
+.zone-weekly .weekly-info strong{font-size:10.5px!important;line-height:1.05!important}
+.zone-weekly .weekly-info small{
+  font-size:7.5px!important;
+  line-height:1.1!important;
+  margin-top:1px!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  max-width:260px!important;
+}
+.zone-weekly .mission-dots{margin-top:3px!important;gap:3px!important}
+.zone-weekly .mission-dot{width:11px!important;height:3px!important}
+.zone-weekly .weekly-action{gap:4px!important}
+.zone-weekly .weekly-action b{font-size:13px!important}
+.zone-weekly .weekly-action button{
+  padding:5px 7px!important;
+  min-height:28px!important;
+  font-size:8px!important;
+  border-radius:9px!important;
+}
+.zone-weekly .weekly-action small{font-size:7px!important}
+
+/* ---------- Fit all 11 DAILY missions into one phone-height screen ---------- */
+.zone-daily{
+  padding:8px!important;
+}
+.zone-daily .section-head{
+  margin-bottom:4px!important;
+}
+.zone-daily #todayDateLabel{
+  font-size:11px!important;
+  margin:0!important;
+}
+.zone-daily #routineBadge{
+  font-size:8px!important;
+  padding:4px 7px!important;
+}
+.zone-daily .habit-list,
+.zone-daily .completed-list{
+  gap:3px!important;
+}
+.zone-daily .habit-row{
+  grid-template-columns:24px minmax(0,1fr) 26px!important;
+  gap:6px!important;
+  padding:5px 7px!important;
+  min-height:42px!important;
+  border-radius:9px!important;
+}
+.zone-daily .habit-icon{
+  font-size:16px!important;
+}
+.zone-daily .habit-copy strong{
+  font-size:10.5px!important;
+  line-height:1.08!important;
+}
+.zone-daily .habit-copy small{
+  font-size:7.5px!important;
+  line-height:1.05!important;
+  margin-top:1px!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+.zone-daily .habit-xp{
+  font-size:9px!important;
+}
+.zone-daily .habit-row.done .habit-xp{
+  font-size:14px!important;
+}
+.zone-daily .routine-complete-strip{
+  padding:6px 8px!important;
+  min-height:38px!important;
+  border-radius:10px!important;
+}
+.zone-daily .routine-complete-strip>span{font-size:16px!important}
+.zone-daily .routine-complete-strip strong{font-size:9.5px!important}
+.zone-daily .routine-complete-strip small{display:none!important}
+.zone-daily .completed-details{margin-top:2px!important}
+.zone-daily .completed-details summary{
+  padding:4px 2px!important;
+  font-size:8px!important;
+}
+
+/* When completed rows are expanded, their redundant "Completed +XP" line isn't needed. */
+.zone-daily .completed-list .habit-row.done .habit-copy small{
+  display:none!important;
+}
+.zone-daily .completed-list .habit-row.done{
+  min-height:36px!important;
+  padding-top:4px!important;
+  padding-bottom:4px!important;
+}
+
+/* Slightly shrink story chrome so the user reaches missions faster. */
+.story-preview,.zone-story{
+  padding:9px!important;
+  border-radius:16px!important;
+}
+.story-preview h2,.zone-story h2{
+  font-size:17px!important;
+  margin-bottom:5px!important;
+}
+.story-card,.current-story-card,.chapter-story-card{
+  padding:9px!important;
+}
+.current-mystery,.chapter-question{
+  padding:8px 10px!important;
+  margin-top:6px!important;
+}
+
+
+/* ===== Phase 3.15 — Today task fraction instead of percentage grade ===== */
+#todayScore{font-variant-numeric:tabular-nums}
+#todayXp{text-transform:none!important}

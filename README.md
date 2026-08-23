@@ -1,12 +1,11 @@
-# Harry Potter Fitness RPG — Phase 3.13 Compact Home Header
+# Harry Potter Fitness RPG — Phase 3.15 Task Fraction
 
 Changes:
-- Compresses the top app header and Level/XP block.
-- Turns Level/XP + Today/Journey/Collection into one compact journey module.
-- Keeps all useful status details while removing dashboard-cover-page height.
-- Brings Your Story much higher on the first screen.
-- Tightens the story card so tasks begin sooner.
-- Does not change XP, habits, progression, collectibles, saves, Stats or Settings logic.
+- Replaces the Today percentage/grade with completed tasks / total tasks.
+- Shows tasks remaining beneath it.
+- Example fresh day: 0 / 11 — 11 tasks left.
+- Example complete day: 11 / 11 — All tasks done.
+- No XP, save, progression or habit rules changed.
 
 Replace:
 - app.js
