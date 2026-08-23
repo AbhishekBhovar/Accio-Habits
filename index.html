@@ -87,7 +87,7 @@
               <label>Nap / recovery<input id="napHours" type="number" inputmode="decimal" min="0" max="8" step="0.25" placeholder="e.g. 1"></label>
             </div>
             <button id="saveSleep" class="primary wide">Save sleep</button>
-            <div class="sleep-mini-stats"><span id="sleep7Day">7-day avg: —</span><span id="sleepStage">Stage I</span><span id="sleepHighest">Highest: I</span></div>
+            <div class="sleep-mini-stats"><span id="sleep7Day">7-day avg: —</span></div>
           </div>
         </section>
 
@@ -119,13 +119,6 @@
         <div id="statsDashboard"></div>
       </section>
 
-      <section id="view-settings" class="view">
-        <div class="section-head page-title"><div><span class="eyebrow">APP & DATA</span><h2>Settings</h2><p class="muted">Only configuration and backup tools live here.</p></div></div>
-        <div class="card settings-card"><h3>Installed app</h3><p id="installState" class="muted"></p><p class="muted">Updates use a network-first cache and should refresh after reopening the app.</p></div>
-        <div class="card settings-card"><div class="settings-line"><div><h3>Sound effects</h3><p class="muted">Reward chimes for level-ups, discoveries and major achievements.</p></div><button id="soundToggle" class="toggle-button">On</button></div></div>
-        <div class="card settings-card"><h3>Save backup</h3><p class="muted">Export a backup before major updates or moving devices.</p><div class="settings-buttons"><button id="exportSave">Export save</button><label class="button-like">Import save<input id="importSave" type="file" accept="application/json" hidden></label></div></div>
-        <div id="devTools" class="card danger" hidden><h3>Testing tools</h3><p class="muted">Visible only when the app is opened with <code>?dev=1</code>.</p><div class="xp-controls"><button data-xp="100">+100 XP</button><button data-xp="300">+300 XP</button><button data-xp="500">+500 XP</button></div><button id="resetSave" class="danger-button">Reset TEST save</button></div>
-      </section>
     </main>
 
     <nav class="bottom-nav" aria-label="Main navigation">
@@ -133,7 +126,6 @@
       <button data-view="journey">Journey</button>
       <button data-view="collection">Collection</button>
       <button data-view="stats">Stats</button>
-      <button data-view="settings">Settings</button>
     </nav>
   </div>
 
