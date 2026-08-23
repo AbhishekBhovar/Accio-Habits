@@ -731,3 +731,243 @@ a,.linklike{color:#f0cf67!important}
 
 /* Keep real content more prominent than decorative marks. */
 .today-zone > *{position:relative;z-index:1}
+
+
+/* ===== Phase 3.12 — Story + Stats first ===== */
+
+/* Achievements no longer consume any Today-page space. */
+#achievementStatus{display:none!important}
+.today-zone.zone-achievements{display:none!important}
+
+/* Optional archive lives quietly at the very bottom of Stats. */
+.stats-achievements-archive{
+  margin-top:18px!important;
+  padding:10px 14px!important;
+  background:#0d121a!important;
+  border-color:#252e3b!important;
+  opacity:.82;
+}
+.stats-achievements-archive details{background:transparent!important;border:0!important}
+.stats-achievements-archive summary{
+  display:grid;
+  grid-template-columns:32px 1fr auto;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  list-style:none;
+  padding:2px 0;
+}
+.stats-achievements-archive summary::-webkit-details-marker{display:none}
+.stats-achievements-archive summary>span{
+  width:30px;height:30px;display:grid;place-items:center;
+  border-radius:50%;background:#1b2230;border:1px solid #354155;
+}
+.stats-achievements-archive summary strong,
+.stats-achievements-archive summary small{display:block}
+.stats-achievements-archive summary strong{font-size:12px}
+.stats-achievements-archive summary small{font-size:9px;color:var(--muted);margin-top:2px}
+.stats-achievements-archive summary>b{font-size:10px;color:#f2c94c}
+.stats-achievements-archive .achievement-mini-grid{margin-top:10px}
+
+/* Re-emphasise the actual motivation hierarchy. */
+.story-preview,.zone-story{box-shadow:0 0 0 1px rgba(242,201,76,.08)!important}
+#statsDashboard .stats-hero{margin-bottom:14px}
+
+
+/* ===== Phase 3.13 — Compact first-screen hierarchy =====
+   Goal: story appears within the first screen, not after a dashboard cover. */
+
+/* Trim global header height. */
+.topbar{
+  padding-top:10px!important;
+  padding-bottom:10px!important;
+  min-height:0!important;
+}
+.topbar .eyebrow{
+  font-size:9px!important;
+  letter-spacing:.17em!important;
+  margin-bottom:2px!important;
+}
+.topbar h1,.topbar h2{
+  font-size:18px!important;
+  line-height:1.12!important;
+  margin:0!important;
+}
+#networkBadge{
+  padding:7px 10px!important;
+  font-size:10px!important;
+}
+
+/* Collapse the large Level card into a compact journey header. */
+#statusZone.compact-journey-header,
+.status-zone.compact-journey-header{
+  padding:12px 16px 10px!important;
+  margin:8px 0 10px!important;
+  border-radius:18px!important;
+  background:#101621!important;
+  border:1px solid #3b4555!important;
+}
+
+/* Make the level hero dramatically shorter. */
+.compact-journey-header .compact-hero,
+.compact-journey-header .level-card,
+.compact-journey-header .journey-current,
+#statusZone .compact-hero,
+#statusZone .level-card{
+  padding:10px 12px!important;
+  min-height:0!important;
+  border-radius:14px!important;
+  border:0!important;
+  background:transparent!important;
+  display:grid!important;
+  grid-template-columns:1fr auto!important;
+  grid-template-areas:
+    "book orb"
+    "title orb"
+    "beat orb"
+    "progress progress"
+    "meta meta"!important;
+  column-gap:12px!important;
+  row-gap:2px!important;
+}
+
+/* Compress textual hierarchy. */
+#bookLabel{
+  grid-area:book!important;
+  font-size:8px!important;
+  letter-spacing:.15em!important;
+  margin:0!important;
+  color:#f2c94c!important;
+}
+#levelTitle{
+  grid-area:title!important;
+  font-size:26px!important;
+  line-height:1!important;
+  margin:2px 0 1px!important;
+}
+#storyBeat{
+  grid-area:beat!important;
+  font-size:14px!important;
+  line-height:1.15!important;
+  margin:0 0 5px!important;
+  color:#d8dde6!important;
+}
+#levelOrb{
+  grid-area:orb!important;
+  align-self:center!important;
+  width:52px!important;
+  height:52px!important;
+  min-width:52px!important;
+  font-size:22px!important;
+  border-width:3px!important;
+  margin:0!important;
+}
+
+/* Progress gets one slim line, not a large visual block. */
+.compact-journey-header .progress-track,
+.compact-journey-header .progress-bar,
+#statusZone .progress-track,
+#statusZone .progress-bar{
+  grid-area:progress!important;
+  height:6px!important;
+  min-height:6px!important;
+  margin:5px 0 2px!important;
+}
+#xpText,#checkpointText{
+  font-size:9px!important;
+  color:#aeb7c5!important;
+}
+.compact-journey-header .xp-meta,
+.compact-journey-header .progress-meta{
+  grid-area:meta!important;
+  margin-top:1px!important;
+  min-height:0!important;
+}
+
+/* The Today/Journey/Collection stats become one unobtrusive strip. */
+.compact-journey-header .status-summary,
+#statusZone .status-summary{
+  padding:7px 0 0!important;
+  margin:6px 0 0!important;
+  border-top:1px solid #2d3745!important;
+  gap:0!important;
+}
+.compact-journey-header .status-summary > *,
+#statusZone .status-summary > *{
+  padding:0 10px!important;
+  min-height:38px!important;
+  border-radius:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.compact-journey-header .status-summary > * + *,
+#statusZone .status-summary > * + *{
+  border-left:1px solid #303a49!important;
+}
+.compact-journey-header .status-summary span,
+.compact-journey-header .status-summary small,
+#statusZone .status-summary span,
+#statusZone .status-summary small{
+  font-size:8px!important;
+}
+.compact-journey-header .status-summary strong,
+#statusZone .status-summary strong{
+  font-size:17px!important;
+  line-height:1!important;
+  margin-top:3px!important;
+}
+#todayXp,#bestStreakText,#sagaPct{
+  font-size:8px!important;
+  margin-top:3px!important;
+}
+
+/* Story should visually begin almost immediately. */
+.story-preview,.zone-story{
+  margin-top:8px!important;
+  padding:12px!important;
+  border-radius:20px!important;
+}
+.story-preview h2,.zone-story h2,
+.story-preview h3,.zone-story h3{
+  font-size:20px!important;
+  margin:0 0 8px!important;
+}
+.story-card,.current-story-card,.chapter-story-card{
+  padding:12px!important;
+  border-radius:16px!important;
+}
+.story-kicker,.chapter-kicker{
+  font-size:8px!important;
+  margin-bottom:4px!important;
+}
+.story-preview .story-title,
+.chapter-story-card h3,
+.current-story-card h3{
+  font-size:20px!important;
+  line-height:1.1!important;
+}
+.current-mystery,.chapter-question{
+  padding:10px 12px!important;
+  margin-top:8px!important;
+}
+.current-mystery strong,.chapter-question strong{
+  font-size:13px!important;
+  line-height:1.25!important;
+}
+
+/* Less dead vertical air between the hero, story and tasks. */
+#statusZone + *,
+.story-preview + *,
+.zone-story + *{
+  margin-top:10px!important;
+}
+main,.app-main{
+  padding-top:8px!important;
+}
+
+/* On iPhones, keep the first-screen dashboard intentionally dense. */
+@media(max-width:520px){
+  #statusZone.compact-journey-header{margin-left:12px!important;margin-right:12px!important}
+  .story-preview,.zone-story{margin-left:12px!important;margin-right:12px!important}
+}

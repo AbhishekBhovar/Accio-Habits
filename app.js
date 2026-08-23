@@ -217,7 +217,7 @@ function renderHome(){
   const journeyText=document.querySelector('#streakText'),journeySub=document.querySelector('#bestStreakText');
   if(journeyText){journeyText.textContent=`${save.currentLevel} / 168`;let box=journeyText.parentElement;while(box&&journeySub&&!box.contains(journeySub))box=box.parentElement;const label=box?[...box.querySelectorAll('span,small,p')].find(el=>/streak/i.test(el.textContent||'')):null;if(label)label.textContent='Journey';}
   if(journeySub)journeySub.textContent=`${((save.currentLevel/168)*100).toFixed(1)}% saga`;
-  const banner=document.querySelector('#victoryBanner'),statusZone=document.querySelector('#statusZone');
+  const banner=document.querySelector('#victoryBanner'),statusZone=document.querySelector('#statusZone');if(statusZone)statusZone.classList.add('compact-journey-header');
   if(banner) banner.hidden=true;
   statusZone.classList.toggle('is-perfect',today.perfectDay);
   statusZone.classList.toggle('is-routine-complete',today.perfectRoutine&&!today.perfectDay);
@@ -272,17 +272,25 @@ function renderWeekly(){
     <div class="weekly-mission sauna-mission"><div class="weekly-info"><span class="weekly-icon">🧖</span><div><strong>Sauna</strong><small>5 credits/week • 30 min = 1 • 60 min = 2 • second same-day credit earns 0 extra XP</small><div class="mission-dots">${missionProgressDots(week.sauna,5)}</div></div></div><div class="weekly-action"><b>${week.sauna}/5</b><div class="tiny-buttons"><button id="logSauna1" ${week.sauna>=5?'disabled':''}>+30m</button><button id="logSauna2" ${week.sauna>=5?'disabled':''}>+60m</button></div></div></div>`;
   document.querySelector('#logWeights').onclick=logWeights;document.querySelector('#logCardio1').onclick=()=>logCardio(1);document.querySelector('#logCardio2').onclick=()=>logCardio(2);document.querySelector('#logSport').onclick=logSport;document.querySelector('#logSauna1').onclick=()=>logSauna(1);document.querySelector('#logSauna2').onclick=()=>logSauna(2);
 }
-function renderAchievements(){
-  const status=calculateDayStatus(),week=currentWeekStatus(),
-    chips=[[status.discipline>=.8,'🔥','Discipline Day',`${Math.round(status.discipline*100)}% / 80%`],[status.perfectRoutine,'⭐','Daily Missions','All missions complete'],[status.perfectDay,'🌟','Perfect Day','Routine + 8–9h sleep'],[status.exceptionalDay,'👑','Exceptional','Perfect + 2 weekly credits'],[week.perfectWeek,'🏆','Perfect Week','Weekly targets + consistency'],[week.optimalSleepWeek,'🌙','Sleep Week','7-day avg 8–9h']],
-    earned=chips.filter(x=>x[0]).length,host=document.querySelector('#achievementStatus');
-  if(!host)return;
-  host.innerHTML=`<details class="achievement-drawer"><summary><span>🏅</span><div><strong>${earned} of ${chips.length} badges earned</strong><small>Achievements & consistency</small></div><b>View ›</b></summary><div class="achievement-mini-grid">${chips.map(([ok,icon,name,detail])=>`<div class="achievement-mini ${ok?'earned':''}" title="${escapeHtml(detail)}"><span>${icon}</span><div><strong>${name}</strong><small>${ok?'Earned':'Locked'}</small></div></div>`).join('')}</div></details>`;
-  const achievementCard=host.closest('.card, .dashboard-card, section'),storyHost=document.querySelector('#eventLog'),storyCard=storyHost?.closest('.card, .dashboard-card, section');
-  if(achievementCard&&storyCard&&achievementCard!==storyCard&&storyCard.parentNode===achievementCard.parentNode&&storyCard.nextSibling!==achievementCard)storyCard.after(achievementCard);
-  if(achievementCard){achievementCard.classList.add('achievements-compact');const h=achievementCard.querySelector('h3');if(h)h.textContent='Achievements';}
+function achievementChips(){
+  const status=calculateDayStatus(),week=currentWeekStatus();
+  return [
+    [status.discipline>=.8,'🔥','Discipline Day',`${Math.round(status.discipline*100)}% / 80%`],
+    [status.perfectRoutine,'⭐','Daily Missions','All missions complete'],
+    [status.perfectDay,'🌟','Perfect Day','Routine + 8–9h sleep'],
+    [status.exceptionalDay,'👑','Exceptional','Perfect + 2 weekly credits'],
+    [week.perfectWeek,'🏆','Perfect Week','Weekly targets + consistency'],
+    [week.optimalSleepWeek,'🌙','Sleep Week','7-day avg 8–9h']
+  ];
 }
 
+function renderAchievements(){
+  const host=document.querySelector('#achievementStatus');
+  if(!host)return;
+  const card=host.closest('.card,.dashboard-card,section')||host.parentElement;
+  if(card)card.hidden=true;
+  host.innerHTML='';
+}
 
 
 function decorateTodayZones(){
@@ -291,7 +299,6 @@ function decorateTodayZones(){
     ['#weeklyMissionList','zone-weekly','⚡'],
     ['#dailyHabitList','zone-daily','✓'],
     ['#sleepHours','zone-recovery','☾'],
-    ['#achievementStatus','zone-achievements','✦']
   ];
   for(const [selector,cls,mark] of zones){
     const el=document.querySelector(selector);if(!el)continue;
@@ -421,7 +428,13 @@ function previousWeekAverage(){const dates=currentWeekDates(-1),statuses=dates.m
 function progressBar(label,value,target,icon,extra=''){const pct=Math.min(100,value/target*100);return `<div class="mission-bar"><div class="mission-bar-head"><span>${icon} ${label}</span><strong>${value}/${target}</strong></div><div class="dash-track"><i style="width:${pct}%"></i></div>${extra?`<small>${extra}</small>`:''}</div>`;}
 function renderStats(){
   const status=currentWeekStatus(),prev=previousWeekAverage(),delta=Math.round((status.avgDiscipline-prev)*100),ss=sleepSummary(),series=dayDisciplineSeries(),owned=Object.keys(save.owned).length;
-  document.querySelector('#statsDashboard').innerHTML=`<section class="stats-hero"><div><span class="eyebrow">THIS WEEK</span><strong>${Math.round(status.avgDiscipline*100)}%</strong><p>Discipline ${delta===0?'—':delta>0?`↑ ${delta}% vs last week`:`↓ ${Math.abs(delta)}% vs last week`}</p></div><div class="stats-mini"><span>🗺️ Level ${save.currentLevel}/168</span><span>⚡ ${save.totalXP.toLocaleString()} lifetime XP</span><span>🎴 ${owned}/385 collected</span></div></section><section class="dashboard-card"><div class="section-head"><h3>7-day discipline</h3><span class="mini-badge">Mon–Sun view</span></div><div class="bar-chart">${series.map(x=>`<div class="bar-column"><div class="bar-value">${x.pct}%</div><div class="bar-shell"><i style="height:${Math.max(3,x.pct)}%"></i></div><span>${x.label}</span></div>`).join('')}</div></section><section class="dashboard-grid"><div class="dashboard-card"><h3>Weekly missions</h3>${progressBar('Weights',status.week.weights,4,'🏋️')}${progressBar('Cardio',status.week.cardio,4,'🏃')}${progressBar('Sport',3-status.week.sportDueRemaining,3,'⚽',`${save.sportBank} banked`)}${progressBar('Sauna',status.week.sauna,5,'🧖')}</div><div class="dashboard-card"><h3>Personal records</h3><div class="records-grid"><div><span>✨ Perfect Days</span><strong>${save.achievements.perfectDays}</strong></div><div><span>⭐ Routine Days</span><strong>${save.achievements.perfectRoutineDays}</strong></div><div><span>🏆 Perfect Weeks</span><strong>${save.achievements.perfectWeeks}</strong></div><div><span>🌙 Sleep Weeks</span><strong>${save.achievements.optimalSleepWeeks}</strong></div><div><span>🗺️ Levels</span><strong>${save.currentLevel}/168</strong></div><div><span>📚 Books</span><strong>${save.completedBooks.length}/7</strong></div></div></div></section><section class="dashboard-card"><div class="section-head"><h3>Sleep & recovery</h3><strong>${ss.count?ss.sevenAvg.toFixed(1)+' h':'—'}</strong></div><div class="sleep-dashboard"><div class="sleep-ring" style="--pct:${Math.min(100,ss.sevenAvg/8*100)}"><span>Stage ${stageRoman(ss.stage)}</span></div><div><p><span>Highest stage</span><strong>Stage ${stageRoman(save.sleep.highestStage)}</strong></p><p><span>Recovery sleep</span><strong>${ss.recovery.toFixed(1)} h</strong></p><p><span>Shortfall vs 8h</span><strong>${ss.shortfall.toFixed(1)} h</strong></p></div></div></section>`;
+  document.querySelector('#statsDashboard').innerHTML=`<section class="stats-hero"><div><span class="eyebrow">THIS WEEK</span><strong>${Math.round(status.avgDiscipline*100)}%</strong><p>Discipline ${delta===0?'—':delta>0?`↑ ${delta}% vs last week`:`↓ ${Math.abs(delta)}% vs last week`}</p></div><div class="stats-mini"><span>🗺️ Level ${save.currentLevel}/168</span><span>⚡ ${save.totalXP.toLocaleString()} lifetime XP</span><span>🎴 ${owned}/385 collected</span></div></section><section class="dashboard-card"><div class="section-head"><h3>7-day discipline</h3><span class="mini-badge">Mon–Sun view</span></div><div class="bar-chart">${series.map(x=>`<div class="bar-column"><div class="bar-value">${x.pct}%</div><div class="bar-shell"><i style="height:${Math.max(3,x.pct)}%"></i></div><span>${x.label}</span></div>`).join('')}</div></section><section class="dashboard-grid"><div class="dashboard-card"><h3>Weekly missions</h3>${progressBar('Weights',status.week.weights,4,'🏋️')}${progressBar('Cardio',status.week.cardio,4,'🏃')}${progressBar('Sport',3-status.week.sportDueRemaining,3,'⚽',`${save.sportBank} banked`)}${progressBar('Sauna',status.week.sauna,5,'🧖')}</div><div class="dashboard-card"><h3>Personal records</h3><div class="records-grid"><div><span>✨ Perfect Days</span><strong>${save.achievements.perfectDays}</strong></div><div><span>⭐ Routine Days</span><strong>${save.achievements.perfectRoutineDays}</strong></div><div><span>🏆 Perfect Weeks</span><strong>${save.achievements.perfectWeeks}</strong></div><div><span>🌙 Sleep Weeks</span><strong>${save.achievements.optimalSleepWeeks}</strong></div><div><span>🗺️ Levels</span><strong>${save.currentLevel}/168</strong></div><div><span>📚 Books</span><strong>${save.completedBooks.length}/7</strong></div></div></div></section><section class="dashboard-card"><div class="section-head"><h3>Sleep & recovery</h3><strong>${ss.count?ss.sevenAvg.toFixed(1)+' h':'—'}</strong></div><div class="sleep-dashboard"><div class="sleep-ring" style="--pct:${Math.min(100,ss.sevenAvg/8*100)}"><span>Stage ${stageRoman(ss.stage)}</span></div><div><p><span>Highest stage</span><strong>Stage ${stageRoman(save.sleep.highestStage)}</strong></p><p><span>Recovery sleep</span><strong>${ss.recovery.toFixed(1)} h</strong></p><p><span>Shortfall vs 8h</span><strong>${ss.shortfall.toFixed(1)} h</strong></p></div></div></section>
+  <section class="dashboard-card stats-achievements-archive">
+    <details>
+      <summary><span>🏅</span><div><strong>Achievements archive</strong><small>Optional milestones — not part of your daily score</small></div><b>View</b></summary>
+      <div class="achievement-mini-grid">${achievementChips().map(([ok,icon,name])=>`<div class="achievement-mini ${ok?'earned':''}"><span>${icon}</span><div><strong>${name}</strong><small>${ok?'Earned':'Not yet'}</small></div></div>`).join('')}</div>
+    </details>
+  </section>`;
 }
 
 // ---------- Settings ----------

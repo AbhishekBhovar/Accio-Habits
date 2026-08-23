@@ -1,12 +1,12 @@
-# Harry Potter Fitness RPG — Phase 3.11
+# Harry Potter Fitness RPG — Phase 3.13 Compact Home Header
 
 Changes:
-- Removes streak pressure from the visible app.
-- Replaces the Today "Streak" tile with cumulative Journey progress.
-- Removes Best Streak from Stats and replaces it with Level progress.
-- Gives Story, Weekly Missions, Daily Missions, Recovery and Achievements distinct visual zones.
-- Uses icon/watermark visual breaks now; real Harry Potter imagery can be layered in later.
-- Keeps the Midnight + Gold palette and all XP/save/collectible logic intact.
+- Compresses the top app header and Level/XP block.
+- Turns Level/XP + Today/Journey/Collection into one compact journey module.
+- Keeps all useful status details while removing dashboard-cover-page height.
+- Brings Your Story much higher on the first screen.
+- Tightens the story card so tasks begin sooner.
+- Does not change XP, habits, progression, collectibles, saves, Stats or Settings logic.
 
 Replace:
 - app.js
