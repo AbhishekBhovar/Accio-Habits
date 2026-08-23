@@ -1,5 +1,5 @@
 {
-  "appVersion": "2.0.0-habit-engine",
+  "appVersion": "3.0.0-ux-reward-pass",
   "levels": 168,
   "books": 7,
   "checkpoints": 42,
@@ -36,5 +36,5 @@
   },
   "randomSlotsPerLevel": null,
   "randomSlotsNote": "Not auto-awarded yet: exact per-level random slot count will be wired after play-test balancing. Engine support is scaffolded without allowing infinite farming.",
-  "storageKey": "hpFitnessRpgSave_v2"
+  "storageKey": "hpFitnessRpgSave_v3"
 }

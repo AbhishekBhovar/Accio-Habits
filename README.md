@@ -1,42 +1,33 @@
-# Harry Potter Fitness RPG — PWA Phase 2
+# Harry Potter Fitness RPG — Phase 3 UX Upgrade
 
-Installable GitHub Pages PWA connecting the locked 17-habit fitness/lifestyle system to the 168-level / 385-collectible Harry Potter journey.
+This build consolidates the latest review feedback into one GitHub Pages / iPhone PWA update.
 
-## Phase 2 includes
+## Major changes
+- Weekly Missions → Daily Missions → Sleep order on Today
+- Sauna moved to Weekly Missions: 5 credits/week; 30 min = 1 credit; 60 min = 2 credits with no second same-day XP payment
+- 11 yes/no daily habits in the agreed sequence
+- one-tap habit completion with no Continue popup
+- celebratory Perfect Routine / Perfect Day dashboard state
+- status/reward zone visually separated from mission input zone
+- collectible level-up/reveal animation + generated sound effects
+- Journey rebuilt as a mobile magical map with book regions and 24 nodes per book
+- Collection rebuilt as six themed galleries, then filtered by Year/Book
+- Stats rebuilt as an executive-style visual dashboard with 7-day chart and mission bars
+- Settings cleaned to App/Data/Preferences only
+- reset/test XP tools hidden unless URL includes `?dev=1`
+- network-first service worker cache bumped to v3.0.0
 
-- 14 daily routine/recovery missions worth up to **310 XP/day**
-- Weight training: **4 × 100 XP/week**
-- Cardio: **4 credits × 40 XP/week**; standalone make-up can log 2 credits
-- Sport/outdoor: **3/week**, **50 XP each**, surplus completion credits carry forward
-- Sauna: **35 XP/day**; extra sessions can bank completion credits with **0 extra XP**
-- Sleep: **0–50 XP**, 8–9h optimal, 7-day average, recovery sleep and progression Stages I–V
-- Discipline streak at **≥80%** daily routine score
-- Perfect Routine Day, Perfect Day, Exceptional Day, Perfect Week and Optimal Sleep Week
-- **No streak XP bonuses, no penalties, no loss of Journey progress**
-- 168 story levels, 42 checkpoints, 109,200 saga XP
-- 385 collectible registry and spoiler-safe identities
-- Local save + export/import
-- Network-first service worker cache to make future Home Screen updates safer
+## GitHub update
+Upload/replace these files in the repository root, then commit to `main`:
+- `app.js`
+- `index.html`
+- `styles.css`
+- `service-worker.js`
+- `manifest.webmanifest`
+- `habit-config.json`
+- `README.md`
 
-## Update the live GitHub repo
+Your `levels.json`, `collectibles.json`, `reward-events.json`, `identity-rules.json`, `game-config.json` and icon files do not need replacing for this update.
 
-Upload/replace **all files in this folder** at the repository root and commit to `main`.
-
-Important new file: `habit-config.json`.
-
-The repository remains flat on purpose because that matches the current GitHub upload structure.
-
-## Current design ceiling
-
-The locked theoretical weekly maximum is **2,880 XP**:
-
-- Daily routine: 310 × 7 = 2,170
-- Weights: 400
-- Cardio: 160
-- Sport/outdoor: 150
-
-No artificial weekly or streak XP bonuses are added.
-
-## Next phase
-
-Finalize automatic random collectible slot cadence, Book Complete discovery chooser, card art and reveal/evolution animations.
+## Artwork
+This build uses themed illustrated placeholders/sigils for collectible cards. Real collectible artwork can be added later without changing the progression engine.

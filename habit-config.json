@@ -1,27 +1,26 @@
 {
-  "version": 2,
-  "dailyMaxXP": 310,
-  "weeklyMaxXP": 2880,
+  "version": 3,
+  "dailyMaxXP": 265,
+  "weeklyMaxXP": 2740,
   "dailyHabits": [
-    {"id":"fruit","icon":"🍎","name":"Fruit","xp":10,"rule":"Eat 1 fruit","group":"Nutrition"},
-    {"id":"deepBreathing","icon":"🌬️","name":"Deep Breathing","xp":10,"rule":"20 deep breaths","group":"Wellbeing"},
-    {"id":"relaxFun","icon":"🎬","name":"Relax & Fun","xp":10,"rule":"Excursion, movie or in-person game","group":"Wellbeing"},
+    {"id":"proteinCreatine","icon":"🥛","name":"Protein + Creatine Smoothie","xp":25,"rule":"Complete your protein + creatine smoothie","group":"Nutrition"},
+    {"id":"supplements","icon":"💊","name":"Supplements","xp":30,"rule":"Complete supplement routine","group":"Routine"},
     {"id":"morningWaters","icon":"🥤","name":"Morning Waters","xp":15,"rule":"Drink the chia + fennel + sultana morning water","group":"Routine"},
     {"id":"ccfTea","icon":"🍵","name":"CCF Tea","xp":15,"rule":"Boil and drink the cup","group":"Routine"},
-    {"id":"nuts","icon":"🌰","name":"Soaked Walnuts & Almonds","xp":15,"rule":"Wash and eat","group":"Nutrition"},
-    {"id":"stretch","icon":"🤸","name":"Stretching","xp":15,"rule":"At least 5 minutes","group":"Mobility"},
-    {"id":"proteinCreatine","icon":"🥛","name":"Protein + Creatine","xp":25,"rule":"Complete your protein + creatine serve","group":"Nutrition"},
+    {"id":"almonds","icon":"🌰","name":"Soaked Almonds","xp":15,"rule":"Wash and eat soaked almonds","group":"Nutrition"},
     {"id":"healthyLunch","icon":"🥗","name":"Healthy Lunch","xp":25,"rule":"Healthy meal with vegetables/salad + protein","group":"Nutrition"},
-    {"id":"healthyDinner","icon":"🥗","name":"Healthy Dinner","xp":25,"rule":"Healthy meal with vegetables/salad + protein","group":"Nutrition"},
-    {"id":"supplements","icon":"💊","name":"Supplements","xp":30,"rule":"Complete supplement routine","group":"Routine"},
     {"id":"water","icon":"💧","name":"2.2 L Water","xp":30,"rule":"Reach 2.2 litres","group":"Hydration"},
-    {"id":"sauna","icon":"🧖","name":"Sauna","xp":35,"rule":"At least 30 minutes; first qualifying session of the day earns XP","group":"Recovery","bankableCompletion":true},
+    {"id":"relaxFun","icon":"🎬","name":"Relax & Fun","xp":10,"rule":"Meaningful relaxation, excursion, movie or in-person game","group":"Wellbeing"},
+    {"id":"healthyDinner","icon":"🥗","name":"Healthy Dinner","xp":25,"rule":"Healthy meal with vegetables/salad + protein","group":"Nutrition"},
+    {"id":"deepBreathing","icon":"🌬️","name":"Deep Breaths","xp":10,"rule":"20 deep breaths","group":"Wellbeing"},
+    {"id":"stretch","icon":"🤸","name":"Stretching","xp":15,"rule":"At least 5 minutes","group":"Mobility"},
     {"id":"sleep","icon":"😴","name":"Sleep","xp":50,"rule":"8–9 hours is optimal; proportional XP from 4–8 h","group":"Recovery","input":"sleep"}
   ],
   "weeklyMissions": [
     {"id":"weights","icon":"🏋️","name":"Gym Weight Lifting","xpPerCredit":100,"target":4,"creditType":"session","rule":"Complete a qualifying weights workout","carryover":false,"maxXpCredits":4},
     {"id":"cardio","icon":"🏃","name":"Incline Walk / StairMaster","xpPerCredit":40,"target":4,"creditType":"credit","rule":"After weights: 1 km incline or 250 stairs = 1 credit. Standalone/make-up: 2 km or 500 stairs = 2 credits.","carryover":false,"maxXpCredits":4},
-    {"id":"sport","icon":"⚽","name":"Sport / Outdoor Activity","xpPerCredit":50,"target":3,"creditType":"activity","rule":"Each separate qualifying activity of at least 1 hour earns 1 credit + 50 XP","carryover":true,"maxXpCredits":null}
+    {"id":"sport","icon":"⚽","name":"Sport / Outdoor Activity","xpPerCredit":50,"target":3,"creditType":"activity","rule":"Each separate qualifying activity of at least 1 hour earns 1 credit + 50 XP","carryover":true,"maxXpCredits":null},
+    {"id":"sauna","icon":"🧖","name":"Sauna","xpPerCredit":35,"target":5,"creditType":"30-minute credit","rule":"30 minutes = 1 weekly credit. 60 minutes = 2 credits, but the second half-hour carries as completion credit and does not pay a second 35 XP.","carryoverWithinWeek":true,"maxXpCredits":5}
   ],
   "sleep": {
     "optimalMinHours": 8,

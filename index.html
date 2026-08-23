@@ -3,108 +3,114 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#211a39">
+  <meta name="theme-color" content="#130e24">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="HP Fitness RPG">
   <title>Harry Potter Fitness RPG</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles.css?v=2.0.0">
+  <link rel="stylesheet" href="./styles.css?v=3.0.0">
 </head>
 <body>
   <div id="app" class="app-shell">
     <header class="topbar">
-      <div><div class="eyebrow">FITNESS • LIFESTYLE • JOURNEY</div><h1>Harry Potter Fitness RPG</h1></div>
+      <div>
+        <div class="eyebrow">FITNESS • LIFESTYLE • JOURNEY</div>
+        <h1>Harry Potter Fitness RPG</h1>
+      </div>
       <span id="networkBadge" class="badge">Loading…</span>
     </header>
 
     <main>
       <section id="view-today" class="view active">
-        <div class="hero card compact-hero">
-          <div class="hero-row">
-            <div><span class="eyebrow" id="bookLabel">Before Hogwarts</span><h2 id="levelTitle">Level 0</h2><p id="storyBeat">Your journey is ready to begin.</p></div>
-            <div class="level-orb" id="levelOrb">0</div>
+        <section id="statusZone" class="status-zone">
+          <div class="hero card compact-hero">
+            <div class="hero-row">
+              <div>
+                <span class="eyebrow" id="bookLabel">Before Hogwarts</span>
+                <h2 id="levelTitle">Level 0</h2>
+                <p id="storyBeat">Your journey is ready to begin.</p>
+              </div>
+              <div class="level-orb" id="levelOrb">0</div>
+            </div>
+            <div class="progress-track"><div id="xpBar" class="progress-fill"></div></div>
+            <div class="progress-meta"><span id="xpText">0 / 500 XP</span><span id="checkpointText">Checkpoint 1</span></div>
           </div>
-          <div class="progress-track"><div id="xpBar" class="progress-fill"></div></div>
-          <div class="progress-meta"><span id="xpText">0 / 500 XP</span><span id="checkpointText">Checkpoint 1</span></div>
-        </div>
 
-        <div class="grid three summary-grid">
-          <div class="card stat"><span>Today</span><strong id="todayScore">0%</strong><small id="todayXp">0 XP</small></div>
-          <div class="card stat"><span>Discipline streak</span><strong id="streakText">0 🔥</strong><small id="bestStreakText">Best 0</small></div>
-          <div class="card stat"><span>Owned</span><strong id="ownedCount">0 / 385</strong><small id="sagaPct">0.0% saga</small></div>
-        </div>
-
-        <div class="card">
-          <div class="section-head"><div><span class="eyebrow">TODAY'S ROUTINE</span><h3 id="todayDateLabel">Daily missions</h3></div><span id="routineBadge" class="mini-badge">0 / 14</span></div>
-          <div id="dailyHabitList" class="habit-list"></div>
-        </div>
-
-        <div class="card sleep-card">
-          <div class="section-head"><div><span class="eyebrow">RECOVERY</span><h3>Sleep</h3></div><strong id="sleepXpPreview">0 / 50 XP</strong></div>
-          <p class="muted">8–9 hours remains the optimal target. Naps help your recovery balance but do not rewrite the night's score.</p>
-          <div class="sleep-input-row">
-            <label>Main sleep<input id="sleepHours" type="number" inputmode="decimal" min="0" max="16" step="0.25" placeholder="e.g. 6.5"></label>
-            <label>Nap / recovery<input id="napHours" type="number" inputmode="decimal" min="0" max="8" step="0.25" placeholder="e.g. 1"></label>
+          <div id="victoryBanner" class="victory-banner" hidden>
+            <div class="victory-spark">✦</div>
+            <div><span class="eyebrow">DAILY VICTORY</span><h3 id="victoryTitle">Perfect Day</h3><p id="victoryText"></p></div>
+            <div class="victory-seal">✓</div>
           </div>
-          <button id="saveSleep" class="primary wide">Save sleep</button>
-          <div class="sleep-mini-stats"><span id="sleep7Day">7-day avg: —</span><span id="sleepStage">Stage I</span><span id="sleepHighest">Highest: I</span></div>
-        </div>
 
-        <div class="card">
-          <div class="section-head"><div><span class="eyebrow">WEEKLY MISSIONS</span><h3>This week</h3></div><span id="weekLabel" class="mini-badge"></span></div>
-          <div id="weeklyMissionList" class="weekly-list"></div>
-        </div>
+          <div class="status-summary">
+            <div class="status-kpi"><span>Today</span><strong id="todayScore">0%</strong><small id="todayXp">0 XP</small></div>
+            <div class="status-kpi"><span>Streak</span><strong id="streakText">0 🔥</strong><small id="bestStreakText">Best 0</small></div>
+            <div class="status-kpi"><span>Collection</span><strong id="ownedCount">0 / 385</strong><small id="sagaPct">0.0% saga</small></div>
+          </div>
+        </section>
 
-        <div class="card achievement-card">
-          <div class="section-head"><div><span class="eyebrow">TODAY'S STATUS</span><h3>Consistency achievements</h3></div></div>
+        <section class="action-zone">
+          <div class="zone-heading"><span class="eyebrow">WEEKLY MISSIONS</span><h2>Build your week</h2><p>Complete the bigger missions first. Credits reset each Monday unless explicitly banked.</p></div>
+          <div class="card mission-panel">
+            <div class="section-head"><h3>This week</h3><span id="weekLabel" class="mini-badge"></span></div>
+            <div id="weeklyMissionList" class="weekly-list"></div>
+          </div>
+
+          <div class="zone-heading daily-heading"><span class="eyebrow">DAILY MISSIONS</span><h2>Today’s routine</h2><p>One tap marks a mission complete and awards its XP instantly.</p></div>
+          <div class="card mission-panel daily-panel">
+            <div class="section-head"><div><h3 id="todayDateLabel">Daily missions</h3><small class="muted">Your routine checklist</small></div><span id="routineBadge" class="mini-badge">0 / 11</span></div>
+            <div id="dailyHabitList" class="habit-list"></div>
+          </div>
+
+          <div class="zone-heading sleep-heading"><span class="eyebrow">SLEEP</span><h2>Recovery</h2><p>Sleep is scored separately so you can see recovery progress clearly.</p></div>
+          <div class="card sleep-card mission-panel">
+            <div class="section-head"><h3>Sleep</h3><strong id="sleepXpPreview">0 / 50 XP</strong></div>
+            <p class="muted">8–9 hours remains the optimal target. Naps help recovery balance but do not rewrite the night’s score.</p>
+            <div class="sleep-input-row">
+              <label>Main sleep<input id="sleepHours" type="number" inputmode="decimal" min="0" max="16" step="0.25" placeholder="e.g. 6.5"></label>
+              <label>Nap / recovery<input id="napHours" type="number" inputmode="decimal" min="0" max="8" step="0.25" placeholder="e.g. 1"></label>
+            </div>
+            <button id="saveSleep" class="primary wide">Save sleep</button>
+            <div class="sleep-mini-stats"><span id="sleep7Day">7-day avg: —</span><span id="sleepStage">Stage I</span><span id="sleepHighest">Highest: I</span></div>
+          </div>
+        </section>
+
+        <section class="card achievements-home">
+          <div class="section-head"><div><span class="eyebrow">ACHIEVEMENTS</span><h3>Consistency badges</h3></div></div>
           <div id="achievementStatus" class="achievement-grid"></div>
-        </div>
+        </section>
 
-        <div class="card">
+        <section class="card latest-events-card">
           <div class="section-head"><h3>Latest journey events</h3></div>
           <div id="eventLog" class="event-log"><p class="muted">No events yet.</p></div>
-        </div>
+        </section>
       </section>
 
       <section id="view-journey" class="view">
-        <div class="section-head"><div><span class="eyebrow">168 LEVELS</span><h2>Journey</h2></div></div>
-        <div id="journeyList" class="journey-list"></div>
+        <div class="section-head page-title"><div><span class="eyebrow">THE WIZARDING JOURNEY</span><h2>Journey Map</h2><p class="muted">Watch the route illuminate as you progress through all seven books.</p></div></div>
+        <div id="bookTabs" class="book-tabs"></div>
+        <div id="journeyMap" class="journey-map"></div>
+        <div id="journeyNodeDetail" class="journey-node-detail card" hidden></div>
       </section>
 
       <section id="view-collection" class="view">
-        <div class="section-head"><div><span class="eyebrow">385 COLLECTIBLES</span><h2>Collection</h2></div></div>
-        <div class="filter-row">
-          <select id="categoryFilter"><option value="all">All categories</option></select>
-          <select id="rarityFilter"><option value="all">All rarities</option><option>Mythic</option><option>Legendary</option><option>Epic</option><option>Rare</option></select>
-          <select id="statusFilter"><option value="all">All states</option><option value="owned">Owned</option><option value="eligible">Eligible</option><option value="locked">Locked</option></select>
-        </div>
-        <div id="collectionGrid" class="collection-grid"></div>
+        <div class="section-head page-title"><div><span class="eyebrow">385 COLLECTIBLES</span><h2>My Collection</h2><p class="muted">Explore your collection like a magical museum, not an inventory list.</p></div></div>
+        <div id="collectionHub"></div>
       </section>
 
       <section id="view-stats" class="view">
-        <div class="section-head"><div><span class="eyebrow">YOUR PROGRESS</span><h2>Stats</h2></div></div>
-        <div class="grid two">
-          <div class="card stat"><span>Lifetime XP</span><strong id="lifetimeXp">0</strong></div>
-          <div class="card stat"><span>Best streak</span><strong id="statsBestStreak">0 days</strong></div>
-          <div class="card stat"><span>Perfect Routine Days</span><strong id="perfectRoutineCount">0</strong></div>
-          <div class="card stat"><span>Perfect Days</span><strong id="perfectDayCount">0</strong></div>
-        </div>
-        <div class="card"><h3>Current week</h3><div id="weekStats" class="stat-lines"></div></div>
-        <div class="card"><h3>Sleep progression</h3><div id="sleepStats" class="stat-lines"></div></div>
-        <div class="card"><h3>Philosophy</h3><p class="quote">A bad day can interrupt momentum. It cannot erase progress.</p><p class="muted">XP, Journey progress, collected cards and achieved sleep stages never disappear because of a bad day.</p></div>
+        <div class="section-head page-title"><div><span class="eyebrow">YOUR PERFORMANCE</span><h2>Stats Dashboard</h2><p class="muted">A quick read on consistency, training and progress.</p></div></div>
+        <div id="statsDashboard"></div>
       </section>
 
       <section id="view-settings" class="view">
-        <div class="section-head"><div><span class="eyebrow">DEVICE & SAVE</span><h2>Settings</h2></div></div>
-        <div class="card"><h3>Installed app</h3><p id="installState" class="muted"></p><p class="muted">Future app updates should install automatically after reopening; the cache now uses a network-first update strategy.</p></div>
-        <div class="card"><h3>Save backup</h3><div class="settings-buttons"><button id="exportSave">Export save</button><label class="button-like">Import save<input id="importSave" type="file" accept="application/json" hidden></label></div></div>
-        <div class="card"><h3>Sauna completion bank</h3><p class="muted">An extra qualifying sauna session can be banked as a future completion credit, but earns no second XP payment.</p><div class="bank-row"><strong id="saunaBankText">0 credits</strong><button id="addSaunaBank">Bank extra session</button><button id="useSaunaBank">Use credit today</button></div></div>
-        <div class="card"><h3>Sport / Outdoor Adventure Bank</h3><p class="muted">Surplus ≥1-hour activities carry forward toward future weekly targets. XP is awarded only when the activity is actually performed.</p><strong id="sportBankSettings">0 credits banked</strong></div>
-        <div class="card danger"><h3>Development tools</h3><p class="muted">Temporary while we build. XP tester does not affect habit history.</p><div class="xp-controls"><button data-xp="100">+100 XP</button><button data-xp="300">+300 XP</button><button data-xp="500">+500 XP</button></div></div>
-        <div class="card danger"><h3>Reset all local progress</h3><button id="resetSave">Reset all local progress</button></div>
-        <div class="card"><h3>Build status</h3><p><strong>Phase 2:</strong> 17-habit engine + weekly missions + sleep progression + streaks + achievements + 168-level Journey.</p><p class="muted">Next build: random collectible cadence, book-completion chooser, card art/reveal animations.</p></div>
+        <div class="section-head page-title"><div><span class="eyebrow">APP & DATA</span><h2>Settings</h2><p class="muted">Only configuration and backup tools live here.</p></div></div>
+        <div class="card settings-card"><h3>Installed app</h3><p id="installState" class="muted"></p><p class="muted">Updates use a network-first cache and should refresh after reopening the app.</p></div>
+        <div class="card settings-card"><div class="settings-line"><div><h3>Sound effects</h3><p class="muted">Reward chimes for level-ups, discoveries and major achievements.</p></div><button id="soundToggle" class="toggle-button">On</button></div></div>
+        <div class="card settings-card"><h3>Save backup</h3><p class="muted">Export a backup before major updates or moving devices.</p><div class="settings-buttons"><button id="exportSave">Export save</button><label class="button-like">Import save<input id="importSave" type="file" accept="application/json" hidden></label></div></div>
+        <div id="devTools" class="card danger" hidden><h3>Testing tools</h3><p class="muted">Visible only when the app is opened with <code>?dev=1</code>.</p><div class="xp-controls"><button data-xp="100">+100 XP</button><button data-xp="300">+300 XP</button><button data-xp="500">+500 XP</button></div><button id="resetSave" class="danger-button">Reset TEST save</button></div>
       </section>
     </main>
 
@@ -117,8 +123,20 @@
     </nav>
   </div>
 
-  <dialog id="levelDialog"><div class="dialog-inner"><span class="eyebrow">LEVEL UP</span><h2 id="dialogTitle"></h2><p id="dialogStory"></p><div id="dialogRewards"></div><button id="closeDialog">Continue</button></div></dialog>
-  <dialog id="missionDialog"><div class="dialog-inner"><span class="eyebrow">MISSION COMPLETE</span><h2 id="missionDialogTitle"></h2><p id="missionDialogText"></p><button id="closeMissionDialog">Continue</button></div></dialog>
-  <script type="module" src="./app.js?v=2.0.0"></script>
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <div id="revealOverlay" class="reveal-overlay" hidden>
+    <div class="reveal-particles" aria-hidden="true">✦ · ✧ · ✦ · ✧ · ✦</div>
+    <div class="reveal-panel">
+      <span id="revealEyebrow" class="eyebrow">LEVEL UP</span>
+      <div id="revealArt" class="reveal-art">⚡</div>
+      <div id="revealRarity" class="reveal-rarity"></div>
+      <h2 id="revealTitle"></h2>
+      <p id="revealText"></p>
+      <div class="reveal-actions"><button id="revealNext" class="primary">Continue</button><button id="revealSkip" class="ghost-button">Skip all</button></div>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js?v=3.0.0"></script>
 </body>
 </html>
