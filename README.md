@@ -1,31 +1,28 @@
-# Harry Potter Fitness RPG — Phase 3.24 Final Review Consolidation
+# Harry Potter Fitness RPG — Phase 3.25 Clear Roles + Activity Stats
 
 TODAY
-- Removes the redundant Book/Level dashboard completely.
-- Today is now: Your Story → Weekly Missions → Daily Missions → Sleep.
-- Sport turns green at 3/3 while keeping + Activity available.
-- Completed weekly rows rely on green + checkmark; “Completed today” text is removed.
+- Keeps only the knowledge earned at your current level plus your real-world missions.
+- Current story label is now “Knowledge Unlocked”.
+- Sport + Activity is disabled once 3/3 is complete, matching completed Sauna controls.
 
 JOURNEY
-- Typographic hierarchy cleaned up: fewer oversized headings.
-- Story-opening text uses italic/weight rather than another giant headline.
-- “What Harry Knows” rewritten clearly.
-- “What Remains Mysterious” rewritten clearly.
+- No longer duplicates the current story by default.
+- Journey is now a visual progression/archive screen.
+- Shows your position within the current four-level chapter.
+- The next level is deliberately hidden: only XP remaining and the promise of new story knowledge/discoveries are shown.
+- Completed/unlocked levels can be tapped to review information you already earned.
+- Level review also shows collectibles discovered at that level.
 
 COLLECTION
-- Category pages are refit for iPhone 16 Pro.
-- Compact category hero.
-- All 7 year buttons fit without clipping (4 + 3 grid).
-- Collection cards begin higher on the screen.
+- Main Collection page can no longer overflow sideways.
+- Category doors are one full-width column on iPhone.
+- Recently Discovered is the only horizontal carousel and supports native touch swiping.
+- Category sub-pages remain phone-safe.
 
 STATS
-- Rebuilt as an RPG progress page rather than a business dashboard.
-- Weekly victory hero.
-- Magical 7-day XP trail.
-- Weekly quest rings.
-- Wizarding adventure route.
-- Compact recovery card.
-- Milestones remain optional at the bottom.
+- Stats is now exclusively about real-world activities and recovery.
+- Removes Journey, Collection, books, discoveries and wizarding-world metrics.
+- Shows weekly activity rings, 7-day daily mission history, 7-day sleep/recovery history, and activity XP.
 
 Replace:
 - app.js

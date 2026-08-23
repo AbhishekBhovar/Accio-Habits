@@ -2437,3 +2437,165 @@ body{font-size:14px!important}
   .compact-year-tabs{grid-template-columns:repeat(4,minmax(0,1fr))!important}
   .museum-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
+
+
+/* ==========================================================
+   Phase 3.25 — Clear Roles + Activity-Only Stats
+   ========================================================== */
+
+html,body{max-width:100%;overflow-x:hidden!important}
+.view,#collectionHub,#journeyMap,#statsDashboard{max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
+
+/* SPORT: completed target behaves like completed Sauna controls */
+.weekly-mission.done-today #logSport:disabled{
+  opacity:.42!important;
+  filter:saturate(.45)!important;
+  cursor:default!important;
+  pointer-events:none!important;
+}
+
+/* TODAY: knowledge is the reward; keep this compact. */
+.current-story .story-preview-top small{font-size:10px!important;letter-spacing:.13em!important;color:#ffd45c!important}
+.current-story .story-hook{font-size:15px!important;line-height:1.42!important}
+.current-story .current-mystery{padding:11px 13px!important}
+.current-story .current-mystery strong{font-size:14px!important}
+
+/* JOURNEY: map/archive, not a second Today story page */
+.journey-book-simple{
+  display:grid!important;
+  grid-template-columns:72px 1fr!important;
+  gap:11px!important;
+  align-items:center!important;
+  padding:12px!important;
+}
+.journey-book-simple .journey-book-art{height:68px!important;min-height:68px!important}
+.journey-book-simple h2{font-size:22px!important;margin:0 0 3px!important}
+.journey-book-simple>div>span{font-size:11px!important;color:#c7c1ba!important}
+.journey-position-card,.journey-reveal-lock,.journey-archive-card{
+  width:100%!important;min-width:0!important;box-sizing:border-box!important;
+  margin-top:10px!important;padding:13px!important;border-radius:17px!important;
+}
+.journey-position-card{
+  background:linear-gradient(135deg,#211d18,#171e28)!important;
+  border:1px solid #826c48!important;
+}
+.position-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.position-head h3{font-size:18px!important;margin:3px 0 0!important}
+.position-head>strong{
+  width:38px;height:38px;display:grid;place-items:center;border-radius:50%;
+  background:#b7284e;border:2px solid #ffd45c;color:#fff8e8;font-size:17px;
+}
+.journey-visual-route{display:flex;align-items:flex-start;margin-top:14px;min-width:0}
+.journey-level-node{width:54px;flex:0 0 54px;display:grid;justify-items:center;gap:5px}
+.journey-level-node i{
+  width:34px;height:34px;display:grid;place-items:center;border-radius:50%;font-style:normal;
+  background:#1a202a;border:2px solid #596273;color:#d9dce0;font-size:12px;
+}
+.journey-level-node small{font-size:7px;line-height:1.1;text-align:center;color:#8f98a6;letter-spacing:.05em}
+.journey-level-node.done i{background:#715b20;border-color:#ffd45c;color:#fff4c5}
+.journey-level-node.current i{background:#b7284e;border-color:#ffd45c;box-shadow:0 0 14px rgba(255,212,92,.28)}
+.journey-level-node.current small{color:#ffd45c}
+.journey-node-link{height:3px;flex:1;min-width:8px;background:#3e4653;margin-top:16px;border-radius:4px}
+.journey-reveal-lock{
+  display:grid;grid-template-columns:42px 1fr 28px;gap:10px;align-items:center;
+  background:linear-gradient(120deg,#301e2a,#191f29)!important;border:1px solid #7c4357!important;
+}
+.reveal-lock-icon{font-size:27px;color:#ffd45c;text-align:center;animation:softTwinkle 2.6s ease-in-out infinite}
+.journey-reveal-lock h3{font-size:18px!important;margin:3px 0!important;color:#ffd45c!important}
+.journey-reveal-lock p{font-size:11px!important;line-height:1.35!important;margin:0!important;color:#cbc4bd!important}
+.lock-mark{font-size:18px;opacity:.7}
+.journey-archive-card{background:#151c25!important;border:1px solid #465263!important}
+.journey-archive-card .section-head{align-items:end!important;margin-bottom:8px!important}
+.journey-archive-card .section-head h3{font-size:18px!important;margin:2px 0!important}
+.journey-archive-card .section-head>small{font-size:9px!important;color:#9da5af!important;text-align:right;max-width:120px}
+.journey-level-archive{display:grid;grid-template-columns:1fr;gap:6px}
+.journey-review-level{
+  width:100%;min-width:0;display:grid;grid-template-columns:36px 1fr auto;gap:9px;align-items:center;
+  padding:9px;border:1px solid #3e4857;border-radius:11px;background:#1d2430;color:#fff8e8;text-align:left;
+}
+.journey-review-level>b{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:#323846;font-size:12px}
+.journey-review-level>span{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.journey-review-level>small{font-size:8px;color:#aeb4bd}
+.journey-review-level.current{border-color:#b74764;background:#2b1d27}
+.journey-review-level.current>b{background:#b7284e;border:1px solid #ffd45c}
+#journeyArchiveDetail{margin-top:8px}
+.journey-earned-detail{padding:12px;border-radius:13px;background:#211922;border:1px solid #865269}
+.journey-earned-detail h3{font-size:17px!important;margin:4px 0 6px!important}
+.journey-earned-detail>p{font-size:12px!important;line-height:1.4!important;margin:0!important;color:#ddd0c4!important}
+.earned-discoveries{margin-top:10px;padding-top:9px;border-top:1px solid rgba(255,212,92,.18)}
+.earned-discoveries>small,.no-discoveries{font-size:8px!important;color:#ffd45c!important;letter-spacing:.1em}
+.earned-discoveries>div{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.earned-discoveries>div>span{font-size:9px;padding:5px 7px;border-radius:999px;background:#2b303a;border:1px solid #4a5260}
+.journey-book-locked{padding:20px;text-align:center;display:grid;justify-items:center;gap:4px;color:#b7bdc5}
+.journey-book-locked>span{font-size:28px}.journey-book-locked strong{font-size:14px}.journey-book-locked small{font-size:10px}
+
+/* COLLECTION: only recent unlocks scroll sideways. The page itself NEVER does. */
+#view-collection,#collectionHub,.archive-hub{width:100%!important;max-width:100%!important;min-width:0!important;overflow-x:hidden!important;box-sizing:border-box!important}
+.archive-hub{padding-left:0!important;padding-right:0!important}
+.archive-hero{width:100%!important;max-width:100%!important;box-sizing:border-box!important;margin-left:0!important;margin-right:0!important}
+.recent-section{width:100%!important;max-width:100%!important;min-width:0!important;overflow:visible!important}
+.recent-section .section-head{padding-left:2px!important;padding-right:2px!important}
+.recent-shelf,
+.recent-shelf.compact{
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  display:flex!important;gap:8px!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  -webkit-overflow-scrolling:touch!important;touch-action:pan-x!important;
+  overscroll-behavior-x:contain!important;scroll-snap-type:x proximity!important;
+  padding:2px 16px 9px 1px!important;
+}
+.recent-mini{
+  flex:0 0 132px!important;width:132px!important;min-width:132px!important;max-width:132px!important;
+  scroll-snap-align:start!important;box-sizing:border-box!important;
+}
+.archive-doors{
+  display:grid!important;grid-template-columns:1fr!important;gap:8px!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+}
+.archive-door{
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  grid-template-columns:62px minmax(0,1fr) 22px!important;box-sizing:border-box!important;
+  padding:10px!important;
+}
+.archive-door-art{width:56px!important;min-width:56px!important;height:56px!important}
+.archive-door h3{font-size:15px!important;line-height:1.15!important;white-space:normal!important;overflow-wrap:anywhere!important}
+.archive-door>div:nth-child(2){min-width:0!important}
+.archive-door>b{position:static!important;justify-self:end!important}
+.compact-gallery-hero,.compact-year-tabs,.compact-gallery-year,.museum-grid{max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
+.museum-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.museum-card{min-width:0!important;max-width:100%!important;overflow:hidden!important}
+
+/* STATS: exclusively real-world activities/recovery. */
+#view-stats>h2{font-size:27px!important;margin-bottom:3px!important}
+#view-stats>h2+p{font-size:12px!important;line-height:1.4!important;margin-bottom:10px!important}
+.activity-stats-hero{
+  padding:16px;border-radius:19px;border:2px solid #d2a23f;
+  background:linear-gradient(135deg,#4c162c,#25202a 58%,#3a2c13);
+}
+.activity-stats-hero h3{font-size:22px;margin:4px 0 12px}
+.activity-hero-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.activity-hero-grid>div{padding:9px 6px;border-radius:11px;background:rgba(17,21,28,.65);border:1px solid rgba(255,212,92,.22);text-align:center}
+.activity-hero-grid span,.activity-hero-grid strong{display:block}
+.activity-hero-grid span{font-size:8.5px;line-height:1.2;color:#d9cbbb}
+.activity-hero-grid strong{font-size:18px;margin-top:3px;color:#fff8e8}
+.daily-history-card,.sleep-history-card,.activity-xp-card{margin-top:11px!important}
+.daily-history-chart,.sleep-history-chart{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;align-items:end;margin-top:9px}
+.daily-history-day,.sleep-history-day{display:grid;justify-items:center;gap:3px}
+.daily-history-bar,.sleep-history-bar{height:100px;width:100%;max-width:42px;position:relative;border:1px solid #424c5b;border-radius:10px;background:#11161d;overflow:hidden}
+.daily-history-bar>i,.sleep-history-bar>i{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,#ffd45c,#b72b4e);border-radius:8px 8px 5px 5px}
+.daily-history-bar>i.empty,.sleep-history-bar>i.empty{background:#343b46;opacity:.55}
+.daily-history-day>b,.sleep-history-day>b{font-size:8px;color:#e1d8ce}
+.daily-history-day>small,.sleep-history-day>small{font-size:9px;color:#aeb5be}
+.sleep-target-copy{font-size:10px;color:#c4c8cf;margin-top:-2px;margin-bottom:5px}.sleep-target-copy b{color:#ffd45c}
+.target-mark{position:absolute;left:0;right:0;height:2px;background:#ffd45c;opacity:.7;z-index:2}
+.quest-progress-card .section-head h3{font-size:19px!important}
+
+@media(max-width:430px){
+  #view-collection{padding-left:12px!important;padding-right:12px!important}
+  .archive-door{grid-template-columns:58px minmax(0,1fr) 18px!important}
+  .recent-mini{flex-basis:128px!important;width:128px!important;min-width:128px!important}
+  .activity-hero-grid{gap:5px}.activity-hero-grid strong{font-size:16px}.activity-hero-grid span{font-size:8px}
+  .quest-ring{width:50px!important;height:50px!important}.quest-ring span{font-size:20px!important}
+  .quest-orb strong{font-size:9px!important}.quest-orb small{font-size:8px!important}
+  .journey-level-node{width:46px;flex-basis:46px}.journey-level-node i{width:31px;height:31px}
+}

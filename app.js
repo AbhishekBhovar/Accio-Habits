@@ -1,7 +1,7 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '3.24.0';
+const APP_VERSION = '3.25.0';
 const PARAMS = new URLSearchParams(location.search);
 const DEV_MODE = PARAMS.get('dev') === '1';
 const FRESH_PREVIEW = PARAMS.get('fresh') === '1';
@@ -303,7 +303,7 @@ function weeklyDoneToday(type){const week=ensureCurrentWeek(),date=localDateKey(
 function renderWeekly(){
   const week=ensureCurrentWeek(),sportDone=3-week.sportDueRemaining;document.querySelector('#weekLabel').textContent=`${prettyDate(weekKey())} – ${weekEndFromKey(weekKey()).toLocaleDateString(undefined,{day:'numeric',month:'short'})}`;
   const row=(icon,title,sub,count,target,done,actions)=>`<div class="weekly-mission ${done||count>=target?'done-today':''}"><div class="weekly-info"><span class="weekly-icon">${icon}</span><div><strong>${done||count>=target?'✓ ':''}${title}</strong><small>${sub}</small><div class="mission-dots">${missionProgressDots(count,target)}</div></div></div><div class="weekly-action"><b>${count}/${target}</b>${actions}</div></div>`;
-  document.querySelector('#weeklyMissionList').innerHTML=`${row('🏋️','Gym','4 sessions • 100 XP each',week.weights,4,weeklyDoneToday('weights'),weeklyDoneToday('weights')?'':`<button id="logWeights" ${week.weights>=4?'disabled':''}>+ Session</button>`)}${row('🏃','Incline Walk / StairMaster','4 sessions • 40 XP each',week.cardio,4,weeklyDoneToday('cardio'),weeklyDoneToday('cardio')?'':`<button id="logCardio" ${week.cardio>=4?'disabled':''}>+ Session</button>`)}${row('⚽','Sport / Outdoor','3 sessions • 50 XP each',sportDone,3,weeklyDoneToday('sport')||sportDone>=3,`<button id="logSport">+ Activity</button>`)}${row('🧖','Sauna','5 sessions × 30 min • 35 XP',week.sauna,5,weeklyDoneToday('sauna')||week.sauna>=5,`<div class="tiny-buttons"><button id="logSauna1" ${week.sauna>=5?'disabled':''}>+30m</button><button id="logSauna2" ${week.sauna>=5?'disabled':''}>+60m</button></div>`)}`;
+  document.querySelector('#weeklyMissionList').innerHTML=`${row('🏋️','Gym','4 sessions • 100 XP each',week.weights,4,weeklyDoneToday('weights'),weeklyDoneToday('weights')?'':`<button id="logWeights" ${week.weights>=4?'disabled':''}>+ Session</button>`)}${row('🏃','Incline Walk / StairMaster','4 sessions • 40 XP each',week.cardio,4,weeklyDoneToday('cardio'),weeklyDoneToday('cardio')?'':`<button id="logCardio" ${week.cardio>=4?'disabled':''}>+ Session</button>`)}${row('⚽','Sport / Outdoor','3 sessions • 50 XP each',sportDone,3,weeklyDoneToday('sport')||sportDone>=3,`<button id="logSport" ${sportDone>=3?'disabled':''}>+ Activity</button>`)}${row('🧖','Sauna','5 sessions × 30 min • 35 XP',week.sauna,5,weeklyDoneToday('sauna')||week.sauna>=5,`<div class="tiny-buttons"><button id="logSauna1" ${week.sauna>=5?'disabled':''}>+30m</button><button id="logSauna2" ${week.sauna>=5?'disabled':''}>+60m</button></div>`)}`;
   const a=document.querySelector('#logWeights');if(a)a.onclick=logWeights;const b=document.querySelector('#logCardio');if(b)b.onclick=logCardio;const c=document.querySelector('#logSport');if(c)c.onclick=logSport;const d=document.querySelector('#logSauna1');if(d)d.onclick=()=>logSauna(1);const e=document.querySelector('#logSauna2');if(e)e.onclick=()=>logSauna(2);
 }
 function achievementChips(){
@@ -429,23 +429,79 @@ function checkpointAccordionHtml(level=Math.max(1,save.currentLevel||1)){
 function homeStoryPreviewHtml(){
   const level=Math.max(1,save.currentLevel||1),row=DATA.levels[level-1],t=storyTeaser(level);
   if(!row)return `<div class="story-preview-complete"><span>⚡</span><strong>Your journey is ready.</strong></div>`;
-  return `<section class="story-preview current-story"><div class="story-preview-top"><span class="story-seal">${t.icon}</span><div><small>CURRENT STORY • LEVEL ${level}</small><h3>${escapeHtml(row.storyBeat)}</h3></div></div><p class="story-hook">${escapeHtml(t.hook)} ${escapeHtml(t.cliff)}</p><div class="current-mystery"><span>CURRENT MYSTERY</span><strong>${escapeHtml(t.mystery)}</strong></div></section>`;
+  return `<section class="story-preview current-story"><div class="story-preview-top"><span class="story-seal">${t.icon}</span><div><small>KNOWLEDGE UNLOCKED • LEVEL ${level}</small><h3>${escapeHtml(row.storyBeat)}</h3></div></div><p class="story-hook">${escapeHtml(t.hook)} ${escapeHtml(t.cliff)}</p><div class="current-mystery"><span>CURRENT MYSTERY</span><strong>${escapeHtml(t.mystery)}</strong></div></section>`;
 }
 
 // ---------- Journey map ----------
 function bookForLevel(level){return Math.min(7,Math.max(1,Math.ceil(level/24)));}
+function journeyArchiveDetailHtml(level){
+  const row=DATA.levels[level-1];if(!row||level>save.currentLevel)return '';
+  const teaser=storyTeaser(level);
+  const discoveries=DATA.collectibles.filter(c=>Number(c.firstEligibleLevel)===Number(level)&&save.owned[c.id]);
+  return `<article class="journey-earned-detail">
+    <span class="eyebrow">LEVEL ${level} • KNOWLEDGE EARNED</span>
+    <h3>${escapeHtml(row.storyBeat)}</h3>
+    <p>${escapeHtml(teaser.hook)}</p>
+    ${discoveries.length?`<div class="earned-discoveries"><small>DISCOVERED AT THIS LEVEL</small><div>${discoveries.map(c=>`<span>${CATEGORY_META[c.category]?.icon||'✦'} ${escapeHtml(visibleName(c))}</span>`).join('')}</div></div>`:`<small class="no-discoveries">No permanent collectible was added at this level.</small>`}
+  </article>`;
+}
 function renderJourney(){
-  if(!ui.journeyBook)ui.journeyBook=bookForLevel(Math.max(1,save.currentLevel));const activeBook=bookForLevel(Math.max(1,save.currentLevel||1));
-  document.querySelector('#bookTabs').innerHTML=Array.from({length:7},(_,i)=>{const b=i+1;return `<button data-book="${b}" class="${ui.journeyBook===b?'active':''}"><span>${b}</span><small>${BOOK_NAMES[b]}</small></button>`;}).join('');document.querySelectorAll('[data-book]').forEach(b=>b.onclick=()=>{ui.journeyBook=Number(b.dataset.book);renderJourney();});
-  const rows=DATA.levels.filter(l=>l.book===ui.journeyBook),map=document.querySelector('#journeyMap'),explored=rows.filter(l=>l.level<=save.currentLevel).length;
-  const currentLevel=Math.max(1,save.currentLevel||1),bookStart=(ui.journeyBook-1)*24+1,withinBook=Math.max(1,Math.min(24,currentLevel-bookStart+1)),cp=Math.max(1,Math.min(6,Math.ceil(withinBook/4))),cpStart=bookStart+(cp-1)*4,cpEnd=cpStart+3,withinCp=Math.max(1,Math.min(4,currentLevel-cpStart+1));
-  const next=nextLevelRow(),nt=next?storyTeaser(next.level):null,passage=storyPassage(currentLevel),nextCp=cp<6?cp+1:null,nextCpStart=nextCp?bookStart+(nextCp-1)*4:null;
-  const route=Array.from({length:4},(_,i)=>`<i class="${i+1<withinCp?'done':i+1===withinCp?'current':''}"><em>${cpStart+i}</em></i>`).join('');
-  const intro=ui.journeyBook===activeBook&&next?`<div class="journey-feature next-story-feature"><div><small>UP NEXT • LEVEL ${next.level}</small><h3>${escapeHtml(next.storyBeat)}</h3><p>${escapeHtml(nt.hook)} ${escapeHtml(nt.cliff)}</p></div><div class="journey-mystery"><span>NEXT MYSTERY</span><strong>${escapeHtml(nt.mystery)}</strong></div><div class="journey-next-xp">${xpRemainingForNext().toLocaleString()} XP to reveal</div></div>`:'';
-  const current=ui.journeyBook===activeBook?`<section class="journey-current-checkpoint"><div class="checkpoint-art placeholder-art">${storyTeaser(currentLevel).icon}<small>LEVEL ART<br>PLACEHOLDER</small></div><div><span class="eyebrow">CURRENT CHAPTER • LEVELS ${cpStart}–${cpEnd}</span><h3>Level ${withinCp} of 4</h3><div class="chapter-route-line">${route}</div><details class="journey-storybook"><summary><span>📖</span><strong>Open current story passage</strong><b>＋</b></summary><div class="journey-storybook-page"><small>FROM THE STORY</small><h4>${escapeHtml(passage.title)}</h4><p>${escapeHtml(passage.passage)}</p><div class="storybook-facts"><div><span>WHAT HARRY KNOWS</span><p>${escapeHtml(passage.knows)}</p></div><div><span>WHAT REMAINS MYSTERIOUS</span><p>${escapeHtml(passage.mystery)}</p></div></div></div></details></div></section>`:'';
-  const nextCheckpoint=ui.journeyBook===activeBook&&nextCp?`<section class="journey-next-checkpoint"><div class="checkpoint-art locked placeholder-art">🔒<small>NEXT<br>CHECKPOINT</small></div><div><span class="eyebrow">NEXT CHECKPOINT • LEVELS ${nextCpStart}–${nextCpStart+3}</span><h3>A hidden chapter</h3><p>Reach Level ${nextCpStart} to reveal what comes next.</p></div></section>`:'';
-  map.style.height='auto';map.innerHTML=`<div class="journey-book-banner compact-book-banner"><div class="journey-book-art">🏰<i>BOOK ART<br>PLACEHOLDER</i></div><div><h2>${escapeHtml(BOOK_NAMES[ui.journeyBook])}</h2><span>${explored}/24 levels explored</span></div><div class="journey-banner-route">${Array.from({length:6},(_,i)=>`<i class="${explored>=(i+1)*4?'done':explored>=i*4&&ui.journeyBook===activeBook?'current':''}"><em>${i+1}</em></i>`).join('')}</div></div>${intro}${current}${nextCheckpoint}`;
-  map.querySelectorAll('.journey-storybook').forEach(d=>{const s=d.querySelector('summary');if(s)s.addEventListener('click',e=>{e.preventDefault();d.open=!d.open;s.querySelector('b').textContent=d.open?'−':'＋';});});const detail=document.querySelector('#journeyNodeDetail');detail.hidden=true;detail.innerHTML='';
+  if(!ui.journeyBook)ui.journeyBook=bookForLevel(Math.max(1,save.currentLevel));
+  const activeBook=bookForLevel(Math.max(1,save.currentLevel||1));
+  const currentLevel=Math.max(1,save.currentLevel||1);
+  const rows=DATA.levels.filter(l=>l.book===ui.journeyBook);
+  const explored=rows.filter(l=>l.level<=save.currentLevel).length;
+  const bookStart=(ui.journeyBook-1)*24+1;
+  const withinBook=Math.max(1,Math.min(24,currentLevel-bookStart+1));
+  const cp=Math.max(1,Math.min(6,Math.ceil(withinBook/4)));
+  const cpStart=bookStart+(cp-1)*4,cpEnd=cpStart+3;
+  const withinCp=Math.max(1,Math.min(4,currentLevel-cpStart+1));
+  const isActive=ui.journeyBook===activeBook;
+  const next=nextLevelRow();
+
+  document.querySelector('#bookTabs').innerHTML=Array.from({length:7},(_,i)=>{const b=i+1;return `<button data-book="${b}" class="${ui.journeyBook===b?'active':''}"><span>${b}</span><small>${BOOK_NAMES[b]}</small></button>`;}).join('');
+  document.querySelectorAll('[data-book]').forEach(b=>b.onclick=()=>{ui.journeyBook=Number(b.dataset.book);renderJourney();});
+
+  const route=Array.from({length:4},(_,i)=>{
+    const absolute=cpStart+i,state=i+1<withinCp?'done':i+1===withinCp?'current':'locked';
+    return `<div class="journey-level-node ${state}"><i>${absolute}</i><small>${state==='current'?'YOU ARE HERE':state==='done'?'UNLOCKED':'LOCKED'}</small></div>`;
+  }).join('<span class="journey-node-link"></span>');
+
+  const unlockedRows=rows.filter(l=>l.level<=save.currentLevel);
+  const archive=unlockedRows.length?unlockedRows.map(l=>`<button class="journey-review-level ${l.level===currentLevel?'current':''}" data-review-level="${l.level}"><b>${l.level}</b><span>${escapeHtml(l.storyBeat)}</span><small>${l.level===currentLevel?'Current level':'Unlocked'}</small></button>`).join(''):`<div class="journey-book-locked"><span>🔒</span><strong>This book is still hidden.</strong><small>Continue your current journey to reach it.</small></div>`;
+
+  const nextReveal=isActive&&next?`<section class="journey-reveal-lock">
+      <div class="reveal-lock-icon">✦</div>
+      <div><span class="eyebrow">NEXT REVEAL • LEVEL ${next.level}</span><h3>${xpRemainingForNext().toLocaleString()} XP remaining</h3><p>New story knowledge and discoveries stay hidden until you unlock the level.</p></div>
+      <span class="lock-mark">🔒</span>
+    </section>`:'';
+
+  const map=document.querySelector('#journeyMap');
+  map.style.height='auto';
+  map.innerHTML=`
+    <section class="journey-book-banner journey-book-simple">
+      <div class="journey-book-art">🏰<i>ARTWORK<br>PLACEHOLDER</i></div>
+      <div><h2>${escapeHtml(BOOK_NAMES[ui.journeyBook])}</h2><span>${explored}/24 levels unlocked</span></div>
+    </section>
+    ${isActive?`<section class="journey-position-card">
+      <div class="position-head"><div><span class="eyebrow">CURRENT CHAPTER • LEVELS ${cpStart}–${cpEnd}</span><h3>Level ${withinCp} of 4</h3></div><strong>${currentLevel}</strong></div>
+      <div class="journey-visual-route">${route}</div>
+    </section>${nextReveal}`:''}
+    <section class="journey-archive-card">
+      <div class="section-head"><div><span class="eyebrow">YOUR STORY ARCHIVE</span><h3>${unlockedRows.length?'Unlocked levels':'Nothing unlocked here yet'}</h3></div><small>Tap a level to revisit what you earned</small></div>
+      <div class="journey-level-archive">${archive}</div>
+      <div id="journeyArchiveDetail" hidden></div>
+    </section>`;
+
+  map.querySelectorAll('[data-review-level]').forEach(btn=>btn.onclick=()=>{
+    const detail=map.querySelector('#journeyArchiveDetail'),level=Number(btn.dataset.reviewLevel);
+    const wasSame=detail.dataset.level===String(level)&&!detail.hidden;
+    detail.hidden=wasSame;
+    if(wasSame)return;
+    detail.dataset.level=String(level);detail.innerHTML=journeyArchiveDetailHtml(level);detail.hidden=false;
+    detail.scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+  const detail=document.querySelector('#journeyNodeDetail');if(detail){detail.hidden=true;detail.innerHTML='';}
 }
 
 function checkpointInlineHtml(cp){
@@ -500,7 +556,7 @@ function renderCollection(){
   document.querySelector('#view-collection')?.classList.add('magical-collection');
   const hub=document.querySelector('#collectionHub'),ownedCards=DATA.collectibles.filter(c=>save.owned[c.id]).sort((a,b)=>(save.owned[b.id].discoveredLevel||0)-(save.owned[a.id].discoveredLevel||0));
   if(!ui.collectionCategory){
-    const recent=ownedCards.slice(0,5);hub.innerHTML=`<section class="archive-hub"><div class="archive-hero"><div><span>THE MAGICAL ARCHIVE</span><h2>${ownedCards.length} <em>/ 385</em></h2><p>Every discovery adds another piece to your wizarding world.</p></div><div class="archive-spark">✦</div></div>${recent.length?`<div class="recent-section compact"><div class="section-head"><h3>✨ Recently discovered</h3><small>Swipe to explore</small></div><div class="recent-shelf compact">${recent.map(recentCollectionCardHtml).join('')}</div></div>`:''}<div class="archive-doors">${Object.entries(CATEGORY_META).map(([cat,m],i)=>{const all=DATA.collectibles.filter(c=>c.category===cat),owned=all.filter(c=>save.owned[c.id]).length;return `<button class="archive-door archive-${i}" data-gallery="${escapeHtml(cat)}"><div class="archive-door-art"><span>${m.icon}</span><i>IMAGE<br>PLACEHOLDER</i></div><div><h3>${m.title}</h3><span>${owned} / ${all.length}</span><div class="gallery-progress"><i style="width:${all.length?owned/all.length*100:0}%"></i></div></div><b>›</b></button>`;}).join('')}</div></section>`;
+    const recent=ownedCards.slice(0,5);hub.innerHTML=`<section class="archive-hub"><div class="archive-hero"><div><span>THE MAGICAL ARCHIVE</span><h2>${ownedCards.length} <em>/ 385</em></h2><p>Every discovery adds another piece to your wizarding world.</p></div><div class="archive-spark">✦</div></div>${recent.length?`<div class="recent-section compact"><div class="section-head"><h3>✨ Recently discovered</h3><small>Recent unlocks</small></div><div class="recent-shelf compact">${recent.map(recentCollectionCardHtml).join('')}</div></div>`:''}<div class="archive-doors">${Object.entries(CATEGORY_META).map(([cat,m],i)=>{const all=DATA.collectibles.filter(c=>c.category===cat),owned=all.filter(c=>save.owned[c.id]).length;return `<button class="archive-door archive-${i}" data-gallery="${escapeHtml(cat)}"><div class="archive-door-art"><span>${m.icon}</span><i>IMAGE<br>PLACEHOLDER</i></div><div><h3>${m.title}</h3><span>${owned} / ${all.length}</span><div class="gallery-progress"><i style="width:${all.length?owned/all.length*100:0}%"></i></div></div><b>›</b></button>`;}).join('')}</div></section>`;
     hub.querySelectorAll('[data-gallery]').forEach(b=>b.onclick=()=>{ui.collectionCategory=b.dataset.gallery;ui.collectionBook=Math.min(7,Math.max(1,bookForLevel(Math.max(1,save.currentLevel))));renderCollection();window.scrollTo({top:0,behavior:'smooth'});});return;
   }
   const cat=ui.collectionCategory,meta=CATEGORY_META[cat],all=DATA.collectibles.filter(c=>c.category===cat),book=ui.collectionBook||1,filtered=all.filter(c=>cardBook(c)===book),owned=all.filter(c=>save.owned[c.id]).length;
@@ -517,67 +573,57 @@ function xpSeries7Days(){
     return {key,label:d.toLocaleDateString(undefined,{weekday:'short'}).slice(0,2),xp};
   });
 }
-function progressBar(label,value,target,icon,extra=''){const pct=Math.min(100,value/target*100);return `<div class="mission-bar"><div class="mission-bar-head"><span>${icon} ${label}</span><strong>${value}/${target}</strong></div><div class="dash-track"><i style="width:${pct}%"></i></div>${extra?`<small>${extra}</small>`:''}</div>`;}
+function dailyMissionSeries7Days(){
+  const today=parseDateKey(localDateKey()),habits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep');
+  return Array.from({length:7},(_,i)=>{const d=addDays(today,i-6),key=localDateKey(d),record=save.daily[key];if(!record)return {key,label:d.toLocaleDateString(undefined,{weekday:'short'}).slice(0,2),done:null,total:habits.length};const done=habits.filter(h=>record.habits?.[h.id]?.completed).length;return {key,label:d.toLocaleDateString(undefined,{weekday:'short'}).slice(0,2),done,total:habits.length};});
+}
+function sleepSeries7Days(){
+  const today=parseDateKey(localDateKey());
+  return Array.from({length:7},(_,i)=>{const d=addDays(today,i-6),key=localDateKey(d),s=save.daily[key]?.sleep;return {key,label:d.toLocaleDateString(undefined,{weekday:'short'}).slice(0,2),hours:s?.mainHours>0?s.mainHours:null,nap:s?.napHours||0};});
+}
 function renderStats(){
-  const status=currentWeekStatus(),ss=sleepSummary(),owned=Object.keys(save.owned).length,series=xpSeries7Days();
-  const dailyHabits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),day=displayDaily(),dailyDone=dailyHabits.filter(h=>day.habits[h.id]?.completed).length;
+  const status=currentWeekStatus(),series=xpSeries7Days(),dailySeries=dailyMissionSeries7Days(),sleepSeries=sleepSeries7Days();
+  const day=displayDaily(),dailyHabits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),dailyDone=dailyHabits.filter(h=>day.habits[h.id]?.completed).length;
   const sportDone=3-status.week.sportDueRemaining,weekKeys=currentWeekDates();
   const weekXP=save.eventLog.filter(e=>e.kind==='xp'&&e.ts&&weekKeys.includes(localDateKey(new Date(e.ts)))).reduce((n,e)=>n+(Number((String(e.title).match(/\+(\d+)\s+XP/)||[])[1])||0),0);
-  const maxXp=Math.max(1,...series.map(x=>x.xp)),sevenTotal=series.reduce((n,x)=>n+x.xp,0);
-  const view=document.querySelector('#view-stats');
-  const title=view?.querySelector('h2');if(title)title.textContent='Stats';
-  const intro=view?.querySelector('h2 + p');if(intro)intro.textContent='Your training journey, glowing a little brighter each week.';
-  const missionOrbs=[
-    ['🏋️','Gym',status.week.weights,4],
-    ['🏃','Incline',status.week.cardio,4],
-    ['⚽','Sport',sportDone,3],
-    ['🧖','Sauna',status.week.sauna,5]
-  ];
-  document.querySelector('#statsDashboard').innerHTML=`
-    <section class="rpg-stats-hero">
-      <div class="victory-spark">✦</div>
-      <span class="eyebrow">THIS WEEK</span>
-      <h3>${dailyDone===dailyHabits.length?'✨ Daily quests conquered':'Your week is unfolding'}</h3>
-      <p><strong>${weekXP.toLocaleString()} XP</strong> earned this week</p>
-      <div class="hero-mini-stats">
-        <div><span>Today</span><b>${dailyDone}/${dailyHabits.length}</b></div>
-        <div><span>Journey</span><b>Lv ${save.currentLevel}</b></div>
-        <div><span>Discoveries</span><b>${owned}</b></div>
-      </div>
-    </section>
+  const weeklyDone=status.week.weights+status.week.cardio+sportDone+status.week.sauna,weeklyTarget=16;
+  const missionOrbs=[['🏋️','Gym',status.week.weights,4],['🏃','Incline',status.week.cardio,4],['⚽','Sport',sportDone,3],['🧖','Sauna',status.week.sauna,5]];
+  const loggedSleep=sleepSeries.filter(x=>x.hours!==null),sleepAvg=loggedSleep.length?loggedSleep.reduce((n,x)=>n+x.hours,0)/loggedSleep.length:0,target=sleepTargetForLevel();
+  const sevenXp=series.reduce((n,x)=>n+x.xp,0),maxXp=Math.max(1,...series.map(x=>x.xp));
 
-    <section class="dashboard-card xp-trail-card">
-      <div class="section-head"><div><span class="eyebrow">XP TRAIL</span><h3>Last 7 days</h3></div><strong>${sevenTotal.toLocaleString()} XP</strong></div>
-      <div class="xp-orb-trail">${series.map((x,i)=>`<div class="xp-orb-day ${x.xp?'lit':''} ${i===6?'today':''}"><span class="xp-orb" style="--power:${Math.max(.18,x.xp/maxXp)}"></span><b>${x.xp||'·'}</b><small>${x.label}</small></div>`).join('')}</div>
+  const view=document.querySelector('#view-stats');
+  const title=view?.querySelector('h2');if(title)title.textContent='Activity Stats';
+  const intro=view?.querySelector('h2 + p');if(intro)intro.textContent='Training, daily habits, sleep and recovery — nothing else.';
+
+  document.querySelector('#statsDashboard').innerHTML=`
+    <section class="activity-stats-hero">
+      <span class="eyebrow">THIS WEEK</span><h3>Your activity dashboard</h3>
+      <div class="activity-hero-grid">
+        <div><span>Weekly sessions</span><strong>${weeklyDone}/${weeklyTarget}</strong></div>
+        <div><span>Daily missions</span><strong>${dailyDone}/${dailyHabits.length}</strong></div>
+        <div><span>Activity XP</span><strong>${weekXP.toLocaleString()}</strong></div>
+      </div>
     </section>
 
     <section class="dashboard-card quest-progress-card">
-      <div class="section-head"><div><span class="eyebrow">WEEKLY QUESTS</span><h3>Your mission board</h3></div></div>
+      <div class="section-head"><div><span class="eyebrow">WEEKLY ACTIVITIES</span><h3>Mission progress</h3></div></div>
       <div class="quest-orb-grid">${missionOrbs.map(([icon,name,value,target])=>{const pct=Math.min(100,value/target*100);return `<div class="quest-orb ${value>=target?'complete':''}"><div class="quest-ring" style="--pct:${pct}"><span>${icon}</span></div><strong>${name}</strong><small>${value}/${target}${value>=target?' ✓':''}</small></div>`}).join('')}</div>
     </section>
 
-    <section class="dashboard-card adventure-stats-card">
-      <div class="section-head"><div><span class="eyebrow">ADVENTURE</span><h3>Your wizarding journey</h3></div></div>
-      <div class="adventure-route">
-        <span class="route-node current">⚡<small>Lv ${save.currentLevel}</small></span>
-        <i></i>
-        <span class="route-node">🏰<small>${Math.max(1,Math.ceil(save.currentLevel/4))}/42 CP</small></span>
-        <i></i>
-        <span class="route-node">🎴<small>${owned}/385</small></span>
-      </div>
-      <div class="adventure-numbers"><div><span>Lifetime XP</span><strong>${save.totalXP.toLocaleString()}</strong></div><div><span>Books complete</span><strong>${save.completedBooks.length}/7</strong></div></div>
+    <section class="dashboard-card daily-history-card">
+      <div class="section-head"><div><span class="eyebrow">DAILY MISSIONS</span><h3>Last 7 days</h3></div></div>
+      <div class="daily-history-chart">${dailySeries.map(x=>`<div class="daily-history-day"><div class="daily-history-bar"><i class="${x.done===null?'empty':''}" style="height:${x.done===null?5:Math.max(8,x.done/x.total*100)}%"></i></div><b>${x.done===null?'—':`${x.done}/${x.total}`}</b><small>${x.label}</small></div>`).join('')}</div>
     </section>
 
-    <section class="dashboard-card recovery-card">
-      <div class="recovery-moon">☾</div>
-      <div><span class="eyebrow">RECOVERY</span><h3>Sleep</h3><p>${ss.count?`${ss.sevenAvg.toFixed(1)} h average across ${ss.count} logged night${ss.count===1?'':'s'}`:'Log sleep to begin your recovery trail.'}</p></div>
+    <section class="dashboard-card sleep-history-card">
+      <div class="section-head"><div><span class="eyebrow">SLEEP</span><h3>Recovery trend</h3></div><strong>${loggedSleep.length?sleepAvg.toFixed(1)+' h avg':'No data yet'}</strong></div>
+      <div class="sleep-target-copy">Current target: <b>${target.toFixed(2).replace(/\.00$/,'').replace(/0$/,'')} h main sleep</b> • 1 h nap</div>
+      <div class="sleep-history-chart">${sleepSeries.map(x=>`<div class="sleep-history-day"><div class="sleep-history-bar"><span class="target-mark" style="bottom:${Math.min(100,target/10*100)}%"></span><i class="${x.hours===null?'empty':''}" style="height:${x.hours===null?4:Math.min(100,x.hours/10*100)}%"></i></div><b>${x.hours===null?'—':x.hours.toFixed(1)}</b><small>${x.label}</small></div>`).join('')}</div>
     </section>
 
-    <section class="dashboard-card stats-achievements-archive">
-      <details>
-        <summary><span>🏅</span><div><strong>Milestones</strong><small>Badges and achievements</small></div><b>View</b></summary>
-        <div class="achievement-mini-grid">${achievementChips().map(([ok,icon,name])=>`<div class="achievement-mini ${ok?'earned':''}"><span>${icon}</span><div><strong>${name}</strong><small>${ok?'Earned':'Locked'}</small></div></div>`).join('')}</div>
-      </details>
+    <section class="dashboard-card xp-trail-card activity-xp-card">
+      <div class="section-head"><div><span class="eyebrow">ACTIVITY XP</span><h3>7-day output</h3></div><strong>${sevenXp.toLocaleString()} XP</strong></div>
+      <div class="xp-orb-trail">${series.map((x,i)=>`<div class="xp-orb-day ${x.xp?'lit':''} ${i===6?'today':''}"><span class="xp-orb" style="--power:${Math.max(.18,x.xp/maxXp)}"></span><b>${x.xp||'·'}</b><small>${x.label}</small></div>`).join('')}</div>
     </section>`;
 }
 
