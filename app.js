@@ -1,7 +1,7 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '3.6.1';
+const APP_VERSION = '3.6.2';
 const DEV_MODE = new URLSearchParams(location.search).get('dev') === '1';
 const CATEGORY_META = {
   'Character': {icon:'🧙',title:'Characters',subtitle:'Witches, wizards, friends and foes'},
@@ -306,6 +306,26 @@ function showJourneyNode(level){const l=DATA.levels[level-1],status=level<save.c
 // ---------- Collection museum ----------
 function cardBook(card){return bookForLevel(card.firstEligibleLevel);}
 function collectionCardHtml(c){const status=cardStatus(c),owned=status==='owned',name=owned?visibleName(c):(status==='eligible'?'Undiscovered':'?'),meta=CATEGORY_META[c.category],art=owned?meta.icon:'✦';return `<article class="museum-card ${status} ${c.rarity}"><div class="museum-art"><span>${art}</span><i>${owned?escapeHtml(name.slice(0,1)):'?'}</i></div><div class="museum-copy"><span class="rarity ${c.rarity}">${c.rarity}</span><h4>${escapeHtml(name)}</h4><p>${owned?`Discovered Lv ${save.owned[c.id].discoveredLevel}`:(status==='eligible'?`Eligible since Lv ${c.firstEligibleLevel}`:'Undiscovered')}</p></div></article>`;}
+function renderCollection(){
+  const hub=document.querySelector('#collectionHub');
+  if(!hub)return;
+  const cards=Array.isArray(DATA.collectibles)?DATA.collectibles:[];
+  const ownedCards=cards.filter(c=>save.owned?.[c.id]);
+  const latest=[...ownedCards].sort((a,b)=>(save.owned[b.id]?.discoveredLevel||0)-(save.owned[a.id]?.discoveredLevel||0)).slice(0,4);
+  const categories=Object.keys(CATEGORY_META);
+  const selected=ui.collectionCategory;
+  if(selected){
+    const meta=CATEGORY_META[selected]||{icon:'✦',title:selected,subtitle:''};
+    const filtered=cards.filter(c=>c.category===selected);
+    const owned=filtered.filter(c=>save.owned?.[c.id]).length;
+    hub.innerHTML=`<button id="collectionBack" class="back-button" type="button">← Collection</button><section class="gallery-hero"><div class="gallery-icon large">${meta.icon}</div><div><span class="eyebrow">${owned} / ${filtered.length} DISCOVERED</span><h2>${escapeHtml(meta.title)}</h2><p>${escapeHtml(meta.subtitle)}</p></div></section><div class="museum-grid">${filtered.map(collectionCardHtml).join('')}</div>`;
+    hub.querySelector('#collectionBack').onclick=()=>{ui.collectionCategory=null;renderCollection();};
+    return;
+  }
+  hub.innerHTML=`<section class="collection-total"><span>YOUR COLLECTION</span><strong>${ownedCards.length} <em>/ ${cards.length}</em></strong></section>${latest.length?`<section class="recent-section"><div class="section-head"><div><span class="eyebrow">LATEST DISCOVERIES</span><h3>Recently unlocked</h3></div></div><div class="recent-shelf">${latest.map(collectionCardHtml).join('')}</div></section>`:''}<section class="gallery-grid">${categories.map(cat=>{const meta=CATEGORY_META[cat],all=cards.filter(c=>c.category===cat),owned=all.filter(c=>save.owned?.[c.id]).length;return `<button class="gallery-door" data-category="${escapeHtml(cat)}" type="button"><span class="gallery-icon">${meta.icon}</span><div><span>${owned} / ${all.length}</span><h3>${escapeHtml(meta.title)}</h3><p>${escapeHtml(meta.subtitle)}</p></div><b>›</b></button>`;}).join('')}</section>`;
+  hub.querySelectorAll('[data-category]').forEach(btn=>btn.onclick=()=>{ui.collectionCategory=btn.dataset.category;renderCollection();});
+}
+
 // ---------- Stats dashboard ----------
 function elapsedWeekDates(){const today=localDateKey();return currentWeekDates().filter(k=>k<=today);}
 function habitWeekStats(){
