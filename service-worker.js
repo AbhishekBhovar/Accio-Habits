@@ -1,5 +1,35 @@
-const CACHE='hp-fitness-rpg-v0.1.0';
-const ASSETS=['./','./index.html','./styles.css','./app.js','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png','./data/levels.json','./data/collectibles.json','./data/reward-events.json','./data/identity-rules.json','./data/game-config.json'];
-self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
-self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
-self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(caches.match(e.request).then(cached=>cached||fetch(e.request).then(res=>{const copy=res.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return res;}).catch(()=>caches.match('./index.html'))));});
+const CACHE='hp-fitness-rpg-v2.0.0';
+const ASSETS=[
+  './','./index.html','./styles.css','./app.js','./manifest.webmanifest',
+  './icon-192.png','./icon-512.png','./apple-touch-icon.png',
+  './levels.json','./collectibles.json','./reward-events.json','./identity-rules.json','./game-config.json','./habit-config.json'
+];
+
+self.addEventListener('install',event=>{
+  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));
+});
+
+self.addEventListener('activate',event=>{
+  event.waitUntil(
+    caches.keys()
+      .then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key))))
+      .then(()=>self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch',event=>{
+  if(event.request.method!=='GET') return;
+  const url=new URL(event.request.url);
+  if(url.origin!==self.location.origin) return;
+
+  // Network-first prevents installed iPhone PWAs from getting stuck on old app/data files.
+  event.respondWith(
+    fetch(event.request)
+      .then(response=>{
+        const copy=response.clone();
+        caches.open(CACHE).then(cache=>cache.put(event.request,copy));
+        return response;
+      })
+      .catch(()=>caches.match(event.request).then(cached=>cached||caches.match('./index.html')))
+  );
+});

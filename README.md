@@ -1,32 +1,42 @@
-# Harry Potter Fitness RPG — PWA Phase 1
+# Harry Potter Fitness RPG — PWA Phase 2
 
-GitHub Pages-ready installable Progressive Web App shell for the 168-level / 385-collectible fitness RPG.
+Installable GitHub Pages PWA connecting the locked 17-habit fitness/lifestyle system to the 168-level / 385-collectible Harry Potter journey.
 
-## Included
-- 168 canonical story levels and 42 checkpoints
-- 385 collectible registry
-- spoiler-safe identity rules data
-- offline service worker + PWA manifest
-- iPhone Home Screen standalone mode
-- local-device save state
-- Journey and Collection screens
-- development XP tester
-- save export/import
+## Phase 2 includes
 
-## GitHub Pages deployment
-1. Create a new GitHub repository (for example `harry-potter-fitness-rpg`).
-2. Upload **all files and folders from this package to the repository root**.
-3. Commit to `main`.
-4. In GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-5. Open the deployed Pages URL once in Safari.
-6. iPhone: **Share → Add to Home Screen**.
+- 14 daily routine/recovery missions worth up to **310 XP/day**
+- Weight training: **4 × 100 XP/week**
+- Cardio: **4 credits × 40 XP/week**; standalone make-up can log 2 credits
+- Sport/outdoor: **3/week**, **50 XP each**, surplus completion credits carry forward
+- Sauna: **35 XP/day**; extra sessions can bank completion credits with **0 extra XP**
+- Sleep: **0–50 XP**, 8–9h optimal, 7-day average, recovery sleep and progression Stages I–V
+- Discipline streak at **≥80%** daily routine score
+- Perfect Routine Day, Perfect Day, Exceptional Day, Perfect Week and Optimal Sleep Week
+- **No streak XP bonuses, no penalties, no loss of Journey progress**
+- 168 story levels, 42 checkpoints, 109,200 saga XP
+- 385 collectible registry and spoiler-safe identities
+- Local save + export/import
+- Network-first service worker cache to make future Home Screen updates safer
 
-The app's `manifest.webmanifest` uses `display: standalone`, so launching from the Home Screen removes the normal Safari tab/address-bar experience.
+## Update the live GitHub repo
 
-## Important Phase-1 limitation
-The exact automatic **random discovery slot cadence per level** has intentionally not been invented. The engine and data support the locked rarity/pity rules, but no unlimited Claim button is exposed. We should set/validate the slot cadence during Year-1 play testing before enabling automatic RNG rewards.
+Upload/replace **all files in this folder** at the repository root and commit to `main`.
 
-## Next implementation phase
-Connect the Daily Habits / XP system to `addXP()` and replace the development XP buttons. Then add collectible artwork and polished level-up/revelation animations.
+Important new file: `habit-config.json`.
 
-deployment refresh
+The repository remains flat on purpose because that matches the current GitHub upload structure.
+
+## Current design ceiling
+
+The locked theoretical weekly maximum is **2,880 XP**:
+
+- Daily routine: 310 × 7 = 2,170
+- Weights: 400
+- Cardio: 160
+- Sport/outdoor: 150
+
+No artificial weekly or streak XP bonuses are added.
+
+## Next phase
+
+Finalize automatic random collectible slot cadence, Book Complete discovery chooser, card art and reveal/evolution animations.

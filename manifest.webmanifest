@@ -1,7 +1,7 @@
 {
   "name": "Harry Potter Fitness RPG",
   "short_name": "HP Fitness RPG",
-  "description": "A private fitness and lifestyle progression RPG with 168 story levels.",
+  "description": "A fitness and lifestyle progression RPG with 17 habits, 168 story levels and 385 collectibles.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -9,7 +9,7 @@
   "theme_color": "#211a39",
   "orientation": "portrait-primary",
   "icons": [
-    {"src":"./icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
-    {"src":"./icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+    {"src":"./icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"./icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
   ]
 }
