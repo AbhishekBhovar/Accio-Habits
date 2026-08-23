@@ -38,3 +38,13 @@ This build uses themed illustrated placeholders/sigils for collectible cards. Re
 - Latest Journey Events is a visual timeline with event hierarchy.
 - Collection gallery landing page is a compact 2 x 3 grid.
 - Stats and Settings are unchanged.
+
+
+## Phase 3.2 — Storytelling & Hogwarts visual identity
+- Replaced the Home activity-log emphasis with a spoiler-safe **Your Story** preview: current mystery, narrative hook, cliffhanger, XP remaining, and face-down discovery cards.
+- Journey map now includes a narrative ribbon and chapter panels with **suspense → reveal → cliffhanger** structure.
+- Future chapter titles remain hidden when they would spoil the payoff.
+- Added an optional **current checkpoint levels** dropdown (4 levels) beneath the Journey story panel.
+- Added a warmer Gryffindor/Hufflepuff-led Hogwarts palette: burgundy, antique gold, parchment, candlelight, midnight blue and forest green.
+- Stats and Settings layouts intentionally unchanged.
+- Cache bumped to v3.2.0.

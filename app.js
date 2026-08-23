@@ -1,7 +1,7 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '3.1.0';
+const APP_VERSION = '3.2.0';
 const DEV_MODE = new URLSearchParams(location.search).get('dev') === '1';
 const CATEGORY_META = {
   'Character': {icon:'🧙',title:'Characters',subtitle:'Witches, wizards, friends and foes'},
@@ -211,7 +211,16 @@ function renderHome(){
   if(today.perfectDay){document.querySelector('#victoryTitle').textContent='✨ PERFECT DAY ✨';document.querySelector('#victoryText').textContent=`All daily missions complete + optimal 8–9h sleep • ${today.earned}/${today.max} XP`;}
   else if(today.perfectRoutine){document.querySelector('#victoryTitle').textContent='⭐ DAILY MISSIONS COMPLETE';document.querySelector('#victoryText').textContent='You cleared every controllable mission. Log 8–9h sleep to turn this into a Perfect Day.';}
   renderWeekly();renderDailyHabits();renderSleep();renderAchievements();
-  const log=document.querySelector('#eventLog');log.innerHTML=save.eventLog.length?save.eventLog.slice(0,8).map((e,i)=>eventTimelineHtml(e,i)).join(''):'<p class="muted">No events yet.</p>';
+  const log=document.querySelector('#eventLog');
+  if(log){
+    log.innerHTML=homeStoryPreviewHtml();
+    log.classList.add('story-preview-host');
+    const card=log.closest('.card, .dashboard-card, section');
+    const heading=card?.querySelector('h3');
+    if(heading)heading.textContent='Your Story';
+    const sub=card?.querySelector('.muted');
+    if(sub&&/latest|event|journey/i.test(sub.textContent||''))sub.textContent='A glimpse of what Harry is moving toward next.';
+  }
 }
 
 function eventTimelineHtml(e,i){
@@ -244,6 +253,67 @@ function renderWeekly(){
 }
 function renderAchievements(){const status=calculateDayStatus(),week=currentWeekStatus(),chips=[[status.discipline>=.8,'🔥','Discipline Day',`${Math.round(status.discipline*100)}% / 80%`],[status.perfectRoutine,'⭐','Daily Missions','All missions complete'],[status.perfectDay,'🌟','Perfect Day','Routine + 8–9h sleep'],[status.exceptionalDay,'👑','Exceptional','Perfect + 2 weekly credits'],[week.perfectWeek,'🏆','Perfect Week','Weekly targets + consistency'],[week.optimalSleepWeek,'🌙','Sleep Week','7-day avg 8–9h']];document.querySelector('#achievementStatus').innerHTML=chips.map(([ok,icon,name,detail])=>`<button class="achievement-badge ${ok?'earned':''}" type="button" title="${escapeHtml(detail)}"><span class="achievement-medallion">${icon}</span><strong>${name}</strong><small>${ok?'UNLOCKED':'LOCKED'}</small></button>`).join('');}
 
+
+// ---------- narrative journey layer ----------
+const STORY_TEASERS = {
+  1:{hook:'A child survives the impossible.',mystery:'Why did the killing curse fail on Harry Potter?',cliff:'The wizarding world celebrates — but Harry knows none of it.',icon:'⚡'},
+  2:{hook:'Ten quiet years pass at Number Four.',mystery:'Why do the Dursleys fear anything unusual about Harry?',cliff:'Strange things keep happening around him.',icon:'🏠'},
+  3:{hook:'A letter arrives for someone who should not receive mail.',mystery:'Who knows Harry sleeps in the cupboard under the stairs?',cliff:'The Dursleys will do anything to stop him reading it.',icon:'✉️'},
+  4:{hook:'The truth cannot be hidden forever.',mystery:'What have the Dursleys concealed about Harry and his parents?',cliff:'Someone is coming to tell Harry who he really is.',icon:'🛖'},
+  5:{hook:'A hidden world opens in the middle of London.',mystery:'What kind of place has Harry belonged to all along?',cliff:'Every shop seems to know his name.',icon:'🧱'},
+  6:{hook:'Deep beneath a wizarding bank lies something Hagrid must collect.',mystery:'What is in the tiny package from the high-security vault?',cliff:'Hagrid refuses to tell Harry why it matters.',icon:'🏦'},
+  7:{hook:'A wand chooses its wizard.',mystery:'Why does Harry’s wand share something with the wand that gave him his scar?',cliff:'Even Ollivander finds the connection remarkable.',icon:'🪄'},
+  8:{hook:'Harry meets a boy who already knows exactly what kind of wizard he wants to be.',mystery:'What does Slytherin mean — and why does Harry dislike what he hears?',cliff:'A choice is quietly beginning to form.',icon:'🐍'},
+  9:{hook:'A hidden platform leads away from Harry’s old life.',mystery:'What awaits at the end of the Hogwarts Express?',cliff:'For the first time, Harry is travelling somewhere he might belong.',icon:'🚂'},
+ 10:{hook:'A train compartment becomes the beginning of something important.',mystery:'Who will Harry trust in this unfamiliar world?',cliff:'New friendships — and rivalries — are forming before Hogwarts even appears.',icon:'🍫'},
+ 11:{hook:'The castle finally rises out of the darkness.',mystery:'What kind of place is Hogwarts — and what will it make of Harry?',cliff:'Hundreds of candles, four Houses, and one ceremony remain between Harry and his new life.',icon:'🏰'},
+ 12:{hook:'The Sorting Hat must decide where Harry belongs.',mystery:'Will Harry become the kind of wizard Draco expects him to be?',cliff:'Harry makes a choice before the Hat makes its own.',icon:'🎩'},
+ 13:{hook:'Harry discovers that the air feels more natural than the ground.',mystery:'Why does flying seem to come so easily to him?',cliff:'One reckless catch is about to change his first year.',icon:'🧹'},
+ 14:{hook:'Harry is given a place on the Gryffindor Quidditch team.',mystery:'Can a first-year really become Hogwarts’ youngest Seeker in a century?',cliff:'A brand-new broom is waiting.',icon:'🏆'},
+ 15:{hook:'A forbidden corridor hides a three-headed secret.',mystery:'What could Hogwarts possibly need a creature like Fluffy to guard?',cliff:'Whatever lies beneath the trapdoor is worth protecting.',icon:'🐕'},
+ 16:{hook:'A troll is loose inside the castle.',mystery:'Will Harry and Ron reach Hermione before it does?',cliff:'Three classmates are about to become something more.',icon:'🧌'},
+ 17:{hook:'Harry’s first real Quidditch match turns dangerous.',mystery:'Who is trying to make Harry fall from his broom?',cliff:'The Trio think they know who to suspect.',icon:'🧹'},
+ 18:{hook:'Christmas brings Harry a gift with no sender.',mystery:'Who left him an invisibility cloak — and why?',cliff:'The castle has secrets that can only be explored unseen.',icon:'🧥'},
+ 19:{hook:'A mirror shows Harry something he has wanted his entire life.',mystery:'Is the Mirror of Erised showing truth, possibility, or desire?',cliff:'Dumbledore knows more about it than he first says.',icon:'🪞'},
+ 20:{hook:'A name finally unlocks the mystery beneath the trapdoor.',mystery:'Why would anyone want the Philosopher’s Stone badly enough to infiltrate Hogwarts?',cliff:'The Trio now know what Fluffy is guarding.',icon:'💎'},
+ 21:{hook:'Hagrid’s latest secret has scales, wings and a tendency to breathe fire.',mystery:'How can the Trio protect Hagrid from the consequences of an illegal dragon?',cliff:'Their solution will lead them somewhere far more dangerous.',icon:'🐉'},
+ 22:{hook:'Something is drinking unicorn blood in the Forbidden Forest.',mystery:'What kind of creature would choose a cursed half-life to stay alive?',cliff:'The threat inside Hogwarts is suddenly much closer to Harry.',icon:'🌲'},
+ 23:{hook:'The protection around the Stone is being breached.',mystery:'Can three first-years get through Hogwarts’ defences before the thief does?',cliff:'At the end of the trials, Harry may have to continue alone.',icon:'♟️'},
+ 24:{hook:'Harry reaches the final chamber.',mystery:'Was the Trio right about who wanted the Stone?',cliff:'The answer reaches all the way back to the night Harry received his scar.',icon:'⚡'}
+};
+
+function genericStoryTeaser(row){
+  if(!row)return {hook:'The story is waiting.',mystery:'What happens next?',cliff:'Complete your missions to continue.',icon:'✦'};
+  const s=String(row.storyBeat||'').toLowerCase();
+  let icon='✦',hook='The next chapter is taking shape.',mystery='What will Harry discover next?',cliff='The answer waits beyond the next level.';
+  if(/chamber|basilisk|heir|voice|petrif/.test(s)){icon='🐍';hook='Something inside Hogwarts is moving in the shadows.';mystery='Who — or what — is behind the danger?';cliff='Every new clue makes the castle feel less safe.';}
+  else if(/sirius|pettigrew|scabbers|marauder|azkaban/.test(s)){icon='🌙';hook='The truth about Harry’s past is becoming harder to recognise.';mystery='Who can Harry actually trust?';cliff='Old names are beginning to mean something very different.';}
+  else if(/tournament|task|goblet|cedric|graveyard/.test(s)){icon='🔥';hook='The Tournament keeps becoming more dangerous.';mystery='Why was Harry entered — and who benefits from keeping him in the competition?';cliff='Someone appears to be guiding events from the shadows.';}
+  else if(/umbridge|prophecy|ministry|department|sirius/.test(s)){icon='🔮';hook='The wizarding world is refusing to believe what Harry knows.';mystery='What is Voldemort searching for — and why does Harry keep seeing through his eyes?';cliff='The truth is being hidden by more than one side.';}
+  else if(/horcrux|riddle|memory|slughorn|dumbledore|cave/.test(s)){icon='🧩';hook='Dumbledore is finally showing Harry how Voldemort became what he is.';mystery='What secret could make Voldemort nearly impossible to kill?';cliff='Every memory reveals another piece of the plan.';}
+  else if(/hallow|locket|gringotts|hogwarts|battle|snape|forest|nagini/.test(s)){icon='△';hook='The endgame is closing in around Harry.';mystery='Which path matters most now — Hallows, Horcruxes, or the people still fighting?';cliff='Every choice is narrowing the road to Voldemort.';}
+  return {hook,mystery,cliff,icon};
+}
+function storyTeaser(level){const row=DATA.levels[level-1];return STORY_TEASERS[level]||genericStoryTeaser(row);}
+function xpRemainingForNext(){const next=nextLevelRow();return next?Math.max(0,next.xpRequired-xpIntoCurrent()):0;}
+function checkpointRows(level=Math.max(1,save.currentLevel||1)){const cp=DATA.levels[Math.max(0,level-1)]?.checkpoint||1;return DATA.levels.filter(r=>r.checkpoint===cp);}
+function checkpointAccordionHtml(level=Math.max(1,save.currentLevel||1)){
+  const rows=checkpointRows(level),cp=rows[0]?.checkpoint||1;
+  return `<details class="checkpoint-levels"><summary><span>📜 Checkpoint ${cp}</span><b>View ${rows.length} levels</b></summary><div class="checkpoint-level-list">${rows.map(r=>{const done=r.level<save.currentLevel,current=r.level===save.currentLevel,future=r.level>save.currentLevel;const title=future?'???':r.storyBeat;return `<div class="checkpoint-level ${done?'done':current?'current':'locked'}"><span>${done?'✓':r.level}</span><div><strong>Level ${r.level}${current?' • CURRENT':''}</strong><small>${escapeHtml(title)}</small></div></div>`;}).join('')}</div></details>`;
+}
+function homeStoryPreviewHtml(){
+  const next=nextLevelRow();
+  if(!next)return `<div class="story-preview-complete"><span>⚡</span><strong>The saga is complete.</strong><small>Your full journey now lives in the Journey and Collection tabs.</small></div>`;
+  const t=storyTeaser(next.level),unknownRewards=DATA.collectibles.filter(c=>c.firstEligibleLevel===next.level&&!save.owned[c.id]).length;
+  return `<section class="story-preview">
+    <div class="story-preview-top"><span class="story-seal">${t.icon}</span><div><small>UP NEXT • LEVEL ${next.level}</small><h3>${save.currentLevel? 'The story continues…':'Your story begins…'}</h3></div></div>
+    <p class="story-hook">${escapeHtml(t.hook)}</p>
+    <div class="current-mystery"><span>CURRENT MYSTERY</span><strong>${escapeHtml(t.mystery)}</strong></div>
+    <p class="story-cliff">${escapeHtml(t.cliff)}</p>
+    <div class="story-preview-footer"><div><b>${xpRemainingForNext().toLocaleString()} XP</b><small>to reveal the next chapter</small></div><div class="mystery-cards" aria-label="Unknown discoveries">${Array.from({length:Math.min(4,Math.max(1,unknownRewards||2))},()=>'<i>?</i>').join('')}</div></div>
+  </section>`;
+}
+
 // ---------- Journey map ----------
 function bookForLevel(level){return Math.min(7,Math.max(1,Math.ceil(level/24)));}
 function renderJourney(){
@@ -253,12 +323,35 @@ function renderJourney(){
   const rows=DATA.levels.filter(l=>l.book===ui.journeyBook),map=document.querySelector('#journeyMap');
   const h=1500,w=360,points=rows.map((l,i)=>({x:70+Math.round((Math.sin(i*.92)+1)*105),y:145+i*52,row:l}));
   const path=points.map((p,i)=>`${i?'L':'M'} ${p.x} ${p.y}`).join(' ');
-  const nodes=points.map((p,i)=>{const l=p.row,cls=l.level<save.currentLevel?'done':l.level===save.currentLevel?'current':'locked',checkpoint=l.level%4===0;return `<button class="map-node ${cls} ${checkpoint?'checkpoint':''}" data-level="${l.level}" style="left:${(p.x/w)*100}%;top:${p.y}px"><span>${cls==='done'?'✓':l.level}</span>${checkpoint?'<em>✦</em>':''}</button>`;}).join('');
-  map.innerHTML=`<div class="map-sky"><div class="castle-mark">🏰</div><div><span>BOOK ${ui.journeyBook}</span><strong>${escapeHtml(BOOK_NAMES[ui.journeyBook])}</strong></div></div><svg class="map-path" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><path d="${path}"/></svg><div class="map-landmark map-landmark-a">✦</div><div class="map-landmark map-landmark-b">☾</div>${nodes}<div class="map-footer-rune">MISCHIEF MANAGED • ${rows.filter(l=>l.level<=save.currentLevel).length}/24 LEVELS</div>`;
+  const nodes=points.map((p,i)=>{const l=p.row,cls=l.level<save.currentLevel?'done':l.level===save.currentLevel?'current':'locked',checkpoint=l.level%4===0;return `<button class="map-node ${cls} ${checkpoint?'checkpoint':''}" data-level="${l.level}" style="left:${(p.x/w)*100}%;top:${p.y}px" aria-label="Level ${l.level}"><span>${cls==='done'?'✓':l.level}</span>${checkpoint?'<em>✦</em>':''}</button>`;}).join('');
+  const activeBook=bookForLevel(Math.max(1,save.currentLevel||1)),next=nextLevelRow(),teaser=(ui.journeyBook===activeBook&&next)?storyTeaser(next.level):null;
+  const narrative=teaser?`<div class="map-story-ribbon"><small>THE STORY IS UNFOLDING</small><strong>${escapeHtml(teaser.hook)}</strong><span>${xpRemainingForNext().toLocaleString()} XP to the next reveal</span></div>`:'';
+  map.innerHTML=`<div class="map-sky"><div class="castle-mark">🏰</div><div><span>BOOK ${ui.journeyBook}</span><strong>${escapeHtml(BOOK_NAMES[ui.journeyBook])}</strong></div></div>${narrative}<svg class="map-path" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><path d="${path}"/></svg><div class="map-landmark map-landmark-a">✦</div><div class="map-landmark map-landmark-b">☾</div>${nodes}<div class="map-footer-rune">MISCHIEF MANAGED • ${rows.filter(l=>l.level<=save.currentLevel).length}/24 LEVELS</div>`;
   map.style.height=`${h+80}px`;
   map.querySelectorAll('[data-level]').forEach(n=>n.onclick=()=>showJourneyNode(Number(n.dataset.level)));
+  const detail=document.querySelector('#journeyNodeDetail');
+  if(ui.journeyBook===activeBook){
+    const focus=next?.level||Math.max(1,save.currentLevel);
+    detail.hidden=false;detail.innerHTML=storyChapterPanel(focus)+checkpointAccordionHtml(Math.max(1,save.currentLevel||1));
+  }else{
+    detail.hidden=false;detail.innerHTML=`<div class="journey-book-summary"><span class="eyebrow">BOOK ${ui.journeyBook}</span><h3>${escapeHtml(BOOK_NAMES[ui.journeyBook])}</h3><p>${ui.journeyBook<activeBook?'A completed part of your journey.':'This part of the story remains hidden until you get closer.'}</p></div>`;
+  }
 }
-function showJourneyNode(level){const l=DATA.levels[level-1],status=level<save.currentLevel?'Completed':level===save.currentLevel?'Current level':'Locked',detail=document.querySelector('#journeyNodeDetail');detail.hidden=false;detail.innerHTML=`<div class="node-detail-head"><span class="map-node-chip">${level}</span><div><span class="eyebrow">${status.toUpperCase()}</span><h3>${escapeHtml(status==='Locked'?'Unknown chapter':l.storyBeat)}</h3></div></div><p>${status==='Locked'?'Continue your journey to reveal this chapter.':`Book ${l.book}: ${escapeHtml(l.bookName)} • Checkpoint ${l.checkpoint}`}</p>`;detail.scrollIntoView({behavior:'smooth',block:'nearest'});}
+function storyChapterPanel(level){
+  const l=DATA.levels[level-1],isFuture=level>save.currentLevel,t=storyTeaser(level),remaining=isFuture&&level===save.currentLevel+1?xpRemainingForNext():null;
+  return `<article class="chapter-story-card ${isFuture?'future':'known'}"><div class="chapter-story-head"><span class="chapter-icon">${t.icon}</span><div><small>${isFuture?'NEXT CHAPTER':'STORY CHAPTER'} • LEVEL ${level}</small><h3>${isFuture?'???':escapeHtml(l?.storyBeat||'')}</h3></div></div><p class="chapter-hook">${escapeHtml(t.hook)}</p><div class="chapter-question"><span>${isFuture?'MYSTERY':'THE THREAD'}</span><strong>${escapeHtml(t.mystery)}</strong></div><p class="chapter-cliff">${escapeHtml(t.cliff)}</p>${remaining!==null?`<div class="chapter-lock"><span>🔒</span><div><b>${remaining.toLocaleString()} XP remaining</b><small>Complete your real-world missions to reveal this chapter.</small></div></div>`:''}</article>`;
+}
+function showJourneyNode(level){
+  const currentBook=bookForLevel(Math.max(1,save.currentLevel||1)),detail=document.querySelector('#journeyNodeDetail');
+  detail.hidden=false;
+  if(level>save.currentLevel+1){
+    const l=DATA.levels[level-1];
+    detail.innerHTML=`<article class="chapter-story-card fogged"><div class="chapter-story-head"><span class="chapter-icon">🔒</span><div><small>LEVEL ${level}</small><h3>Unknown chapter</h3></div></div><p class="chapter-hook">This part of Harry’s story is still hidden in the fog.</p><div class="chapter-question"><span>KEEP GOING</span><strong>Reach the chapters before it to uncover what happens here.</strong></div></article>${ui.journeyBook===currentBook?checkpointAccordionHtml(Math.max(1,save.currentLevel||1)):''}`;
+  }else{
+    detail.innerHTML=storyChapterPanel(level)+(ui.journeyBook===currentBook?checkpointAccordionHtml(Math.max(1,save.currentLevel||1)):'');
+  }
+  detail.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
 
 // ---------- Collection museum ----------
 function cardBook(card){return bookForLevel(card.firstEligibleLevel);}
