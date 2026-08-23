@@ -296,70 +296,64 @@ function renderJourney(){
 
     const current=Math.max(1,Math.min(168,Number(save.currentLevel)||1));
     const row=DATA.levels?.[current-1]||{};
-    const previousTotal=DATA.levels?.slice(0,Math.max(0,current-1)).reduce((n,x)=>n+(Number(x.xpRequired)||0),0)||0;
-    const levelXP=Math.max(0,(Number(save.totalXP)||0)-previousTotal);
+    const previousTotal=(DATA.levels||[]).slice(0,current-1).reduce((n,x)=>n+(Number(x.xpRequired)||0),0);
+    const currentXP=Math.max(0,(Number(save.totalXP)||0)-previousTotal);
     const need=Math.max(1,Number(row.xpRequired)||500);
-    const pct=Math.max(0,Math.min(100,(levelXP/need)*100));
+    const pct=Math.max(0,Math.min(100,(currentXP/need)*100));
 
-    const books=[
-      {n:1,range:'1–24',icon:'🪽',tone:'red'},
-      {n:2,range:'25–48',icon:'⚗️',tone:'gold'},
-      {n:3,range:'49–72',icon:'🌿',tone:'red'},
-      {n:4,range:'73–96',icon:'🏆',tone:'gold'},
-      {n:5,range:'97–120',icon:'🦅',tone:'red gold-icon'},
-      {n:6,range:'121–144',icon:'📕',tone:'gold'},
-      {n:7,range:'145–168',icon:'△',tone:'red hallows'}
-    ];
+    const coords=[{"n":1,"b":5.0,"x":50.0},{"n":2,"b":5.515,"x":56.12},{"n":3,"b":6.03,"x":61.17},{"n":4,"b":6.545,"x":64.28},{"n":5,"b":7.06,"x":64.91},{"n":6,"b":7.575,"x":62.95},{"n":7,"b":8.09,"x":58.73},{"n":8,"b":8.605,"x":53.0},{"n":9,"b":9.12,"x":46.75},{"n":10,"b":9.635,"x":41.06},{"n":11,"b":10.15,"x":36.93},{"n":12,"b":10.665,"x":35.06},{"n":13,"b":11.18,"x":35.8},{"n":14,"b":11.695,"x":39.0},{"n":15,"b":12.21,"x":44.11},{"n":16,"b":12.725,"x":50.25},{"n":17,"b":13.24,"x":56.35},{"n":18,"b":13.754,"x":61.34},{"n":19,"b":14.269,"x":64.36},{"n":20,"b":14.784,"x":64.88},{"n":21,"b":15.299,"x":62.82},{"n":22,"b":15.814,"x":58.53},{"n":23,"b":16.329,"x":52.76},{"n":24,"b":16.844,"x":46.5},{"n":25,"b":17.359,"x":40.86},{"n":26,"b":17.874,"x":36.8},{"n":27,"b":18.389,"x":35.04},{"n":28,"b":18.904,"x":35.88},{"n":29,"b":19.419,"x":39.17},{"n":30,"b":19.934,"x":44.35},{"n":31,"b":20.449,"x":50.5},{"n":32,"b":20.964,"x":56.57},{"n":33,"b":21.479,"x":61.5},{"n":34,"b":21.994,"x":64.43},{"n":35,"b":22.509,"x":64.85},{"n":36,"b":23.024,"x":62.69},{"n":37,"b":23.539,"x":58.32},{"n":38,"b":24.054,"x":52.51},{"n":39,"b":24.569,"x":46.26},{"n":40,"b":25.084,"x":40.66},{"n":41,"b":25.599,"x":36.69},{"n":42,"b":26.114,"x":35.03},{"n":43,"b":26.629,"x":35.97},{"n":44,"b":27.144,"x":39.35},{"n":45,"b":27.659,"x":44.58},{"n":46,"b":28.174,"x":50.76},{"n":47,"b":28.689,"x":56.8},{"n":48,"b":29.204,"x":61.66},{"n":49,"b":29.719,"x":64.49},{"n":50,"b":30.234,"x":64.81},{"n":51,"b":30.749,"x":62.55},{"n":52,"b":31.263,"x":58.11},{"n":53,"b":31.778,"x":52.26},{"n":54,"b":32.293,"x":46.02},{"n":55,"b":32.808,"x":40.47},{"n":56,"b":33.323,"x":36.57},{"n":57,"b":33.838,"x":35.01},{"n":58,"b":34.353,"x":36.06},{"n":59,"b":34.868,"x":39.53},{"n":60,"b":35.383,"x":44.82},{"n":61,"b":35.898,"x":51.01},{"n":62,"b":36.413,"x":57.02},{"n":63,"b":36.928,"x":61.82},{"n":64,"b":37.443,"x":64.56},{"n":65,"b":37.958,"x":64.77},{"n":66,"b":38.473,"x":62.41},{"n":67,"b":38.988,"x":57.9},{"n":68,"b":39.503,"x":52.01},{"n":69,"b":40.018,"x":45.77},{"n":70,"b":40.533,"x":40.27},{"n":71,"b":41.048,"x":36.46},{"n":72,"b":41.563,"x":35.0},{"n":73,"b":42.078,"x":36.15},{"n":74,"b":42.593,"x":39.71},{"n":75,"b":43.108,"x":45.06},{"n":76,"b":43.623,"x":51.26},{"n":77,"b":44.138,"x":57.24},{"n":78,"b":44.653,"x":61.97},{"n":79,"b":45.168,"x":64.62},{"n":80,"b":45.683,"x":64.72},{"n":81,"b":46.198,"x":62.27},{"n":82,"b":46.713,"x":57.68},{"n":83,"b":47.228,"x":51.76},{"n":84,"b":47.743,"x":45.53},{"n":85,"b":48.257,"x":40.08},{"n":86,"b":48.772,"x":36.35},{"n":87,"b":49.287,"x":35.0},{"n":88,"b":49.802,"x":36.25},{"n":89,"b":50.317,"x":39.9},{"n":90,"b":50.832,"x":45.29},{"n":91,"b":51.347,"x":51.51},{"n":92,"b":51.862,"x":57.46},{"n":93,"b":52.377,"x":62.12},{"n":94,"b":52.892,"x":64.67},{"n":95,"b":53.407,"x":64.67},{"n":96,"b":53.922,"x":62.12},{"n":97,"b":54.437,"x":57.46},{"n":98,"b":54.952,"x":51.51},{"n":99,"b":55.467,"x":45.29},{"n":100,"b":55.982,"x":39.89},{"n":101,"b":56.497,"x":36.25},{"n":102,"b":57.012,"x":35.0},{"n":103,"b":57.527,"x":36.36},{"n":104,"b":58.042,"x":40.08},{"n":105,"b":58.557,"x":45.53},{"n":106,"b":59.072,"x":51.76},{"n":107,"b":59.587,"x":57.68},{"n":108,"b":60.102,"x":62.27},{"n":109,"b":60.617,"x":64.72},{"n":110,"b":61.132,"x":64.62},{"n":111,"b":61.647,"x":61.97},{"n":112,"b":62.162,"x":57.24},{"n":113,"b":62.677,"x":51.26},{"n":114,"b":63.192,"x":45.05},{"n":115,"b":63.707,"x":39.71},{"n":116,"b":64.222,"x":36.15},{"n":117,"b":64.737,"x":35.0},{"n":118,"b":65.251,"x":36.46},{"n":119,"b":65.766,"x":40.27},{"n":120,"b":66.281,"x":45.78},{"n":121,"b":66.796,"x":52.01},{"n":122,"b":67.311,"x":57.9},{"n":123,"b":67.826,"x":62.41},{"n":124,"b":68.341,"x":64.77},{"n":125,"b":68.856,"x":64.56},{"n":126,"b":69.371,"x":61.82},{"n":127,"b":69.886,"x":57.02},{"n":128,"b":70.401,"x":51.01},{"n":129,"b":70.916,"x":44.82},{"n":130,"b":71.431,"x":39.53},{"n":131,"b":71.946,"x":36.06},{"n":132,"b":72.461,"x":35.01},{"n":133,"b":72.976,"x":36.57},{"n":134,"b":73.491,"x":40.47},{"n":135,"b":74.006,"x":46.02},{"n":136,"b":74.521,"x":52.26},{"n":137,"b":75.036,"x":58.11},{"n":138,"b":75.551,"x":62.55},{"n":139,"b":76.066,"x":64.81},{"n":140,"b":76.581,"x":64.49},{"n":141,"b":77.096,"x":61.66},{"n":142,"b":77.611,"x":56.8},{"n":143,"b":78.126,"x":50.75},{"n":144,"b":78.641,"x":44.58},{"n":145,"b":79.156,"x":39.35},{"n":146,"b":79.671,"x":35.97},{"n":147,"b":80.186,"x":35.03},{"n":148,"b":80.701,"x":36.69},{"n":149,"b":81.216,"x":40.66},{"n":150,"b":81.731,"x":46.26},{"n":151,"b":82.246,"x":52.51},{"n":152,"b":82.76,"x":58.32},{"n":153,"b":83.275,"x":62.69},{"n":154,"b":83.79,"x":64.85},{"n":155,"b":84.305,"x":64.43},{"n":156,"b":84.82,"x":61.5},{"n":157,"b":85.335,"x":56.57},{"n":158,"b":85.85,"x":50.5},{"n":159,"b":86.365,"x":44.35},{"n":160,"b":86.88,"x":39.17},{"n":161,"b":87.395,"x":35.88},{"n":162,"b":87.91,"x":35.04},{"n":163,"b":88.425,"x":36.81},{"n":164,"b":88.94,"x":40.86},{"n":165,"b":89.455,"x":46.51},{"n":166,"b":89.97,"x":52.76},{"n":167,"b":90.485,"x":58.53},{"n":168,"b":91.0,"x":62.82}];
+    const books=[{n:1,range:'1–24',tone:'red',level:24,icon:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="8"/><path d="M24 29C15 21 8 19 4 20c4 7 10 12 20 15M40 29c9-8 16-10 20-9-4 7-10 12-20 15" fill="none"/><path d="M10 23l8 7m-3-11 8 8m31-4-8 7m3-11-8 8" fill="none"/></svg>`},{n:2,range:'25–48',tone:'gold',level:48,icon:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M25 7h14M28 7v16L15 47c-3 5 1 10 7 10h20c6 0 10-5 7-10L36 23V7" fill="none"/><path d="M20 43h24M24 49h16" fill="none"/></svg>`},{n:3,range:'49–72',tone:'red',level:72,icon:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M11 51C24 42 30 31 39 14M27 37l-9-8M33 28l11-7M21 44l-9 0M38 20l8-9M42 16l10 2" fill="none"/></svg>`},{n:4,range:'73–96',tone:'gold',level:96,icon:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 10h28v9c0 10-6 18-14 18S18 29 18 19v-9zM25 37h14M32 37v11M22 53h20M18 14H9v7c0 6 4 10 10 10M46 14h9v7c0 6-4 10-10 10" fill="none"/></svg>`},{n:5,range:'97–120',tone:'red gold-bird',level:120,icon:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M9 38c10-2 15-8 20-18 3 8 9 12 18 12 4 0 7-1 9-2-5 9-13 15-23 16l-3 10-4-9c-8-1-13-4-17-9z" fill="currentColor" stroke="none"/><path d="M29 20l5-9 3 10" fill="none"/></svg>`},{n:6,range:'121–144',tone:'gold',level:144,icon:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 14l25-5 11 8v34l-25 5-11-8V14zM25 20l16-3M25 27l16-3M25 34l13-3M19 15v32l6 9" fill="none"/></svg>`},{n:7,range:'145–168',tone:'red',level:168,icon:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8L8 54h48L32 8zM32 8v46M19 35a13 13 0 1 0 26 0 13 13 0 1 0-26 0" fill="none"/></svg>`}];
 
-    const levels=Array.from({length:168},(_,k)=>{
-      const n=k+1;
-      return `<span class="climb-level ${n<current?'done':''} ${n===current?'here':''}" title="Level ${n}">${n}</span>`;
-    }).join('');
+    const route=coords.map(p=>`<button class="summit-step ${p.n<current?'done':''} ${p.n===current?'here':''}" data-level="${p.n}" style="bottom:${p.b}%;left:${p.x}%"><span>${p.n}</span></button>`).join('');
 
-    const flags=books.map((b,idx)=>{
-      const level=b.n*24;
-      const bottom=5+((level-1)/167)*86;
-      const side=idx%2?'right':'left';
-      return `<div class="climb-book ${b.tone} ${side}" style="bottom:${bottom}%">
-        <div class="climb-book-icon">${b.icon}</div>
-        <div class="climb-book-flag"><b>BOOK ${b.n}</b><small>Levels ${b.range}</small></div>
+    const checkpoints=books.map((b,idx)=>{
+      const p=coords[b.level-1];
+      const side=idx%2===0?'left':'right';
+      return `<div class="summit-book ${b.tone} ${side}" style="bottom:${Math.max(4,Math.min(90,p.b-1.5))}%">
+        <div class="summit-book-icon">${b.icon}</div>
+        <div class="summit-book-banner"><b>BOOK ${b.n}</b><small>Levels ${b.range}</small></div>
       </div>`;
     }).join('');
 
     root.innerHTML=`
-      <section class="climb-map">
-        <div class="climb-status">
-          <b>⚡ Level ${current}</b>
-          <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
-          <small>${Math.round(levelXP).toLocaleString()} / ${need.toLocaleString()} XP</small>
+      <section class="summit-map">
+        <div class="summit-head">
+          <div class="summit-progress">
+            <strong>⚡ Level ${current}</strong>
+            <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+            <small>${Math.round(currentXP).toLocaleString()} / ${need.toLocaleString()} XP</small>
+          </div>
+          <div class="summit-copy">
+            <span>THE JOURNEY CONTINUES</span>
+            <h2>Climb. Conquer.<br>Become Legendary.</h2>
+          </div>
         </div>
 
-        <div class="climb-title">
-          <span>THE JOURNEY CONTINUES</span>
-          <h2>Climb. Conquer.<br>Become Legendary.</h2>
+        <div class="summit-world">
+          <div class="summit-sky-glow"></div>
+          <div class="summit-castle"><svg viewBox="0 0 160 110" aria-hidden="true">
+<path d="M16 100V55h18V36l9-10 9 10v12h14V27l12-17 12 17v20h15V34l10-12 10 12v21h19v45H16z" />
+<path d="M8 100h144" fill="none"/>
+<rect x="71" y="72" width="18" height="28" rx="8"/>
+</svg></div>
+          <div class="summit-mountain rear"></div>
+          <div class="summit-mountain main"></div>
+          <div class="summit-mountain texture"></div>
+          <div class="summit-route-line"></div>
+          <div class="summit-steps">${route}</div>
+          ${checkpoints}
         </div>
 
-        <div class="climb-summit">
-          <div class="climb-moon"></div>
-          <div class="climb-castle">♜</div>
-        </div>
-
-        <div class="climb-mountain">
-          <div class="climb-ridge"></div>
-          <div class="climb-route">${levels}</div>
-          ${flags}
-        </div>
-
-        <div class="climb-key">
-          <span>🚩 Book checkpoint</span>
-          <span>• Level step</span>
+        <div class="summit-legend">
+          <span><i class="flag-mini"></i> Book checkpoint</span>
+          <span><i class="dot-mini"></i> Level step</span>
           <span><b>168</b> levels • <b>7</b> books</span>
         </div>
       </section>`;
   }catch(err){
     console.error('Journey render failed',err);
     const root=document.querySelector('#journeyContent');
-    if(root)root.innerHTML='<div class="card" style="margin:24px"><h3>Journey map</h3><p class="muted">The map could not render, but your saved progress is safe.</p></div>';
+    if(root)root.innerHTML='<div class="card" style="margin:24px"><h3>Journey map</h3><p class="muted">Your journey data is safe. The map could not render.</p></div>';
   }
 }
 function showJourneyNode(level){const l=DATA.levels[level-1],status=level<save.currentLevel?'Completed':level===save.currentLevel?'Current level':'Locked',detail=document.querySelector('#journeyNodeDetail');detail.hidden=false;detail.innerHTML=`<div class="node-detail-head"><span class="map-node-chip">${level}</span><div><span class="eyebrow">${status.toUpperCase()}</span><h3>${escapeHtml(status==='Locked'?'Unknown chapter':l.storyBeat)}</h3></div></div><p>${status==='Locked'?'Continue your journey to reveal this chapter.':`Book ${l.book}: ${escapeHtml(l.bookName)} • Checkpoint ${l.checkpoint}`}</p>`;detail.scrollIntoView({behavior:'smooth',block:'nearest'});}
