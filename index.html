@@ -10,7 +10,7 @@
   <title>Harry Potter Fitness RPG</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles.css?v=3.27.0">
+  <link rel="stylesheet" href="./styles.css?v=3.6.1">
   <script>
   (async()=>{
     try{
@@ -80,8 +80,7 @@
 
           <div class="zone-heading sleep-heading compact-heading"><h2>Sleep</h2></div>
           <div class="card sleep-card mission-panel">
-            <div class="section-head"><h3>Sleep</h3><strong id="sleepXpPreview">0 / 50 XP</strong></div>
-            
+            <div class="sleep-xp-line"><strong id="sleepXpPreview">0 / 50 XP</strong></div>
             <div class="sleep-input-row">
               <label>Main sleep<input id="sleepHours" type="number" inputmode="decimal" min="0" max="16" step="0.25" placeholder="e.g. 6.5"></label>
               <label>Nap<input id="napHours" type="number" inputmode="decimal" min="0" max="8" step="0.25" placeholder="e.g. 1"></label>
@@ -89,16 +88,6 @@
             <button id="saveSleep" class="primary wide">Save sleep</button>
             <div class="sleep-mini-stats"><span id="sleep7Day">7-day avg: —</span></div>
           </div>
-        </section>
-
-        <section class="card achievements-home">
-          <div class="section-head"><div><span class="eyebrow">ACHIEVEMENTS</span><h3>Consistency badges</h3></div></div>
-          <div id="achievementStatus" class="achievement-grid"></div>
-        </section>
-
-        <section class="card latest-events-card">
-          <div class="section-head"><h3>Latest journey events</h3></div>
-          <div id="eventLog" class="event-log"><p class="muted">No events yet.</p></div>
         </section>
       </section>
 
@@ -117,14 +106,7 @@
       <section id="view-stats" class="view">
         <div class="section-head page-title"><div><span class="eyebrow">YOUR PERFORMANCE</span><h2>Stats Dashboard</h2><p class="muted">A quick read on consistency, training and progress.</p></div></div>
         <div id="statsDashboard"></div>
-      </section>
-
-      <section id="view-settings" class="view">
-        <div class="section-head page-title"><div><span class="eyebrow">APP & DATA</span><h2>Settings</h2><p class="muted">Only configuration and backup tools live here.</p></div></div>
-        <div class="card settings-card"><h3>Installed app</h3><p id="installState" class="muted"></p><p class="muted">Updates use a network-first cache and should refresh after reopening the app.</p></div>
-        <div class="card settings-card"><div class="settings-line"><div><h3>Sound effects</h3><p class="muted">Reward chimes for level-ups, discoveries and major achievements.</p></div><button id="soundToggle" class="toggle-button">On</button></div></div>
-        <div class="card settings-card"><h3>Save backup</h3><p class="muted">Export a backup before major updates or moving devices.</p><div class="settings-buttons"><button id="exportSave">Export save</button><label class="button-like">Import save<input id="importSave" type="file" accept="application/json" hidden></label></div></div>
-        <div id="devTools" class="card danger" hidden><h3>Testing tools</h3><p class="muted">Visible only when the app is opened with <code>?dev=1</code>.</p><div class="xp-controls"><button data-xp="100">+100 XP</button><button data-xp="300">+300 XP</button><button data-xp="500">+500 XP</button></div><button id="resetSave" class="danger-button">Reset TEST save</button></div>
+        <div class="backup-inline"><span>Save & restore data</span><button id="exportSave" type="button">Export save</button><span>·</span><label>Import save<input id="importSave" type="file" accept="application/json" hidden></label></div>
       </section>
     </main>
 
@@ -133,7 +115,6 @@
       <button data-view="journey">Journey</button>
       <button data-view="collection">Collection</button>
       <button data-view="stats">Stats</button>
-      <button data-view="settings">Settings</button>
     </nav>
   </div>
 
@@ -151,6 +132,6 @@
     </div>
   </div>
 
-  <script type="module" src="./app.js?v=3.27.0"></script>
+  <script type="module" src="./app.js?v=3.6.1"></script>
 </body>
 </html>

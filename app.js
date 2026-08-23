@@ -1,7 +1,7 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '3.4.0';
+const APP_VERSION = '3.6.1';
 const DEV_MODE = new URLSearchParams(location.search).get('dev') === '1';
 const CATEGORY_META = {
   'Character': {icon:'🧙',title:'Characters',subtitle:'Witches, wizards, friends and foes'},
@@ -200,7 +200,7 @@ function toggleHabit(id){
     const xp=entry.xpAwarded||habit.xp;
     delete day.habits[id];
     removeXP(xp,habit.name);
-    toast(`${habit.name} unchecked • -${xp} XP`,'warn');
+    playChime('undo');
     return;
   }
   day.habits[id]={completed:true,xpAwarded:habit.xp,ts:Date.now()};
@@ -221,16 +221,16 @@ function calculateDayStatus(key=localDateKey()){
 // ---------- weekly missions ----------
 function decrementDayCredit(date,amount=1){const day=save.daily?.[date];if(day)day.weeklyCreditsToday=Math.max(0,(day.weeklyCreditsToday||0)-amount);}
 function logWeights(){ensureAudio();const week=ensureCurrentWeek(),date=localDateKey();if(week.weights>=4)return toast('Gym target already complete this week.','warn');if(week.weightDays.includes(date))return toast('Gym already credited today.','warn');week.weights++;week.weightDays.push(date);getDaily().weeklyCreditsToday++;addXP(100,'Gym Weight Lifting');toast(`Gym • ${week.weights}/4 • +100 XP`);}
-function undoWeights(){const week=ensureCurrentWeek();if(week.weights<=0)return toast('Nothing to undo for Gym.','warn');const date=week.weightDays.pop()||localDateKey();week.weights=Math.max(0,week.weights-1);decrementDayCredit(date,1);removeXP(100,'Gym Weight Lifting');toast(`Gym session removed • ${week.weights}/4`,'warn');}
+function undoWeights(){const week=ensureCurrentWeek();if(week.weights<=0)return toast('Nothing to undo for Gym.','warn');const date=week.weightDays.pop()||localDateKey();week.weights=Math.max(0,week.weights-1);decrementDayCredit(date,1);removeXP(100,'Gym Weight Lifting');playChime('undo');}
 function logCardio(credits=1){ensureAudio();const week=ensureCurrentWeek(),remaining=Math.max(0,4-week.cardio),accepted=Math.min(credits,remaining);if(accepted<=0)return toast('Incline / Stairs target already complete this week.','warn');week.cardio+=accepted;week.cardioLog.push({date:localDateKey(),credits:accepted});getDaily().weeklyCreditsToday+=accepted;const xp=accepted*40;addXP(xp,'Incline Walk / StairMaster');toast(`Incline / Stairs +${accepted} • +${xp} XP`);}
-function undoCardio(){const week=ensureCurrentWeek();if(week.cardio<=0)return toast('Nothing to undo for Incline / Stairs.','warn');const last=week.cardioLog.pop(),credits=Math.min(week.cardio,Math.max(1,last?.credits||1)),date=last?.date||localDateKey();week.cardio=Math.max(0,week.cardio-credits);decrementDayCredit(date,credits);removeXP(credits*40,'Incline Walk / StairMaster');toast(`Incline / Stairs removed • ${week.cardio}/4`,'warn');}
+function undoCardio(){const week=ensureCurrentWeek();if(week.cardio<=0)return toast('Nothing to undo for Incline / Stairs.','warn');const last=week.cardioLog.pop(),credits=Math.min(week.cardio,Math.max(1,last?.credits||1)),date=last?.date||localDateKey();week.cardio=Math.max(0,week.cardio-credits);decrementDayCredit(date,credits);removeXP(credits*40,'Incline Walk / StairMaster');playChime('undo');}
 function logSport(){ensureAudio();const week=ensureCurrentWeek();if(week.sportDueRemaining<=0)return toast('Sport / Outdoor weekly target is already complete.','warn');const date=localDateKey();week.sportActual++;week.sportLog.push({date,banked:false});getDaily().weeklyCreditsToday++;week.sportDueRemaining=Math.max(0,week.sportDueRemaining-1);addXP(50,'Sport / Outdoor Activity');toast(`Sport / Outdoor • ${3-week.sportDueRemaining}/3 • +50 XP`);}
-function undoSport(){const week=ensureCurrentWeek();if(week.sportActual<=0 && week.sportDueRemaining>=3)return toast('Nothing to undo for Sport / Outdoor.','warn');const last=week.sportLog.pop(),date=last?.date||localDateKey();week.sportActual=Math.max(0,week.sportActual-1);week.sportDueRemaining=Math.min(3,week.sportDueRemaining+1);decrementDayCredit(date,1);removeXP(50,'Sport / Outdoor Activity');toast(`Sport / Outdoor removed • ${3-week.sportDueRemaining}/3`,'warn');}
+function undoSport(){const week=ensureCurrentWeek();if(week.sportActual<=0 && week.sportDueRemaining>=3)return toast('Nothing to undo for Sport / Outdoor.','warn');const last=week.sportLog.pop(),date=last?.date||localDateKey();week.sportActual=Math.max(0,week.sportActual-1);week.sportDueRemaining=Math.min(3,week.sportDueRemaining+1);decrementDayCredit(date,1);removeXP(50,'Sport / Outdoor Activity');playChime('undo');}
 function logSauna(credits){
   ensureAudio();const week=ensureCurrentWeek(),date=localDateKey(),remaining=Math.max(0,5-week.sauna),accepted=Math.min(credits,remaining);if(accepted<=0)return toast('Sauna target already complete this week.','warn');
   const firstXpToday=!week.saunaXpDays.includes(date);week.sauna+=accepted;week.saunaLog.push({date,credits:accepted,xpAwarded:firstXpToday?35:0});getDaily().weeklyCreditsToday+=accepted;if(firstXpToday){week.saunaXpDays.push(date);addXP(35,'Sauna');toast(`Sauna +${accepted} credit${accepted>1?'s':''} • +35 XP`);}else{persist();render();toast(`Sauna +${accepted} credit • 0 extra XP`);}
 }
-function undoSauna(){const week=ensureCurrentWeek();if(week.sauna<=0)return toast('Nothing to undo for Sauna.','warn');const last=week.saunaLog.pop(),credits=Math.min(week.sauna,Math.max(1,last?.credits||1)),date=last?.date||localDateKey(),xp=Number.isFinite(last?.xpAwarded)?last.xpAwarded:(week.saunaXpDays.includes(date)?35:0);week.sauna=Math.max(0,week.sauna-credits);decrementDayCredit(date,credits);if(xp>0){const stillXpThatDay=week.saunaLog.some(x=>x.date===date&&x.xpAwarded>0);if(!stillXpThatDay)week.saunaXpDays=week.saunaXpDays.filter(d=>d!==date);removeXP(xp,'Sauna');}else{persist();render();}toast(`Sauna removed • ${week.sauna}/5`,'warn');}
+function undoSauna(){const week=ensureCurrentWeek();if(week.sauna<=0)return toast('Nothing to undo for Sauna.','warn');const last=week.saunaLog.pop(),credits=Math.min(week.sauna,Math.max(1,last?.credits||1)),date=last?.date||localDateKey(),xp=Number.isFinite(last?.xpAwarded)?last.xpAwarded:(week.saunaXpDays.includes(date)?35:0);week.sauna=Math.max(0,week.sauna-credits);decrementDayCredit(date,credits);if(xp>0){const stillXpThatDay=week.saunaLog.some(x=>x.date===date&&x.xpAwarded>0);if(!stillXpThatDay)week.saunaXpDays=week.saunaXpDays.filter(d=>d!==date);removeXP(xp,'Sauna');}else{persist();render();}playChime('undo');}
 
 function sportProgressText(week=ensureCurrentWeek()){return `${3-week.sportDueRemaining}/3 weekly target • ${save.sportBank} banked`;}
 
@@ -293,11 +293,11 @@ function renderJourney(){
   if(!ui.journeyBook)ui.journeyBook=bookForLevel(Math.max(1,save.currentLevel));
   document.querySelector('#bookTabs').innerHTML=Array.from({length:7},(_,i)=>{const b=i+1;return `<button data-book="${b}" class="${ui.journeyBook===b?'active':''}"><span>${b}</span><small>${BOOK_NAMES[b]}</small></button>`;}).join('');
   document.querySelectorAll('[data-book]').forEach(b=>b.onclick=()=>{ui.journeyBook=Number(b.dataset.book);renderJourney();});
-  const rows=DATA.levels.filter(l=>l.book===ui.journeyBook),map=document.querySelector('#journeyMap');
+  const rows=DATA.levels.filter(l=>l.book===ui.journeyBook),map=document.querySelector('#journeyMap');map.className=`journey-map book-theme-${ui.journeyBook}`;
   const h=1500,w=360,points=rows.map((l,i)=>({x:70+Math.round((Math.sin(i*.92)+1)*105),y:145+i*52,row:l}));
   const path=points.map((p,i)=>`${i?'L':'M'} ${p.x} ${p.y}`).join(' ');
   const nodes=points.map((p,i)=>{const l=p.row,cls=l.level<save.currentLevel?'done':l.level===save.currentLevel?'current':'locked',checkpoint=l.level%4===0;return `<button class="map-node ${cls} ${checkpoint?'checkpoint':''}" data-level="${l.level}" style="left:${(p.x/w)*100}%;top:${p.y}px"><span>${cls==='done'?'✓':l.level}</span>${checkpoint?'<em>✦</em>':''}</button>`;}).join('');
-  map.innerHTML=`<div class="map-sky"><div class="castle-mark">🏰</div><div><span>BOOK ${ui.journeyBook}</span><strong>${escapeHtml(BOOK_NAMES[ui.journeyBook])}</strong></div></div><svg class="map-path" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><path d="${path}"/></svg><div class="map-landmark map-landmark-a">✦</div><div class="map-landmark map-landmark-b">☾</div>${nodes}<div class="map-footer-rune">MISCHIEF MANAGED • ${rows.filter(l=>l.level<=save.currentLevel).length}/24 LEVELS</div>`;
+  map.innerHTML=`<div class="map-sky"><div class="castle-mark">🏰</div><div><span>BOOK ${ui.journeyBook}</span><strong>${escapeHtml(BOOK_NAMES[ui.journeyBook])}</strong></div></div><svg class="map-path" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><path d="${path}"/></svg>${nodes}<div class="map-footer-rune">MISCHIEF MANAGED • ${rows.filter(l=>l.level<=save.currentLevel).length}/24 LEVELS</div>`;
   map.style.height=`${h+80}px`;
   map.querySelectorAll('[data-level]').forEach(n=>n.onclick=()=>showJourneyNode(Number(n.dataset.level)));
 }
@@ -305,15 +305,6 @@ function showJourneyNode(level){const l=DATA.levels[level-1],status=level<save.c
 
 // ---------- Collection museum ----------
 function cardBook(card){return bookForLevel(card.firstEligibleLevel);}
-function collectibleFact(c){
-  const discovered=save.owned[c.id]?.discoveredLevel||c.firstEligibleLevel||1,row=DATA.levels[Math.max(0,Number(discovered)-1)];
-  const raw=Array.isArray(c.revelationLevels)?c.revelationLevels:String(c.revelationLevels||'').split(';');
-  const safe=raw.map(x=>String(x).trim()).filter(Boolean).map(x=>{const m=x.match(/^(\d+)/);return {level:m?Number(m[1]):999,text:x.replace(/^\d+\s*:\s*/,'')};}).filter(x=>x.level<=save.currentLevel).pop();
-  if(safe?.text)return safe.text;
-  const notes=String(c.notes||'').trim();if(notes&&!/spoiler|do not|future/i.test(notes))return notes;
-  if(row?.storyBeat)return `${visibleName(c)} becomes part of your story around “${row.storyBeat}.”`;
-  return `${visibleName(c)} is a ${c.rarity} ${String(c.category||'collectible').toLowerCase()} in your magical archive.`;
-}
 function collectionCardHtml(c){const status=cardStatus(c),owned=status==='owned',name=owned?visibleName(c):(status==='eligible'?'Undiscovered':'?'),meta=CATEGORY_META[c.category],art=owned?meta.icon:'✦';return `<article class="museum-card ${status} ${c.rarity}"><div class="museum-art"><span>${art}</span><i>${owned?escapeHtml(name.slice(0,1)):'?'}</i></div><div class="museum-copy"><span class="rarity ${c.rarity}">${c.rarity}</span><h4>${escapeHtml(name)}</h4><p>${owned?`Discovered Lv ${save.owned[c.id].discoveredLevel}`:(status==='eligible'?`Eligible since Lv ${c.firstEligibleLevel}`:'Undiscovered')}</p></div></article>`;}
 // ---------- Stats dashboard ----------
 function elapsedWeekDates(){const today=localDateKey();return currentWeekDates().filter(k=>k<=today);}
@@ -327,27 +318,37 @@ function ringHtml(icon,label,value,target,sub=''){
 }
 function habitStatHtml(h){return `<div class="habit-stat"><div class="habit-stat-head"><span>${h.icon||'✓'} ${escapeHtml(h.name)}</span><strong>${h.done}/${h.total}</strong></div><div class="habit-stat-track"><i style="width:${h.pct}%"></i></div><small>${h.pct}% of days so far this week</small></div>`;}
 function nutritionHabit(h){const t=`${h.id||''} ${h.name||''} ${h.rule||''}`.toLowerCase();return /protein|creatine|meal|food|fruit|veg|vegetable|nutrition|breakfast|oat|tea|water|chia|fennel|sultana|almond|supplement|vitamin/.test(t);}
+function sleepWeekSeries(){
+  const labels=['M','T','W','T','F','S','S'];
+  return currentWeekDates().map((key,i)=>{const s=save.daily[key]?.sleep;return {key,label:labels[i],main:s?.mainHours>0?Number(s.mainHours):null,nap:s&&Number.isFinite(Number(s.napHours))?Number(s.napHours):null};});
+}
+function sleepBarsHtml(kind){
+  const rows=sleepWeekSeries(),isNight=kind==='main',max=isNight?9:Math.max(2,...rows.map(r=>r.nap||0)),ticks=isNight?[3,6,9]:[1,2];
+  const bars=rows.map(r=>{const v=isNight?r.main:r.nap,missing=v===null||v===undefined,pct=missing?0:Math.min(100,(v/max)*100),txt=missing?'—':`${Number(v).toFixed(v%1?1:0)}h`;return `<div class="sleep-day"><span class="sleep-day-value">${txt}</span><div class="sleep-bar-shell"><i style="height:${pct}%"></i></div><b>${r.label}</b></div>`;}).join('');
+  const grids=ticks.map(t=>`<i class="sleep-gridline" style="bottom:${Math.min(100,t/max*100)}%"></i>`).join('');
+  return `<div class="sleep-week-chart"><div class="sleep-gridlines">${grids}</div>${bars}</div>`;
+}
 function renderStats(){
-  const week=ensureCurrentWeek(), ss=sleepSummary(), habits=habitWeekStats(), nutrition=habits.filter(nutritionHabit), foundations=habits.filter(h=>!nutritionHabit(h));
-  const sportDone=3-week.sportDueRemaining;
+  const week=ensureCurrentWeek(), habits=habitWeekStats(), nutrition=habits.filter(nutritionHabit), foundations=habits.filter(h=>!nutritionHabit(h)),sportDone=3-week.sportDueRemaining,series=sleepWeekSeries();
+  const mainVals=series.map(x=>x.main).filter(v=>v!==null),napVals=series.map(x=>x.nap).filter(v=>v!==null),mainAvg=mainVals.length?avg(mainVals):0,napAvg=napVals.length?avg(napVals):0;
   document.querySelector('#statsDashboard').innerHTML=`
-    <section class="stats-intro"><span class="eyebrow">YOUR ACTIVITY</span><h2>This week</h2><p>See what you have actually done — no perfect-day scores, no world progress.</p></section>
-    <section class="dashboard-card activity-dashboard"><div class="section-head"><div><span class="eyebrow">WEEKLY ACTIVITIES</span><h3>Your movement</h3></div><span class="mini-badge">${prettyDate(weekKey())} – ${weekEndFromKey(weekKey()).toLocaleDateString(undefined,{day:'numeric',month:'short'})}</span></div><div class="activity-ring-grid">${ringHtml('🏋️','Gym',week.weights,4)}${ringHtml('🏃','Incline / Stairs',week.cardio,4)}${ringHtml('⚽','Sport / Outdoor',sportDone,3,save.sportBank?`+${save.sportBank} saved`:'')}${ringHtml('🧖','Sauna',week.sauna,5)}</div></section>
+    <section class="stats-intro"><span class="eyebrow">YOUR ACTIVITY</span><h2>This week</h2></section>
+    <section class="dashboard-card activity-dashboard"><div class="section-head"><div><span class="eyebrow">WEEKLY ACTIVITIES</span><h3>Your movement</h3></div><span class="mini-badge">${prettyDate(weekKey())} – ${weekEndFromKey(weekKey()).toLocaleDateString(undefined,{day:'numeric',month:'short'})}</span></div><div class="activity-ring-grid">${ringHtml('🏋️','Gym',week.weights,4)}${ringHtml('🏃','Incline / Stairs',week.cardio,4)}${ringHtml('⚽','Sport / Outdoor',sportDone,3)}${ringHtml('🧖','Sauna',week.sauna,5)}</div></section>
     ${nutrition.length?`<section class="dashboard-card"><div class="section-head"><div><span class="eyebrow">NUTRITION & FUEL</span><h3>Eating & essentials</h3></div><span class="mini-badge">week to date</span></div><div class="habit-stats-grid">${nutrition.map(habitStatHtml).join('')}</div></section>`:''}
     ${foundations.length?`<section class="dashboard-card"><div class="section-head"><div><span class="eyebrow">DAILY FOUNDATIONS</span><h3>Your habits</h3></div><span class="mini-badge">week to date</span></div><div class="habit-stats-grid">${foundations.map(habitStatHtml).join('')}</div></section>`:''}
-    <section class="dashboard-card"><div class="section-head"><div><span class="eyebrow">RECOVERY</span><h3>Sleep</h3></div><strong>${ss.count?ss.sevenAvg.toFixed(1)+' h avg':'—'}</strong></div><div class="sleep-dashboard"><div class="sleep-ring" style="--pct:${Math.min(100,ss.sevenAvg/8*100)}"><span>${ss.count?ss.sevenAvg.toFixed(1)+'h':'—'}</span></div><div><p><span>Nights logged</span><strong>${ss.count}/7</strong></p><p><span>Naps</span><strong>${sleepEntries(7).reduce((n,x)=>n+(Number(x.napHours)||0),0).toFixed(1)} h</strong></p></div></div></section>`;
+    <section class="dashboard-card sleep-split-card"><div class="section-head"><div><span class="eyebrow">RECOVERY</span><h3>Sleep</h3></div></div><div class="sleep-split-grid"><div class="sleep-chart-panel"><div class="sleep-chart-title"><span>🌙 Night sleep</span><strong>${mainVals.length?mainAvg.toFixed(1)+'h':'—'}</strong></div>${sleepBarsHtml('main')}<small>7-day average</small></div><div class="sleep-chart-panel"><div class="sleep-chart-title"><span>💤 Naps</span><strong>${napVals.length?napAvg.toFixed(1)+'h':'—'}</strong></div>${sleepBarsHtml('nap')}<small>7-day average</small></div></div></section>`;
 }
 
 // ---------- Settings ----------
 function renderSettings(){const standalone=window.matchMedia('(display-mode: standalone)').matches||navigator.standalone;document.querySelector('#installState').textContent=standalone?'Installed and running from your Home Screen in standalone mode.':'Browser mode: use Safari → Share → Add to Home Screen.';document.querySelector('#soundToggle').textContent=save.soundEnabled?'On':'Off';document.querySelector('#soundToggle').classList.toggle('off',!save.soundEnabled);document.querySelector('#devTools').hidden=!DEV_MODE;}
-function render(){renderHome();renderJourney();renderCollection();renderStats();renderSettings();}
+function render(){renderHome();renderJourney();renderCollection();renderStats();}
 function escapeHtml(s){return String(s??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[m]));}
 
 function setupUI(){
-  document.querySelectorAll('.bottom-nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.bottom-nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===`view-${b.dataset.view}`));if(b.dataset.view==='journey')renderJourney();if(b.dataset.view==='collection')renderCollection();if(b.dataset.view==='stats')renderStats();if(b.dataset.view==='settings')renderSettings();window.scrollTo({top:0,behavior:'smooth'});});
+  document.querySelectorAll('.bottom-nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.bottom-nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===`view-${b.dataset.view}`));if(b.dataset.view==='journey')renderJourney();if(b.dataset.view==='collection')renderCollection();if(b.dataset.view==='stats')renderStats();window.scrollTo({top:0,behavior:'smooth'});});
   document.querySelector('#saveSleep').onclick=saveSleep;document.querySelector('#sleepHours').oninput=renderSleep;
   document.querySelector('#revealNext').onclick=()=>closeReveal(false);document.querySelector('#revealSkip').onclick=()=>closeReveal(true);
-  document.querySelector('#soundToggle').onclick=()=>{save.soundEnabled=!save.soundEnabled;persist();renderSettings();if(save.soundEnabled)playChime('success');};
+  const soundToggle=document.querySelector('#soundToggle');if(soundToggle)soundToggle.onclick=()=>{save.soundEnabled=!save.soundEnabled;persist();if(save.soundEnabled)playChime('success');};
   document.querySelector('#exportSave').onclick=()=>{const blob=new Blob([JSON.stringify(save,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`hp-fitness-rpg-save-${localDateKey()}.json`;a.click();URL.revokeObjectURL(a.href);};
   document.querySelector('#importSave').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{save=mergeState(JSON.parse(await f.text()));persist();ensureCurrentWeek();finalizePastDays();render();toast('Save imported.');}catch{toast('That save file could not be read.','warn');}};
   if(DEV_MODE){document.querySelectorAll('[data-xp]').forEach(b=>b.onclick=()=>addXP(Number(b.dataset.xp),'Development tester'));document.querySelector('#resetSave').onclick=()=>{if(confirm('Reset TEST progress on this device?')){localStorage.removeItem(stateKey);save=defaultState();ensureCurrentWeek();persist();render();}};}
@@ -357,6 +358,6 @@ window.addEventListener('online',updateNetwork);window.addEventListener('offline
 
 try{
   await loadData();ensureCurrentWeek();finalizePastDays();updateHighestSleepStage();ui.journeyBook=bookForLevel(Math.max(1,save.currentLevel));setupUI();render();updateNetwork();persist();queueMigratedReveals();
-}catch(err){console.error(err);const b=document.querySelector('#networkBadge');b.textContent='Load error';b.style.color='#fb7185';alert('The app data could not load. Please refresh while online.');}
+}catch(err){console.error(err);const b=document.querySelector('#networkBadge');b.textContent='Load error';b.style.color='#fb7185';alert('The app could not finish loading. Please refresh once while online.');}
 
 if('serviceWorker' in navigator){window.addEventListener('load',async()=>{try{const reg=await navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'});await reg.update();}catch(err){console.warn('Service worker update failed',err);}});}
