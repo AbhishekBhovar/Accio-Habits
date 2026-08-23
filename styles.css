@@ -1953,3 +1953,149 @@ body{font-size:14px!important}
   background:transparent!important;
   box-shadow:none!important;
 }
+
+
+/* ===== Phase 3.22 — bundled review fixes ===== */
+
+/* Remove the stray OUTER gold story stripe; keep only the deliberate inner story-card accent. */
+.today-story-shell::before,
+.today-story-shell::after,
+.today-story-shell.today-zone::before,
+.today-story-shell.today-zone::after,
+.today-story-shell.zone-story::before,
+.today-story-shell.zone-story::after{
+  content:none!important;
+  display:none!important;
+}
+.today-story-shell{box-shadow:none!important}
+
+/* Weekly descriptions: concise and fully visible. */
+.zone-weekly .weekly-info small{
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  max-width:none!important;
+}
+.zone-weekly .weekly-action small{display:none!important}
+
+/* Sleep ends at Save sleep. */
+.sleep-mini-stats{display:none!important}
+
+/* Journey interactions must be obviously tappable and sit above decorative layers. */
+.journey-storybook,
+.journey-storybook summary,
+.journey-stop{
+  position:relative!important;
+  z-index:5!important;
+  pointer-events:auto!important;
+}
+.journey-storybook summary{cursor:pointer!important;touch-action:manipulation}
+.journey-stop{cursor:pointer!important;touch-action:manipulation}
+.journey-stop.expanded{border-color:#ffd45c!important;background:#272230!important}
+.journey-inline-detail{
+  grid-column:1/-1;
+  margin:-3px 4px 4px;
+  padding:11px;
+  border:1px solid #4f596a;
+  border-top:0;
+  border-radius:0 0 14px 14px;
+  background:#121821;
+}
+.journey-inline-detail.locked{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  color:#d7cfc4;
+}
+.journey-inline-detail.locked>span{font-size:22px}
+.journey-inline-detail.locked strong,
+.journey-inline-detail.locked small{display:block}
+.journey-inline-detail.locked strong{font-size:13px;color:#fff8e8}
+.journey-inline-detail.locked small{font-size:11px;margin-top:2px}
+.inline-levels{display:grid;gap:6px}
+.inline-level{
+  display:grid;
+  grid-template-columns:34px 1fr;
+  gap:9px;
+  align-items:center;
+  min-height:48px;
+  padding:7px 9px;
+  border-radius:10px;
+  background:#1b222d;
+  border:1px solid #374253;
+}
+.inline-level>b{
+  width:30px;height:30px;display:grid;place-items:center;
+  border-radius:50%;background:#282d38;color:#fff8e8;
+}
+.inline-level strong,.inline-level small{display:block}
+.inline-level strong{font-size:12px;color:#fff8e8}
+.inline-level small{font-size:10px;color:#bfc5cf;margin-top:2px}
+.inline-level.known>b{background:#8b2945;border:1px solid #ffd45c}
+.inline-level.next{border-color:#8e6e34;background:#272313}
+.inline-level.next>b{background:#b1264b;border:2px solid #ffd45c}
+.inline-level.locked{opacity:.6}
+
+/* Stats: no discipline grades. */
+.progress-hero{
+  background:linear-gradient(135deg,#351728,#1b202b 62%,#3b3118)!important;
+  border-color:#806b45!important;
+  padding:16px!important;
+}
+.stats-hero-title h3{
+  font-size:22px!important;
+  margin:4px 0 12px!important;
+}
+.progress-kpi-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+}
+.progress-kpi-grid>div{
+  padding:11px;
+  border-radius:12px;
+  background:#202631;
+  border:1px solid #414c5e;
+}
+.progress-kpi-grid span,
+.progress-kpi-grid small{display:block}
+.progress-kpi-grid span{font-size:11px;color:#ffd45c}
+.progress-kpi-grid strong{display:block;font-size:22px;color:#fff8e8;margin:3px 0}
+.progress-kpi-grid small{font-size:10px;color:#c8cbd1}
+
+.xp-chart-card{background:#151b24!important}
+.xp-bars .bar-value{font-size:9px!important;color:#ffd45c!important}
+.xp-bars .bar-shell{background:#11151c!important;border-color:#3c4655!important}
+.xp-bars .bar-shell i{background:linear-gradient(180deg,#ffd45c,#ca3658)!important}
+
+.progress-snapshot .mission-bar{margin-bottom:12px!important}
+.snapshot-numbers,
+.sleep-stats-simple{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:12px;
+}
+.snapshot-numbers>div,
+.sleep-stats-simple>div{
+  padding:10px;
+  border-radius:11px;
+  background:#202631;
+  border:1px solid #3e4858;
+}
+.snapshot-numbers span,
+.sleep-stats-simple span{display:block;font-size:10px;color:#c8cbd1}
+.snapshot-numbers strong,
+.sleep-stats-simple strong{display:block;font-size:18px;color:#fff8e8;margin-top:4px}
+
+/* iPhone 16 Pro: keep weekly actions from colliding after the simplified copy. */
+@media(max-width:430px){
+  .zone-weekly .weekly-mission{
+    grid-template-columns:minmax(0,1fr) auto!important;
+  }
+  .zone-weekly .weekly-info{min-width:0!important}
+  .zone-weekly .weekly-info strong{font-size:13px!important}
+  .zone-weekly .weekly-info small{font-size:10.5px!important}
+  .zone-weekly .weekly-action button{white-space:nowrap!important}
+  .progress-kpi-grid{grid-template-columns:1fr 1fr}
+}

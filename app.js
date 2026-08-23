@@ -1,7 +1,7 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '3.8.0';
+const APP_VERSION = '3.22.0';
 const PARAMS = new URLSearchParams(location.search);
 const DEV_MODE = PARAMS.get('dev') === '1';
 const FRESH_PREVIEW = PARAMS.get('fresh') === '1';
@@ -192,7 +192,7 @@ function calculateDayStatus(key=localDateKey()){
 
 // ---------- weekly missions ----------
 function logWeights(){ensureAudio();const week=ensureCurrentWeek(),date=localDateKey();if(week.weights>=4)return toast('Weights target already complete this week.','warn');if(week.weightDays.includes(date))return toast('Weights already credited today.','warn');week.weights++;week.weightDays.push(date);getDaily().weeklyCreditsToday++;addXP(100,'Gym Weight Lifting');toast(`Weights complete • ${week.weights}/4 • +100 XP`);}
-function logCardio(credits){ensureAudio();const week=ensureCurrentWeek(),remaining=Math.max(0,4-week.cardio),accepted=Math.min(credits,remaining);if(accepted<=0)return toast('Cardio target already complete this week.','warn');week.cardio+=accepted;week.cardioLog.push({date:localDateKey(),credits:accepted});getDaily().weeklyCreditsToday+=accepted;const xp=accepted*40;addXP(xp,'Incline Walk / StairMaster');toast(`Cardio +${accepted} credit${accepted>1?'s':''} • +${xp} XP`);}
+function logCardio(){ensureAudio();const week=ensureCurrentWeek();if(week.cardio>=4)return toast('Incline Walk / StairMaster target already complete this week.','warn');week.cardio++;week.cardioLog.push({date:localDateKey(),credits:1});getDaily().weeklyCreditsToday++;addXP(40,'Incline Walk / StairMaster');toast(`Incline Walk / StairMaster • ${week.cardio}/4 • +40 XP`);}
 function logSport(){ensureAudio();const week=ensureCurrentWeek();week.sportActual++;getDaily().weeklyCreditsToday++;if(week.sportDueRemaining>0)week.sportDueRemaining--;else save.sportBank++;addXP(50,'Sport / Outdoor Activity');toast(`Adventure logged • +50 XP • ${3-week.sportDueRemaining}/3`);}
 function logSauna(credits){
   ensureAudio();const week=ensureCurrentWeek(),date=localDateKey(),remaining=Math.max(0,5-week.sauna),accepted=Math.min(credits,remaining);if(accepted<=0)return toast('Sauna target already complete this week.','warn');
@@ -288,11 +288,11 @@ function missionProgressDots(value,target){return Array.from({length:target},(_,
 function renderWeekly(){
   const week=ensureCurrentWeek();document.querySelector('#weekLabel').textContent=`${prettyDate(weekKey())} – ${weekEndFromKey(weekKey()).toLocaleDateString(undefined,{day:'numeric',month:'short'})}`;
   document.querySelector('#weeklyMissionList').innerHTML=`
-    <div class="weekly-mission"><div class="weekly-info"><span class="weekly-icon">🏋️</span><div><strong>Gym Weight Lifting</strong><small>4 sessions • 100 XP each</small><div class="mission-dots">${missionProgressDots(week.weights,4)}</div></div></div><div class="weekly-action"><b>${week.weights}/4</b><button id="logWeights" ${week.weights>=4?'disabled':''}>+ Session</button></div></div>
-    <div class="weekly-mission"><div class="weekly-info"><span class="weekly-icon">🏃</span><div><strong>Incline Walk / StairMaster</strong><small>Finisher +1 • standalone +2 • 40 XP/credit</small><div class="mission-dots">${missionProgressDots(week.cardio,4)}</div></div></div><div class="weekly-action"><b>${week.cardio}/4</b><div class="tiny-buttons"><button id="logCardio1" ${week.cardio>=4?'disabled':''}>+1</button><button id="logCardio2" ${week.cardio>=4?'disabled':''}>+2</button></div></div></div>
-    <div class="weekly-mission"><div class="weekly-info"><span class="weekly-icon">⚽</span><div><strong>Sport / Outdoor</strong><small>3× ≥1 hour • surplus carries to future weeks</small><div class="mission-dots">${missionProgressDots(3-week.sportDueRemaining,3)}</div></div></div><div class="weekly-action"><b>${3-week.sportDueRemaining}/3</b><button id="logSport">+ Activity</button><small>${save.sportBank} banked</small></div></div>
-    <div class="weekly-mission sauna-mission"><div class="weekly-info"><span class="weekly-icon">🧖</span><div><strong>Sauna</strong><small>5 credits/week • 30 min = 1 • 60 min = 2 • second same-day credit earns 0 extra XP</small><div class="mission-dots">${missionProgressDots(week.sauna,5)}</div></div></div><div class="weekly-action"><b>${week.sauna}/5</b><div class="tiny-buttons"><button id="logSauna1" ${week.sauna>=5?'disabled':''}>+30m</button><button id="logSauna2" ${week.sauna>=5?'disabled':''}>+60m</button></div></div></div>`;
-  document.querySelector('#logWeights').onclick=logWeights;document.querySelector('#logCardio1').onclick=()=>logCardio(1);document.querySelector('#logCardio2').onclick=()=>logCardio(2);document.querySelector('#logSport').onclick=logSport;document.querySelector('#logSauna1').onclick=()=>logSauna(1);document.querySelector('#logSauna2').onclick=()=>logSauna(2);
+    <div class="weekly-mission"><div class="weekly-info"><span class="weekly-icon">🏋️</span><div><strong>Gym</strong><small>4 sessions • 100 XP each</small><div class="mission-dots">${missionProgressDots(week.weights,4)}</div></div></div><div class="weekly-action"><b>${week.weights}/4</b><button id="logWeights" ${week.weights>=4?'disabled':''}>+ Session</button></div></div>
+    <div class="weekly-mission"><div class="weekly-info"><span class="weekly-icon">🏃</span><div><strong>Incline Walk / StairMaster</strong><small>4 sessions • 40 XP each</small><div class="mission-dots">${missionProgressDots(week.cardio,4)}</div></div></div><div class="weekly-action"><b>${week.cardio}/4</b><button id="logCardio" ${week.cardio>=4?'disabled':''}>+ Session</button></div></div>
+    <div class="weekly-mission"><div class="weekly-info"><span class="weekly-icon">⚽</span><div><strong>Sport / Outdoor</strong><small>3 sessions • 50 XP each</small><div class="mission-dots">${missionProgressDots(3-week.sportDueRemaining,3)}</div></div></div><div class="weekly-action"><b>${3-week.sportDueRemaining}/3</b><button id="logSport">+ Activity</button></div></div>
+    <div class="weekly-mission sauna-mission"><div class="weekly-info"><span class="weekly-icon">🧖</span><div><strong>Sauna</strong><small>5 sessions × 30 min • 35 XP</small><div class="mission-dots">${missionProgressDots(week.sauna,5)}</div></div></div><div class="weekly-action"><b>${week.sauna}/5</b><div class="tiny-buttons"><button id="logSauna1" ${week.sauna>=5?'disabled':''}>+30m</button><button id="logSauna2" ${week.sauna>=5?'disabled':''}>+60m</button></div></div></div>`;
+  document.querySelector('#logWeights').onclick=logWeights;document.querySelector('#logCardio').onclick=logCardio;document.querySelector('#logSport').onclick=logSport;document.querySelector('#logSauna1').onclick=()=>logSauna(1);document.querySelector('#logSauna2').onclick=()=>logSauna(2);
 }
 function achievementChips(){
   const status=calculateDayStatus(),week=currentWeekStatus();
@@ -436,16 +436,46 @@ function renderJourney(){
   document.querySelectorAll('[data-book]').forEach(b=>b.onclick=()=>{ui.journeyBook=Number(b.dataset.book);renderJourney();});
   const rows=DATA.levels.filter(l=>l.book===ui.journeyBook),map=document.querySelector('#journeyMap');
   const groups=Array.from({length:6},(_,i)=>rows.slice(i*4,i*4+4));
-  const checkpointCards=groups.map((g,i)=>{const first=g[0],last=g[g.length-1],cp=first.checkpoint,done=last.level<=save.currentLevel,current=first.level<=save.currentLevel+1&&last.level>=save.currentLevel+1,locked=first.level>save.currentLevel+1;const teaser=storyTeaser(Math.min(last.level,Math.max(first.level,save.currentLevel+1)));const title=locked?'A hidden chapter':(current?teaser.hook:first.storyBeat);const icon=locked?'🔒':teaser.icon;return `<button class="journey-stop ${done?'done':current?'current':'locked'}" data-level="${current?Math.min(last.level,save.currentLevel+1):first.level}"><div class="journey-stop-art"><span>${icon}</span><i>ARTWORK<br>PLACEHOLDER</i></div><div class="journey-stop-copy"><small>CHECKPOINT ${cp} • LEVELS ${first.level}–${last.level}</small><strong>${escapeHtml(title)}</strong><span>${done?'Chapter explored':current?`${xpRemainingForNext().toLocaleString()} XP to the next reveal`:'Keep journeying to reveal'}</span></div><b>›</b></button>`;}).join('');
+  const checkpointCards=groups.map((g,i)=>{const first=g[0],last=g[g.length-1],cp=first.checkpoint,done=last.level<=save.currentLevel,current=first.level<=save.currentLevel+1&&last.level>=save.currentLevel+1,locked=first.level>save.currentLevel+1;const teaser=storyTeaser(Math.min(last.level,Math.max(first.level,save.currentLevel+1)));const title=locked?'A hidden chapter':(current?teaser.hook:first.storyBeat);const icon=locked?'🔒':teaser.icon;return `<button type="button" class="journey-stop ${done?'done':current?'current':'locked'}" data-level="${current?Math.min(last.level,save.currentLevel+1):first.level}" data-checkpoint="${cp}"><div class="journey-stop-art"><span>${icon}</span><i>ARTWORK<br>PLACEHOLDER</i></div><div class="journey-stop-copy"><small>CHECKPOINT ${cp} • LEVELS ${first.level}–${last.level}</small><strong>${escapeHtml(title)}</strong><span>${done?'Chapter explored':current?`${xpRemainingForNext().toLocaleString()} XP to the next reveal`:'Keep journeying to reveal'}</span></div><b>›</b></button>`;}).join('');
   const currentLevel=Math.max(1,save.currentLevel||1),currentTeaser=(ui.journeyBook===activeBook)?storyTeaser(currentLevel):null,currentStory=DATA.levels[currentLevel-1]?.storyBeat||'The journey begins';
   const passage=currentTeaser?storyPassage(currentLevel):null;
   const intro=currentTeaser?`<div class="journey-feature"><div><small>WHERE THE STORY STANDS • LEVEL ${currentLevel}</small><h3>${escapeHtml(currentStory)}</h3><p>${escapeHtml(currentTeaser.hook)} ${escapeHtml(currentTeaser.cliff)}</p></div><div class="journey-mystery"><span>UNANSWERED</span><strong>${escapeHtml(currentTeaser.mystery)}</strong></div><details class="journey-storybook"><summary><span>📖</span><strong>Open story passage</strong><b>＋</b></summary><div class="journey-storybook-page"><small>FROM THE STORY</small><h4>${escapeHtml(passage.title)}</h4><p>${escapeHtml(passage.passage)}</p><div class="storybook-facts"><div><span>WHAT HARRY KNOWS</span><p>${escapeHtml(passage.knows)}</p></div><div><span>WHAT REMAINS MYSTERIOUS</span><p>${escapeHtml(passage.mystery)}</p></div></div><footer><b>${xpRemainingForNext().toLocaleString()} XP</b><small>until the next revelation</small></footer></div></details></div>`:`<div class="journey-feature"><div><small>BOOK ${ui.journeyBook}</small><h3>${escapeHtml(BOOK_NAMES[ui.journeyBook])}</h3><p>${ui.journeyBook<activeBook?'A completed part of your adventure. Revisit its chapters below.':'The pages ahead are still sealed.'}</p></div></div>`;
   map.style.height='auto';
   const explored=rows.filter(l=>l.level<=save.currentLevel).length;
   map.innerHTML=`<div class="journey-book-banner"><div class="journey-book-art">🏰<i>BOOK ART<br>PLACEHOLDER</i></div><div><small>BOOK ${ui.journeyBook}</small><h2>${escapeHtml(BOOK_NAMES[ui.journeyBook])}</h2><span>${explored}/24 levels explored</span></div><div class="journey-banner-route">${Array.from({length:6},(_,i)=>{const cp=i+1,done=explored>=cp*4,current=explored<cp*4&&explored>=(cp-1)*4;return `<i class="${done?'done':current?'current':''}"><em>${cp}</em></i>`;}).join('')}</div></div>${intro}<div class="journey-stops">${checkpointCards}</div>`;
-  map.querySelectorAll('[data-level]').forEach(n=>n.onclick=()=>showJourneyNode(Number(n.dataset.level)));
+  map.querySelectorAll('.journey-stop[data-level]').forEach(n=>n.addEventListener('click',e=>{e.preventDefault();toggleJourneyCheckpoint(n);}));
+  map.querySelectorAll('.journey-storybook').forEach(d=>{const s=d.querySelector('summary');if(s)s.addEventListener('click',e=>{e.preventDefault();d.open=!d.open;s.querySelector('b').textContent=d.open?'−':'＋';});});
   const detail=document.querySelector('#journeyNodeDetail');detail.hidden=true;detail.innerHTML='';
 }
+
+function checkpointInlineHtml(cp){
+  const rows=DATA.levels.filter(l=>l.book===ui.journeyBook&&Number(l.checkpoint)===Number(cp));
+  if(!rows.length)return '';
+  const first=rows[0], locked=first.level>save.currentLevel+1;
+  if(locked){
+    return `<div class="journey-inline-detail locked"><span>🔒</span><div><strong>Checkpoint ${cp} is still hidden</strong><small>Reach Level ${first.level} to reveal this chapter.</small></div></div>`;
+  }
+  return `<div class="journey-inline-detail"><div class="inline-levels">${rows.map(l=>{
+    const known=l.level<=save.currentLevel,next=l.level===save.currentLevel+1;
+    return `<div class="inline-level ${known?'known':next?'next':'locked'}"><b>${l.level}</b><div><strong>${known?escapeHtml(l.storyBeat):next?'Next chapter':'Locked'}</strong><small>${known?'Explored':next?`${xpRemainingForNext().toLocaleString()} XP to reveal`:`Reach Level ${l.level}`}</small></div></div>`;
+  }).join('')}</div></div>`;
+}
+function toggleJourneyCheckpoint(button){
+  const stops=button.closest('.journey-stops');if(!stops)return;
+  const cp=Number(button.dataset.checkpoint);
+  const existing=stops.querySelector('.journey-inline-detail[data-open-cp]');
+  if(existing&&Number(existing.dataset.openCp)===cp){existing.remove();button.classList.remove('expanded');return;}
+  if(existing)existing.remove();
+  stops.querySelectorAll('.journey-stop.expanded').forEach(x=>x.classList.remove('expanded'));
+  button.classList.add('expanded');
+  const wrap=document.createElement('div');
+  wrap.innerHTML=checkpointInlineHtml(cp);
+  const detail=wrap.firstElementChild;
+  if(!detail)return;
+  detail.dataset.openCp=cp;
+  button.after(detail);
+}
+
 function storyChapterPanel(level){
   const l=DATA.levels[level-1],isFuture=level>save.currentLevel,t=storyTeaser(level),remaining=isFuture&&level===save.currentLevel+1?xpRemainingForNext():null;
   return `<article class="chapter-story-card ${isFuture?'future':'known'}"><div class="chapter-story-head"><span class="chapter-icon">${t.icon}</span><div><small>${isFuture?'NEXT CHAPTER':'STORY CHAPTER'} • LEVEL ${level}</small><h3>${isFuture?'???':escapeHtml(l?.storyBeat||'')}</h3></div></div><p class="chapter-hook">${escapeHtml(t.hook)}</p><div class="chapter-question"><span>${isFuture?'MYSTERY':'THE THREAD'}</span><strong>${escapeHtml(t.mystery)}</strong></div><p class="chapter-cliff">${escapeHtml(t.cliff)}</p>${remaining!==null?`<div class="chapter-lock"><span>🔒</span><div><b>${remaining.toLocaleString()} XP remaining</b><small>Complete your real-world missions to reveal this chapter.</small></div></div>`:''}</article>`;
@@ -478,15 +508,58 @@ function renderCollection(){
 }
 
 // ---------- Stats dashboard ----------
-function dayDisciplineSeries(){const today=parseDateKey(localDateKey());return Array.from({length:7},(_,i)=>{const d=addDays(today,i-6),key=localDateKey(d),s=calculateDayStatus(key);return {key,label:d.toLocaleDateString(undefined,{weekday:'short'}).slice(0,2),pct:Math.round(s.discipline*100)};});}
-function previousWeekAverage(){const dates=currentWeekDates(-1),statuses=dates.map(k=>calculateDayStatus(k));return avg(statuses.map(s=>s.discipline));}
+function xpSeries7Days(){
+  const today=parseDateKey(localDateKey());
+  return Array.from({length:7},(_,i)=>{
+    const d=addDays(today,i-6),key=localDateKey(d);
+    const xp=save.eventLog.filter(e=>e.kind==='xp'&&e.ts&&localDateKey(new Date(e.ts))===key).reduce((n,e)=>n+(Number((String(e.title).match(/\+(\d+)\s+XP/)||[])[1])||0),0);
+    return {key,label:d.toLocaleDateString(undefined,{weekday:'short'}).slice(0,2),xp};
+  });
+}
 function progressBar(label,value,target,icon,extra=''){const pct=Math.min(100,value/target*100);return `<div class="mission-bar"><div class="mission-bar-head"><span>${icon} ${label}</span><strong>${value}/${target}</strong></div><div class="dash-track"><i style="width:${pct}%"></i></div>${extra?`<small>${extra}</small>`:''}</div>`;}
 function renderStats(){
-  const status=currentWeekStatus(),prev=previousWeekAverage(),delta=Math.round((status.avgDiscipline-prev)*100),ss=sleepSummary(),series=dayDisciplineSeries(),owned=Object.keys(save.owned).length;
-  document.querySelector('#statsDashboard').innerHTML=`<section class="stats-hero"><div><span class="eyebrow">THIS WEEK</span><strong>${Math.round(status.avgDiscipline*100)}%</strong><p>Discipline ${delta===0?'—':delta>0?`↑ ${delta}% vs last week`:`↓ ${Math.abs(delta)}% vs last week`}</p></div><div class="stats-mini"><span>🗺️ Level ${save.currentLevel}/168</span><span>⚡ ${save.totalXP.toLocaleString()} lifetime XP</span><span>🎴 ${owned}/385 collected</span></div></section><section class="dashboard-card"><div class="section-head"><h3>7-day discipline</h3><span class="mini-badge">Mon–Sun view</span></div><div class="bar-chart">${series.map(x=>`<div class="bar-column"><div class="bar-value">${x.pct}%</div><div class="bar-shell"><i style="height:${Math.max(3,x.pct)}%"></i></div><span>${x.label}</span></div>`).join('')}</div></section><section class="dashboard-grid"><div class="dashboard-card"><h3>Weekly missions</h3>${progressBar('Weights',status.week.weights,4,'🏋️')}${progressBar('Cardio',status.week.cardio,4,'🏃')}${progressBar('Sport',3-status.week.sportDueRemaining,3,'⚽',`${save.sportBank} banked`)}${progressBar('Sauna',status.week.sauna,5,'🧖')}</div><div class="dashboard-card"><h3>Personal records</h3><div class="records-grid"><div><span>✨ Perfect Days</span><strong>${save.achievements.perfectDays}</strong></div><div><span>⭐ Routine Days</span><strong>${save.achievements.perfectRoutineDays}</strong></div><div><span>🏆 Perfect Weeks</span><strong>${save.achievements.perfectWeeks}</strong></div><div><span>🌙 Sleep Weeks</span><strong>${save.achievements.optimalSleepWeeks}</strong></div><div><span>🗺️ Levels</span><strong>${save.currentLevel}/168</strong></div><div><span>📚 Books</span><strong>${save.completedBooks.length}/7</strong></div></div></div></section><section class="dashboard-card"><div class="section-head"><h3>Sleep & recovery</h3><strong>${ss.count?ss.sevenAvg.toFixed(1)+' h':'—'}</strong></div><div class="sleep-dashboard"><div class="sleep-ring" style="--pct:${Math.min(100,ss.sevenAvg/8*100)}"><span>Stage ${stageRoman(ss.stage)}</span></div><div><p><span>Highest stage</span><strong>Stage ${stageRoman(save.sleep.highestStage)}</strong></p><p><span>Recovery sleep</span><strong>${ss.recovery.toFixed(1)} h</strong></p><p><span>Shortfall vs 8h</span><strong>${ss.shortfall.toFixed(1)} h</strong></p></div></div></section>
+  const status=currentWeekStatus(),ss=sleepSummary(),owned=Object.keys(save.owned).length,series=xpSeries7Days();
+  const dailyHabits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),day=displayDaily(),dailyDone=dailyHabits.filter(h=>day.habits[h.id]?.completed).length;
+  const sportDone=3-status.week.sportDueRemaining,weeklyDone=status.week.weights+status.week.cardio+sportDone+status.week.sauna,weeklyTarget=16;
+  const weekKeys=currentWeekDates(),weekXP=save.eventLog.filter(e=>e.kind==='xp'&&e.ts&&weekKeys.includes(localDateKey(new Date(e.ts)))).reduce((n,e)=>n+(Number((String(e.title).match(/\+(\d+)\s+XP/)||[])[1])||0),0);
+  const maxXp=Math.max(1,...series.map(x=>x.xp)),sevenTotal=series.reduce((n,x)=>n+x.xp,0);
+  const view=document.querySelector('#view-stats');
+  const mainTitle=view?.querySelector('h2');if(mainTitle)mainTitle.textContent='Progress';
+  const intro=view?.querySelector('h2 + p');if(intro)intro.textContent='Training, XP, recovery and wizarding-world progress at a glance.';
+  document.querySelector('#statsDashboard').innerHTML=`
+  <section class="stats-hero progress-hero">
+    <div class="stats-hero-title"><span class="eyebrow">THIS WEEK</span><h3>Progress at a glance</h3></div>
+    <div class="progress-kpi-grid">
+      <div><span>Today</span><strong>${dailyDone}/${dailyHabits.length}</strong><small>daily missions</small></div>
+      <div><span>Weekly</span><strong>${weeklyDone}/${weeklyTarget}</strong><small>mission sessions</small></div>
+      <div><span>XP earned</span><strong>${weekXP.toLocaleString()}</strong><small>this week</small></div>
+      <div><span>Journey</span><strong>Lv ${save.currentLevel}</strong><small>${save.currentLevel}/168</small></div>
+    </div>
+  </section>
+  <section class="dashboard-card xp-chart-card">
+    <div class="section-head"><div><span class="eyebrow">MOMENTUM</span><h3>7-day XP</h3></div><strong>${sevenTotal.toLocaleString()} XP</strong></div>
+    <div class="bar-chart xp-bars">${series.map(x=>`<div class="bar-column"><div class="bar-value">${x.xp||''}</div><div class="bar-shell"><i style="height:${x.xp?Math.max(8,x.xp/maxXp*100):3}%"></i></div><span>${x.label}</span></div>`).join('')}</div>
+  </section>
+  <section class="dashboard-grid">
+    <div class="dashboard-card"><h3>Weekly missions</h3>
+      ${progressBar('Gym',status.week.weights,4,'🏋️')}
+      ${progressBar('Incline / Stairs',status.week.cardio,4,'🏃')}
+      ${progressBar('Sport / Outdoor',sportDone,3,'⚽')}
+      ${progressBar('Sauna',status.week.sauna,5,'🧖')}
+    </div>
+    <div class="dashboard-card progress-snapshot"><h3>Adventure progress</h3>
+      ${progressBar('Journey',save.currentLevel,168,'🗺️')}
+      ${progressBar('Collection',owned,DATA.collectibles.length,'🎴')}
+      <div class="snapshot-numbers"><div><span>Lifetime XP</span><strong>${save.totalXP.toLocaleString()}</strong></div><div><span>Books complete</span><strong>${save.completedBooks.length}/7</strong></div></div>
+    </div>
+  </section>
+  <section class="dashboard-card">
+    <div class="section-head"><div><span class="eyebrow">RECOVERY</span><h3>Sleep trend</h3></div><strong>${ss.count?ss.sevenAvg.toFixed(1)+' h avg':'—'}</strong></div>
+    <div class="sleep-stats-simple"><div><span>Recovery sleep</span><strong>${ss.recovery.toFixed(1)} h</strong></div><div><span>Logged nights</span><strong>${ss.count}/7</strong></div></div>
+  </section>
   <section class="dashboard-card stats-achievements-archive">
     <details>
-      <summary><span>🏅</span><div><strong>Achievements archive</strong><small>Optional milestones — not part of your daily score</small></div><b>View</b></summary>
+      <summary><span>🏅</span><div><strong>Achievements archive</strong><small>Optional milestones</small></div><b>View</b></summary>
       <div class="achievement-mini-grid">${achievementChips().map(([ok,icon,name])=>`<div class="achievement-mini ${ok?'earned':''}"><span>${icon}</span><div><strong>${name}</strong><small>${ok?'Earned':'Not yet'}</small></div></div>`).join('')}</div>
     </details>
   </section>`;

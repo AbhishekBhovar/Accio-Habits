@@ -1,14 +1,18 @@
-# Phase 3.21 — Direct iPhone Component Correction
+# Harry Potter Fitness RPG — Phase 3.22 Bundled Review Fixes
 
-This fixes the exact Today layout shown in the Phase 3.20 screenshot.
-
-- Book/Level card and Your Story now share exactly the same content width.
-- Removes the redundant outer Your Story rectangle; only one story card remains.
-- Explicit readable font sizes throughout the visible Today screen.
-- Stronger Gryffindor scarlet + Hufflepuff honey-gold styling.
-- Standardised mystery box and story spacing.
-- Brighter visual identities for Weekly, Daily and Recovery.
-- No XP/save/progression logic changed.
+Included:
+- Removes the stray outer gold border beside Your Story.
+- Weekly mission wording simplified:
+  - Gym
+  - Incline Walk / StairMaster: 4 sessions • 40 XP each
+  - Sport / Outdoor: 3 sessions • 50 XP each
+  - Sauna: 5 sessions × 30 min • 35 XP
+- Incline/StairMaster no longer uses finisher/standalone +1/+2 logic; one tap = one session = 40 XP.
+- Sleep card removes 7-day average / current stage / highest stage chips.
+- Journey story passage is explicitly tappable.
+- Journey checkpoint rows are tappable; unlocked checkpoint shows its four levels inline, locked checkpoints explain when they reveal.
+- Stats removes the discipline percentage and 7-day discipline graph.
+- Stats now focuses on daily/weekly mission progress, XP, weekly mission bars, Journey, Collection and sleep trends.
 
 Replace:
 - app.js
