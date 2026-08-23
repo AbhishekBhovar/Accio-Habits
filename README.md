@@ -31,3 +31,10 @@ Your `levels.json`, `collectibles.json`, `reward-events.json`, `identity-rules.j
 
 ## Artwork
 This build uses themed illustrated placeholders/sigils for collectible cards. Real collectible artwork can be added later without changing the progression engine.
+
+
+## Phase 3.1 UI polish
+- Consistency achievements are now compact badge medallions.
+- Latest Journey Events is a visual timeline with event hierarchy.
+- Collection gallery landing page is a compact 2 x 3 grid.
+- Stats and Settings are unchanged.

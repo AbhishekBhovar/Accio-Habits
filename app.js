@@ -1,7 +1,7 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '3.0.0';
+const APP_VERSION = '3.1.0';
 const DEV_MODE = new URLSearchParams(location.search).get('dev') === '1';
 const CATEGORY_META = {
   'Character': {icon:'🧙',title:'Characters',subtitle:'Witches, wizards, friends and foes'},
@@ -211,8 +211,19 @@ function renderHome(){
   if(today.perfectDay){document.querySelector('#victoryTitle').textContent='✨ PERFECT DAY ✨';document.querySelector('#victoryText').textContent=`All daily missions complete + optimal 8–9h sleep • ${today.earned}/${today.max} XP`;}
   else if(today.perfectRoutine){document.querySelector('#victoryTitle').textContent='⭐ DAILY MISSIONS COMPLETE';document.querySelector('#victoryText').textContent='You cleared every controllable mission. Log 8–9h sleep to turn this into a Perfect Day.';}
   renderWeekly();renderDailyHabits();renderSleep();renderAchievements();
-  const log=document.querySelector('#eventLog');log.innerHTML=save.eventLog.length?save.eventLog.slice(0,8).map(e=>`<div class="event"><strong>${escapeHtml(e.title)}</strong><small>${e.level?`Level ${e.level}`:'Journey'} • ${new Date(e.ts).toLocaleDateString()}</small></div>`).join(''):'<p class="muted">No events yet.</p>';
+  const log=document.querySelector('#eventLog');log.innerHTML=save.eventLog.length?save.eventLog.slice(0,8).map((e,i)=>eventTimelineHtml(e,i)).join(''):'<p class="muted">No events yet.</p>';
 }
+
+function eventTimelineHtml(e,i){
+  const title=String(e.title||''),lower=title.toLowerCase();let type='story',icon='✦',label='JOURNEY';
+  if(e.kind==='xp'||/\+\d+\s*xp|xp$/i.test(title)){type='xp';icon='⚡';label='XP EARNED';}
+  else if(/discover/i.test(title)){type='discovery';icon='✨';label=/mythic/i.test(title)?'MYTHIC DISCOVERY':'DISCOVERY';}
+  else if(/level/i.test(title)){type='level';icon='⚡';label='LEVEL UP';}
+  else if(/perfect|checkpoint|book complete/i.test(lower)){type='milestone';icon='🏆';label='MILESTONE';}
+  const when=new Date(e.ts),time=when.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}),meta=e.level?`Level ${e.level} • ${time}`:time;
+  return `<article class="timeline-event ${type}"><div class="timeline-rail"><span>${icon}</span>${i<7?'<i></i>':''}</div><div class="timeline-copy"><small>${label}</small><strong>${escapeHtml(title)}</strong><em>${escapeHtml(meta)}</em></div></article>`;
+}
+
 function habitRowsHtml(habits,day){return habits.map(h=>{const entry=day.habits[h.id],done=entry?.completed,sub=done?`Completed • +${entry.xpAwarded||h.xp} XP`:h.rule;return `<button class="habit-row ${done?'done':''}" data-habit="${h.id}" ${done?'disabled':''}><span class="habit-icon">${h.icon}</span><span class="habit-copy"><strong>${escapeHtml(h.name)}</strong><small>${escapeHtml(sub)}</small></span><span class="habit-xp">${done?'✓':`+${h.xp}`}</span></button>`;}).join('');}
 function renderDailyHabits(){
   const day=getDaily(),list=document.querySelector('#dailyHabitList'),habits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),completed=habits.filter(h=>day.habits[h.id]?.completed).length;document.querySelector('#routineBadge').textContent=`${completed} / ${habits.length}`;document.querySelector('#todayDateLabel').textContent=prettyDate(localDateKey());
@@ -231,7 +242,7 @@ function renderWeekly(){
     <div class="weekly-mission sauna-mission"><div class="weekly-info"><span class="weekly-icon">🧖</span><div><strong>Sauna</strong><small>5 credits/week • 30 min = 1 • 60 min = 2 • second same-day credit earns 0 extra XP</small><div class="mission-dots">${missionProgressDots(week.sauna,5)}</div></div></div><div class="weekly-action"><b>${week.sauna}/5</b><div class="tiny-buttons"><button id="logSauna1" ${week.sauna>=5?'disabled':''}>+30m</button><button id="logSauna2" ${week.sauna>=5?'disabled':''}>+60m</button></div></div></div>`;
   document.querySelector('#logWeights').onclick=logWeights;document.querySelector('#logCardio1').onclick=()=>logCardio(1);document.querySelector('#logCardio2').onclick=()=>logCardio(2);document.querySelector('#logSport').onclick=logSport;document.querySelector('#logSauna1').onclick=()=>logSauna(1);document.querySelector('#logSauna2').onclick=()=>logSauna(2);
 }
-function renderAchievements(){const status=calculateDayStatus(),week=currentWeekStatus(),chips=[[status.discipline>=.8,'🔥','Discipline Day',`${Math.round(status.discipline*100)}% / 80%`],[status.perfectRoutine,'⭐','Daily Missions Complete','All controllable missions'],[status.perfectDay,'🌟','Perfect Day','Routine + 8–9h sleep'],[status.exceptionalDay,'👑','Exceptional Day','Perfect + 2 weekly credits'],[week.perfectWeek,'🏆','Perfect Week','Weekly targets + consistency'],[week.optimalSleepWeek,'🌙','Optimal Sleep Week','7-day avg 8–9h']];document.querySelector('#achievementStatus').innerHTML=chips.map(([ok,icon,name,detail])=>`<div class="achievement ${ok?'earned':''}"><span>${icon}</span><div><strong>${name}</strong><small>${detail}</small></div><b>${ok?'✓':'—'}</b></div>`).join('');}
+function renderAchievements(){const status=calculateDayStatus(),week=currentWeekStatus(),chips=[[status.discipline>=.8,'🔥','Discipline Day',`${Math.round(status.discipline*100)}% / 80%`],[status.perfectRoutine,'⭐','Daily Missions','All missions complete'],[status.perfectDay,'🌟','Perfect Day','Routine + 8–9h sleep'],[status.exceptionalDay,'👑','Exceptional','Perfect + 2 weekly credits'],[week.perfectWeek,'🏆','Perfect Week','Weekly targets + consistency'],[week.optimalSleepWeek,'🌙','Sleep Week','7-day avg 8–9h']];document.querySelector('#achievementStatus').innerHTML=chips.map(([ok,icon,name,detail])=>`<button class="achievement-badge ${ok?'earned':''}" type="button" title="${escapeHtml(detail)}"><span class="achievement-medallion">${icon}</span><strong>${name}</strong><small>${ok?'UNLOCKED':'LOCKED'}</small></button>`).join('');}
 
 // ---------- Journey map ----------
 function bookForLevel(level){return Math.min(7,Math.max(1,Math.ceil(level/24)));}
@@ -255,7 +266,7 @@ function collectionCardHtml(c){const status=cardStatus(c),owned=status==='owned'
 function renderCollection(){
   const hub=document.querySelector('#collectionHub'),ownedCards=DATA.collectibles.filter(c=>save.owned[c.id]).sort((a,b)=>(save.owned[b.id].discoveredLevel||0)-(save.owned[a.id].discoveredLevel||0));
   if(!ui.collectionCategory){
-    const recent=ownedCards.slice(0,6);hub.innerHTML=`<section class="collection-overview"><div class="collection-total"><span>DISCOVERED</span><strong>${ownedCards.length}<em>/385</em></strong><div class="progress-track"><div class="progress-fill" style="width:${ownedCards.length/385*100}%"></div></div></div>${recent.length?`<div class="recent-section"><div class="section-head"><h3>Recently discovered</h3></div><div class="recent-shelf">${recent.map(collectionCardHtml).join('')}</div></div>`:''}<div class="gallery-grid">${Object.entries(CATEGORY_META).map(([cat,m])=>{const all=DATA.collectibles.filter(c=>c.category===cat),owned=all.filter(c=>save.owned[c.id]).length;return `<button class="gallery-door" data-gallery="${escapeHtml(cat)}"><div class="gallery-icon">${m.icon}</div><div><span>${owned} / ${all.length}</span><h3>${m.title}</h3><p>${m.subtitle}</p></div><b>→</b></button>`;}).join('')}</div></section>`;
+    const recent=ownedCards.slice(0,6);hub.innerHTML=`<section class="collection-overview"><div class="collection-total"><span>DISCOVERED</span><strong>${ownedCards.length}<em>/385</em></strong><div class="progress-track"><div class="progress-fill" style="width:${ownedCards.length/385*100}%"></div></div></div>${recent.length?`<div class="recent-section"><div class="section-head"><h3>Recently discovered</h3></div><div class="recent-shelf">${recent.map(collectionCardHtml).join('')}</div></div>`:''}<div class="gallery-grid">${Object.entries(CATEGORY_META).map(([cat,m])=>{const all=DATA.collectibles.filter(c=>c.category===cat),owned=all.filter(c=>save.owned[c.id]).length;return `<button class="gallery-door" data-gallery="${escapeHtml(cat)}"><div class="gallery-icon">${m.icon}</div><div class="gallery-door-copy"><h3>${m.title}</h3><span>${owned} / ${all.length}</span><div class="gallery-progress"><i style="width:${all.length?owned/all.length*100:0}%"></i></div></div></button>`;}).join('')}</div></section>`;
     hub.querySelectorAll('[data-gallery]').forEach(b=>b.onclick=()=>{ui.collectionCategory=b.dataset.gallery;ui.collectionBook=Math.min(7,Math.max(1,bookForLevel(Math.max(1,save.currentLevel))));renderCollection();window.scrollTo({top:0,behavior:'smooth'});});return;
   }
   const cat=ui.collectionCategory,meta=CATEGORY_META[cat],all=DATA.collectibles.filter(c=>c.category===cat),book=ui.collectionBook||1,filtered=all.filter(c=>cardBook(c)===book),owned=all.filter(c=>save.owned[c.id]).length;
