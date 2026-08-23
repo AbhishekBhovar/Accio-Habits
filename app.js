@@ -1,7 +1,7 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '3.23.0';
+const APP_VERSION = '3.24.0';
 const PARAMS = new URLSearchParams(location.search);
 const DEV_MODE = PARAMS.get('dev') === '1';
 const FRESH_PREVIEW = PARAMS.get('fresh') === '1';
@@ -234,13 +234,16 @@ function simplifyTodaySectionChrome(){
 }
 // ---------- render Today ----------
 function renderHome(){
+  const topDashboard=document.querySelector('#statusZone');
+  if(topDashboard){topDashboard.hidden=true;topDashboard.style.display='none';}
+
   const row=currentRow(),next=nextLevelRow();document.querySelector('#levelOrb').textContent=save.currentLevel;document.querySelector('#levelTitle').textContent=save.currentLevel?`Level ${save.currentLevel}`:'Level 0';document.querySelector('#storyBeat').textContent=row?.storyBeat||'Your journey is ready to begin.';document.querySelector('#bookLabel').textContent=row?`BOOK ${row.book} • ${row.bookName} • LEVEL ${save.currentLevel}`:'BEFORE HOGWARTS';
   const xpNeed=next?.xpRequired||0,inside=xpIntoCurrent(),pct=save.currentLevel>=168?100:Math.max(0,Math.min(100,(inside/xpNeed)*100));document.querySelector('#xpBar').style.width=`${pct}%`;document.querySelector('#xpText').textContent=save.currentLevel>=168?'Saga complete':`${inside.toLocaleString()} / ${xpNeed.toLocaleString()} XP`;document.querySelector('#checkpointText').textContent=row?`Checkpoint ${row.checkpoint}`:'Checkpoint 1';
   const owned=Object.keys(save.owned).length,today=calculateDayStatus();document.querySelector('#ownedCount').textContent=`${owned} / ${DATA.collectibles.length}`;document.querySelector('#sagaPct').textContent=`${((save.currentLevel/168)*100).toFixed(1)}% saga`;const dailyHabits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),todayDay=displayDaily(),dailyDone=dailyHabits.filter(h=>todayDay.habits[h.id]?.completed).length,dailyLeft=Math.max(0,dailyHabits.length-dailyDone);document.querySelector('#todayScore').textContent=`${dailyDone} / ${dailyHabits.length}`;document.querySelector('#todayXp').textContent=dailyLeft===0?'All tasks done':`${dailyLeft} task${dailyLeft===1?'':'s'} left`;
   const journeyText=document.querySelector('#streakText'),journeySub=document.querySelector('#bestStreakText');
   if(journeyText){journeyText.textContent=`${save.currentLevel} / 168`;let box=journeyText.parentElement;while(box&&journeySub&&!box.contains(journeySub))box=box.parentElement;const label=box?[...box.querySelectorAll('span,small,p')].find(el=>/streak/i.test(el.textContent||'')):null;if(label)label.textContent='Journey';}
   if(journeySub)journeySub.textContent=`${((save.currentLevel/168)*100).toFixed(1)}% saga`;
-  const banner=document.querySelector('#victoryBanner'),statusZone=document.querySelector('#statusZone');if(statusZone)statusZone.classList.add('compact-journey-header');
+  const banner=document.querySelector('#victoryBanner'),statusZone=document.querySelector('#statusZone');if(statusZone){statusZone.hidden=true;statusZone.style.display='none';}
   if(banner) banner.hidden=true;
   statusZone.classList.toggle('is-perfect',today.perfectDay);
   statusZone.classList.toggle('is-routine-complete',today.perfectRoutine&&!today.perfectDay);
@@ -299,8 +302,8 @@ function missionProgressDots(value,target){return Array.from({length:target},(_,
 function weeklyDoneToday(type){const week=ensureCurrentWeek(),date=localDateKey();if(type==='weights')return (week.weightDays||[]).includes(date);if(type==='cardio')return (week.cardioLog||[]).some(x=>x.date===date);if(type==='sport')return (week.sportLog||[]).some(x=>x.date===date);if(type==='sauna')return (week.saunaLog||[]).some(x=>x.date===date);return false;}
 function renderWeekly(){
   const week=ensureCurrentWeek(),sportDone=3-week.sportDueRemaining;document.querySelector('#weekLabel').textContent=`${prettyDate(weekKey())} – ${weekEndFromKey(weekKey()).toLocaleDateString(undefined,{day:'numeric',month:'short'})}`;
-  const row=(icon,title,sub,count,target,done,actions)=>`<div class="weekly-mission ${done?'done-today':''}"><div class="weekly-info"><span class="weekly-icon">${icon}</span><div><strong>${done?'✓ ':''}${title}</strong><small>${done?'Completed today • ':''}${sub}</small><div class="mission-dots">${missionProgressDots(count,target)}</div></div></div><div class="weekly-action"><b>${count}/${target}</b>${actions}</div></div>`;
-  document.querySelector('#weeklyMissionList').innerHTML=`${row('🏋️','Gym','4 sessions • 100 XP each',week.weights,4,weeklyDoneToday('weights'),weeklyDoneToday('weights')?'':`<button id="logWeights" ${week.weights>=4?'disabled':''}>+ Session</button>`)}${row('🏃','Incline Walk / StairMaster','4 sessions • 40 XP each',week.cardio,4,weeklyDoneToday('cardio'),weeklyDoneToday('cardio')?'':`<button id="logCardio" ${week.cardio>=4?'disabled':''}>+ Session</button>`)}${row('⚽','Sport / Outdoor','3 sessions • 50 XP each',sportDone,3,weeklyDoneToday('sport'),`<button id="logSport">${weeklyDoneToday('sport')?'+ Another':'+ Activity'}</button>`)}${row('🧖','Sauna','5 sessions × 30 min • 35 XP',week.sauna,5,weeklyDoneToday('sauna'),`<div class="tiny-buttons"><button id="logSauna1" ${week.sauna>=5?'disabled':''}>+30m</button><button id="logSauna2" ${week.sauna>=5?'disabled':''}>+60m</button></div>`)}`;
+  const row=(icon,title,sub,count,target,done,actions)=>`<div class="weekly-mission ${done||count>=target?'done-today':''}"><div class="weekly-info"><span class="weekly-icon">${icon}</span><div><strong>${done||count>=target?'✓ ':''}${title}</strong><small>${sub}</small><div class="mission-dots">${missionProgressDots(count,target)}</div></div></div><div class="weekly-action"><b>${count}/${target}</b>${actions}</div></div>`;
+  document.querySelector('#weeklyMissionList').innerHTML=`${row('🏋️','Gym','4 sessions • 100 XP each',week.weights,4,weeklyDoneToday('weights'),weeklyDoneToday('weights')?'':`<button id="logWeights" ${week.weights>=4?'disabled':''}>+ Session</button>`)}${row('🏃','Incline Walk / StairMaster','4 sessions • 40 XP each',week.cardio,4,weeklyDoneToday('cardio'),weeklyDoneToday('cardio')?'':`<button id="logCardio" ${week.cardio>=4?'disabled':''}>+ Session</button>`)}${row('⚽','Sport / Outdoor','3 sessions • 50 XP each',sportDone,3,weeklyDoneToday('sport')||sportDone>=3,`<button id="logSport">+ Activity</button>`)}${row('🧖','Sauna','5 sessions × 30 min • 35 XP',week.sauna,5,weeklyDoneToday('sauna')||week.sauna>=5,`<div class="tiny-buttons"><button id="logSauna1" ${week.sauna>=5?'disabled':''}>+30m</button><button id="logSauna2" ${week.sauna>=5?'disabled':''}>+60m</button></div>`)}`;
   const a=document.querySelector('#logWeights');if(a)a.onclick=logWeights;const b=document.querySelector('#logCardio');if(b)b.onclick=logCardio;const c=document.querySelector('#logSport');if(c)c.onclick=logSport;const d=document.querySelector('#logSauna1');if(d)d.onclick=()=>logSauna(1);const e=document.querySelector('#logSauna2');if(e)e.onclick=()=>logSauna(2);
 }
 function achievementChips(){
@@ -373,8 +376,8 @@ const STORY_PASSAGES = {
   1:{
     title:'The night everything changed',
     passage:'Before Harry could remember anything, the wizarding world already knew his name. One terrible night ended with his parents gone, Voldemort vanished, and Harry alive with a lightning-shaped scar. By morning, he was being carried away from magic and toward a childhood in which nobody would willingly tell him the truth.',
-    knows:'Harry does not know any of this yet. He only knows the Dursleys have raised him and that questions about his parents are unwelcome.',
-    mystery:'Why did Voldemort fail to kill Harry — and why did the whole wizarding world celebrate his survival?'
+    knows:'Almost nothing. Harry believes his parents died in a car crash. The Dursleys refuse to answer his questions, and he has no idea that he belongs to another world.',
+    mystery:'Why did Harry survive? Voldemort killed his parents, yet the curse failed against Harry. No one yet knows what protected him — or why Voldemort disappeared.'
   },
   2:{
     title:'Number Four, Privet Drive',
@@ -501,7 +504,7 @@ function renderCollection(){
     hub.querySelectorAll('[data-gallery]').forEach(b=>b.onclick=()=>{ui.collectionCategory=b.dataset.gallery;ui.collectionBook=Math.min(7,Math.max(1,bookForLevel(Math.max(1,save.currentLevel))));renderCollection();window.scrollTo({top:0,behavior:'smooth'});});return;
   }
   const cat=ui.collectionCategory,meta=CATEGORY_META[cat],all=DATA.collectibles.filter(c=>c.category===cat),book=ui.collectionBook||1,filtered=all.filter(c=>cardBook(c)===book),owned=all.filter(c=>save.owned[c.id]).length;
-  hub.innerHTML=`<button id="collectionBack" class="back-button">← Magical Archive</button><section class="gallery-hero"><div class="gallery-icon large">${meta.icon}</div><div><span class="eyebrow">${owned} / ${all.length} DISCOVERED</span><h2>${meta.title}</h2><p>${meta.subtitle}</p></div></section><div class="year-tabs">${Array.from({length:7},(_,i)=>{const b=i+1,count=all.filter(c=>cardBook(c)===b).length;return `<button data-year="${b}" class="${book===b?'active':''}"><span>Year ${b}</span><small>${count} items</small></button>`;}).join('')}</div><div class="gallery-year-head"><div><span class="eyebrow">YEAR ${book}</span><h3>${BOOK_NAMES[book]}</h3></div><span>${filtered.filter(c=>save.owned[c.id]).length}/${filtered.length}</span></div><div class="museum-grid">${filtered.map(collectionCardHtml).join('')||'<p class="muted">No collectibles first appear in this year.</p>'}</div>`;
+  hub.innerHTML=`<button id="collectionBack" class="back-button">← Magical Archive</button><section class="gallery-hero compact-gallery-hero"><div class="gallery-icon">${meta.icon}</div><div><h2>${meta.title}</h2><span>${owned} / ${all.length} discovered</span><p>${meta.subtitle}</p></div></section><div class="year-tabs compact-year-tabs">${Array.from({length:7},(_,i)=>{const b=i+1,count=all.filter(c=>cardBook(c)===b).length;return `<button data-year="${b}" class="${book===b?'active':''}"><span>Y${b}</span><small>${count}</small></button>`;}).join('')}</div><div class="gallery-year-head compact-gallery-year"><div><span class="eyebrow">YEAR ${book}</span><h3>${BOOK_NAMES[book]}</h3></div><span>${filtered.filter(c=>save.owned[c.id]).length}/${filtered.length}</span></div><div class="museum-grid">${filtered.map(collectionCardHtml).join('')||'<p class="muted">No collectibles first appear in this year.</p>'}</div>`;
   document.querySelector('#collectionBack').onclick=()=>{ui.collectionCategory=null;ui.collectionBook=null;renderCollection();};hub.querySelectorAll('[data-year]').forEach(b=>b.onclick=()=>{ui.collectionBook=Number(b.dataset.year);renderCollection();});
 }
 
@@ -518,49 +521,64 @@ function progressBar(label,value,target,icon,extra=''){const pct=Math.min(100,va
 function renderStats(){
   const status=currentWeekStatus(),ss=sleepSummary(),owned=Object.keys(save.owned).length,series=xpSeries7Days();
   const dailyHabits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),day=displayDaily(),dailyDone=dailyHabits.filter(h=>day.habits[h.id]?.completed).length;
-  const sportDone=3-status.week.sportDueRemaining,weeklyDone=status.week.weights+status.week.cardio+sportDone+status.week.sauna,weeklyTarget=16;
-  const weekKeys=currentWeekDates(),weekXP=save.eventLog.filter(e=>e.kind==='xp'&&e.ts&&weekKeys.includes(localDateKey(new Date(e.ts)))).reduce((n,e)=>n+(Number((String(e.title).match(/\+(\d+)\s+XP/)||[])[1])||0),0);
+  const sportDone=3-status.week.sportDueRemaining,weekKeys=currentWeekDates();
+  const weekXP=save.eventLog.filter(e=>e.kind==='xp'&&e.ts&&weekKeys.includes(localDateKey(new Date(e.ts)))).reduce((n,e)=>n+(Number((String(e.title).match(/\+(\d+)\s+XP/)||[])[1])||0),0);
   const maxXp=Math.max(1,...series.map(x=>x.xp)),sevenTotal=series.reduce((n,x)=>n+x.xp,0);
   const view=document.querySelector('#view-stats');
-  const mainTitle=view?.querySelector('h2');if(mainTitle)mainTitle.textContent='Progress';
-  const intro=view?.querySelector('h2 + p');if(intro)intro.textContent='Training, XP, recovery and wizarding-world progress at a glance.';
+  const title=view?.querySelector('h2');if(title)title.textContent='Stats';
+  const intro=view?.querySelector('h2 + p');if(intro)intro.textContent='Your training journey, glowing a little brighter each week.';
+  const missionOrbs=[
+    ['🏋️','Gym',status.week.weights,4],
+    ['🏃','Incline',status.week.cardio,4],
+    ['⚽','Sport',sportDone,3],
+    ['🧖','Sauna',status.week.sauna,5]
+  ];
   document.querySelector('#statsDashboard').innerHTML=`
-  <section class="stats-hero progress-hero">
-    <div class="stats-hero-title"><span class="eyebrow">THIS WEEK</span><h3>Progress at a glance</h3></div>
-    <div class="progress-kpi-grid">
-      <div><span>Today</span><strong>${dailyDone}/${dailyHabits.length}</strong><small>daily missions</small></div>
-      <div><span>Weekly</span><strong>${weeklyDone}/${weeklyTarget}</strong><small>mission sessions</small></div>
-      <div><span>XP earned</span><strong>${weekXP.toLocaleString()}</strong><small>this week</small></div>
-      <div><span>Journey</span><strong>Lv ${save.currentLevel}</strong><small>${save.currentLevel}/168</small></div>
-    </div>
-  </section>
-  <section class="dashboard-card xp-chart-card">
-    <div class="section-head"><div><span class="eyebrow">MOMENTUM</span><h3>7-day XP</h3></div><strong>${sevenTotal.toLocaleString()} XP</strong></div>
-    <div class="bar-chart xp-bars">${series.map(x=>`<div class="bar-column"><div class="bar-value">${x.xp||''}</div><div class="bar-shell"><i style="height:${x.xp?Math.max(8,x.xp/maxXp*100):3}%"></i></div><span>${x.label}</span></div>`).join('')}</div>
-  </section>
-  <section class="dashboard-grid">
-    <div class="dashboard-card"><h3>Weekly missions</h3>
-      ${progressBar('Gym',status.week.weights,4,'🏋️')}
-      ${progressBar('Incline / Stairs',status.week.cardio,4,'🏃')}
-      ${progressBar('Sport / Outdoor',sportDone,3,'⚽')}
-      ${progressBar('Sauna',status.week.sauna,5,'🧖')}
-    </div>
-    <div class="dashboard-card progress-snapshot"><h3>Adventure progress</h3>
-      ${progressBar('Journey',save.currentLevel,168,'🗺️')}
-      ${progressBar('Collection',owned,DATA.collectibles.length,'🎴')}
-      <div class="snapshot-numbers"><div><span>Lifetime XP</span><strong>${save.totalXP.toLocaleString()}</strong></div><div><span>Books complete</span><strong>${save.completedBooks.length}/7</strong></div></div>
-    </div>
-  </section>
-  <section class="dashboard-card">
-    <div class="section-head"><div><span class="eyebrow">RECOVERY</span><h3>Sleep trend</h3></div><strong>${ss.count?ss.sevenAvg.toFixed(1)+' h avg':'—'}</strong></div>
-    <div class="sleep-stats-simple"><div><span>Recovery sleep</span><strong>${ss.recovery.toFixed(1)} h</strong></div><div><span>Logged nights</span><strong>${ss.count}/7</strong></div></div>
-  </section>
-  <section class="dashboard-card stats-achievements-archive">
-    <details>
-      <summary><span>🏅</span><div><strong>Achievements archive</strong><small>Optional milestones</small></div><b>View</b></summary>
-      <div class="achievement-mini-grid">${achievementChips().map(([ok,icon,name])=>`<div class="achievement-mini ${ok?'earned':''}"><span>${icon}</span><div><strong>${name}</strong><small>${ok?'Earned':'Not yet'}</small></div></div>`).join('')}</div>
-    </details>
-  </section>`;
+    <section class="rpg-stats-hero">
+      <div class="victory-spark">✦</div>
+      <span class="eyebrow">THIS WEEK</span>
+      <h3>${dailyDone===dailyHabits.length?'✨ Daily quests conquered':'Your week is unfolding'}</h3>
+      <p><strong>${weekXP.toLocaleString()} XP</strong> earned this week</p>
+      <div class="hero-mini-stats">
+        <div><span>Today</span><b>${dailyDone}/${dailyHabits.length}</b></div>
+        <div><span>Journey</span><b>Lv ${save.currentLevel}</b></div>
+        <div><span>Discoveries</span><b>${owned}</b></div>
+      </div>
+    </section>
+
+    <section class="dashboard-card xp-trail-card">
+      <div class="section-head"><div><span class="eyebrow">XP TRAIL</span><h3>Last 7 days</h3></div><strong>${sevenTotal.toLocaleString()} XP</strong></div>
+      <div class="xp-orb-trail">${series.map((x,i)=>`<div class="xp-orb-day ${x.xp?'lit':''} ${i===6?'today':''}"><span class="xp-orb" style="--power:${Math.max(.18,x.xp/maxXp)}"></span><b>${x.xp||'·'}</b><small>${x.label}</small></div>`).join('')}</div>
+    </section>
+
+    <section class="dashboard-card quest-progress-card">
+      <div class="section-head"><div><span class="eyebrow">WEEKLY QUESTS</span><h3>Your mission board</h3></div></div>
+      <div class="quest-orb-grid">${missionOrbs.map(([icon,name,value,target])=>{const pct=Math.min(100,value/target*100);return `<div class="quest-orb ${value>=target?'complete':''}"><div class="quest-ring" style="--pct:${pct}"><span>${icon}</span></div><strong>${name}</strong><small>${value}/${target}${value>=target?' ✓':''}</small></div>`}).join('')}</div>
+    </section>
+
+    <section class="dashboard-card adventure-stats-card">
+      <div class="section-head"><div><span class="eyebrow">ADVENTURE</span><h3>Your wizarding journey</h3></div></div>
+      <div class="adventure-route">
+        <span class="route-node current">⚡<small>Lv ${save.currentLevel}</small></span>
+        <i></i>
+        <span class="route-node">🏰<small>${Math.max(1,Math.ceil(save.currentLevel/4))}/42 CP</small></span>
+        <i></i>
+        <span class="route-node">🎴<small>${owned}/385</small></span>
+      </div>
+      <div class="adventure-numbers"><div><span>Lifetime XP</span><strong>${save.totalXP.toLocaleString()}</strong></div><div><span>Books complete</span><strong>${save.completedBooks.length}/7</strong></div></div>
+    </section>
+
+    <section class="dashboard-card recovery-card">
+      <div class="recovery-moon">☾</div>
+      <div><span class="eyebrow">RECOVERY</span><h3>Sleep</h3><p>${ss.count?`${ss.sevenAvg.toFixed(1)} h average across ${ss.count} logged night${ss.count===1?'':'s'}`:'Log sleep to begin your recovery trail.'}</p></div>
+    </section>
+
+    <section class="dashboard-card stats-achievements-archive">
+      <details>
+        <summary><span>🏅</span><div><strong>Milestones</strong><small>Badges and achievements</small></div><b>View</b></summary>
+        <div class="achievement-mini-grid">${achievementChips().map(([ok,icon,name])=>`<div class="achievement-mini ${ok?'earned':''}"><span>${icon}</span><div><strong>${name}</strong><small>${ok?'Earned':'Locked'}</small></div></div>`).join('')}</div>
+      </details>
+    </section>`;
 }
 
 // ---------- Settings ----------

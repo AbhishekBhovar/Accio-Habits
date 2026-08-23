@@ -1,13 +1,33 @@
-# Harry Potter Fitness RPG — Phase 3.23
+# Harry Potter Fitness RPG — Phase 3.24 Final Review Consolidation
 
-Bundled update:
-- Today dashboard removed: Current Story → Weekly Missions → Daily Missions → Sleep.
-- Today shows the CURRENT Harry Potter story; Journey teases NEXT level.
-- Journey simplified to current chapter visual + only the next checkpoint.
-- Weekly missions gain clear Completed today states; Gym/Cardio stop after one daily credit, Sport/Sauna can add more.
-- Sleep target scales from 6h at Level 1 to 8h at Level 168; nap target = 1h; completed sleep collapses like Daily Missions.
-- Collection refit for iPhone 16 Pro width.
-- Subtle magical twinkles/shimmers with Reduce Motion support.
-- Stats improvements from Phase 3.22 retained.
+TODAY
+- Removes the redundant Book/Level dashboard completely.
+- Today is now: Your Story → Weekly Missions → Daily Missions → Sleep.
+- Sport turns green at 3/3 while keeping + Activity available.
+- Completed weekly rows rely on green + checkmark; “Completed today” text is removed.
 
-Replace app.js, styles.css and service-worker.js. README optional.
+JOURNEY
+- Typographic hierarchy cleaned up: fewer oversized headings.
+- Story-opening text uses italic/weight rather than another giant headline.
+- “What Harry Knows” rewritten clearly.
+- “What Remains Mysterious” rewritten clearly.
+
+COLLECTION
+- Category pages are refit for iPhone 16 Pro.
+- Compact category hero.
+- All 7 year buttons fit without clipping (4 + 3 grid).
+- Collection cards begin higher on the screen.
+
+STATS
+- Rebuilt as an RPG progress page rather than a business dashboard.
+- Weekly victory hero.
+- Magical 7-day XP trail.
+- Weekly quest rings.
+- Wizarding adventure route.
+- Compact recovery card.
+- Milestones remain optional at the bottom.
+
+Replace:
+- app.js
+- styles.css
+- service-worker.js

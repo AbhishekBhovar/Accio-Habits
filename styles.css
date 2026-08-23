@@ -2116,3 +2116,324 @@ body{font-size:14px!important}
 #view-collection{overflow-x:hidden!important;padding-left:12px!important;padding-right:12px!important}.archive-hero{width:100%!important;margin-left:0!important;margin-right:0!important}.recent-shelf.compact{display:flex!important;gap:8px!important;overflow-x:auto!important;padding:2px 2px 8px!important;scrollbar-width:none}.recent-shelf.compact::-webkit-scrollbar{display:none}.recent-mini{flex:0 0 116px!important;width:116px!important;min-width:116px!important}.recent-mini-art{height:90px!important}.archive-doors{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}.archive-door{min-width:0!important;width:100%!important;padding:9px!important;gap:8px!important}.archive-door-art{width:54px!important;min-width:54px!important;height:54px!important}.archive-door h3{font-size:12px!important;line-height:1.1!important}.recent-section .section-head small{display:none!important}
 .magical-collection .archive-hero,.next-story-feature,.current-story{position:relative;overflow:hidden}.magical-collection .archive-hero::after,.next-story-feature::after,.current-story::after{content:'✦';position:absolute;top:10px;right:16px;color:#ffd45c;font-size:20px;animation:softTwinkle 2.5s ease-in-out infinite;text-shadow:0 0 12px rgba(255,212,92,.75)}.recent-mini{position:relative;overflow:hidden}.recent-mini::after{content:'';position:absolute;inset:-20%;background:linear-gradient(110deg,transparent 40%,rgba(255,255,255,.13) 50%,transparent 60%);transform:translateX(-120%);animation:rarityShimmer 5.5s ease-in-out infinite}@keyframes softTwinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}@keyframes rarityShimmer{0%,70%{transform:translateX(-120%)}88%,100%{transform:translateX(120%)}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 @media(max-width:430px){#view-home,#view-journey,#view-collection{padding-left:12px!important;padding-right:12px!important}.journey-book-banner{grid-template-columns:82px 1fr!important}.journey-current-checkpoint,.journey-next-checkpoint{grid-template-columns:70px 1fr!important}.recent-mini{flex-basis:114px!important;width:114px!important;min-width:114px!important}}
+
+
+/* ==========================================================
+   Phase 3.24 — Final Review Consolidation
+   ========================================================== */
+
+/* TODAY: dashboard is gone, no exceptions. */
+#view-home #statusZone,
+#statusZone.today-status-hidden{
+  display:none!important;
+}
+#view-home .today-story-shell{margin-top:8px!important}
+
+/* Weekly completion: green is the message; no redundant prose. */
+.weekly-mission.done-today .weekly-info small{color:#b9ddca!important}
+.weekly-mission.done-today .weekly-action b{color:#eafff2!important}
+
+/* JOURNEY typography: use hierarchy, weight and italics instead of giant type. */
+.journey-current-checkpoint .eyebrow,
+.journey-next-checkpoint .eyebrow{
+  font-size:10px!important;
+  letter-spacing:.13em!important;
+}
+.journey-current-checkpoint h3{
+  font-size:16px!important;
+  font-weight:700!important;
+  margin:4px 0 6px!important;
+}
+.journey-storybook summary strong{
+  font-size:14px!important;
+  font-weight:500!important;
+  font-style:italic!important;
+  line-height:1.25!important;
+}
+.journey-next-checkpoint h3{
+  font-size:17px!important;
+  font-weight:600!important;
+  font-style:italic!important;
+  margin:4px 0!important;
+}
+.journey-next-checkpoint p{
+  font-size:11.5px!important;
+  line-height:1.35!important;
+}
+.journey-storybook-page h4{
+  font-size:16px!important;
+  font-style:italic!important;
+  font-weight:650!important;
+}
+.storybook-facts>div span{
+  font-size:9px!important;
+  line-height:1.25!important;
+}
+.storybook-facts>div p{
+  font-size:12px!important;
+  line-height:1.42!important;
+}
+
+/* COLLECTION CATEGORY: iPhone 16 Pro safe, no horizontal clipping. */
+#collectionHub{max-width:100%!important;overflow-x:hidden!important}
+.compact-gallery-hero{
+  display:grid!important;
+  grid-template-columns:58px 1fr!important;
+  gap:11px!important;
+  align-items:center!important;
+  padding:12px!important;
+  min-height:0!important;
+}
+.compact-gallery-hero .gallery-icon{
+  width:54px!important;
+  height:54px!important;
+  min-width:54px!important;
+  font-size:28px!important;
+}
+.compact-gallery-hero h2{
+  font-size:21px!important;
+  line-height:1.08!important;
+  margin:0 0 3px!important;
+}
+.compact-gallery-hero span{
+  font-size:11px!important;
+  color:#ffd45c!important;
+}
+.compact-gallery-hero p{
+  font-size:11px!important;
+  line-height:1.25!important;
+  margin:3px 0 0!important;
+  font-style:italic!important;
+  white-space:normal!important;
+}
+.compact-year-tabs{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:6px!important;
+  overflow:visible!important;
+  width:100%!important;
+  margin:10px 0 12px!important;
+}
+.compact-year-tabs button{
+  min-width:0!important;
+  width:100%!important;
+  padding:7px 4px!important;
+  border-radius:10px!important;
+}
+.compact-year-tabs button span{
+  font-size:11px!important;
+}
+.compact-year-tabs button small{
+  font-size:9px!important;
+}
+.compact-gallery-year{
+  margin:8px 2px 8px!important;
+}
+.compact-gallery-year h3{
+  font-size:19px!important;
+  margin:2px 0!important;
+}
+.museum-grid{
+  gap:8px!important;
+}
+.museum-card{
+  min-width:0!important;
+}
+.museum-card .museum-art{
+  min-height:112px!important;
+}
+
+/* STATS: magical RPG page, not a business dashboard. */
+#view-stats>h2{font-size:28px!important;margin-bottom:4px!important}
+#view-stats>h2+p{font-size:13px!important;line-height:1.4!important;margin-bottom:12px!important}
+
+.rpg-stats-hero{
+  position:relative;
+  overflow:hidden;
+  padding:17px;
+  border-radius:20px;
+  border:2px solid #d19e3d;
+  background:
+    radial-gradient(circle at 88% 12%,rgba(255,218,92,.18),transparent 28%),
+    linear-gradient(135deg,#52172e,#251722 58%,#3a2d13);
+}
+.rpg-stats-hero .victory-spark{
+  position:absolute;right:18px;top:12px;
+  font-size:28px;color:#ffd45c;
+  animation:softTwinkle 2.4s ease-in-out infinite;
+}
+.rpg-stats-hero h3{
+  font-size:24px;
+  line-height:1.08;
+  margin:5px 0 7px;
+}
+.rpg-stats-hero>p{
+  margin:0;
+  font-size:14px;
+  color:#f0dfcd;
+}
+.rpg-stats-hero>p strong{
+  color:#ffd45c;
+  font-size:20px;
+}
+.hero-mini-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+  margin-top:14px;
+}
+.hero-mini-stats>div{
+  padding:9px 7px;
+  text-align:center;
+  border-radius:11px;
+  background:rgba(15,18,25,.52);
+  border:1px solid rgba(255,218,92,.22);
+}
+.hero-mini-stats span,.hero-mini-stats b{display:block}
+.hero-mini-stats span{font-size:9px;color:#d8c9bb}
+.hero-mini-stats b{font-size:17px;color:#fff8e8;margin-top:2px}
+
+.xp-trail-card,.quest-progress-card,.adventure-stats-card,.recovery-card{
+  margin-top:12px!important;
+}
+.xp-orb-trail{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:5px;
+  align-items:end;
+  padding-top:10px;
+}
+.xp-orb-trail::before{
+  content:'';
+  position:absolute;
+  left:6%;right:6%;top:35px;
+  height:2px;
+  background:linear-gradient(90deg,#4c4651,#ffd45c,#a92c50);
+  opacity:.55;
+}
+.xp-orb-day{
+  position:relative;
+  z-index:2;
+  display:grid;
+  justify-items:center;
+  gap:4px;
+}
+.xp-orb{
+  display:block;
+  width:22px;height:22px;
+  border-radius:50%;
+  background:#202630;
+  border:2px solid #525c6b;
+}
+.xp-orb-day.lit .xp-orb{
+  background:radial-gradient(circle,#fff3a9 0 20%,#ffd45c 21% 52%,#b72b4e 54% 100%);
+  border-color:#ffd45c;
+  box-shadow:0 0 calc(16px * var(--power)) rgba(255,212,92,.9);
+}
+.xp-orb-day.today .xp-orb{
+  animation:gentlePulse 2s ease-in-out infinite;
+}
+.xp-orb-day b{font-size:9px;color:#ffd45c}
+.xp-orb-day small{font-size:9px;color:#bfc4cb}
+
+.quest-orb-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin-top:8px;
+}
+.quest-orb{text-align:center}
+.quest-ring{
+  --pct:0;
+  width:58px;height:58px;
+  margin:0 auto 6px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at center,#171d26 0 58%,transparent 59%),
+    conic-gradient(#ffd45c calc(var(--pct)*1%),#3a414c 0);
+  border:1px solid #515968;
+}
+.quest-ring span{font-size:24px}
+.quest-orb.complete .quest-ring{
+  box-shadow:0 0 14px rgba(255,212,92,.25);
+}
+.quest-orb strong{display:block;font-size:10px;line-height:1.15}
+.quest-orb small{display:block;font-size:9px;color:#c5c8ce;margin-top:2px}
+
+.adventure-route{
+  display:grid;
+  grid-template-columns:auto 1fr auto 1fr auto;
+  align-items:center;
+  gap:6px;
+  margin:10px 0 12px;
+}
+.adventure-route>i{
+  height:3px;
+  background:linear-gradient(90deg,#ffd45c,#6e4052);
+  border-radius:4px;
+}
+.route-node{
+  width:58px;height:58px;
+  border-radius:50%;
+  display:grid;place-items:center;
+  text-align:center;
+  background:#202631;
+  border:2px solid #596172;
+  font-size:22px;
+}
+.route-node.current{
+  border-color:#ffd45c;
+  background:#5a1b31;
+  box-shadow:0 0 14px rgba(255,212,92,.2);
+}
+.route-node small{
+  display:block;
+  font-size:7px;
+  line-height:1;
+  color:#efe4d5;
+}
+.adventure-numbers{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.adventure-numbers>div{
+  padding:10px;
+  border-radius:11px;
+  background:#202631;
+  border:1px solid #414a59;
+}
+.adventure-numbers span,.adventure-numbers strong{display:block}
+.adventure-numbers span{font-size:10px;color:#bfc4cb}
+.adventure-numbers strong{font-size:18px;margin-top:3px}
+
+.recovery-card{
+  display:grid!important;
+  grid-template-columns:68px 1fr!important;
+  gap:12px!important;
+  align-items:center!important;
+  background:linear-gradient(135deg,#17202c,#202037)!important;
+}
+.recovery-moon{
+  width:58px;height:58px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  font-size:34px;
+  color:#ffd45c;
+  background:#252a3b;
+  box-shadow:inset -10px -5px 0 rgba(10,13,20,.22),0 0 18px rgba(255,212,92,.08);
+}
+.recovery-card h3{font-size:19px!important;margin:2px 0!important}
+.recovery-card p{font-size:11.5px!important;line-height:1.4!important;margin:0!important;color:#cbd0d7!important}
+
+/* iPhone 16 Pro specific */
+@media(max-width:430px){
+  .quest-ring{width:52px;height:52px}
+  .quest-ring span{font-size:21px}
+  .quest-orb-grid{gap:5px}
+  .route-node{width:50px;height:50px;font-size:19px}
+  .compact-year-tabs{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+  .museum-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
