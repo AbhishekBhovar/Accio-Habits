@@ -1,7 +1,7 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '3.2.0';
+const APP_VERSION = '3.4.0';
 const DEV_MODE = new URLSearchParams(location.search).get('dev') === '1';
 const CATEGORY_META = {
   'Character': {icon:'🧙',title:'Characters',subtitle:'Witches, wizards, friends and foes'},
@@ -220,6 +220,10 @@ function renderHome(){
     if(heading)heading.textContent='Your Story';
     const sub=card?.querySelector('.muted');
     if(sub&&/latest|event|journey/i.test(sub.textContent||''))sub.textContent='A glimpse of what Harry is moving toward next.';
+    // Story is the primary reward: keep it directly under the level/victory dashboard,
+    // before the mission-management sections.
+    const statusZone=document.querySelector('#statusZone');
+    if(card&&statusZone&&statusZone.parentNode===card.parentNode&&statusZone.nextSibling!==card)statusZone.after(card);
   }
 }
 
@@ -236,11 +240,12 @@ function eventTimelineHtml(e,i){
 function habitRowsHtml(habits,day){return habits.map(h=>{const entry=day.habits[h.id],done=entry?.completed,sub=done?`Completed • +${entry.xpAwarded||h.xp} XP`:h.rule;return `<button class="habit-row ${done?'done':''}" data-habit="${h.id}" ${done?'disabled':''}><span class="habit-icon">${h.icon}</span><span class="habit-copy"><strong>${escapeHtml(h.name)}</strong><small>${escapeHtml(sub)}</small></span><span class="habit-xp">${done?'✓':`+${h.xp}`}</span></button>`;}).join('');}
 function renderDailyHabits(){
   const day=getDaily(),list=document.querySelector('#dailyHabitList'),habits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),completed=habits.filter(h=>day.habits[h.id]?.completed).length;document.querySelector('#routineBadge').textContent=`${completed} / ${habits.length}`;document.querySelector('#todayDateLabel').textContent=prettyDate(localDateKey());
-  if(completed===habits.length){list.innerHTML=`<div class="routine-complete-strip"><span>✨</span><div><strong>All ${habits.length} daily missions complete</strong><small>Your checklist is tucked away for the rest of today.</small></div></div><details class="completed-details"><summary>View completed missions</summary><div class="completed-list">${habitRowsHtml(habits,day)}</div></details>`;}
-  else list.innerHTML=habitRowsHtml(habits,day);
+  const panel=list.closest('.daily-panel');
+  if(completed===habits.length){list.innerHTML=`<div class="routine-complete-strip"><span>✨</span><div><strong>All ${habits.length} daily missions complete</strong><small>Your checklist is tucked away for the rest of today.</small></div></div><details class="completed-details"><summary>View completed missions</summary><div class="completed-list">${habitRowsHtml(habits,day)}</div></details>`;panel?.classList.add('routine-is-complete');}
+  else {list.innerHTML=habitRowsHtml(habits,day);panel?.classList.remove('routine-is-complete');}
   list.querySelectorAll('[data-habit]').forEach(b=>b.onclick=()=>completeHabit(b.dataset.habit));
 }
-function renderSleep(){const day=getDaily(),s=day.sleep;if(document.activeElement!==document.querySelector('#sleepHours'))document.querySelector('#sleepHours').value=s?.mainHours??'';if(document.activeElement!==document.querySelector('#napHours'))document.querySelector('#napHours').value=s?.napHours??'';const preview=s?.scoreXp??sleepXP(document.querySelector('#sleepHours').value),summary=sleepSummary();document.querySelector('#sleepXpPreview').textContent=`${preview} / 50 XP`;document.querySelector('#sleep7Day').textContent=summary.count?`7-day avg: ${summary.sevenAvg.toFixed(1)}h`:'7-day avg: —';document.querySelector('#sleepStage').textContent=`Current: Stage ${stageRoman(summary.stage)}`;document.querySelector('#sleepHighest').textContent=`Highest: Stage ${stageRoman(save.sleep.highestStage)}`;}
+function renderSleep(){const day=getDaily(),s=day.sleep;if(document.activeElement!==document.querySelector('#sleepHours'))document.querySelector('#sleepHours').value=s?.mainHours??'';if(document.activeElement!==document.querySelector('#napHours'))document.querySelector('#napHours').value=s?.napHours??'';const preview=s?.scoreXp??sleepXP(document.querySelector('#sleepHours').value),summary=sleepSummary();document.querySelector('#sleepXpPreview').textContent=`${preview} / 50 XP`;document.querySelector('#sleep7Day').textContent=summary.count?`7-day avg: ${summary.sevenAvg.toFixed(1)}h`:'7-day avg: —';document.querySelector('#sleepStage').textContent=`Current: Stage ${stageRoman(summary.stage)}`;document.querySelector('#sleepHighest').textContent=`Highest: Stage ${stageRoman(save.sleep.highestStage)}`;document.querySelector('#sleepHours')?.closest('.sleep-card')?.classList.toggle('sleep-is-saved',!!s?.mainHours);}
 function missionProgressDots(value,target){return Array.from({length:target},(_,i)=>`<span class="mission-dot ${i<value?'filled':''}"></span>`).join('');}
 function renderWeekly(){
   const week=ensureCurrentWeek();document.querySelector('#weekLabel').textContent=`${prettyDate(weekKey())} – ${weekEndFromKey(weekKey()).toLocaleDateString(undefined,{day:'numeric',month:'short'})}`;

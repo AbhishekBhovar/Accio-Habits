@@ -174,3 +174,225 @@ button,.button-like{background:#2b2225;border-color:#594044}
 .achievement-mini>span{font-size:18px}.achievement-mini strong,.achievement-mini small{display:block}
 .achievement-mini strong{font-size:9px}.achievement-mini small{font-size:7px;color:var(--muted);margin-top:2px}
 @media(max-width:520px){.achievement-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* ===== Phase 3.4 — Compact mission management / story above admin ===== */
+/* The narrative card is now moved directly below #statusZone by JS. */
+.latest-events-card{margin-top:-6px;margin-bottom:12px;padding:14px}
+.latest-events-card>.section-head{margin-bottom:8px}.latest-events-card>.section-head h3{font-size:17px;margin:0}
+.story-preview{padding:14px}.story-preview-top{gap:10px}.story-seal{width:44px;height:44px;font-size:23px}
+.story-preview-top h3{font-size:21px}.story-hook{margin:11px 0;font-size:14px}.current-mystery{padding:10px 11px}.current-mystery strong{font-size:12px}.story-cliff{margin:9px 0}.story-preview-footer{padding-top:10px}
+
+/* Mission area becomes a compact control panel, not the visual hero. */
+.action-zone{padding-top:13px!important;margin-top:0!important}
+.zone-heading{margin-bottom:7px!important}.zone-heading h2{font-size:19px!important;margin:2px 0!important}.zone-heading p{font-size:9px!important;line-height:1.35;margin:0!important}.zone-heading .eyebrow{font-size:8px}
+.daily-heading,.sleep-heading{margin-top:14px!important}
+.mission-panel{padding:11px!important;margin-bottom:9px!important;border-radius:17px!important}
+.mission-panel .section-head{margin-bottom:8px}.mission-panel .section-head h3{font-size:15px;margin:0}.mission-panel .mini-badge{padding:5px 8px;font-size:8px}
+
+/* Weekly missions: about half the previous row height. */
+.weekly-list{gap:6px!important}.weekly-mission{grid-template-columns:minmax(0,1fr) auto!important;gap:8px!important;padding:8px 9px!important;border-radius:12px!important;align-items:center}
+.weekly-info{gap:7px!important;align-items:center}.weekly-icon{font-size:18px!important}.weekly-info strong{font-size:11px!important;line-height:1.15}.weekly-info small{font-size:8px!important;line-height:1.2!important;margin-top:2px!important;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.mission-dots{margin-top:5px!important;gap:3px!important}.mission-dot{width:11px!important;height:4px!important}.weekly-action{flex-direction:row!important;align-items:center!important;justify-content:flex-end!important;gap:5px!important;white-space:nowrap}.weekly-action b{font-size:14px!important}.weekly-action button{padding:6px 7px!important;font-size:8px!important;border-radius:9px!important}.weekly-action small{font-size:7px!important}.tiny-buttons{gap:4px!important;flex-wrap:nowrap!important}
+
+/* Completed routine collapses to a concise confirmation strip. */
+.daily-panel.routine-is-complete{padding:9px 10px!important}.daily-panel.routine-is-complete>.section-head{margin-bottom:6px}.daily-panel.routine-is-complete>.section-head .muted{display:none}.daily-panel.routine-is-complete #todayDateLabel{font-size:13px!important}.routine-complete-strip{padding:9px 10px!important;border-radius:12px!important;gap:8px!important}.routine-complete-strip>span{font-size:19px!important}.routine-complete-strip strong{font-size:11px!important}.routine-complete-strip small{font-size:8px!important}.completed-details{margin-top:3px!important}.completed-details summary{padding:6px 2px!important;font-size:9px!important}
+
+/* Sleep stays editable, but saved sleep no longer occupies a huge card. */
+.sleep-card{padding:11px!important}.sleep-card>.muted{font-size:9px!important;line-height:1.35!important;margin-bottom:7px}.sleep-input-row{gap:7px!important;margin:7px 0!important}.sleep-input-row label{font-size:9px!important}.sleep-input-row input{margin-top:3px!important;padding:8px!important;border-radius:9px!important}.sleep-card .primary{padding:8px 10px!important;font-size:11px!important}.sleep-mini-stats{margin-top:6px!important;gap:4px!important}.sleep-mini-stats span{font-size:8px!important;padding:4px 6px!important}
+.sleep-card.sleep-is-saved>.muted{display:none}.sleep-card.sleep-is-saved .section-head{margin-bottom:3px}.sleep-card.sleep-is-saved .sleep-input-row{margin:4px 0!important}
+
+/* Achievements stay intentionally tiny and secondary. */
+.achievements-compact{margin-top:8px!important;margin-bottom:8px!important}
+
+@media(max-width:520px){
+  .latest-events-card{padding:11px}.story-preview{padding:12px}.story-preview-top h3{font-size:19px}
+  .action-zone{padding-bottom:3px!important}
+  .weekly-mission{grid-template-columns:minmax(0,1fr) auto!important}
+  .weekly-info small{max-width:250px}
+}
+
+/* ===== Phase 3.5 — Surface consistency =====
+   Flat utility surfaces. One restrained story treatment. Gradients only for reward/progress emphasis. */
+:root{
+  --surface:#1d1a1c;
+  --surface-raised:#242022;
+  --surface-soft:#17171a;
+  --surface-story:#2b1c21;
+  --surface-success:#1e2a23;
+  --surface-border:#4a3a3b;
+}
+
+/* Default panels: flat, warm-neutral and consistent. */
+.card,.dashboard-card,.mission-panel,.weekly-mission,.habit-row,.sleep-card,
+.settings-card,.journey-book-summary,.checkpoint-levels,.checkpoint-level,
+.collection-total,.gallery-hero,.gallery-door,.museum-card,.records-grid>div{
+  background:var(--surface)!important;
+  border-color:var(--surface-border)!important;
+  box-shadow:none!important;
+}
+
+/* Raised informational panels use one single darker step, not a directional fade. */
+.compact-hero,.latest-events-card,.stats-hero{
+  background:var(--surface-raised)!important;
+  border-color:#654849!important;
+}
+
+/* Story is allowed one restrained magical treatment so it remains the hero. */
+.story-preview,.chapter-story-card{
+  background:
+    radial-gradient(circle at 92% 8%,rgba(221,183,95,.10),transparent 28%),
+    var(--surface-story)!important;
+  border-color:#74534c!important;
+}
+.story-preview:after{color:rgba(239,201,120,.045)!important}
+.current-mystery,.chapter-question{background:#15191f!important}
+.map-story-ribbon{background:rgba(30,25,26,.92)!important}
+
+/* Journey map: one atmospheric background, no unrelated colour split. */
+.journey-map{
+  background:
+    radial-gradient(circle at 30% 12%,rgba(221,183,95,.09),transparent 24%),
+    #1b1a1d!important;
+}
+.book-tabs button,.year-tabs button{background:var(--surface-soft)!important}
+.book-tabs button.active,.year-tabs button.active{background:#45212b!important;border-color:#9c6d55!important}
+
+/* Success is always the same muted green treatment. */
+.habit-row.done,.routine-complete-strip{
+  background:var(--surface-success)!important;
+  border-color:#45634f!important;
+}
+.status-zone.is-perfect .compact-hero{border-color:#9b7b3f!important}
+
+/* Achievement drawer is neutral; gold is only an earned accent. */
+.achievements-compact{background:var(--surface-soft)!important;border-color:#3b3434!important}
+.achievement-mini{background:#151517!important}
+.achievement-mini.earned{background:#242119!important}
+
+/* Ordinary buttons are flat. Primary action alone gets the burgundy emphasis. */
+button,.button-like,.ghost-button{background:#282225!important;border-color:#594346!important}
+.primary{background:#8b3042!important;border-color:#c28f55!important}
+.bottom-nav button{background:transparent!important}
+.bottom-nav button.active{background:#67263a!important}
+
+/* Progress/reward elements may retain gradient because direction has meaning. */
+.progress-fill,.dash-track i{background:linear-gradient(90deg,#8f3043,#ddb75f)!important}
+.mission-dot.filled{background:#c08a42!important}
+.sauna-mission .mission-dot.filled{background:#d7a84c!important}
+
+/* Top-level status area uses a flat field, not a left-right fade. */
+.status-zone,.status-zone.is-routine-complete,.status-zone.is-perfect{
+  background:#18171b!important;
+}
+.action-zone{background:#111419!important}
+.victory-banner{background:#38252a!important;border-color:#8a7040!important}
+
+/* Collection category tiles stay flat; rarity art can still provide colour later. */
+.gallery-door,.collection-total,.gallery-hero{background:var(--surface)!important}
+
+/* Settings and Stats inherit the same neutral surface family. */
+.stats-hero{background:#242022!important}
+
+
+/* ===== Phase 3.6 — Contrast hierarchy =====
+   Separate page, cards, nested controls and story surfaces clearly. */
+:root{
+  --bg:#090b10;
+  --bg2:#101218;
+  --panel:#1b1a1d;
+  --panel2:#242124;
+  --panel3:#2c2729;
+  --line:#594749;
+  --line2:#816266;
+  --text:#fff4df;
+  --muted:#c8baa8;
+  --burgundy:#7b2940;
+  --gold:#ddb75f;
+}
+html{background:var(--bg)}
+body{
+  background:
+    radial-gradient(circle at 50% -16%,rgba(123,41,64,.13),transparent 31%),
+    linear-gradient(180deg,#0a0d12 0%,#0d0f14 58%,#090b10 100%) !important;
+}
+main{background:transparent}
+
+/* Standard top-level surfaces: clearly lifted off the page. */
+.card,.dashboard-card,.mission-panel,.settings-card{
+  background:#1c1a1d !important;
+  border-color:#59494a !important;
+  box-shadow:0 12px 30px rgba(0,0,0,.18) !important;
+}
+
+/* Nested utility/control surfaces: one step lighter again. */
+.weekly-mission,.habit-row,.sleep-input-row input,.records-grid>div,.sleep-mini-stats span,
+.completed-details,.achievement-mini,.museum-card,.book-tabs button,.year-tabs button{
+  background:#252124 !important;
+  border-color:#655153 !important;
+}
+.weekly-mission,.habit-row{box-shadow:inset 0 1px 0 rgba(255,255,255,.018)}
+
+/* Completed/success remains special, but not a giant green block. */
+.habit-row.done{background:#1d2822 !important;border-color:#466050 !important}
+.routine-complete-strip{
+  background:#25271f !important;
+  border-color:#86713c !important;
+  box-shadow:inset 4px 0 0 #ddb75f;
+}
+
+/* Story is deliberately the only rich narrative surface. */
+.story-preview,.chapter-story-card{
+  background:#2b1c21 !important;
+  border-color:#87535d !important;
+  box-shadow:0 14px 34px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,238,205,.025) !important;
+}
+.current-mystery,.chapter-question{
+  background:#111821 !important;
+  border-color:#3b4856 !important;
+  border-left:4px solid #ddb75f !important;
+}
+
+/* Hero/status area: distinguish from both page and utility cards. */
+.status-zone,.status-zone.is-perfect,.status-zone.is-routine-complete{
+  background:#151419 !important;
+  border-bottom-color:#4b3e40 !important;
+}
+.compact-hero{
+  background:#291b20 !important;
+  border-color:#80535b !important;
+}
+.victory-banner{
+  background:#30251d !important;
+  border-color:#987d42 !important;
+}
+
+/* Action section itself stays dark so its cards read clearly. */
+.action-zone{
+  background:#0f1116 !important;
+  border-top-color:#29262a !important;
+  border-bottom-color:#29262a !important;
+}
+
+/* Collection/category containers */
+.gallery-door,.collection-total,.gallery-hero{
+  background:#211d20 !important;
+  border-color:#604d50 !important;
+}
+
+/* Stats preserve the layout but benefit from the same hierarchy. */
+.stats-hero{background:#211b20 !important;border-color:#6c5157 !important}
+.dashboard-card{background:#1c1a1d !important}
+
+/* Navigation and top bar anchor the app with the darkest neutral. */
+.topbar,.bottom-nav{background:rgba(9,11,16,.97) !important}
+.bottom-nav{border-top-color:#3f3437 !important}
+.bottom-nav button.active{background:#70283f !important;color:#ffe6aa !important}
+
+/* Inputs/buttons should not disappear into card backgrounds. */
+button,.button-like{background:#2c2427 !important;border-color:#76575d !important}
+.primary{background:#8b3046 !important;border-color:#c08a65 !important}
+.ghost-button{background:#18171a !important}
+
+/* Keep ordinary text warm, but subtitles quieter for hierarchy. */
+.muted,.weekly-info small,.habit-copy small,.zone-heading p,.page-title p{color:#baa996 !important}
