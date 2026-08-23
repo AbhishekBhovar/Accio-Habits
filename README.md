@@ -1,13 +1,13 @@
-# Harry Potter Fitness RPG — Phase 3.19 Storybook Visual Correction
+# Harry Potter Fitness RPG — Phase 3.20 Visual Rhythm + Gryffindor/Hufflepuff Warmth
 
-Changes:
-- Keeps the tap-open story passage prototype.
-- Removes faux-book Georgia/Times-style typography from Today and Journey.
-- Returns all story content to the app's clean system font.
-- Flattens the nested story card layout.
-- Makes the Journey storybook opener an inline reveal rather than another large card.
-- Tightens spacing for iPhone 16 Pro.
-- No XP, story progression, save, collection, habit or Stats logic changed.
+Visual-only update:
+- Standardised outer and inner card radii.
+- Consistent spacing rhythm between text boxes.
+- Increased small/body text sizes for iPhone readability.
+- Brighter Gryffindor scarlet + Hufflepuff honey-gold + warm cream palette.
+- Equal-height storybook fact bubbles.
+- More consistent Journey stop sizing.
+- No XP, habit, save, progression or collectible logic changed.
 
 Replace:
 - app.js
