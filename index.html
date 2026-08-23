@@ -66,25 +66,25 @@
         </section>
 
         <section class="action-zone">
-          <div class="zone-heading"><span class="eyebrow">WEEKLY MISSIONS</span><h2>Build your week</h2><p>Complete the bigger missions first. Credits reset each Monday unless explicitly banked.</p></div>
+          <div class="zone-heading compact-heading"><h2>Weekly Missions</h2></div>
           <div class="card mission-panel">
             <div class="section-head"><h3>This week</h3><span id="weekLabel" class="mini-badge"></span></div>
             <div id="weeklyMissionList" class="weekly-list"></div>
           </div>
 
-          <div class="zone-heading daily-heading"><span class="eyebrow">DAILY MISSIONS</span><h2>Today’s routine</h2><p>One tap marks a mission complete and awards its XP instantly.</p></div>
+          <div class="zone-heading daily-heading compact-heading"><h2>Daily Missions</h2></div>
           <div class="card mission-panel daily-panel">
-            <div class="section-head"><div><h3 id="todayDateLabel">Daily missions</h3><small class="muted">Your routine checklist</small></div><span id="routineBadge" class="mini-badge">0 / 11</span></div>
+            <div class="section-head"><div><h3 id="todayDateLabel">Daily missions</h3></div><span id="routineBadge" class="mini-badge">0 / 11</span></div>
             <div id="dailyHabitList" class="habit-list"></div>
           </div>
 
-          <div class="zone-heading sleep-heading"><span class="eyebrow">SLEEP</span><h2>Recovery</h2><p>Sleep is scored separately so you can see recovery progress clearly.</p></div>
+          <div class="zone-heading sleep-heading compact-heading"><h2>Sleep</h2></div>
           <div class="card sleep-card mission-panel">
             <div class="section-head"><h3>Sleep</h3><strong id="sleepXpPreview">0 / 50 XP</strong></div>
-            <p class="muted">8–9 hours remains the optimal target. Naps help recovery balance but do not rewrite the night’s score.</p>
+            
             <div class="sleep-input-row">
               <label>Main sleep<input id="sleepHours" type="number" inputmode="decimal" min="0" max="16" step="0.25" placeholder="e.g. 6.5"></label>
-              <label>Nap / recovery<input id="napHours" type="number" inputmode="decimal" min="0" max="8" step="0.25" placeholder="e.g. 1"></label>
+              <label>Nap<input id="napHours" type="number" inputmode="decimal" min="0" max="8" step="0.25" placeholder="e.g. 1"></label>
             </div>
             <button id="saveSleep" class="primary wide">Save sleep</button>
             <div class="sleep-mini-stats"><span id="sleep7Day">7-day avg: —</span></div>
@@ -119,6 +119,13 @@
         <div id="statsDashboard"></div>
       </section>
 
+      <section id="view-settings" class="view">
+        <div class="section-head page-title"><div><span class="eyebrow">APP & DATA</span><h2>Settings</h2><p class="muted">Only configuration and backup tools live here.</p></div></div>
+        <div class="card settings-card"><h3>Installed app</h3><p id="installState" class="muted"></p><p class="muted">Updates use a network-first cache and should refresh after reopening the app.</p></div>
+        <div class="card settings-card"><div class="settings-line"><div><h3>Sound effects</h3><p class="muted">Reward chimes for level-ups, discoveries and major achievements.</p></div><button id="soundToggle" class="toggle-button">On</button></div></div>
+        <div class="card settings-card"><h3>Save backup</h3><p class="muted">Export a backup before major updates or moving devices.</p><div class="settings-buttons"><button id="exportSave">Export save</button><label class="button-like">Import save<input id="importSave" type="file" accept="application/json" hidden></label></div></div>
+        <div id="devTools" class="card danger" hidden><h3>Testing tools</h3><p class="muted">Visible only when the app is opened with <code>?dev=1</code>.</p><div class="xp-controls"><button data-xp="100">+100 XP</button><button data-xp="300">+300 XP</button><button data-xp="500">+500 XP</button></div><button id="resetSave" class="danger-button">Reset TEST save</button></div>
+      </section>
     </main>
 
     <nav class="bottom-nav" aria-label="Main navigation">
@@ -126,6 +133,7 @@
       <button data-view="journey">Journey</button>
       <button data-view="collection">Collection</button>
       <button data-view="stats">Stats</button>
+      <button data-view="settings">Settings</button>
     </nav>
   </div>
 
