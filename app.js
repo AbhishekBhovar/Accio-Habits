@@ -1,7 +1,8 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '3.25.0';
+const APP_VERSION = '3.26.0';
+const BUILD_SIGNATURE='phase-3.26-cache-bust-activity-stats';
 const PARAMS = new URLSearchParams(location.search);
 const DEV_MODE = PARAMS.get('dev') === '1';
 const FRESH_PREVIEW = PARAMS.get('fresh') === '1';
@@ -533,18 +534,22 @@ function toggleJourneyCheckpoint(button){
 }
 
 function storyChapterPanel(level){
-  const l=DATA.levels[level-1],isFuture=level>save.currentLevel,t=storyTeaser(level),remaining=isFuture&&level===save.currentLevel+1?xpRemainingForNext():null;
-  return `<article class="chapter-story-card ${isFuture?'future':'known'}"><div class="chapter-story-head"><span class="chapter-icon">${t.icon}</span><div><small>${isFuture?'NEXT CHAPTER':'STORY CHAPTER'} • LEVEL ${level}</small><h3>${isFuture?'???':escapeHtml(l?.storyBeat||'')}</h3></div></div><p class="chapter-hook">${escapeHtml(t.hook)}</p><div class="chapter-question"><span>${isFuture?'MYSTERY':'THE THREAD'}</span><strong>${escapeHtml(t.mystery)}</strong></div><p class="chapter-cliff">${escapeHtml(t.cliff)}</p>${remaining!==null?`<div class="chapter-lock"><span>🔒</span><div><b>${remaining.toLocaleString()} XP remaining</b><small>Complete your real-world missions to reveal this chapter.</small></div></div>`:''}</article>`;
+  const l=DATA.levels[level-1];
+  if(!l||level>save.currentLevel)return `<article class="journey-earned-detail locked"><span class="eyebrow">LEVEL ${level}</span><h3>Hidden</h3><p>This story knowledge has not been unlocked yet.</p></article>`;
+  const teaser=storyTeaser(level);
+  const discoveries=DATA.collectibles.filter(c=>Number(c.firstEligibleLevel)===Number(level)&&save.owned[c.id]);
+  return `<article class="journey-earned-detail">
+    <span class="eyebrow">FROM THE STORY • LEVEL ${level}</span>
+    <h3>${escapeHtml(l.storyBeat)}</h3>
+    <p>${escapeHtml(teaser.hook)}</p>
+    ${discoveries.length?`<div class="earned-discoveries"><small>DISCOVERED AT THIS LEVEL</small><div>${discoveries.map(c=>`<span>${CATEGORY_META[c.category]?.icon||'✦'} ${escapeHtml(visibleName(c))}</span>`).join('')}</div></div>`:''}
+  </article>`;
 }
 function showJourneyNode(level){
-  const currentBook=bookForLevel(Math.max(1,save.currentLevel||1)),detail=document.querySelector('#journeyNodeDetail');
+  const detail=document.querySelector('#journeyNodeDetail');
+  if(!detail)return;
   detail.hidden=false;
-  if(level>save.currentLevel+1){
-    const l=DATA.levels[level-1];
-    detail.innerHTML=`<article class="chapter-story-card fogged"><div class="chapter-story-head"><span class="chapter-icon">🔒</span><div><small>LEVEL ${level}</small><h3>Unknown chapter</h3></div></div><p class="chapter-hook">This part of Harry’s story is still hidden in the fog.</p><div class="chapter-question"><span>KEEP GOING</span><strong>Reach the chapters before it to uncover what happens here.</strong></div></article>${ui.journeyBook===currentBook?checkpointAccordionHtml(Math.max(1,save.currentLevel||1)):''}`;
-  }else{
-    detail.innerHTML=storyChapterPanel(level)+(ui.journeyBook===currentBook?checkpointAccordionHtml(Math.max(1,save.currentLevel||1)):'');
-  }
+  detail.innerHTML=storyChapterPanel(level);
   detail.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
@@ -582,6 +587,8 @@ function sleepSeries7Days(){
   return Array.from({length:7},(_,i)=>{const d=addDays(today,i-6),key=localDateKey(d),s=save.daily[key]?.sleep;return {key,label:d.toLocaleDateString(undefined,{weekday:'short'}).slice(0,2),hours:s?.mainHours>0?s.mainHours:null,nap:s?.napHours||0};});
 }
 function renderStats(){
+  /* stats-activity-only-guard: never show Journey/Collection/world metrics here */
+
   const status=currentWeekStatus(),series=xpSeries7Days(),dailySeries=dailyMissionSeries7Days(),sleepSeries=sleepSeries7Days();
   const day=displayDaily(),dailyHabits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),dailyDone=dailyHabits.filter(h=>day.habits[h.id]?.completed).length;
   const sportDone=3-status.week.sportDueRemaining,weekKeys=currentWeekDates();

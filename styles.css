@@ -2599,3 +2599,98 @@ html,body{max-width:100%;overflow-x:hidden!important}
   .quest-orb strong{font-size:9px!important}.quest-orb small{font-size:8px!important}
   .journey-level-node{width:46px;flex-basis:46px}.journey-level-node i{width:31px;height:31px}
 }
+
+
+/* ==========================================================
+   Phase 3.26 HARD RESPONSIVE OVERRIDES
+   These intentionally sit last and win all earlier Collection rules.
+   ========================================================== */
+
+/* Build marker: phase-3.26-hard-responsive */
+
+body #view-collection,
+body #view-collection #collectionHub,
+body #view-collection #collectionHub .archive-hub{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  overflow-x:hidden!important;
+}
+
+body #view-collection #collectionHub .archive-hub .archive-doors{
+  display:flex!important;
+  flex-direction:column!important;
+  grid-template-columns:none!important;
+  grid-auto-columns:auto!important;
+  gap:9px!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  overflow:visible!important;
+}
+
+body #view-collection #collectionHub .archive-hub .archive-door{
+  display:grid!important;
+  grid-template-columns:58px minmax(0,1fr) 18px!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  flex:0 0 auto!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+  margin:0!important;
+}
+
+body #view-collection #collectionHub .archive-door > div:nth-child(2){
+  min-width:0!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+}
+
+body #view-collection #collectionHub .archive-door h3{
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+}
+
+body #view-collection #collectionHub .recent-section{
+  width:100%!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+}
+
+body #view-collection #collectionHub .recent-shelf{
+  display:flex!important;
+  flex-wrap:nowrap!important;
+  width:100%!important;
+  max-width:100%!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  -webkit-overflow-scrolling:touch!important;
+  touch-action:pan-x!important;
+  scroll-snap-type:x proximity!important;
+}
+
+body #view-collection #collectionHub .recent-mini{
+  flex:0 0 126px!important;
+  width:126px!important;
+  min-width:126px!important;
+  max-width:126px!important;
+  scroll-snap-align:start!important;
+}
+
+/* Journey owns progress/archive only; Today owns the current mystery. */
+body #view-journey .storybook-facts,
+body #view-journey .chapter-question,
+body #view-journey .current-mystery{
+  display:none!important;
+}
+
+/* Stats is activity-only. Hide any stale world widgets if old DOM survives briefly. */
+body #view-stats .adventure-stats-card,
+body #view-stats .stats-achievements-archive,
+body #view-stats [data-world-stat]{
+  display:none!important;
+}
