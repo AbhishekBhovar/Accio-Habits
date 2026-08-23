@@ -1,8 +1,8 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '3.26.0';
-const BUILD_SIGNATURE='phase-3.26-cache-bust-activity-stats';
+const APP_VERSION = '3.27.0';
+const BUILD_SIGNATURE='phase-3.27-recovery';
 const PARAMS = new URLSearchParams(location.search);
 const DEV_MODE = PARAMS.get('dev') === '1';
 const FRESH_PREVIEW = PARAMS.get('fresh') === '1';
@@ -20,12 +20,13 @@ let ui = {journeyBook:1, collectionCategory:null, collectionBook:null, revealQue
 let audioContext = null;
 
 async function loadData(){
+  const fresh=(path)=>fetch(`${path}?v=3.27.0`,{cache:'no-store'}).then(checkJson);
   const [levels,collectibles,config,identity,habits] = await Promise.all([
-    fetch('./levels.json').then(checkJson),
-    fetch('./collectibles.json').then(checkJson),
-    fetch('./game-config.json').then(checkJson),
-    fetch('./identity-rules.json').then(checkJson),
-    fetch('./habit-config.json').then(checkJson)
+    fresh('./levels.json'),
+    fresh('./collectibles.json'),
+    fresh('./game-config.json'),
+    fresh('./identity-rules.json'),
+    fresh('./habit-config.json')
   ]);
   Object.assign(DATA,{levels,collectibles,config,identity,habits});
 }
@@ -546,10 +547,14 @@ function storyChapterPanel(level){
   </article>`;
 }
 function showJourneyNode(level){
-  const detail=document.querySelector('#journeyNodeDetail');
-  if(!detail)return;
+  const currentBook=bookForLevel(Math.max(1,save.currentLevel||1)),detail=document.querySelector('#journeyNodeDetail');
   detail.hidden=false;
-  detail.innerHTML=storyChapterPanel(level);
+  if(level>save.currentLevel+1){
+    const l=DATA.levels[level-1];
+    detail.innerHTML=`<article class="chapter-story-card fogged"><div class="chapter-story-head"><span class="chapter-icon">🔒</span><div><small>LEVEL ${level}</small><h3>Unknown chapter</h3></div></div><p class="chapter-hook">This part of Harry’s story is still hidden in the fog.</p><div class="chapter-question"><span>KEEP GOING</span><strong>Reach the chapters before it to uncover what happens here.</strong></div></article>${ui.journeyBook===currentBook?checkpointAccordionHtml(Math.max(1,save.currentLevel||1)):''}`;
+  }else{
+    detail.innerHTML=storyChapterPanel(level)+(ui.journeyBook===currentBook?checkpointAccordionHtml(Math.max(1,save.currentLevel||1)):'');
+  }
   detail.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
@@ -587,8 +592,6 @@ function sleepSeries7Days(){
   return Array.from({length:7},(_,i)=>{const d=addDays(today,i-6),key=localDateKey(d),s=save.daily[key]?.sleep;return {key,label:d.toLocaleDateString(undefined,{weekday:'short'}).slice(0,2),hours:s?.mainHours>0?s.mainHours:null,nap:s?.napHours||0};});
 }
 function renderStats(){
-  /* stats-activity-only-guard: never show Journey/Collection/world metrics here */
-
   const status=currentWeekStatus(),series=xpSeries7Days(),dailySeries=dailyMissionSeries7Days(),sleepSeries=sleepSeries7Days();
   const day=displayDaily(),dailyHabits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),dailyDone=dailyHabits.filter(h=>day.habits[h.id]?.completed).length;
   const sportDone=3-status.week.sportDueRemaining,weekKeys=currentWeekDates();
@@ -655,4 +658,13 @@ try{
   await loadData();ensureCurrentWeek();finalizePastDays();updateHighestSleepStage();ui.journeyBook=bookForLevel(Math.max(1,save.currentLevel));setupUI();render();updateNetwork();persist();queueMigratedReveals();
 }catch(err){console.error(err);const b=document.querySelector('#networkBadge');b.textContent='Load error';b.style.color='#fb7185';alert('The app data could not load. Please refresh while online.');}
 
-if('serviceWorker' in navigator){window.addEventListener('load',async()=>{try{const reg=await navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'});await reg.update();}catch(err){console.warn('Service worker update failed',err);}});}
+if('serviceWorker' in navigator){
+  window.addEventListener('load',async()=>{
+    try{
+      const regs=await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(r=>r.unregister()));
+      const keys=await caches.keys();
+      await Promise.all(keys.map(k=>caches.delete(k)));
+    }catch(err){console.warn('Temporary cache cleanup failed',err);}
+  });
+}
