@@ -213,11 +213,15 @@ function currentWeekStatus(){const week=ensureCurrentWeek(),today=localDateKey()
 function renderHome(){
   const row=currentRow(),next=nextLevelRow();document.querySelector('#levelOrb').textContent=save.currentLevel;document.querySelector('#levelTitle').textContent=save.currentLevel?`Level ${save.currentLevel}`:'Level 0';document.querySelector('#storyBeat').textContent=row?.storyBeat||'Your journey is ready to begin.';document.querySelector('#bookLabel').textContent=row?`BOOK ${row.book} • ${row.bookName}`:'BEFORE HOGWARTS';
   const xpNeed=next?.xpRequired||0,inside=xpIntoCurrent(),pct=save.currentLevel>=168?100:Math.max(0,Math.min(100,(inside/xpNeed)*100));document.querySelector('#xpBar').style.width=`${pct}%`;document.querySelector('#xpText').textContent=save.currentLevel>=168?'Saga complete':`${inside.toLocaleString()} / ${xpNeed.toLocaleString()} XP`;document.querySelector('#checkpointText').textContent=row?`Checkpoint ${row.checkpoint}`:'Checkpoint 1';
-  const owned=Object.keys(save.owned).length,today=calculateDayStatus(),liveStreak=save.streak.current+(today.discipline>=.8&&!displayDaily().finalized?1:0);document.querySelector('#ownedCount').textContent=`${owned} / ${DATA.collectibles.length}`;document.querySelector('#sagaPct').textContent=`${((save.currentLevel/168)*100).toFixed(1)}% saga`;document.querySelector('#todayScore').textContent=`${Math.round(today.discipline*100)}%`;document.querySelector('#todayXp').textContent=`${today.earned} / ${today.max} daily XP`;document.querySelector('#streakText').textContent=`${liveStreak} 🔥`;document.querySelector('#bestStreakText').textContent=`Best ${Math.max(save.streak.best,liveStreak)}`;
-  const banner=document.querySelector('#victoryBanner'),statusZone=document.querySelector('#statusZone');banner.hidden=!(today.perfectRoutine||today.perfectDay);statusZone.classList.toggle('is-perfect',today.perfectDay);statusZone.classList.toggle('is-routine-complete',today.perfectRoutine&&!today.perfectDay);
-  if(today.perfectDay){document.querySelector('#victoryTitle').textContent='✨ PERFECT DAY ✨';document.querySelector('#victoryText').textContent=`All daily missions complete + optimal 8–9h sleep • ${today.earned}/${today.max} XP`;}
-  else if(today.perfectRoutine){document.querySelector('#victoryTitle').textContent='⭐ DAILY MISSIONS COMPLETE';document.querySelector('#victoryText').textContent='You cleared every controllable mission. Log 8–9h sleep to turn this into a Perfect Day.';}
-  renderWeekly();renderDailyHabits();renderSleep();renderAchievements();
+  const owned=Object.keys(save.owned).length,today=calculateDayStatus();document.querySelector('#ownedCount').textContent=`${owned} / ${DATA.collectibles.length}`;document.querySelector('#sagaPct').textContent=`${((save.currentLevel/168)*100).toFixed(1)}% saga`;document.querySelector('#todayScore').textContent=`${Math.round(today.discipline*100)}%`;document.querySelector('#todayXp').textContent=`${today.earned} / ${today.max} daily XP`;
+  const journeyText=document.querySelector('#streakText'),journeySub=document.querySelector('#bestStreakText');
+  if(journeyText){journeyText.textContent=`${save.currentLevel} / 168`;let box=journeyText.parentElement;while(box&&journeySub&&!box.contains(journeySub))box=box.parentElement;const label=box?[...box.querySelectorAll('span,small,p')].find(el=>/streak/i.test(el.textContent||'')):null;if(label)label.textContent='Journey';}
+  if(journeySub)journeySub.textContent=`${((save.currentLevel/168)*100).toFixed(1)}% saga`;
+  const banner=document.querySelector('#victoryBanner'),statusZone=document.querySelector('#statusZone');
+  if(banner) banner.hidden=true;
+  statusZone.classList.toggle('is-perfect',today.perfectDay);
+  statusZone.classList.toggle('is-routine-complete',today.perfectRoutine&&!today.perfectDay);
+  renderWeekly();renderDailyHabits();renderSleep();renderAchievements();decorateTodayZones();
   const log=document.querySelector('#eventLog');
   if(log){
     log.innerHTML=homeStoryPreviewHtml();
@@ -279,6 +283,24 @@ function renderAchievements(){
   if(achievementCard){achievementCard.classList.add('achievements-compact');const h=achievementCard.querySelector('h3');if(h)h.textContent='Achievements';}
 }
 
+
+
+function decorateTodayZones(){
+  const zones=[
+    ['#eventLog','zone-story','📖'],
+    ['#weeklyMissionList','zone-weekly','⚡'],
+    ['#dailyHabitList','zone-daily','✓'],
+    ['#sleepHours','zone-recovery','☾'],
+    ['#achievementStatus','zone-achievements','✦']
+  ];
+  for(const [selector,cls,mark] of zones){
+    const el=document.querySelector(selector);if(!el)continue;
+    const host=el.closest('section,.card,.dashboard-card,.weekly-panel,.daily-panel,.sleep-card')||el.parentElement;
+    if(!host)continue;
+    host.classList.add('today-zone',cls);
+    host.dataset.zoneMark=mark;
+  }
+}
 
 // ---------- narrative journey layer ----------
 const STORY_TEASERS = {
@@ -398,8 +420,8 @@ function dayDisciplineSeries(){const today=parseDateKey(localDateKey());return A
 function previousWeekAverage(){const dates=currentWeekDates(-1),statuses=dates.map(k=>calculateDayStatus(k));return avg(statuses.map(s=>s.discipline));}
 function progressBar(label,value,target,icon,extra=''){const pct=Math.min(100,value/target*100);return `<div class="mission-bar"><div class="mission-bar-head"><span>${icon} ${label}</span><strong>${value}/${target}</strong></div><div class="dash-track"><i style="width:${pct}%"></i></div>${extra?`<small>${extra}</small>`:''}</div>`;}
 function renderStats(){
-  const status=currentWeekStatus(),prev=previousWeekAverage(),delta=Math.round((status.avgDiscipline-prev)*100),ss=sleepSummary(),series=dayDisciplineSeries(),owned=Object.keys(save.owned).length,best=Math.max(save.streak.best,save.streak.current);
-  document.querySelector('#statsDashboard').innerHTML=`<section class="stats-hero"><div><span class="eyebrow">THIS WEEK</span><strong>${Math.round(status.avgDiscipline*100)}%</strong><p>Discipline ${delta===0?'—':delta>0?`↑ ${delta}% vs last week`:`↓ ${Math.abs(delta)}% vs last week`}</p></div><div class="stats-mini"><span>🔥 ${best} best streak</span><span>⚡ ${save.totalXP.toLocaleString()} lifetime XP</span><span>🎴 ${owned}/385 collected</span></div></section><section class="dashboard-card"><div class="section-head"><h3>7-day discipline</h3><span class="mini-badge">Mon–Sun view</span></div><div class="bar-chart">${series.map(x=>`<div class="bar-column"><div class="bar-value">${x.pct}%</div><div class="bar-shell"><i style="height:${Math.max(3,x.pct)}%"></i></div><span>${x.label}</span></div>`).join('')}</div></section><section class="dashboard-grid"><div class="dashboard-card"><h3>Weekly missions</h3>${progressBar('Weights',status.week.weights,4,'🏋️')}${progressBar('Cardio',status.week.cardio,4,'🏃')}${progressBar('Sport',3-status.week.sportDueRemaining,3,'⚽',`${save.sportBank} banked`)}${progressBar('Sauna',status.week.sauna,5,'🧖')}</div><div class="dashboard-card"><h3>Personal records</h3><div class="records-grid"><div><span>✨ Perfect Days</span><strong>${save.achievements.perfectDays}</strong></div><div><span>⭐ Routine Days</span><strong>${save.achievements.perfectRoutineDays}</strong></div><div><span>🏆 Perfect Weeks</span><strong>${save.achievements.perfectWeeks}</strong></div><div><span>🌙 Sleep Weeks</span><strong>${save.achievements.optimalSleepWeeks}</strong></div><div><span>🗺️ Levels</span><strong>${save.currentLevel}/168</strong></div><div><span>📚 Books</span><strong>${save.completedBooks.length}/7</strong></div></div></div></section><section class="dashboard-card"><div class="section-head"><h3>Sleep & recovery</h3><strong>${ss.count?ss.sevenAvg.toFixed(1)+' h':'—'}</strong></div><div class="sleep-dashboard"><div class="sleep-ring" style="--pct:${Math.min(100,ss.sevenAvg/8*100)}"><span>Stage ${stageRoman(ss.stage)}</span></div><div><p><span>Highest stage</span><strong>Stage ${stageRoman(save.sleep.highestStage)}</strong></p><p><span>Recovery sleep</span><strong>${ss.recovery.toFixed(1)} h</strong></p><p><span>Shortfall vs 8h</span><strong>${ss.shortfall.toFixed(1)} h</strong></p></div></div></section>`;
+  const status=currentWeekStatus(),prev=previousWeekAverage(),delta=Math.round((status.avgDiscipline-prev)*100),ss=sleepSummary(),series=dayDisciplineSeries(),owned=Object.keys(save.owned).length;
+  document.querySelector('#statsDashboard').innerHTML=`<section class="stats-hero"><div><span class="eyebrow">THIS WEEK</span><strong>${Math.round(status.avgDiscipline*100)}%</strong><p>Discipline ${delta===0?'—':delta>0?`↑ ${delta}% vs last week`:`↓ ${Math.abs(delta)}% vs last week`}</p></div><div class="stats-mini"><span>🗺️ Level ${save.currentLevel}/168</span><span>⚡ ${save.totalXP.toLocaleString()} lifetime XP</span><span>🎴 ${owned}/385 collected</span></div></section><section class="dashboard-card"><div class="section-head"><h3>7-day discipline</h3><span class="mini-badge">Mon–Sun view</span></div><div class="bar-chart">${series.map(x=>`<div class="bar-column"><div class="bar-value">${x.pct}%</div><div class="bar-shell"><i style="height:${Math.max(3,x.pct)}%"></i></div><span>${x.label}</span></div>`).join('')}</div></section><section class="dashboard-grid"><div class="dashboard-card"><h3>Weekly missions</h3>${progressBar('Weights',status.week.weights,4,'🏋️')}${progressBar('Cardio',status.week.cardio,4,'🏃')}${progressBar('Sport',3-status.week.sportDueRemaining,3,'⚽',`${save.sportBank} banked`)}${progressBar('Sauna',status.week.sauna,5,'🧖')}</div><div class="dashboard-card"><h3>Personal records</h3><div class="records-grid"><div><span>✨ Perfect Days</span><strong>${save.achievements.perfectDays}</strong></div><div><span>⭐ Routine Days</span><strong>${save.achievements.perfectRoutineDays}</strong></div><div><span>🏆 Perfect Weeks</span><strong>${save.achievements.perfectWeeks}</strong></div><div><span>🌙 Sleep Weeks</span><strong>${save.achievements.optimalSleepWeeks}</strong></div><div><span>🗺️ Levels</span><strong>${save.currentLevel}/168</strong></div><div><span>📚 Books</span><strong>${save.completedBooks.length}/7</strong></div></div></div></section><section class="dashboard-card"><div class="section-head"><h3>Sleep & recovery</h3><strong>${ss.count?ss.sevenAvg.toFixed(1)+' h':'—'}</strong></div><div class="sleep-dashboard"><div class="sleep-ring" style="--pct:${Math.min(100,ss.sevenAvg/8*100)}"><span>Stage ${stageRoman(ss.stage)}</span></div><div><p><span>Highest stage</span><strong>Stage ${stageRoman(save.sleep.highestStage)}</strong></p><p><span>Recovery sleep</span><strong>${ss.recovery.toFixed(1)} h</strong></p><p><span>Shortfall vs 8h</span><strong>${ss.shortfall.toFixed(1)} h</strong></p></div></div></section>`;
 }
 
 // ---------- Settings ----------

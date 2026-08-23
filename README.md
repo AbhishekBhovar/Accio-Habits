@@ -1,18 +1,14 @@
-# Harry Potter Fitness RPG — Phase 3.8 Clean + Fresh Preview
+# Harry Potter Fitness RPG — Phase 3.11
 
-Replace in the repo root:
-- `app.js`
-- `styles.css`
-- `service-worker.js`
+Changes:
+- Removes streak pressure from the visible app.
+- Replaces the Today "Streak" tile with cumulative Journey progress.
+- Removes Best Streak from Stats and replaces it with Level progress.
+- Gives Story, Weekly Missions, Daily Missions, Recovery and Achievements distinct visual zones.
+- Uses icon/watermark visual breaks now; real Harry Potter imagery can be layered in later.
+- Keeps the Midnight + Gold palette and all XP/save/collectible logic intact.
 
-## What changed
-- Removes the muddy brown-on-brown palette.
-- Uses cool near-black/navy charcoal for page and utility surfaces.
-- Uses burgundy only as the signature accent.
-- Uses a brighter true gold sparingly for emphasis.
-- Flattens the three top KPI boxes into one quieter status strip.
-- Reduces borders/shadows and visual container noise.
-- Keeps Story as the strongest visual element.
-- Adds a safe `?fresh=1` preview mode that shows Today with no daily missions or sleep logged without altering real save data.
-- Preview mode disables task/sleep inputs so it cannot accidentally modify progress.
-- PWA cache bumped to v3.8.0.
+Replace:
+- app.js
+- styles.css
+- service-worker.js

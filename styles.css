@@ -479,3 +479,255 @@ main{background:transparent!important}
 button,.button-like{background:#1d2633!important;border-color:#3b495b!important}
 .primary{background:#8f2942!important;border-color:#c75b72!important;color:#fff7e8!important}
 .ghost-button{background:#111821!important}
+
+
+/* ===== Phase 3.9 — remove redundant Daily Victory banner ===== */
+#victoryBanner,.victory-banner{display:none!important}
+.status-zone{padding-bottom:14px!important;margin-bottom:12px!important}
+.status-summary{margin-top:9px!important;padding-top:8px!important}
+.story-preview-host,.latest-events-card{margin-top:0!important}
+
+
+/* ===== Phase 3.10 — Midnight + Gold cleanup =====
+   Remove muddy brown from the everyday UI.
+   Everyday surfaces = cool midnight/slate.
+   Burgundy = identity accent only.
+   Gold = bright, unmistakable highlight. */
+:root{
+  --bg:#080b11!important;
+  --bg2:#0d1118!important;
+  --panel:#141922!important;
+  --panel2:#1b2230!important;
+  --panel3:#222b3a!important;
+  --line:#303949!important;
+  --line2:#46536a!important;
+  --text:#fff7e8!important;
+  --muted:#b8c0cc!important;
+  --accent:#8e2947!important;
+  --accent2:#641d34!important;
+  --gold:#f2c94c!important;
+  --good:#79c69a!important;
+  --parchment:#f1e2bd!important;
+  --burgundy:#812642!important;
+  --amber:#f2c94c!important;
+  --midnight:#0c1220!important;
+  --forest:#234737!important;
+}
+
+html,body{background:#080b11!important;color:var(--text)!important}
+body{
+  background:
+    radial-gradient(circle at 50% -12%,rgba(129,38,66,.12),transparent 30%),
+    linear-gradient(180deg,#090c12 0%,#0b0f16 52%,#080b11 100%)!important;
+}
+
+/* Main chrome */
+.topbar,.bottom-nav{
+  background:#090d14!important;
+  border-color:#222b38!important;
+}
+.bottom-nav button{color:#c8cfda!important}
+.bottom-nav button.active{
+  background:#812642!important;
+  color:#fff3bf!important;
+}
+
+/* Everyday cards: cool slate, not brown */
+.card,.dashboard-card,.mission-panel,.weekly-mission,.habit-row,
+.sleep-card,.settings-card,.achievement-drawer,.achievement-card,
+.collection-card,.gallery-door,.chapter-panel,.checkpoint-levels,
+details,.compact-card{
+  background:#151a23!important;
+  border-color:#323b4a!important;
+  box-shadow:none!important;
+}
+
+/* Nested controls clearly separate from parent card */
+input,select,textarea,.input-like,.stat-chip,.mini-stat,.badge,.mini-badge,
+button:not(.bottom-nav button):not(.primary){
+  background:#202735!important;
+  border-color:#414c5f!important;
+  color:var(--text)!important;
+}
+
+/* Story gets one restrained burgundy identity treatment */
+.story-preview,.chapter-story-card,.story-card,.current-story-card{
+  background:#211720!important;
+  border-color:#703149!important;
+}
+.current-mystery,.chapter-question{
+  background:#111824!important;
+  border-left-color:#f2c94c!important;
+}
+
+/* Level/progression: burgundy + true gold, no brown */
+.compact-hero,.level-card,.journey-current{
+  background:#181a22!important;
+  border-color:#8a6a2d!important;
+}
+.level-orb,.story-seal,.chapter-icon{
+  background:#812642!important;
+  border-color:#f2c94c!important;
+}
+.progress-track,.progress-bar{
+  background:#0d1118!important;
+  border-color:#3b4557!important;
+}
+.progress-fill,.progress-bar>span{
+  background:linear-gradient(90deg,#9b2d4e,#f2c94c)!important;
+}
+
+/* Success is green, but contained */
+.habit-row.done,.routine-complete-strip,.success-card{
+  background:#15251f!important;
+  border-color:#427158!important;
+}
+.victory-banner{display:none!important}
+
+/* Achievements should recede */
+.achievements-compact,.achievement-drawer{
+  background:#11161e!important;
+  border-color:#2a3341!important;
+}
+.achievement-mini.earned{
+  background:#1b2230!important;
+}
+.achievement-drawer summary>span{
+  background:#202735!important;
+  border-color:#4a566b!important;
+}
+
+/* Weekly/sleep surfaces */
+.weekly-mission,.sleep-card{
+  background:#151a23!important;
+}
+.weekly-mission .progress-segment{
+  background:#293244!important;
+}
+.weekly-mission .progress-segment.done{
+  background:#f2c94c!important;
+}
+
+/* Gold should read gold */
+.eyebrow,.section-label,.story-kicker,.chapter-kicker,
+.gold,.accent-gold{
+  color:#f2c94c!important;
+}
+a,.linklike{color:#f0cf67!important}
+
+/* Remove lingering brown-ish borders/backgrounds from legacy classes */
+.status-zone,.action-zone,.routine-panel,.weekly-panel,.collection-total,
+.stats-hero,.gallery-hero,.journey-map,.map-story-ribbon{
+  border-color:#303949!important;
+}
+.status-zone,.action-zone{
+  background:#0d1118!important;
+}
+.collection-total,.stats-hero,.gallery-hero{
+  background:#151a23!important;
+}
+
+/* Slightly quieter spacing and box presence */
+.card,.dashboard-card{border-width:1px!important}
+
+
+/* ===== Phase 3.11 — Visual zones + no streak pressure ===== */
+
+/* The three top stats are progress/status only — nothing can be "broken" tomorrow. */
+#streakText,#bestStreakText{font-variant-numeric:tabular-nums}
+
+/* Major Today sections should read as different chapters, not identical boxes. */
+.today-zone{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+.today-zone::after{
+  content:attr(data-zone-mark);
+  position:absolute;
+  right:18px;
+  top:12px;
+  font-size:58px;
+  line-height:1;
+  opacity:.055;
+  filter:grayscale(.15);
+  pointer-events:none;
+  z-index:-1;
+}
+.today-zone::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:#3c4658;
+  opacity:.85;
+}
+
+/* Story = the hero: burgundy identity + gold chapter edge. */
+.today-zone.zone-story{
+  background:#18131b!important;
+  border-color:#71334c!important;
+  border-radius:24px!important;
+}
+.today-zone.zone-story::before{background:#f2c94c!important;width:4px}
+.today-zone.zone-story::after{font-size:72px;opacity:.07}
+
+/* Weekly = mission board: cooler slate, squared/structured feel. */
+.today-zone.zone-weekly{
+  background:#111925!important;
+  border-color:#34445b!important;
+  border-radius:18px!important;
+}
+.today-zone.zone-weekly::before{background:#7085a6!important}
+
+/* Daily = checklist: cleaner, slightly lighter than page. */
+.today-zone.zone-daily{
+  background:#161b23!important;
+  border-color:#39414e!important;
+  border-radius:22px!important;
+}
+.today-zone.zone-daily::before{background:#d7b84b!important}
+
+/* Recovery = calm/navy treatment with a moon watermark. */
+.today-zone.zone-recovery{
+  background:#101722!important;
+  border-color:#33445b!important;
+}
+.today-zone.zone-recovery::before{background:#8aa0c2!important}
+
+/* Achievements recede visually. */
+.today-zone.zone-achievements{
+  background:#0e131b!important;
+  border-color:#252d39!important;
+  opacity:.9;
+}
+.today-zone.zone-achievements::before{background:#596579!important}
+.today-zone.zone-achievements::after{opacity:.035}
+
+/* Section headings get stronger separation without adding more colours. */
+.today-zone h2,.today-zone h3{
+  position:relative;
+  z-index:1;
+}
+.today-zone .eyebrow,.today-zone .section-label{
+  letter-spacing:.18em!important;
+}
+
+/* Make utility rows flatter so the section identity, not every row, does the visual work. */
+.zone-weekly .weekly-mission,
+.zone-daily .habit-row,
+.zone-recovery .sleep-card{
+  box-shadow:none!important;
+  border-width:1px!important;
+}
+.zone-weekly .weekly-mission{background:#17202d!important}
+.zone-daily .habit-row{background:#1b212b!important}
+.zone-recovery .sleep-card{background:#17202b!important}
+
+/* A subtle divider between major zones helps the eye reset while scrolling. */
+.today-zone + .today-zone{margin-top:18px!important}
+
+/* Keep real content more prominent than decorative marks. */
+.today-zone > *{position:relative;z-index:1}
