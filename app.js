@@ -251,7 +251,16 @@ function renderWeekly(){
     <div class="weekly-mission sauna-mission"><div class="weekly-info"><span class="weekly-icon">🧖</span><div><strong>Sauna</strong><small>5 credits/week • 30 min = 1 • 60 min = 2 • second same-day credit earns 0 extra XP</small><div class="mission-dots">${missionProgressDots(week.sauna,5)}</div></div></div><div class="weekly-action"><b>${week.sauna}/5</b><div class="tiny-buttons"><button id="logSauna1" ${week.sauna>=5?'disabled':''}>+30m</button><button id="logSauna2" ${week.sauna>=5?'disabled':''}>+60m</button></div></div></div>`;
   document.querySelector('#logWeights').onclick=logWeights;document.querySelector('#logCardio1').onclick=()=>logCardio(1);document.querySelector('#logCardio2').onclick=()=>logCardio(2);document.querySelector('#logSport').onclick=logSport;document.querySelector('#logSauna1').onclick=()=>logSauna(1);document.querySelector('#logSauna2').onclick=()=>logSauna(2);
 }
-function renderAchievements(){const status=calculateDayStatus(),week=currentWeekStatus(),chips=[[status.discipline>=.8,'🔥','Discipline Day',`${Math.round(status.discipline*100)}% / 80%`],[status.perfectRoutine,'⭐','Daily Missions','All missions complete'],[status.perfectDay,'🌟','Perfect Day','Routine + 8–9h sleep'],[status.exceptionalDay,'👑','Exceptional','Perfect + 2 weekly credits'],[week.perfectWeek,'🏆','Perfect Week','Weekly targets + consistency'],[week.optimalSleepWeek,'🌙','Sleep Week','7-day avg 8–9h']];document.querySelector('#achievementStatus').innerHTML=chips.map(([ok,icon,name,detail])=>`<button class="achievement-badge ${ok?'earned':''}" type="button" title="${escapeHtml(detail)}"><span class="achievement-medallion">${icon}</span><strong>${name}</strong><small>${ok?'UNLOCKED':'LOCKED'}</small></button>`).join('');}
+function renderAchievements(){
+  const status=calculateDayStatus(),week=currentWeekStatus(),
+    chips=[[status.discipline>=.8,'🔥','Discipline Day',`${Math.round(status.discipline*100)}% / 80%`],[status.perfectRoutine,'⭐','Daily Missions','All missions complete'],[status.perfectDay,'🌟','Perfect Day','Routine + 8–9h sleep'],[status.exceptionalDay,'👑','Exceptional','Perfect + 2 weekly credits'],[week.perfectWeek,'🏆','Perfect Week','Weekly targets + consistency'],[week.optimalSleepWeek,'🌙','Sleep Week','7-day avg 8–9h']],
+    earned=chips.filter(x=>x[0]).length,host=document.querySelector('#achievementStatus');
+  if(!host)return;
+  host.innerHTML=`<details class="achievement-drawer"><summary><span>🏅</span><div><strong>${earned} of ${chips.length} badges earned</strong><small>Achievements & consistency</small></div><b>View ›</b></summary><div class="achievement-mini-grid">${chips.map(([ok,icon,name,detail])=>`<div class="achievement-mini ${ok?'earned':''}" title="${escapeHtml(detail)}"><span>${icon}</span><div><strong>${name}</strong><small>${ok?'Earned':'Locked'}</small></div></div>`).join('')}</div></details>`;
+  const achievementCard=host.closest('.card, .dashboard-card, section'),storyHost=document.querySelector('#eventLog'),storyCard=storyHost?.closest('.card, .dashboard-card, section');
+  if(achievementCard&&storyCard&&achievementCard!==storyCard&&storyCard.parentNode===achievementCard.parentNode&&storyCard.nextSibling!==achievementCard)storyCard.after(achievementCard);
+  if(achievementCard){achievementCard.classList.add('achievements-compact');const h=achievementCard.querySelector('h3');if(h)h.textContent='Achievements';}
+}
 
 
 // ---------- narrative journey layer ----------
