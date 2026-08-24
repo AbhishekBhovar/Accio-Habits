@@ -1,14 +1,17 @@
-HP62 — HUFFLEPUFF DARK
-=======================
-Built from HP61.
+HP63 — RETRY TRIAL PROTOTYPE
+=============================
+Built from HP62.
 
-Changes:
-• Removed the 30-day completion card.
-• Stats keeps 7-day average sleep + habits this month.
-• Training History retained.
-• Added Nutrition History: Protein / Supplements / Lunch / Dinner / Water lifetime counts.
-• Last 7 Days now shows both percentage and fraction (e.g. 75% + 9/12).
-• Added a small visual gap between Adventure story copy and the decision question.
-• New dark Hufflepuff-inspired palette:
-  warm charcoal, antique gold, ivory text, subtle purple magic, calm green completion states.
-• Today / Adventure / Stats functionality otherwise preserved.
+New gameplay:
+• Wrong Adventure choice shows its narrative consequence.
+• Player must then complete a randomly selected Retry Trial before choosing again.
+• Retry Trials are separate from normal habits and award 0 XP.
+• Pool: Push-ups / Squats / Wall sit / Plank / Jumping jacks.
+• Difficulty escalates within the same battle:
+  1st fail: 10 push-ups / 20 squats / 30s wall sit / 30s plank / 25 jumping jacks
+  2nd fail: 15 / 30 / 45s / 45s / 50
+  3rd+ fail: 20 / 40 / 60s / 60s / 75
+• Game randomly selects the retry exercise.
+• Successful encounter resets the failure counter.
+• HP62 Stats improvements retained.
+• Hufflepuff-dark palette strengthened across legacy UI selectors.
