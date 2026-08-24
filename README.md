@@ -1,20 +1,18 @@
-HP63 — RETRY TRIAL PROTOTYPE
-=============================
-Built from HP62.
+HP65 — FULL SAGA PRODUCTION CANDIDATE
+======================================
+Built from the approved HP64 prototype.
 
-New gameplay:
-• Wrong Adventure choice shows its narrative consequence.
-• Player must then complete a randomly selected Retry Trial before choosing again.
-• Retry Trials are separate from normal habits and award 0 XP.
-• Pool: Push-ups / Squats / Wall sit / Plank / Jumping jacks.
-• Difficulty escalates within the same battle:
-  1st fail: 10 push-ups / 20 squats / 30s wall sit / 30s plank / 25 jumping jacks
-  2nd fail: 15 / 30 / 45s / 45s / 50
-  3rd+ fail: 20 / 40 / 60s / 60s / 75
-• Game randomly selects the retry exercise.
-• Successful encounter resets the failure counter.
-• HP62 Stats improvements retained.
-• Hufflepuff-dark palette strengthened across legacy UI selectors.
+• Full 7-book Adventure architecture is now wired.
+• 51 locked encounters across Books 1–7.
+• 179 playable/cinematic stages.
+• Battle entry is driven by the approved 168-level XP thresholds.
+• Multi-stage battles require XP once, then play continuously.
+• Wrong choices trigger the approved random escalating Retry Trial system.
+• Retry Trials award 0 XP and do not count as normal habits.
+• Persistent Harry state records rewards/capabilities across books.
+• Neville/Nagini is an ally payoff; Dumbledore/Voldemort remains a witnessed payoff within Book 5.
+• The Forest Again is a special trial; Harry vs Voldemort is the final boss.
+• Final palette: #030403 page, lighter charcoal containers, distinctly darker mission/choice bubbles, restrained gold.
+• Removed the redundant extra gold divider beneath the top progress area.
 
-
-HP64: Palette-only refinement. Page background #030403; main sections #121310; mission cards #171815; secondary surfaces #1C1D19. Gameplay and retry logic unchanged.
+Important: battle answers/failure logic are intentionally not documented here so the campaign remains playable without spoilers.
