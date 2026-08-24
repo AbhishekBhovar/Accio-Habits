@@ -1,14 +1,13 @@
-HP60 — CLEAN REBUILD
-====================
-Rebuilt from HP58, the last version where mission rendering was confirmed working.
+HP61 — MEANINGFUL STATS
+========================
+Built on HP60 clean rebuild.
 
-Fixes:
-• Weekly + Daily mission rendering restored and isolated against unrelated UI crashes.
-• Header is only “HP Habit Tracker” + Online.
-• Removed FITNESS • LIFESTYLE • BATTLE TRAINING.
-• Today remains compact.
-• Adventure flows: title → atmosphere → description → question → choices.
-• No Preparing box interrupting Adventure.
-• Stats removes Perfect Days, Total XP, streak, Current Adventure and Battle Attributes.
-• Stats only shows Habits Done, Average Sleep and This Week activity.
-• Sleep uses Main + Nap and nap live-updates the preview.
+Stats now focuses on long-term trends instead of repeating Today:
+• 30-day mission completion %
+• 7-day average sleep
+• habits completed this month
+• lifetime training history: Gym / Cardio / Sport / Study / Sauna
+• simple last-7-days mission completion chart
+
+Removed the redundant current-week mission block from Stats.
+Today and Adventure are otherwise unchanged from HP60.
