@@ -1,0 +1,110 @@
+[
+  {
+    "collectible": "Peter Pettigrew / Scabbers",
+    "policy": "alias_until_reveal",
+    "startLevel": 10,
+    "visibleBeforeReveal": "Scabbers",
+    "revealLevel": "68",
+    "revealState": "Peter Pettigrew",
+    "hardUiRule": "Do not show Pettigrew name, silhouette, future state, or Wormtail connection before Level 68."
+  },
+  {
+    "collectible": "Barty Crouch Jr.",
+    "policy": "alias_until_reveal",
+    "startLevel": 77,
+    "visibleBeforeReveal": "Alastor \"Mad-Eye\" Moody",
+    "revealLevel": "96",
+    "revealState": "Barty Crouch Jr.",
+    "hardUiRule": "The Level-77 card must look fully legitimate as Moody. At 96, that existing disguised card transforms/reveals into Barty Jr.; real Moody is separately discovered."
+  },
+  {
+    "collectible": "Alastor Moody",
+    "policy": "normal",
+    "startLevel": 96,
+    "visibleBeforeReveal": "Alastor \"Mad-Eye\" Moody",
+    "revealLevel": null,
+    "revealState": "",
+    "hardUiRule": "Real Moody is a separate Rare card discovered only after release from the trunk."
+  },
+  {
+    "collectible": "Half-Blood Prince's Potions Book",
+    "policy": "hidden_property_until_reveal",
+    "startLevel": 127,
+    "visibleBeforeReveal": "Half-Blood Prince's Potions Book",
+    "revealLevel": "144",
+    "revealState": "Owner = Severus Snape",
+    "hardUiRule": "Book can display 'The Half-Blood Prince' as unknown owner; never show Snape ownership before Level 144."
+  },
+  {
+    "collectible": "Severus Snape",
+    "policy": "retrospective_reveal",
+    "startLevel": 11,
+    "visibleBeforeReveal": "Severus Snape",
+    "revealLevel": "165",
+    "revealState": "True allegiance / Always",
+    "hardUiRule": "At 143 he appears to be Dumbledore's killer. Level 165 recontextualizes earlier states; do not soften the betrayal impression before then."
+  },
+  {
+    "collectible": "Tom Riddle's Diary",
+    "policy": "hidden_property_until_reveal",
+    "startLevel": 39,
+    "visibleBeforeReveal": "Tom Riddle's Diary",
+    "revealLevel": "140",
+    "revealState": "Horcrux",
+    "hardUiRule": "States: mysterious → communicates → Riddle memory → possessed Ginny → destroyed; never label Horcrux before Book 6."
+  },
+  {
+    "collectible": "Nagini",
+    "policy": "hidden_property_until_reveal",
+    "startLevel": 73,
+    "visibleBeforeReveal": "Nagini",
+    "revealLevel": "140",
+    "revealState": "Suspected Horcrux",
+    "hardUiRule": "No Horcrux marker before Dumbledore's Book-6 Horcrux explanation; final destruction at 167."
+  },
+  {
+    "collectible": "Invisibility Cloak",
+    "policy": "hidden_property_until_reveal",
+    "startLevel": 18,
+    "visibleBeforeReveal": "Invisibility Cloak",
+    "revealLevel": "155",
+    "revealState": "Deathly Hallow",
+    "hardUiRule": "Do not show Hallow icon/status before the Tale of the Three Brothers/Hallows reveal."
+  },
+  {
+    "collectible": "Twin Cores / Priori Incantatem",
+    "policy": "hidden_property_until_reveal",
+    "startLevel": 7,
+    "visibleBeforeReveal": "Twin-core wand connection",
+    "revealLevel": "95",
+    "revealState": "Priori Incantatem",
+    "hardUiRule": "Backend may use canonical record name; UI must show only information Harry knows at each level."
+  },
+  {
+    "collectible": "Slytherin's Locket",
+    "policy": "retrospective_reveal",
+    "startLevel": 141,
+    "visibleBeforeReveal": "Cave Locket",
+    "revealLevel": "144",
+    "revealState": "Fake locket / R.A.B. note",
+    "hardUiRule": "At 141 Harry believes it is the Horcrux. 144 reveals substitution; 149 resolves R.A.B. and true locket trail."
+  },
+  {
+    "collectible": "Firebolt",
+    "policy": "hidden_property_until_reveal",
+    "startLevel": 60,
+    "visibleBeforeReveal": "Firebolt — Sender Unknown",
+    "revealLevel": "72",
+    "revealState": "Gift from Sirius",
+    "hardUiRule": "Do not show Sirius provenance before Level 72."
+  },
+  {
+    "collectible": "Marauder's Map",
+    "policy": "hidden_property_until_reveal",
+    "startLevel": 61,
+    "visibleBeforeReveal": "Moony, Wormtail, Padfoot & Prongs",
+    "revealLevel": "68",
+    "revealState": "Marauder identities",
+    "hardUiRule": "Do not reveal creator identities before Shrieking Shack truth."
+  }
+]
