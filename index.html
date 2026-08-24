@@ -12,6 +12,56 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
   <link rel="stylesheet" href="./styles-v63.css?v=63">
 
+
+<style id="hp64-dark-hufflepuff-palette">
+/* HP64 palette-only prototype: deeper page black + lifted neutral charcoal surfaces */
+:root{
+  --hp-page:#030403;
+  --hp-section:#121310;
+  --hp-card:#171815;
+  --hp-secondary:#1C1D19;
+  --hp-gold:#D4AF37;
+  --hp-text:#F2EBD7;
+  --hp-muted:#C8C2B0;
+}
+html, body, #app, .app, .app-shell, .page, main {
+  background-color: var(--hp-page) !important;
+}
+/* Broad existing surface selectors retained from prototype; palette only */
+.training-progress,
+.progress-card,
+.section-card,
+.week-card,
+.weekly-card,
+.missions-panel,
+.stats-panel,
+.adventure-card,
+.story-card,
+.sleep-card {
+  background: var(--hp-section) !important;
+}
+.mission-card,
+.habit-card,
+.task-card,
+.weekly-mission,
+.daily-mission,
+.stat-card,
+.choice-card,
+.option-card {
+  background: var(--hp-card) !important;
+}
+.date-pill,
+.pill,
+.badge,
+.input-wrap,
+input,
+select,
+textarea,
+.secondary-box {
+  background-color: var(--hp-secondary) !important;
+}
+</style>
+
 </head>
 <body>
   <div id="app" class="app-shell">

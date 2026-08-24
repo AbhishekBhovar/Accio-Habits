@@ -15,3 +15,6 @@ New gameplay:
 • Successful encounter resets the failure counter.
 • HP62 Stats improvements retained.
 • Hufflepuff-dark palette strengthened across legacy UI selectors.
+
+
+HP64: Palette-only refinement. Page background #030403; main sections #121310; mission cards #171815; secondary surfaces #1C1D19. Gameplay and retry logic unchanged.
