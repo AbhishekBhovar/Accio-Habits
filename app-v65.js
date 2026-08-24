@@ -961,13 +961,7 @@ try{
   updateHighestSleepStage();
   ui.journeyBook=bookForLevel(Math.max(1,save.currentLevel));
   setupUI();
-  
-if(!localStorage.getItem('hp65_demo_seeded')){
-  save.totalXP=2000;
-  localStorage.setItem('hp65_demo_seeded','1');
-  persist();
-}
-render();
+  render();
   updateNetwork();
   persist();
   queueMigratedReveals();
