@@ -1,0 +1,348 @@
+{
+  "categories": [
+    {
+      "id": "magic",
+      "icon": "\u2726",
+      "name": "Magic",
+      "desc": "Spells and magical abilities Harry learns and proves."
+    },
+    {
+      "id": "skills",
+      "icon": "\u2301",
+      "name": "Skills",
+      "desc": "Flying, stealth, investigation and practical capabilities."
+    },
+    {
+      "id": "arsenal",
+      "icon": "\u2694",
+      "name": "Arsenal",
+      "desc": "Weapons and equipment Harry can actually use."
+    },
+    {
+      "id": "knowledge",
+      "icon": "\u25c8",
+      "name": "Knowledge",
+      "desc": "Intelligence about Voldemort, threats and magical problems."
+    },
+    {
+      "id": "allies",
+      "icon": "\u265f",
+      "name": "Allies",
+      "desc": "People whose abilities and loyalty strengthen Harry."
+    },
+    {
+      "id": "experience",
+      "icon": "\u2b1f",
+      "name": "Experience",
+      "desc": "Real danger, combat, survival and rescue missions."
+    },
+    {
+      "id": "character",
+      "icon": "\u2665",
+      "name": "Character",
+      "desc": "Courage, loyalty, judgment and the qualities Voldemort lacks."
+    },
+    {
+      "id": "horcrux",
+      "icon": "\u2620",
+      "name": "Horcrux War",
+      "desc": "Locked until Harry understands what he has been fighting."
+    }
+  ],
+  "items": [
+    {
+      "level": 2,
+      "book": 1,
+      "cat": "magic",
+      "name": "Latent Magic",
+      "state": "Awakened",
+      "detail": "Uncontrolled magic begins to surface."
+    },
+    {
+      "level": 5,
+      "book": 1,
+      "cat": "knowledge",
+      "name": "Voldemort Dossier I",
+      "state": "Enemy Identified",
+      "detail": "Harry learns who murdered his parents and tried to kill him."
+    },
+    {
+      "level": 7,
+      "book": 1,
+      "cat": "arsenal",
+      "name": "Harry's Wand",
+      "state": "Equipped",
+      "detail": "Harry acquires his primary magical weapon."
+    },
+    {
+      "level": 12,
+      "book": 1,
+      "cat": "character",
+      "name": "Choice Over Ambition",
+      "state": "Proven",
+      "detail": "Harry chooses Gryffindor rather than Slytherin."
+    },
+    {
+      "level": 13,
+      "book": 1,
+      "cat": "skills",
+      "name": "Flying",
+      "state": "Natural Aptitude",
+      "detail": "Harry discovers exceptional instinct in the air."
+    },
+    {
+      "level": 14,
+      "book": 1,
+      "cat": "skills",
+      "name": "Flying",
+      "state": "Seeker Training",
+      "detail": "Quidditch begins sharpening speed, reactions and aerial tracking."
+    },
+    {
+      "level": 16,
+      "book": 1,
+      "cat": "magic",
+      "name": "Wingardium Leviosa",
+      "state": "Combat Proven",
+      "detail": "Classroom magic becomes a real solution against the troll.",
+      "payoff": "Charms training \u2192 Troll victory"
+    },
+    {
+      "level": 16,
+      "book": 1,
+      "cat": "allies",
+      "name": "The Trio",
+      "state": "Formed",
+      "detail": "Ron and Hermione become true allies, expanding Harry's effective abilities."
+    },
+    {
+      "level": 16,
+      "book": 1,
+      "cat": "experience",
+      "name": "Troll Battle",
+      "state": "Survived",
+      "detail": "Harry's first serious combat encounter."
+    },
+    {
+      "level": 17,
+      "book": 1,
+      "cat": "skills",
+      "name": "Flying",
+      "state": "Pressure Tested",
+      "detail": "Harry maintains control while his broom is being attacked."
+    },
+    {
+      "level": 18,
+      "book": 1,
+      "cat": "arsenal",
+      "name": "Invisibility Cloak",
+      "state": "Equipped",
+      "detail": "A powerful stealth tool enters Harry's arsenal."
+    },
+    {
+      "level": 19,
+      "book": 1,
+      "cat": "character",
+      "name": "Desire & Judgment",
+      "state": "Lesson Learned",
+      "detail": "The Mirror begins teaching Harry that desire can mislead."
+    },
+    {
+      "level": 20,
+      "book": 1,
+      "cat": "skills",
+      "name": "Investigation",
+      "state": "Developing",
+      "detail": "Harry, Ron and Hermione solve the Nicolas Flamel mystery."
+    },
+    {
+      "level": 22,
+      "book": 1,
+      "cat": "knowledge",
+      "name": "Voldemort Dossier II",
+      "state": "Threat Confirmed",
+      "detail": "The enemy is not merely history. Voldemort is still active."
+    },
+    {
+      "level": 23,
+      "book": 1,
+      "cat": "skills",
+      "name": "Flying",
+      "state": "Applied Under Pressure",
+      "detail": "Harry catches the winged key beneath the trapdoor.",
+      "payoff": "Quidditch training \u2192 Winged Key"
+    },
+    {
+      "level": 23,
+      "book": 1,
+      "cat": "allies",
+      "name": "Team Capability",
+      "state": "Proven",
+      "detail": "Ron's chess and Hermione's knowledge get Harry through trials he could not solve alone.",
+      "payoff": "Allies become part of Harry's arsenal"
+    },
+    {
+      "level": 24,
+      "book": 1,
+      "cat": "experience",
+      "name": "Voldemort Encounter I",
+      "state": "Survived",
+      "detail": "Harry confronts Quirrell/Voldemort and survives."
+    },
+    {
+      "level": 24,
+      "book": 1,
+      "cat": "character",
+      "name": "Mother's Protection",
+      "state": "Understood",
+      "detail": "Harry learns that sacrificial love protected him from Voldemort."
+    },
+    {
+      "level": 25,
+      "book": 2,
+      "cat": "allies",
+      "name": "Dobby",
+      "state": "Potential Ally",
+      "detail": "A mysterious house-elf risks punishment to warn Harry."
+    },
+    {
+      "level": 28,
+      "book": 2,
+      "cat": "allies",
+      "name": "Weasley Family",
+      "state": "Safe Haven",
+      "detail": "Harry gains a loving magical family and support network."
+    },
+    {
+      "level": 33,
+      "book": 2,
+      "cat": "knowledge",
+      "name": "Chamber Investigation",
+      "state": "Opened",
+      "detail": "Harry begins tracking the unknown threat inside Hogwarts."
+    },
+    {
+      "level": 35,
+      "book": 2,
+      "cat": "magic",
+      "name": "Expelliarmus",
+      "state": "Learned",
+      "detail": "Harry sees and begins acquiring the spell that will become central to his fighting identity."
+    },
+    {
+      "level": 36,
+      "book": 2,
+      "cat": "magic",
+      "name": "Parseltongue",
+      "state": "Identified",
+      "detail": "Harry learns that his ability to speak to snakes is real."
+    },
+    {
+      "level": 37,
+      "book": 2,
+      "cat": "skills",
+      "name": "Espionage",
+      "state": "Polyjuice Plan",
+      "detail": "The trio uses disguise and infiltration to gather intelligence."
+    },
+    {
+      "level": 39,
+      "book": 2,
+      "cat": "knowledge",
+      "name": "Tom Riddle Dossier I",
+      "state": "Opened",
+      "detail": "The diary gives Harry direct access to Tom Riddle's past."
+    },
+    {
+      "level": 43,
+      "book": 2,
+      "cat": "experience",
+      "name": "Acromantula Escape",
+      "state": "Survived",
+      "detail": "Harry and Ron investigate under mortal threat and eliminate Hagrid as the culprit."
+    },
+    {
+      "level": 44,
+      "book": 2,
+      "cat": "knowledge",
+      "name": "Basilisk Intelligence",
+      "state": "Solved",
+      "detail": "Hermione's research identifies the monster and how it attacks."
+    },
+    {
+      "level": 45,
+      "book": 2,
+      "cat": "magic",
+      "name": "Parseltongue",
+      "state": "Operational",
+      "detail": "A feared ability becomes useful when Harry opens the Chamber."
+    },
+    {
+      "level": 46,
+      "book": 2,
+      "cat": "knowledge",
+      "name": "Tom Riddle = Voldemort",
+      "state": "Revealed",
+      "detail": "Harry finally connects the charming schoolboy in the diary to his enemy."
+    },
+    {
+      "level": 46,
+      "book": 2,
+      "cat": "allies",
+      "name": "Fawkes",
+      "state": "Emergency Ally",
+      "detail": "Fawkes intervenes when Harry faces the Basilisk."
+    },
+    {
+      "level": 46,
+      "book": 2,
+      "cat": "arsenal",
+      "name": "Sword of Gryffindor",
+      "state": "Earned",
+      "detail": "A weapon worthy of Gryffindor answers Harry in the Chamber."
+    },
+    {
+      "level": 47,
+      "book": 2,
+      "cat": "experience",
+      "name": "Basilisk Battle",
+      "state": "Major Victory",
+      "detail": "Harry kills an enormous magical predator in direct combat."
+    },
+    {
+      "level": 47,
+      "book": 2,
+      "cat": "arsenal",
+      "name": "Basilisk Venom",
+      "state": "Proven",
+      "detail": "The fang destroys Tom Riddle's diary. Its deeper importance remains unknown.",
+      "payoff": "Basilisk fang \u2192 Diary destroyed"
+    },
+    {
+      "level": 47,
+      "book": 2,
+      "cat": "horcrux",
+      "name": "Unknown Soul Fragment",
+      "state": "DESTROYED",
+      "detail": "Hidden until the Horcrux revelation in a later year.",
+      "secret": true
+    },
+    {
+      "level": 48,
+      "book": 2,
+      "cat": "allies",
+      "name": "Dobby",
+      "state": "True Ally",
+      "detail": "Harry outmanoeuvres Lucius and frees Dobby.",
+      "payoff": "Warning \u2192 rescue \u2192 loyalty"
+    },
+    {
+      "level": 48,
+      "book": 2,
+      "cat": "character",
+      "name": "Independent Courage",
+      "state": "Strengthened",
+      "detail": "Harry completes a lethal rescue mission despite adult failure around him."
+    }
+  ]
+}

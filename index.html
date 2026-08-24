@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#130e24">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="HP Fitness RPG">
+  <title>Harry Potter Fitness RPG</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="stylesheet" href="./styles-v54.css?v=54">
+
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">FITNESS • LIFESTYLE • BATTLE TRAINING</div>
+        <h1>Harry Potter Fitness RPG</h1>
+      </div>
+      <span id="networkBadge" class="badge">Loading…</span>
+    </header>
+
+    <main>
+      <section id="view-today" class="view active">
+        <section id="statusZone" class="status-zone">
+          <div class="hero card compact-hero">
+            <div class="hero-row">
+              <div>
+                <span class="eyebrow" id="bookLabel">BATTLE TRAINING</span>
+                <h2 id="levelTitle">Preparing Harry</h2>
+                <p id="storyBeat">Every mission builds the skills needed for the battles ahead.</p>
+              </div>
+              <div class="level-orb readiness-orb" id="levelOrb">⚡</div>
+            </div>
+            <div class="progress-track"><div id="xpBar" class="progress-fill"></div></div>
+            <div class="progress-meta"><span id="xpText">0 XP</span><span id="checkpointText">Next readiness award</span></div>
+          </div>
+
+          <div id="victoryBanner" class="victory-banner" hidden>
+            <div class="victory-spark">✦</div>
+            <div><span class="eyebrow">DAILY VICTORY</span><h3 id="victoryTitle">Perfect Day</h3><p id="victoryText"></p></div>
+            <div class="victory-seal">✓</div>
+          </div>
+
+          <div class="status-summary">
+            <div class="status-kpi"><span>Today</span><strong id="todayScore">0%</strong><small id="todayXp">0 XP</small></div>
+            <div class="status-kpi"><span>Streak</span><strong id="streakText">0 🔥</strong><small id="bestStreakText">Best 0</small></div>
+            <div class="status-kpi"><span>Readiness</span><strong id="ownedCount">0%</strong><small id="sagaPct">battle ready</small></div>
+          </div>
+        </section>
+
+        <section class="action-zone">
+          <div class="zone-heading compact-heading"><h2>Weekly Missions</h2></div>
+          <div class="card mission-panel">
+            <div class="section-head"><h3>This week</h3><span id="weekLabel" class="mini-badge"></span></div>
+            <div id="weeklyMissionList" class="weekly-list"></div>
+          </div>
+
+          <div class="zone-heading daily-heading compact-heading"><h2>Daily Missions</h2></div>
+          <div class="card mission-panel daily-panel">
+            <div class="section-head"><div><h3 id="todayDateLabel">Daily missions</h3></div><span id="routineBadge" class="mini-badge">0 / 11</span></div>
+            <div id="dailyHabitList" class="habit-list"></div>
+          </div>
+
+          <div class="zone-heading sleep-heading compact-heading"><h2>Sleep</h2></div>
+          <div class="card sleep-card mission-panel">
+            <div class="sleep-xp-line"><strong id="sleepXpPreview">0 / 50 XP</strong></div>
+            <div class="sleep-input-row">
+              <label>Main sleep<input id="sleepHours" style="font-size:17px!important;font-weight:700!important" type="number" inputmode="decimal" min="0" max="16" step="0.25" placeholder="e.g. 6.5"></label>
+              <label>Nap<input id="napHours" style="font-size:17px!important;font-weight:700!important" type="number" inputmode="decimal" min="0" max="8" step="0.25" placeholder="e.g. 1"></label>
+            </div>
+            <button id="saveSleep" class="primary wide">Save sleep</button>
+          </div>
+        </section>
+      </section>
+
+      <section id="view-journey" class="view">
+        <div id="journeyContent"></div>
+      </section>
+
+      <section id="view-collection" class="view">
+        <div class="section-head page-title battle-page-title"><div><span class="eyebrow">PREPARE FOR THE FINAL BATTLE</span><h2>Battle Readiness</h2><p class="muted">Everything Harry learns, earns and survives is preparing him for Voldemort.</p></div></div>
+        <div id="collectionHub"></div>
+      </section>
+
+      <section id="view-battle" class="view"><div id="battleHub"></div></section>
+
+      <section id="view-stats" class="view">
+        <div class="section-head page-title"><div><span class="eyebrow">YOUR PERFORMANCE</span><h2>Stats Dashboard</h2><p class="muted">A quick read on consistency, training and progress.</p></div></div>
+        <div id="statsDashboard"></div>
+        <div class="backup-inline"><span>Save & restore data</span><button id="exportSave" type="button">Export save</button><span>·</span><label>Import save<input id="importSave" type="file" accept="application/json" hidden></label></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button data-view="today" class="active">Today</button>
+      <button data-view="journey">Campaign</button>
+      <button data-view="collection">Readiness</button>
+      <button data-view="battle">Battle</button>
+      <button data-view="stats">Stats</button>
+    </nav>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <div id="revealOverlay" class="reveal-overlay" hidden>
+    <div class="reveal-particles" aria-hidden="true">✦ · ✧ · ✦ · ✧ · ✦</div>
+    <div class="reveal-panel">
+      <span id="revealEyebrow" class="eyebrow">LEVEL UP</span>
+      <div id="revealArt" class="reveal-art">⚡</div>
+      <div id="revealRarity" class="reveal-rarity"></div>
+      <h2 id="revealTitle"></h2>
+      <p id="revealText"></p>
+      <div class="reveal-actions"><button id="revealNext" class="primary">Continue</button><button id="revealSkip" class="ghost-button">Skip all</button></div>
+    </div>
+  </div>
+
+  <script type="module" src="./app-v54.js?v=54"></script>
+
+<script>
+window.addEventListener('load', async () => {
+  try {
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(r => r.unregister()));
+    }
+    if ('caches' in window) {
+      const keys = await caches.keys();
+      await Promise.all(keys.map(k => caches.delete(k)));
+    }
+  } catch(e) { console.warn('cache cleanup', e); }
+});
+</script>
+</body>
+</html>
