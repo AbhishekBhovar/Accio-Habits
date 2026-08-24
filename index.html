@@ -10,26 +10,14 @@
   <title>Harry Potter Fitness RPG</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles-v51.css?v=51">
-  <script>
-  (async()=>{
-    try{
-      
-        await Promise.all(regs.map(r=>r.unregister()));
-      }
-      if('caches' in window){
-        const keys=await caches.keys();
-        await Promise.all(keys.map(k=>caches.delete(k)));
-      }
-    }catch(e){ console.warn('Cache reset skipped',e); }
-  })();
-  </script>
+  <link rel="stylesheet" href="./styles-v52.css?v=52">
+
 </head>
 <body>
   <div id="app" class="app-shell">
     <header class="topbar">
       <div>
-        <div class="eyebrow">FITNESS • LIFESTYLE • JOURNEY</div>
+        <div class="eyebrow">FITNESS • LIFESTYLE • BATTLE TRAINING</div>
         <h1>Harry Potter Fitness RPG</h1>
       </div>
       <span id="networkBadge" class="badge">Loading…</span>
@@ -109,7 +97,7 @@
 
     <nav class="bottom-nav" aria-label="Main navigation">
       <button data-view="today" class="active">Today</button>
-      <button data-view="journey">Journey</button>
+      <button data-view="journey">Campaign</button>
       <button data-view="collection">Readiness</button>
       <button data-view="battle">Battle</button>
       <button data-view="stats">Stats</button>
@@ -130,7 +118,7 @@
     </div>
   </div>
 
-  <script type="module" src="./app-v51.js?v=51"></script>
+  <script type="module" src="./app-v52.js?v=52"></script>
 
 <script>
 window.addEventListener('load', async () => {
