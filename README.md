@@ -1,3 +1,11 @@
+HP49 — APPROVED MOUNTAIN JOURNEY BUILD
+======================================
+- Journey tab uses the exact approved mountain PNG.
+- No generated level-step dots or duplicate checkpoint overlays.
+- Seven book checkpoints, mountain path and summit castle are part of the locked artwork.
+- Sleep input text is normalized for iPhone.
+- Existing Today / Collection / Stats logic and data files are preserved.
+
 # Harry Potter Fitness RPG — Phase 3.26 HARD REBUILD
 
 This build is intentionally different from Phase 3.25 and includes index.html

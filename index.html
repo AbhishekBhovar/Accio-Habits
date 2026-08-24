@@ -10,12 +10,11 @@
   <title>Harry Potter Fitness RPG</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles-v47.css?v=4.7.0">
+  <link rel="stylesheet" href="./styles-v49.css?v=49">
   <script>
   (async()=>{
     try{
-      if('serviceWorker' in navigator){
-        const regs=await navigator.serviceWorker.getRegistrations();
+      
         await Promise.all(regs.map(r=>r.unregister()));
       }
       if('caches' in window){
@@ -128,6 +127,21 @@
     </div>
   </div>
 
-  <script type="module" src="./app-v47.js?v=4.7.0"></script>
+  <script type="module" src="./app-v49.js?v=49"></script>
+
+<script>
+window.addEventListener('load', async () => {
+  try {
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(r => r.unregister()));
+    }
+    if ('caches' in window) {
+      const keys = await caches.keys();
+      await Promise.all(keys.map(k => caches.delete(k)));
+    }
+  } catch(e) { console.warn('cache cleanup', e); }
+});
+</script>
 </body>
 </html>
