@@ -10,7 +10,7 @@
   <title>Harry Potter Fitness RPG</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles-v56.css?v=56">
+  <link rel="stylesheet" href="./styles-v57.css?v=57">
 
 </head>
 <body>
@@ -30,10 +30,10 @@
             <div class="hero-row">
               <div>
                 <span class="eyebrow" id="bookLabel">BATTLE TRAINING</span>
-                <h2 id="levelTitle">Preparing Harry</h2>
-                <p id="storyBeat">Every mission builds the skills needed for the battles ahead.</p>
+                <h2 id="levelTitle">⚡ Preparing Harry</h2>
+                <p id="storyBeat" hidden></p>
               </div>
-              <div class="level-orb readiness-orb" id="levelOrb">⚡</div>
+              
             </div>
             <div class="progress-track"><div id="xpBar" class="progress-fill"></div></div>
             <div class="progress-meta"><span id="xpText">0 XP</span><span id="checkpointText">Next readiness award</span></div>
@@ -80,9 +80,9 @@
       <section id="view-battle" class="view"><div id="battleHub"></div></section>
 
       <section id="view-stats" class="view">
-        <div class="section-head page-title"><div><span class="eyebrow">YOUR PERFORMANCE</span><h2>Stats Dashboard</h2><p class="muted">A quick read on consistency, training and progress.</p></div></div>
+        <div class="section-head page-title stats57-title"><div><span class="eyebrow">YOUR PERFORMANCE</span><h2>Stats</h2></div></div>
         <div id="statsDashboard"></div>
-        <div class="backup-inline"><span>Save & restore data</span><button id="exportSave" type="button">Export save</button><span>·</span><label>Import save<input id="importSave" type="file" accept="application/json" hidden></label></div>
+        <div class="backup-inline"><span>Data</span><button id="exportSave" type="button">Export save</button><span>·</span><label>Import save<input id="importSave" type="file" accept="application/json" hidden></label></div>
       </section>
     </main>
 
@@ -107,7 +107,7 @@
     </div>
   </div>
 
-  <script type="module" src="./app-v56.js?v=56"></script>
+  <script type="module" src="./app-v57.js?v=57"></script>
 
 <script>
 window.addEventListener('load', async () => {

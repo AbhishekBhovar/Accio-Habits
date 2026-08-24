@@ -1,15 +1,10 @@
-HP56 — LEAN 3-TAB ADVENTURE BUILD
-=================================
-Tabs:
-• Today
-• Adventure
-• Stats
-
-Changes:
-• Campaign and Readiness are no longer separate tabs.
-• Readiness still runs behind the scenes and controls available Adventure choices.
-• Adventure includes the current campaign context, readiness snapshot, encounter XP and choices in one place.
-• Story copy is deliberately shorter on screen.
-• Hidden Journey/Readiness views were removed from the DOM to reduce UI clutter.
-• False 'Startup issue' badge removed; connectivity badge shows Online / Offline ready.
-• Books 1–2 remain the prototype scope.
+HP57 — SIMPLIFIED UPDATE
+========================
+• Today header compressed.
+• Weekly mission cards made denser.
+• Sleep XP now uses Main Sleep + Nap. 8 total hours = 50 XP, capped at 50.
+• Perfect Day uses combined sleep and guarantees +1 to all 4 battle attributes.
+• Adventure removes Year/Book labels, campaign %, overall readiness %, and the old Book 5 mountain/map image.
+• Adventure now shows one progress system only: current encounter XP.
+• Readiness attributes still gate individual adventure choices when relevant.
+• Stats dashboard rebuilt around XP, streaks, perfect days, habits, battle attributes and weekly training.
