@@ -1,13 +1,15 @@
-HP55 — SELF-CONTAINED STARTUP FIX
+HP56 — LEAN 3-TAB ADVENTURE BUILD
 =================================
-This is HP54 visually/gameplay-wise, with the startup problem hardened.
+Tabs:
+• Today
+• Adventure
+• Stats
 
-Fixes:
-• levels/config/habits/identity/collectible data are embedded inside app-v55.js.
-• The app no longer waits for multiple JSON network requests before rendering.
-• JSON files remain included as source-of-truth/reference files.
-• New v55 JS/CSS filenames force Safari/GitHub Pages to stop using HP54 cached files.
-• Service worker clears previous caches on activation.
-• A future startup exception no longer intentionally blanks the entire UI with an alert.
-
-No Campaign, Readiness or Battle design was reverted.
+Changes:
+• Campaign and Readiness are no longer separate tabs.
+• Readiness still runs behind the scenes and controls available Adventure choices.
+• Adventure includes the current campaign context, readiness snapshot, encounter XP and choices in one place.
+• Story copy is deliberately shorter on screen.
+• Hidden Journey/Readiness views were removed from the DOM to reduce UI clutter.
+• False 'Startup issue' badge removed; connectivity badge shows Online / Offline ready.
+• Books 1–2 remain the prototype scope.
