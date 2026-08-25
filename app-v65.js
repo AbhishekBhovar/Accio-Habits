@@ -245,7 +245,7 @@ function calculateDayStatus(key=localDateKey()){
 
 // ---------- weekly missions ----------
 function decrementDayCredit(date,amount=1){const day=save.daily?.[date];if(day)day.weeklyCreditsToday=Math.max(0,(day.weeklyCreditsToday||0)-amount);}
-function logWeights(){ensureAudio();const week=ensureCurrentWeek(),date=localDateKey();if(week.weights>=4)return toast('Gym target already complete this week.','warn');if(week.weightDays.includes(date))return toast('Gym already credited today.','warn');week.weights++;week.weightDays.push(date);getDaily().weeklyCreditsToday++;addXP(100,'Gym Weight Lifting');toast(`Gym • ${week.weights}/4 • +100 XP`);}
+function logWeights(){ensureAudio();const week=ensureCurrentWeek(),date=localDateKey();if(week.weights>=4)return toast('Gym target already complete this week.','warn');week.weights++;week.weightDays.push(date);getDaily().weeklyCreditsToday++;addXP(100,'Gym Weight Lifting');toast(`Gym • ${week.weights}/4 • +100 XP`);}
 function undoWeights(){const week=ensureCurrentWeek();if(week.weights<=0)return toast('Nothing to undo for Gym.','warn');const date=week.weightDays.pop()||localDateKey();week.weights=Math.max(0,week.weights-1);decrementDayCredit(date,1);removeXP(100,'Gym Weight Lifting');playChime('undo');}
 function logCardio(credits=1){ensureAudio();const week=ensureCurrentWeek(),remaining=Math.max(0,4-week.cardio),accepted=Math.min(credits,remaining);if(accepted<=0)return toast('Incline / Stairs target already complete this week.','warn');week.cardio+=accepted;week.cardioLog.push({date:localDateKey(),credits:accepted});getDaily().weeklyCreditsToday+=accepted;const xp=accepted*40;addXP(xp,'Incline Walk / StairMaster');toast(`Incline / Stairs +${accepted} • +${xp} XP`);}
 function undoCardio(){const week=ensureCurrentWeek();if(week.cardio<=0)return toast('Nothing to undo for Incline / Stairs.','warn');const last=week.cardioLog.pop(),credits=Math.min(week.cardio,Math.max(1,last?.credits||1)),date=last?.date||localDateKey();week.cardio=Math.max(0,week.cardio-credits);decrementDayCredit(date,credits);removeXP(credits*40,'Incline Walk / StairMaster');playChime('undo');}
@@ -700,7 +700,9 @@ function encounterThreshold(level){return cumulativeXpForLevel(level);}
 function encounterStartThreshold(enc){return cumulativeXpForLevel(enc.prevLevel);}
 function encounterXp(enc){
   const start=encounterStartThreshold(enc),target=encounterThreshold(enc.level),span=Math.max(1,target-start);
-  return {earned:Math.max(0,Math.min(span,save.totalXP-start)),target:span,ready:save.totalXP>=target};
+  const legacyAhead=save.totalXP<start;
+  const earned=legacyAhead?Math.max(0,Math.min(span,save.totalXP)):Math.max(0,Math.min(span,save.totalXP-start));
+  return {earned,target:span,ready:legacyAhead?earned>=span:save.totalXP>=target};
 }
 function adventureBook(){return SAGA_ENCOUNTERS[sagaState().encounterIndex]?.book||1;}
 function adventureState(){return sagaState();}

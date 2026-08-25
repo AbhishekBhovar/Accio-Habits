@@ -1,0 +1,17 @@
+SLIM PATCH BUILD
+
+Why this exists:
+The previous build embedded all battle images into app-v65.js, making the JS file too large for GitHub's browser uploader.
+
+What to do:
+1. KEEP your existing curated /assets folder in the repository.
+2. Upload/replace only the files in this ZIP.
+3. Do NOT delete the assets folder.
+4. The app will reference the existing assets normally.
+
+Included fixes:
+- Training Progress XP updates correctly.
+- Upcoming encounter artwork uses the existing curated assets folder.
+- Encounter title emoji removed.
+- More than one Gym session can be logged per day (weekly cap remains 4).
+- Nap stays at 0.
