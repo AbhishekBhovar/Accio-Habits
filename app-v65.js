@@ -1,7 +1,7 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '6.7.0';
+const APP_VERSION = '6.8.0';
 const FRESH_START_KEY = 'accioHabitsFreshStart_v67';
 const DEV_MODE = new URLSearchParams(location.search).get('dev') === '1';
 const CATEGORY_META = {
