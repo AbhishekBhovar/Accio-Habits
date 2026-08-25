@@ -1033,7 +1033,24 @@ body,.app-shell,.view,main{background:#030403!important}
 /* v6.6 artwork reliability */
 .adv60-atmosphere .art-fallback{display:none;font-size:42px}
 .adv60-atmosphere.art-failed .art-fallback{display:block}
-\n\n/* v6.7 final polish — clean progress edge + magical Accio Habits wordmark */\n.status-zone{border-bottom:0!important;box-shadow:none!important;}\n.status-zone::after{display:none!important;content:none!important;}\n.compact-hero{margin-bottom:0!important;}\n.topbar h1{\n  font-family:Georgia,'Times New Roman',serif!important;\n  font-size:24px!important;\n  font-weight:800!important;\n  letter-spacing:.015em!important;\n  background:linear-gradient(105deg,#fff5d7 0%,#f0cf75 42%,#e3b341 72%,#fff1c2 100%);\n  -webkit-background-clip:text;background-clip:text;color:transparent!important;\n  text-shadow:0 0 18px rgba(227,179,65,.12);\n}\n.topbar h1::after{content:' ✦';font-family:Georgia,serif;font-size:.62em;color:#e3b341;-webkit-text-fill-color:#e3b341;vertical-align:super;margin-left:3px;}\n@media(max-width:520px){.topbar h1{font-size:22px!important;}}\n
+
+
+/* v6.7 final polish — clean progress edge + magical Accio Habits wordmark */
+.status-zone{border-bottom:0!important;box-shadow:none!important;}
+.status-zone::after{display:none!important;content:none!important;}
+.compact-hero{margin-bottom:0!important;}
+.topbar h1{
+  font-family:Georgia,'Times New Roman',serif!important;
+  font-size:24px!important;
+  font-weight:800!important;
+  letter-spacing:.015em!important;
+  background:linear-gradient(105deg,#fff5d7 0%,#f0cf75 42%,#e3b341 72%,#fff1c2 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent!important;
+  text-shadow:0 0 18px rgba(227,179,65,.12);
+}
+.topbar h1::after{content:' ✦';font-family:Georgia,serif;font-size:.62em;color:#e3b341;-webkit-text-fill-color:#e3b341;vertical-align:super;margin-left:3px;}
+@media(max-width:520px){.topbar h1{font-size:22px!important;}}
+
 /* v6.8 — approved yellow header + magical training title */
 .topbar{
   background:linear-gradient(180deg,#f3c64d 0%,#dca72b 100%)!important;
@@ -1082,3 +1099,49 @@ body,.app-shell,.view,main{background:#030403!important}
   .topbar h1{font-size:23px!important;}
   .compact-hero #levelTitle{font-size:17px!important;letter-spacing:.07em!important;}
 }
+
+
+/* v6.9 — final header + artwork focal-position fix */
+body .topbar,
+.app-shell .topbar,
+.topbar{
+  background:linear-gradient(180deg,#f3c64d 0%,#dda92e 100%) !important;
+  border-bottom:1px solid rgba(0,0,0,.42) !important;
+  box-shadow:0 5px 18px rgba(221,169,46,.15) !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+body .topbar h1,
+.topbar h1{
+  font-family:Copperplate,"Copperplate Gothic Bold",Georgia,"Times New Roman",serif !important;
+  font-size:25px !important;
+  font-weight:900 !important;
+  letter-spacing:.01em !important;
+  color:#080906 !important;
+  -webkit-text-fill-color:#080906 !important;
+  background:none !important;
+  text-shadow:0 1px 0 rgba(255,255,255,.28) !important;
+}
+body .topbar h1::after,
+.topbar h1::after{
+  content:' ✦' !important;
+  color:#080906 !important;
+  -webkit-text-fill-color:#080906 !important;
+  font-family:Georgia,serif !important;
+  font-size:.55em !important;
+  vertical-align:super !important;
+  margin-left:3px !important;
+}
+body .topbar #networkBadge,
+.topbar #networkBadge,
+.topbar .badge{
+  color:#79dda0 !important;
+  background:#161815 !important;
+  border-color:#5f552e !important;
+  box-shadow:none !important;
+}
+.adv60-atmosphere img{
+  object-fit:cover !important;
+  object-position:var(--battle-focal,50% 45%) !important;
+}
+
