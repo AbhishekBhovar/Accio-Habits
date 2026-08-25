@@ -965,9 +965,9 @@ try{
   ui.journeyBook=bookForLevel(Math.max(1,save.currentLevel));
   setupUI();
   
-if(!localStorage.getItem('curated_demo_2000_seeded')){
+if(!localStorage.getItem('curated_demo_2000_napzero_seeded')){
   save.totalXP=2000;
-  localStorage.setItem('curated_demo_2000_seeded','1');
+  localStorage.setItem('curated_demo_2000_napzero_seeded','1');
   persist();
 }
 render();

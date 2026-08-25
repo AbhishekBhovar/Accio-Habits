@@ -1,8 +1,4 @@
-CURATED ARTWORK DEMO — 2,000 XP
-
-Temporary test build based on the latest curated-artwork master.
-On first load, Total XP is seeded to exactly 2,000 XP so the first Adventure encounter
-(Malfoy & the Remembrall) is immediately unlocked.
-
-This build is for visual/battle testing only.
-It is not the production master.
+HP Habit Tracker test build
+- Fresh demo seed: 2,000 total XP on first load of this version
+- Nap defaults to 0 instead of showing 'e.g. 1'
+- Intended for testing the first Adventure encounter
