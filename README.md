@@ -16,3 +16,6 @@ Built from the approved HP64 prototype.
 • Removed the redundant extra gold divider beneath the top progress area.
 
 Important: battle answers/failure logic are intentionally not documented here so the campaign remains playable without spoilers.
+
+
+v6.7: one-time clean reset of prototype progress; CSV export is a simple date-by-habit diary (Y/N plus main sleep and nap hours); removed stray line below Training Progress; refreshed Accio Habits wordmark.

@@ -1,7 +1,8 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '6.6.0';
+const APP_VERSION = '6.7.0';
+const FRESH_START_KEY = 'accioHabitsFreshStart_v67';
 const DEV_MODE = new URLSearchParams(location.search).get('dev') === '1';
 const CATEGORY_META = {
   'Character': {icon:'🧙',title:'Characters',subtitle:'Witches, wizards, friends and foes'},
@@ -73,6 +74,12 @@ function mergeState(raw){
   return merged;
 }
 let save=loadState();
+// v6.7 requested clean start: clear prior prototype activity/stat/XP state once per device.
+if(localStorage.getItem(FRESH_START_KEY)!=='done'){
+  [stateKey,...legacyStateKeys].forEach(k=>localStorage.removeItem(k));
+  save=defaultState();
+  localStorage.setItem(FRESH_START_KEY,'done');
+}
 function persist(){save.appVersion=APP_VERSION;localStorage.setItem(stateKey,JSON.stringify(save));}
 
 // ---------- date/week helpers ----------
@@ -208,11 +215,11 @@ function reconcileSagaToTrackedXP(){
   }
 }
 function migrateTrackedXP66(){
-  if(save.appVersion==='6.6.0')return;
+  if(save.appVersion==='6.7.0')return;
   save.totalXP=trackedActivityXP();
   syncProgressAfterXpRemoval();
   reconcileSagaToTrackedXP();
-  save.appVersion='6.6.0';
+  save.appVersion='6.7.0';
 }
 function queueMigratedReveals(){
   if(!save.pendingRevealIds?.length)return;
@@ -988,26 +995,21 @@ function setupUI(){
   document.querySelector('#revealNext').onclick=()=>closeReveal(false);document.querySelector('#revealSkip').onclick=()=>closeReveal(true);
   const soundToggle=document.querySelector('#soundToggle');if(soundToggle)soundToggle.onclick=()=>{save.soundEnabled=!save.soundEnabled;persist();if(save.soundEnabled)playChime('success');};
   document.querySelector('#exportSave').onclick=()=>{
-    const rows=[['Section','Date / Week','Item','Value','XP','Notes']];
-    rows.push(['Summary','','App','Accio Habit','','']);rows.push(['Summary','','Total XP',save.totalXP,'','']);rows.push(['Summary','','Current Level',save.currentLevel,'','']);
-    const habitMap=Object.fromEntries((DATA.habits?.dailyHabits||[]).map(h=>[h.id,h]));
-    for(const [date,day] of Object.entries(save.daily||{}).sort()){
-      for(const [id,e] of Object.entries(day?.habits||{}))if(e?.completed){const h=habitMap[id];rows.push(['Daily Habit',date,h?.name||id,'Completed',e.xpAwarded??h?.xp??0,'']);}
-      if(day?.sleep)rows.push(['Sleep',date,'Sleep',`${day.sleep.mainHours||0}h main + ${day.sleep.napHours||0}h nap`,day.sleep.xpAwarded??day.sleep.scoreXp??0,'']);
+    // Human-readable Excel-friendly habit diary: one row per logged date.
+    const habits=(DATA.habits?.dailyHabits||[]).filter(h=>h.input!=='sleep');
+    const header=['Date',...habits.map(h=>h.name),'Main Sleep (hours)','Nap (hours)'];
+    const rows=[header];
+    for(const date of Object.keys(save.daily||{}).sort()){
+      const day=save.daily[date]||{};
+      const vals=habits.map(h=>day.habits?.[h.id]?.completed?'Y':'N');
+      rows.push([date,...vals,day.sleep?.mainHours??'',day.sleep?.napHours??'']);
     }
-    for(const [wk,w] of Object.entries(save.weekly||{}).sort()){
-      rows.push(['Weekly',wk,'Gym sessions',w.weights||0,(w.weights||0)*100,'']);
-      rows.push(['Weekly',wk,'Cardio credits',w.cardio||0,(w.cardio||0)*40,'']);
-      rows.push(['Weekly',wk,'Sport / Outdoor Activities',w.sportActual||0,(w.sportActual||0)*50,'']);
-      const saunaPaid=Array.isArray(w.saunaXpDays)?w.saunaXpDays.length:Math.min(w.sauna||0,5);rows.push(['Weekly',wk,'Sauna credits',w.sauna||0,saunaPaid*35,'']);
-    }
-    if(save.adventure65){rows.push(['Adventure','','Encounter index',save.adventure65.encounterIndex||0,'','']);rows.push(['Adventure','','Stage',save.adventure65.stage||0,'','']);}
     const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
-    rows.push(['BACKUP_JSON','','Restore data','','',JSON.stringify(save)]);
-    const csv='\\uFEFF'+rows.map(r=>r.map(q).join(',')).join('\\r\\n');
-    const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`accio-habit-save-${localDateKey()}.csv`;a.click();URL.revokeObjectURL(a.href);
+    const csv='\uFEFF'+rows.map(r=>r.map(q).join(',')).join('\r\n');
+    const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download=`accio-habits-habit-log-${localDateKey()}.csv`;a.click();URL.revokeObjectURL(a.href);
   };
-  document.querySelector('#importSave').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const txt=await f.text();let raw;if(f.name.toLowerCase().endsWith('.csv')){const marker='"BACKUP_JSON"';const line=txt.split(/\\r?\\n/).find(x=>x.startsWith(marker));if(!line)throw new Error('No backup row');const fields=[];let cur='',quoted=false;for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"'){if(quoted&&line[i+1]==='"'){cur+='"';i++;}else quoted=!quoted;}else if(ch===','&&!quoted){fields.push(cur);cur='';}else cur+=ch;}fields.push(cur);raw=JSON.parse(fields[5]);}else raw=JSON.parse(txt);save=mergeState(raw);persist();ensureCurrentWeek();finalizePastDays();render();toast('Save imported.');}catch{toast('That save file could not be read.','warn');}};
+  document.querySelector('#importSave').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const txt=await f.text();const raw=JSON.parse(txt);save=mergeState(raw);persist();ensureCurrentWeek();finalizePastDays();render();toast('Save imported.');}catch{toast('That save file could not be read.','warn');}};
   if(DEV_MODE){document.querySelectorAll('[data-xp]').forEach(b=>b.onclick=()=>addXP(Number(b.dataset.xp),'Development tester'));document.querySelector('#resetSave').onclick=()=>{if(confirm('Reset TEST progress on this device?')){localStorage.removeItem(stateKey);save=defaultState();ensureCurrentWeek();persist();render();}};}
 }
 function updateNetwork(){const b=document.querySelector('#networkBadge');b.textContent=navigator.onLine?'Online':'Offline ready';b.style.color=navigator.onLine?'#86efac':'#c4b5fd';}

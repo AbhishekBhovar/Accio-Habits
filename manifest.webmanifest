@@ -1,6 +1,6 @@
 {
-  "name": "Accio Habit",
-  "short_name": "Accio Habit",
+  "name": "Accio Habits",
+  "short_name": "Accio Habits",
   "description": "Habit tracking and fitness progression through a seven-book magical adventure.",
   "start_url": "./",
   "scope": "./",
