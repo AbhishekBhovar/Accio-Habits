@@ -1,13 +1,8 @@
-HP65 DEMO — 2,000 XP TEST BUILD
+CURATED ARTWORK DEMO — 2,000 XP
 
-This is a temporary testing build.
-On first load it seeds Total XP to exactly 2,000 XP so Malfoy & the Remembrall is immediately unlocked.
-It only seeds once, so subsequent battle/retry state can persist normally.
+Temporary test build based on the latest curated-artwork master.
+On first load, Total XP is seeded to exactly 2,000 XP so the first Adventure encounter
+(Malfoy & the Remembrall) is immediately unlocked.
 
-Use this to deliberately test:
-- correct and wrong battle answers
-- Retry Trial generation
-- escalating retry requirements
-- battle continuation
-
-Do not use this as the final production build.
+This build is for visual/battle testing only.
+It is not the production master.
