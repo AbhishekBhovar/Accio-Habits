@@ -1,0 +1,3612 @@
+[
+  {
+    "level": 1,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 1,
+    "xpRequired": 500,
+    "storyBeat": "The Boy Who Lived",
+    "guaranteedDiscoveries": [
+      "Character — Harry Potter [Mythic]",
+      "Character — Lord Voldemort [Mythic]",
+      "Spell / Magic — Avada Kedavra [Mythic]"
+    ],
+    "eligiblePoolAdds": [
+      "Character — Lily Potter [Legendary]",
+      "Character — James Potter [Legendary]",
+      "Character — Vernon Dursley [Rare]",
+      "Character — Petunia Dursley [Rare]",
+      "Character — Dudley Dursley [Rare]",
+      "Object / Artefact — Deluminator [Epic]",
+      "Object / Artefact — Sirius's Flying Motorbike [Rare]",
+      "Location — Privet Drive / No. 4 [Legendary]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "G — Mythic: Lily's Sacrifice / The Boy Who Lived"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 2,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 1,
+    "xpRequired": 500,
+    "storyBeat": "Privet Drive & Dursley childhood",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 3,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 1,
+    "xpRequired": 500,
+    "storyBeat": "Hogwarts letters arrive",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: The Hogwarts Letters Overwhelm Privet Drive"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 4,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 1,
+    "xpRequired": 500,
+    "storyBeat": "You're a wizard, Harry / truth about parents",
+    "guaranteedDiscoveries": [
+      "Character — Rubeus Hagrid [Legendary]"
+    ],
+    "eligiblePoolAdds": [
+      "Spell / Magic — Incendio [Rare]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "G — Mythic: Harry Learns the Truth About Himself & His Parents",
+      "POOL — Rare: Hagrid Gives Harry His Birthday Cake"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 5,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 2,
+    "xpRequired": 500,
+    "storyBeat": "Diagon Alley",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Quirinus Quirrell [Epic]",
+      "Location — Diagon Alley [Legendary]",
+      "Location — Leaky Cauldron [Rare]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Harry Enters Diagon Alley",
+      "POOL — Rare: Harry Shops for His Hogwarts Supplies",
+      "POOL — Rare: Harry Discovers He's Famous"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 6,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 2,
+    "xpRequired": 500,
+    "storyBeat": "Gringotts / Vault 713",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Griphook [Rare]",
+      "Location — Gringotts [Rare]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry Enters Gringotts / Discovers His Inheritance"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 7,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 2,
+    "xpRequired": 500,
+    "storyBeat": "Ollivanders / Harry's wand / Hedwig",
+    "guaranteedDiscoveries": [
+      "Creature — Hedwig [Mythic]",
+      "Object / Artefact — Harry's Wand [Mythic]",
+      "Spell / Magic — Twin Cores / Priori Incantatem [Legendary]"
+    ],
+    "eligiblePoolAdds": [
+      "Character — Garrick Ollivander [Rare]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Harry's Wand Chooses Him"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 8,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 2,
+    "xpRequired": 500,
+    "storyBeat": "Draco at Madam Malkin's / Slytherin prejudice",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Draco Malfoy [Legendary]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Harry Meets Draco → Learns About Slytherin"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 9,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 3,
+    "xpRequired": 500,
+    "storyBeat": "Platform 9¾ & Hogwarts Express",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Molly Weasley [Legendary]",
+      "Character — Fred Weasley [Epic]",
+      "Character — George Weasley [Epic]",
+      "Character — Percy Weasley [Rare]",
+      "Location — Platform 9¾ & Hogwarts Express [Rare]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry's First Chocolate Frog"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 10,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 3,
+    "xpRequired": 500,
+    "storyBeat": "Harry meets Ron and Hermione / Scabbers / students",
+    "guaranteedDiscoveries": [
+      "Character — Hermione Granger [Mythic]",
+      "Character — Ron Weasley [Legendary]"
+    ],
+    "eligiblePoolAdds": [
+      "Character — Neville Longbottom [Legendary]",
+      "Character — Peter Pettigrew / Scabbers [Legendary]",
+      "Character — Vincent Crabbe [Rare]",
+      "Character — Gregory Goyle [Rare]",
+      "Character — Dean Thomas [Rare]",
+      "Character — Seamus Finnigan [Rare]",
+      "Spell / Magic — Reparo [Rare]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Harry Meets Ron",
+      "POOL — Epic: Harry Meets Hermione"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 11,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 3,
+    "xpRequired": 500,
+    "storyBeat": "Arrival at Hogwarts / staff / ghosts",
+    "guaranteedDiscoveries": [
+      "Location — Hogwarts Castle [Mythic]",
+      "Character — Albus Dumbledore [Mythic]"
+    ],
+    "eligiblePoolAdds": [
+      "Character — Severus Snape [Legendary]",
+      "Character — Minerva McGonagall [Legendary]",
+      "Character — Madam Pomfrey [Rare]",
+      "Character — Filius Flitwick [Rare]",
+      "Character — Pomona Sprout [Rare]",
+      "Character — Argus Filch [Rare]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry Meets the Hogwarts Ghosts"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 12,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 3,
+    "xpRequired": 500,
+    "storyBeat": "Sorting Ceremony / Gryffindor",
+    "guaranteedDiscoveries": [
+      "Object / Artefact — Sorting Hat [Mythic]"
+    ],
+    "eligiblePoolAdds": [
+      "Location — Gryffindor Common Room [Rare]"
+    ],
+    "evolutions": [
+      "Draco Malfoy — 12",
+      "Hogwarts Castle — 12"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "G — Legendary: Harry Is Sorted into Gryffindor"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 13,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 4,
+    "xpRequired": 500,
+    "storyBeat": "Flying lesson / Remembrall",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Object / Artefact — Remembrall [Rare]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: First Flying Lesson / Harry Catches the Remembrall"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 14,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 4,
+    "xpRequired": 500,
+    "storyBeat": "Harry becomes Seeker / Nimbus 2000",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Oliver Wood [Rare]",
+      "Object / Artefact — Nimbus 2000 [Epic]",
+      "Location — Quidditch Pitch [Epic]"
+    ],
+    "evolutions": [
+      "Harry Potter — 14"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "G — Legendary: Harry Discovers Flying / Becomes Gryffindor Seeker",
+      "POOL — Rare: Harry Receives the Nimbus 2000"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 15,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 4,
+    "xpRequired": 500,
+    "storyBeat": "Forbidden corridor / Fluffy / trapdoor",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Creature — Fluffy [Rare]",
+      "Spell / Magic — Alohomora [Epic]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: The Trio Discover Fluffy & the Trapdoor"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 16,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 4,
+    "xpRequired": 500,
+    "storyBeat": "Troll in the bathroom / Trio become friends",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Creature — Mountain Troll [Rare]",
+      "Spell / Magic — Wingardium Leviosa [Epic]"
+    ],
+    "evolutions": [
+      "Harry Potter — 16",
+      "Wingardium Leviosa — 16"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: The Troll — The Trio Become Friends"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 17,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 5,
+    "xpRequired": 500,
+    "storyBeat": "First Quidditch match / jinxed broom",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Object / Artefact — Golden Snitch [Rare]"
+    ],
+    "evolutions": [
+      "Quidditch Pitch — 17"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Harry's First Quidditch Match",
+      "POOL — Rare: The Jinxed Broom — Hermione Sets Snape's Robes on Fire"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 18,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 5,
+    "xpRequired": 500,
+    "storyBeat": "Christmas / Invisibility Cloak",
+    "guaranteedDiscoveries": [
+      "Object / Artefact — Invisibility Cloak [Mythic]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry's First Christmas at Hogwarts",
+      "POOL — Rare: Harry Receives the Invisibility Cloak"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 19,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 5,
+    "xpRequired": 500,
+    "storyBeat": "Mirror of Erised",
+    "guaranteedDiscoveries": [
+      "Object / Artefact — Mirror of Erised [Epic]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "G — Legendary: Harry Sees His Family in the Mirror of Erised"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 20,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 5,
+    "xpRequired": 500,
+    "storyBeat": "Nicolas Flamel / Philosopher's Stone mystery solved",
+    "guaranteedDiscoveries": [
+      "Object / Artefact — Philosopher's Stone [Epic]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: The Trio Discover Nicolas Flamel / Understand the Stone"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 21,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 6,
+    "xpRequired": 500,
+    "storyBeat": "Norbert / Forbidden Forest detention / Fang / Firenze",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Firenze [Rare]",
+      "Creature — Centaurs [Rare]",
+      "Creature — Norbert / Norberta [Rare]",
+      "Creature — Fang [Rare]",
+      "Location — Forbidden Forest [Legendary]",
+      "Location — Hagrid's Hut [Epic]"
+    ],
+    "evolutions": [
+      "Rubeus Hagrid — 21"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Norbert — Hatching & Goodbye"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 22,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 6,
+    "xpRequired": 500,
+    "storyBeat": "Unicorn blood / hooded Voldemort",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Creature — Unicorn [Rare]"
+    ],
+    "evolutions": [
+      "Lord Voldemort — 22",
+      "Forbidden Forest — 22"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Forbidden Forest Detention / Harry Encounters Voldemort"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 23,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 6,
+    "xpRequired": 500,
+    "storyBeat": "Through the trapdoor / chess / protections",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Spell / Magic — Petrificus Totalus [Epic]"
+    ],
+    "evolutions": [
+      "Harry Potter — 23-24"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: The Trio Go Through the Trapdoor / Hogwarts Defences"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 24,
+    "book": 1,
+    "bookName": "Philosopher's Stone",
+    "checkpoint": 6,
+    "xpRequired": 500,
+    "storyBeat": "Philosopher's Stone finale / Quirrell / House Cup / photo album",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 23-24",
+      "Lord Voldemort — 24",
+      "Hogwarts Castle — 24"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "G — Legendary: Harry Stops Voldemort Taking the Philosopher's Stone",
+      "POOL — Epic: Ten Points to Neville",
+      "POOL — Rare: Gryffindor Wins the House Cup",
+      "POOL — Rare: Hagrid Gives Harry His Parents' Photo Album"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 25,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 7,
+    "xpRequired": 550,
+    "storyBeat": "Dobby's warning",
+    "guaranteedDiscoveries": [
+      "Character — Dobby [Legendary]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry Meets Dobby in His Bedroom"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 26,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 7,
+    "xpRequired": 550,
+    "storyBeat": "Dobby sabotages Harry",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Dobby — 26"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 27,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 7,
+    "xpRequired": 550,
+    "storyBeat": "Weasley rescue / Flying Ford Anglia",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Object / Artefact — Flying Ford Anglia [Rare]"
+    ],
+    "evolutions": [
+      "Fred Weasley — 27",
+      "George Weasley — 27"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Fred, George & Ron Rescue Harry"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 28,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 7,
+    "xpRequired": 550,
+    "storyBeat": "The Burrow / Weasley family",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Ginny Weasley [Legendary]",
+      "Character — Arthur Weasley [Legendary]",
+      "Location — The Burrow [Legendary]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Harry Experiences the Burrow for the First Time"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 29,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 8,
+    "xpRequired": 550,
+    "storyBeat": "Knockturn Alley / Flourish & Blotts / Lucius",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Location — Knockturn Alley / Borgin and Burkes [Rare]",
+      "Object / Artefact — Vanishing Cabinet [Rare]"
+    ],
+    "evolutions": [
+      "Draco Malfoy — 29",
+      "Diagon Alley — 29"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry Floos into Knockturn Alley",
+      "POOL — Rare: Flourish & Blotts / Lucius Confrontation"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 30,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 8,
+    "xpRequired": 550,
+    "storyBeat": "Lucius vs Arthur / diary secretly planted",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Arthur Weasley — 30"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 31,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 8,
+    "xpRequired": 550,
+    "storyBeat": "Platform barrier / Ford Anglia flight",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Flying Ford Anglia — 31",
+      "Platform 9¾ & Hogwarts Express — 31"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Harry & Ron Fly the Ford Anglia to Hogwarts"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 32,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 8,
+    "xpRequired": 550,
+    "storyBeat": "Whomping Willow crash / Lockhart",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Gilderoy Lockhart [Epic]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Ford Anglia Crashes into the Whomping Willow"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 33,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 9,
+    "xpRequired": 550,
+    "storyBeat": "Voice in the walls / Basilisk unheard",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Colin Creevey [Rare]",
+      "Spell / Magic — Lumos [Epic]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: First Mandrake Lesson",
+      "POOL — Rare: Lockhart's Cornish Pixies",
+      "POOL — Rare: Harry Hears the Basilisk"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 34,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 9,
+    "xpRequired": 550,
+    "storyBeat": "Mrs Norris petrified / writing on wall / Chamber legend",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Justin Finch-Fletchley [Rare]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: The Writing Appears on the Wall",
+      "POOL — Rare: Ron's Slug Curse Backfires",
+      "POOL — Rare: Nearly Headless Nick's Deathday Party",
+      "POOL — Rare: Professor Binns Explains the Chamber of Secrets"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 35,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 9,
+    "xpRequired": 550,
+    "storyBeat": "Duelling Club / Expelliarmus / Draco snake",
+    "guaranteedDiscoveries": [
+      "Spell / Magic — Expelliarmus [Mythic]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Draco Malfoy — 35"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: The Rogue Bludger Targets Harry",
+      "POOL — Rare: Lockhart Removes Harry's Arm Bones",
+      "POOL — Rare: Dobby Confesses in the Hospital Wing",
+      "POOL — Rare: Colin's Melted Camera / “The Chamber Has Been Opened Again”"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 36,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 9,
+    "xpRequired": 550,
+    "storyBeat": "Parseltongue revealed",
+    "guaranteedDiscoveries": [
+      "Spell / Magic — Parseltongue [Legendary]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "G — Legendary: Harry Speaks Parseltongue at Hogwarts"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 37,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 10,
+    "xpRequired": 550,
+    "storyBeat": "Polyjuice Potion preparation",
+    "guaranteedDiscoveries": [
+      "Spell / Magic — Polyjuice Potion [Legendary]"
+    ],
+    "eligiblePoolAdds": [
+      "Character — Moaning Myrtle [Rare]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 38,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 10,
+    "xpRequired": 550,
+    "storyBeat": "Crabbe and Goyle impersonation / Draco not Heir",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Polyjuice Potion — 38"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Polyjuice Infiltration"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 39,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 10,
+    "xpRequired": 550,
+    "storyBeat": "Tom Riddle's Diary discovered",
+    "guaranteedDiscoveries": [
+      "Object / Artefact — Tom Riddle's Diary [Legendary]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 40,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 10,
+    "xpRequired": 550,
+    "storyBeat": "Riddle memory / Hagrid suspected",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Tom Riddle's Diary — 40"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 41,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 11,
+    "xpRequired": 550,
+    "storyBeat": "Hermione petrified",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Hermione Is Petrified"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 42,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 11,
+    "xpRequired": 550,
+    "storyBeat": "Hagrid sent to Azkaban / Fudge / Dumbledore removed",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Cornelius Fudge [Epic]"
+    ],
+    "evolutions": [
+      "Rubeus Hagrid — 42-43"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 43,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 11,
+    "xpRequired": 550,
+    "storyBeat": "Follow the spiders / Aragog",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Creature — Aragog [Rare]"
+    ],
+    "evolutions": [
+      "Rubeus Hagrid — 42-43",
+      "Fang — 43"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry & Ron Meet Aragog"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 44,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 11,
+    "xpRequired": 550,
+    "storyBeat": "Acromantula escape / Ford Anglia rescue",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Flying Ford Anglia — 44"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 45,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 12,
+    "xpRequired": 550,
+    "storyBeat": "Hermione's clue / Basilisk revealed",
+    "guaranteedDiscoveries": [
+      "Creature — Basilisk [Epic]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 46,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 12,
+    "xpRequired": 550,
+    "storyBeat": "Moaning Myrtle truth / Chamber entrance",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Location — Chamber of Secrets [Epic]"
+    ],
+    "evolutions": [
+      "Moaning Myrtle — 46",
+      "Parseltongue — 46"
+    ],
+    "revelations": [
+      "Moaning Myrtle — 46: original Chamber victim"
+    ],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 47,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 12,
+    "xpRequired": 550,
+    "storyBeat": "Lockhart exposed / Obliviate backfires",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Spell / Magic — Obliviate / Memory Charm [Epic]"
+    ],
+    "evolutions": [
+      "Obliviate / Memory Charm — 47"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Lockhart Is Exposed as a Fraud / Obliviate Backfires",
+      "POOL — Rare: Lockhart Tries to Flee Rather Than Rescue Ginny"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 48,
+    "book": 2,
+    "bookName": "Chamber of Secrets",
+    "checkpoint": 12,
+    "xpRequired": 550,
+    "storyBeat": "Chamber finale / Riddle = Voldemort / Basilisk / Fawkes / Sword / Dobby freed",
+    "guaranteedDiscoveries": [
+      "Creature — Fawkes [Legendary]",
+      "Object / Artefact — Sword of Gryffindor [Legendary]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Lord Voldemort — 48",
+      "Ginny Weasley — 48",
+      "Dobby — 48",
+      "Fawkes — 48",
+      "Basilisk — 48",
+      "Sorting Hat — 48",
+      "Tom Riddle's Diary — 48",
+      "Hogwarts Castle — 48",
+      "Chamber of Secrets — 48",
+      "Parseltongue — 48"
+    ],
+    "revelations": [
+      "Lord Voldemort — 48: Tom Riddle identity",
+      "Tom Riddle's Diary — 48: Riddle=Voldemort"
+    ],
+    "momentCards": [
+      "G — Legendary: Harry Defeats the Basilisk & Destroys Riddle's Diary",
+      "POOL — Epic: Tom Riddle Reveals Himself",
+      "POOL — Epic: Harry Frees Dobby"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 49,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 13,
+    "xpRequired": 600,
+    "storyBeat": "Aunt Marge incident",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry Inflates Aunt Marge"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 50,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 13,
+    "xpRequired": 600,
+    "storyBeat": "Knight Bus / Sirius escaped murderer",
+    "guaranteedDiscoveries": [
+      "Character — Sirius Black [Legendary]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry Rides the Knight Bus",
+      "POOL — Rare: Harry First Sees the Mysterious Black Dog"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 51,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 13,
+    "xpRequired": 600,
+    "storyBeat": "Leaky Cauldron / Fudge",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Cornelius Fudge — 51"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 52,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 13,
+    "xpRequired": 600,
+    "storyBeat": "Sirius supposed betrayal / Secret Keeper story",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Spell / Magic — Fidelius Charm [Epic]"
+    ],
+    "evolutions": [
+      "Sirius Black — 52"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry Learns Sirius Was Supposedly His Parents' Betrayer"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 53,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 14,
+    "xpRequired": 600,
+    "storyBeat": "Dementor on train / Lupin / Crookshanks",
+    "guaranteedDiscoveries": [
+      "Character — Remus Lupin [Legendary]",
+      "Creature — Dementors [Mythic]"
+    ],
+    "eligiblePoolAdds": [
+      "Character — Sybill Trelawney [Rare]",
+      "Creature — Crookshanks [Epic]"
+    ],
+    "evolutions": [
+      "Platform 9¾ & Hogwarts Express — 53"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Lupin Drives Off the Dementor / Fire / Chocolate"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 54,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 14,
+    "xpRequired": 600,
+    "storyBeat": "Hagrid's first Care of Magical Creatures lesson / Buckbeak",
+    "guaranteedDiscoveries": [
+      "Creature — Buckbeak [Epic]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Rubeus Hagrid — 54"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 55,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 14,
+    "xpRequired": 600,
+    "storyBeat": "Boggart lesson / Buckbeak Draco fallout",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Creature — Boggart [Rare]",
+      "Spell / Magic — Riddikulus [Epic]"
+    ],
+    "evolutions": [
+      "Neville Longbottom — 55"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Lupin's Boggart Lesson"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 56,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 14,
+    "xpRequired": 600,
+    "storyBeat": "Harry's greatest fear / Dementor understanding",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 57,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 15,
+    "xpRequired": 600,
+    "storyBeat": "Dementors at Quidditch / Nimbus destroyed",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Cho Chang [Epic]",
+      "Character — Cedric Diggory [Rare]"
+    ],
+    "evolutions": [
+      "Dementors — 57",
+      "Nimbus 2000 — 57",
+      "Quidditch Pitch — 57"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Nimbus 2000 Is Destroyed"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 58,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 15,
+    "xpRequired": 600,
+    "storyBeat": "Patronus lessons begin",
+    "guaranteedDiscoveries": [
+      "Spell / Magic — Expecto Patronum [Mythic]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 58-72"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Lupin Begins Teaching Harry the Patronus"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 59,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 15,
+    "xpRequired": 600,
+    "storyBeat": "Harry hears parents during Patronus practice",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 58-72",
+      "Expecto Patronum — 59"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 60,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 15,
+    "xpRequired": 600,
+    "storyBeat": "Anonymous Firebolt arrives",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Object / Artefact — Firebolt [Epic]"
+    ],
+    "evolutions": [
+      "Harry Potter — 58-72"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 61,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 16,
+    "xpRequired": 600,
+    "storyBeat": "Marauder's Map",
+    "guaranteedDiscoveries": [
+      "Object / Artefact — Marauder's Map [Legendary]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 58-72"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Fred & George Give Harry the Marauder's Map"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 62,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 16,
+    "xpRequired": 600,
+    "storyBeat": "First Hogsmeade / Honeydukes / Sirius story overheard",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Location — Hogsmeade [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 58-72"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry's First Hogsmeade / Honeydukes"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 63,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 16,
+    "xpRequired": 600,
+    "storyBeat": "Firebolt returned / Quidditch",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 58-72",
+      "Firebolt — 63",
+      "Quidditch Pitch — 63"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 64,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 16,
+    "xpRequired": 600,
+    "storyBeat": "Scabbers found alive / Sirius knife incident",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 58-72",
+      "Peter Pettigrew / Scabbers — 64",
+      "Crookshanks — 64-68"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Sirius Stands Over Ron's Bed with a Knife"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 65,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 17,
+    "xpRequired": 600,
+    "storyBeat": "Buckbeak condemned / appeal",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 58-72",
+      "Buckbeak — 65",
+      "Crookshanks — 64-68"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 66,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 17,
+    "xpRequired": 600,
+    "storyBeat": "Black dog takes Ron / Shrieking Shack",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Location — Shrieking Shack [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 58-72",
+      "Crookshanks — 64-68"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 67,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 17,
+    "xpRequired": 600,
+    "storyBeat": "Sirius confronted / Animagus",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Spell / Magic — Animagus Transformation [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 58-72",
+      "Sirius Black — 67-72",
+      "Crookshanks — 64-68"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 68,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 17,
+    "xpRequired": 600,
+    "storyBeat": "Marauders revealed / Scabbers=Pettigrew / Sirius innocent / godfather / Harry spares Pettigrew",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 58-72",
+      "Sirius Black — 67-72",
+      "Remus Lupin — 68-69",
+      "Peter Pettigrew / Scabbers — 68",
+      "Crookshanks — 64-68",
+      "Marauder's Map — 68",
+      "Shrieking Shack — 68",
+      "Animagus Transformation — 68"
+    ],
+    "revelations": [
+      "Sirius Black — 68: innocent / godfather",
+      "Peter Pettigrew / Scabbers — 68: Scabbers = Peter Pettigrew",
+      "Crookshanks — 68: helped Sirius / recognised Pettigrew",
+      "Marauder's Map — 68: Moony/Wormtail/Padfoot/Prongs identities",
+      "Fidelius Charm — 68: Pettigrew was Secret Keeper"
+    ],
+    "momentCards": [
+      "G — Legendary: Sirius's Innocence & Pettigrew's Betrayal Are Revealed",
+      "G — Legendary: Harry Spares Pettigrew",
+      "POOL — Epic: Sirius Offers Harry a Home",
+      "POOL — Epic: Scabbers Is Revealed as Pettigrew"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 69,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 18,
+    "xpRequired": 600,
+    "storyBeat": "Lupin transforms / Pettigrew escapes",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 58-72",
+      "Sirius Black — 67-72",
+      "Remus Lupin — 68-69"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Lupin Transforms"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 70,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 18,
+    "xpRequired": 600,
+    "storyBeat": "Dementors at lake / powerful Patronus",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 58-72",
+      "Sirius Black — 67-72",
+      "Expecto Patronum — 70"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 71,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 18,
+    "xpRequired": 600,
+    "storyBeat": "Time-Turner revealed / Trelawney Wormtail prophecy",
+    "guaranteedDiscoveries": [
+      "Object / Artefact — Time-Turner [Epic]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 58-72",
+      "Sirius Black — 67-72"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Hermione Reveals the Time-Turner",
+      "POOL — Rare: Trelawney Gives Her Real Wormtail Prophecy"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 72,
+    "book": 3,
+    "bookName": "Prisoner of Azkaban",
+    "checkpoint": 18,
+    "xpRequired": 600,
+    "storyBeat": "Time-Turner rescue / Sirius & Buckbeak escape / stag Patronus / Firebolt gift / Quidditch Cup",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 58-72",
+      "Sirius Black — 67-72",
+      "Buckbeak — 72",
+      "Firebolt — 72",
+      "Hogwarts Castle — 72",
+      "Quidditch Pitch — 72",
+      "Expecto Patronum — 72"
+    ],
+    "revelations": [
+      "Buckbeak — 72: rescued",
+      "Firebolt — 72: gift from Sirius",
+      "Expecto Patronum — 72: full stag / Harry saved himself"
+    ],
+    "momentCards": [
+      "G — Legendary: Patronus Across the Lake — Harry Realises He Saved Himself",
+      "G — Legendary: Harry & Hermione Save Sirius and Buckbeak",
+      "POOL — Rare: Harry Finally Wins the Quidditch Cup",
+      "POOL — Rare: Harry Learns Sirius Sent the Firebolt",
+      "POOL — Rare: Sirius Signs Harry's Hogsmeade Permission"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 73,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 19,
+    "xpRequired": 650,
+    "storyBeat": "Riddle House / Voldemort / Pettigrew / Nagini",
+    "guaranteedDiscoveries": [
+      "Creature — Nagini [Legendary]"
+    ],
+    "eligiblePoolAdds": [
+      "Location — Little Hangleton / Riddle House & Graveyard [Rare]"
+    ],
+    "evolutions": [
+      "Lord Voldemort — 73",
+      "Peter Pettigrew / Scabbers — 73"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 74,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 19,
+    "xpRequired": 650,
+    "storyBeat": "Quidditch World Cup / Krum / Narcissa / Bagman / Crouch Sr",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Narcissa Malfoy [Epic]",
+      "Character — Bill Weasley [Rare]",
+      "Character — Viktor Krum [Rare]",
+      "Character — Barty Crouch Sr. [Rare]",
+      "Character — Ludo Bagman [Rare]"
+    ],
+    "evolutions": [
+      "The Burrow — 74"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Quidditch World Cup"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 75,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 19,
+    "xpRequired": 650,
+    "storyBeat": "Death Eater campsite attack / Dark Mark",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Spell / Magic — Morsmordre / Dark Mark [Rare]"
+    ],
+    "evolutions": [
+      "Morsmordre / Dark Mark — 75"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Death Eaters Attack the Campsite / Dark Mark"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 76,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 19,
+    "xpRequired": 650,
+    "storyBeat": "World Cup aftermath / return to Hogwarts",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 77,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 20,
+    "xpRequired": 650,
+    "storyBeat": "Fake Mad-Eye Moody arrives",
+    "guaranteedDiscoveries": [
+      "Character — Barty Crouch Jr. [Legendary]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 78,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 20,
+    "xpRequired": 650,
+    "storyBeat": "Unforgivable Curses / Imperius resistance / Neville",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Spell / Magic — Imperio / Imperius Curse [Legendary]",
+      "Spell / Magic — Crucio / Cruciatus Curse [Legendary]"
+    ],
+    "evolutions": [
+      "Neville Longbottom — 78",
+      "Barty Crouch Jr. — 78-96",
+      "Imperio / Imperius Curse — 78",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Harry Resists the Imperius Curse",
+      "POOL — Rare: Fake Moody Demonstrates the Unforgivable Curses",
+      "POOL — Rare: Fake Moody Tells Harry He'd Make a Good Auror"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 79,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 20,
+    "xpRequired": 650,
+    "storyBeat": "Beauxbatons & Durmstrang / Fleur / Karkaroff",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Fleur Delacour [Rare]",
+      "Character — Igor Karkaroff [Rare]"
+    ],
+    "evolutions": [
+      "Barty Crouch Jr. — 78-96",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 80,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 20,
+    "xpRequired": 650,
+    "storyBeat": "Goblet of Fire selects four Champions",
+    "guaranteedDiscoveries": [
+      "Object / Artefact — Goblet of Fire [Epic]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Barty Crouch Jr. — 78-96",
+      "Cedric Diggory — 80",
+      "Viktor Krum — 80",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "G — Legendary: Harry's Name Comes Out of the Goblet of Fire"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 81,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 21,
+    "xpRequired": 650,
+    "storyBeat": "Tournament fallout / Rita Skeeter interviews",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Rita Skeeter [Epic]"
+    ],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Barty Crouch Jr. — 78-96",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 82,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 21,
+    "xpRequired": 650,
+    "storyBeat": "Dragons revealed / first task preparation",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Rubeus Hagrid — 82",
+      "Barty Crouch Jr. — 78-96",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry Learns the First Task Is Dragons"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 83,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 21,
+    "xpRequired": 650,
+    "storyBeat": "First Task / Hungarian Horntail / Accio",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Creature — Hungarian Horntail [Rare]",
+      "Spell / Magic — Accio [Legendary]",
+      "Spell / Magic — Stupefy [Epic]"
+    ],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Barty Crouch Jr. — 78-96",
+      "Hungarian Horntail — 83",
+      "Accio — 83",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Harry Faces the Hungarian Horntail"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 84,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 21,
+    "xpRequired": 650,
+    "storyBeat": "Ron and Harry reconcile / Draco ferret",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Barty Crouch Jr. — 78-96",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Draco Becomes a Ferret"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 85,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 22,
+    "xpRequired": 650,
+    "storyBeat": "Yule Ball preparations",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Barty Crouch Jr. — 78-96",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 86,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 22,
+    "xpRequired": 650,
+    "storyBeat": "Yule Ball / Hermione & Krum",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Barty Crouch Jr. — 78-96",
+      "Viktor Krum — 86",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: The Yule Ball — Hermione/Krum + Harry & Ron's Disasters"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 87,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 22,
+    "xpRequired": 650,
+    "storyBeat": "Golden Egg clue",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Barty Crouch Jr. — 78-96",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry Solves the Golden Egg"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 88,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 22,
+    "xpRequired": 650,
+    "storyBeat": "Gillyweed / Dobby / second task preparation",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Barty Crouch Jr. — 78-96",
+      "Dobby — 88-89",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 89,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 23,
+    "xpRequired": 650,
+    "storyBeat": "Second Task / Black Lake / Merpeople",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Creature — Merpeople [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Barty Crouch Jr. — 78-96",
+      "Dobby — 88-89",
+      "Cedric Diggory — 89",
+      "Viktor Krum — 89",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Harry Completes the Second Task"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 90,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 23,
+    "xpRequired": 650,
+    "storyBeat": "Barty Crouch Sr mystery",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Barty Crouch Jr. — 78-96",
+      "Barty Crouch Sr. — 90",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 91,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 23,
+    "xpRequired": 650,
+    "storyBeat": "Pensieve Death Eater trials / Bellatrix / Karkaroff",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Bellatrix Lestrange [Legendary]"
+    ],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Barty Crouch Jr. — 78-96",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 92,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 23,
+    "xpRequired": 650,
+    "storyBeat": "Third Task approaches / Cedric partnership",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Barty Crouch Jr. — 78-96",
+      "Cedric Diggory — 92-95",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 93,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 24,
+    "xpRequired": 650,
+    "storyBeat": "Third Task / Maze / Triwizard Cup",
+    "guaranteedDiscoveries": [
+      "Object / Artefact — Triwizard Cup [Epic]"
+    ],
+    "eligiblePoolAdds": [
+      "Spell / Magic — Impedimenta [Epic]"
+    ],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Barty Crouch Jr. — 78-96",
+      "Cedric Diggory — 92-95",
+      "Polyjuice Potion — 77-96",
+      "Impedimenta — 93"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry & Cedric Decide to Take the Cup Together"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 94,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 24,
+    "xpRequired": 650,
+    "storyBeat": "Graveyard / Cedric dies / Voldemort restored / Pettigrew silver hand",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Lord Voldemort — 94",
+      "Peter Pettigrew / Scabbers — 94",
+      "Barty Crouch Jr. — 78-96",
+      "Cedric Diggory — 92-95",
+      "Avada Kedavra — 94",
+      "Crucio / Cruciatus Curse — 94",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "G — Legendary: Voldemort Returns",
+      "POOL — Epic: Cedric's Death"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 95,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 24,
+    "xpRequired": 650,
+    "storyBeat": "Priori Incantatem / Harry escapes with Cedric's body",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Spell / Magic — Protego [Epic]"
+    ],
+    "evolutions": [
+      "Harry Potter — 80-95",
+      "Barty Crouch Jr. — 78-96",
+      "Cedric Diggory — 92-95",
+      "Harry's Wand — 95",
+      "Expelliarmus — 95",
+      "Twin Cores / Priori Incantatem — 95",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [
+      "Twin Cores / Priori Incantatem — 95: graveyard connection"
+    ],
+    "momentCards": [
+      "G — Legendary: Priori Incantatem / Harry Escapes Voldemort",
+      "POOL — Rare: Harry Returns Cedric's Body"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 96,
+    "book": 4,
+    "bookName": "Goblet of Fire",
+    "checkpoint": 24,
+    "xpRequired": 650,
+    "storyBeat": "Barty Crouch Jr reveal / real Moody rescued / Fudge denial",
+    "guaranteedDiscoveries": [
+      "Character — Alastor Moody [Rare]"
+    ],
+    "eligiblePoolAdds": [
+      "Spell / Magic — Veritaserum [Rare]"
+    ],
+    "evolutions": [
+      "Barty Crouch Jr. — 78-96",
+      "Cornelius Fudge — 96",
+      "Hogwarts Castle — 96",
+      "Polyjuice Potion — 77-96"
+    ],
+    "revelations": [
+      "Barty Crouch Jr. — 96: fake Moody identity revealed",
+      "Alastor Moody — 96: real Moody rescued/discovered"
+    ],
+    "momentCards": [
+      "POOL — Epic: Moody Is Revealed as Barty Crouch Jr.",
+      "POOL — Rare: Hermione Exposes Rita Skeeter"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 97,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 25,
+    "xpRequired": 700,
+    "storyBeat": "Dementors attack Little Whinging / Harry saves Dudley",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Dementors — 97",
+      "Privet Drive / No. 4 — 97",
+      "Expecto Patronum — 97"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Dementors Attack / Harry Saves Dudley with Patronus"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 98,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 25,
+    "xpRequired": 700,
+    "storyBeat": "Advance Guard / Tonks / Kingsley / Arabella Figg reveal",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Kingsley Shacklebolt [Rare]",
+      "Character — Nymphadora Tonks [Rare]",
+      "Character — Arabella Figg [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 97-120"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: “Remember My Last, Petunia”"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 99,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 25,
+    "xpRequired": 700,
+    "storyBeat": "Grimmauld Place / Kreacher / Order / Sirius / Extendable Ears",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Mundungus Fletcher [Rare]",
+      "Object / Artefact — Extendable Ears [Rare]",
+      "Location — Grimmauld Place [Legendary]"
+    ],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Molly Weasley — 99",
+      "Alastor Moody — 99",
+      "Kingsley Shacklebolt — 99",
+      "Nymphadora Tonks — 99",
+      "Fidelius Charm — 99"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry Reunites with Sirius at Grimmauld Place"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 100,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 25,
+    "xpRequired": 700,
+    "storyBeat": "Ministry disciplinary hearing / Umbridge / Fudge",
+    "guaranteedDiscoveries": [
+      "Character — Dolores Umbridge [Legendary]"
+    ],
+    "eligiblePoolAdds": [
+      "Location — Ministry of Magic [Epic]"
+    ],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Cornelius Fudge — 100-104"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry's Ministry Hearing"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 101,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 26,
+    "xpRequired": 700,
+    "storyBeat": "Hogwarts Express / Luna / Thestrals awareness",
+    "guaranteedDiscoveries": [
+      "Character — Luna Lovegood [Legendary]"
+    ],
+    "eligiblePoolAdds": [
+      "Creature — Thestrals [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Cornelius Fudge — 100-104",
+      "Platform 9¾ & Hogwarts Express — 101"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 102,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 26,
+    "xpRequired": 700,
+    "storyBeat": "Professor Umbridge / Defence class",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Dolores Umbridge — 102-104",
+      "Cornelius Fudge — 100-104"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 103,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 26,
+    "xpRequired": 700,
+    "storyBeat": "Blood Quill / I must not tell lies",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Dolores Umbridge — 102-104",
+      "Cornelius Fudge — 100-104"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: “I Must Not Tell Lies”"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 104,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 26,
+    "xpRequired": 700,
+    "storyBeat": "Ministry controls Hogwarts / educational decrees",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Dolores Umbridge — 102-104",
+      "Cornelius Fudge — 100-104"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 105,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 27,
+    "xpRequired": 700,
+    "storyBeat": "Hog's Head meeting / DA proposal",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Marietta Edgecombe [Rare]",
+      "Location — Hog's Head [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Hogsmeade — 105"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 106,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 27,
+    "xpRequired": 700,
+    "storyBeat": "Dumbledore's Army forms / DA Galleons",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Object / Artefact — DA Galleons [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Ginny Weasley — 106",
+      "Neville Longbottom — 106"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Dumbledore's Army Forms"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 107,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 27,
+    "xpRequired": 700,
+    "storyBeat": "Room of Requirement / DA training / Harry teaches",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Location — Room of Requirement [Epic]",
+      "Spell / Magic — Reducto [Epic]"
+    ],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Expelliarmus — 107",
+      "Expecto Patronum — 107",
+      "Protego — 107",
+      "Stupefy — 107",
+      "Reducto — 107"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Room of Requirement Becomes DA Headquarters"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 108,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 27,
+    "xpRequired": 700,
+    "storyBeat": "Arthur attacked by Nagini / Harry sees through snake",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Arthur Weasley — 108",
+      "Nagini — 108"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Harry Sees Arthur's Attack / Saves Him"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 109,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 28,
+    "xpRequired": 700,
+    "storyBeat": "Christmas / St Mungo's / Two-Way Mirror / Occlumency begins",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Object / Artefact — Two-Way Mirror [Epic]",
+      "Location — St Mungo's [Rare]",
+      "Spell / Magic — Occlumency / Legilimency [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Severus Snape — 109",
+      "Occlumency / Legilimency — 109-116"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Sirius Gives Harry the Two-Way Mirror",
+      "POOL — Rare: St Mungo's / Harry Discovers Neville's Parents"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 110,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 28,
+    "xpRequired": 700,
+    "storyBeat": "Umbridge regime / Quidditch / Cho relationship",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Dolores Umbridge — 110",
+      "Quidditch Pitch — 110",
+      "Occlumency / Legilimency — 109-116"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry's First Kiss with Cho",
+      "POOL — Rare: Madam Puddifoot Disaster",
+      "POOL — Rare: “Weasley Is Our King”"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 111,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 28,
+    "xpRequired": 700,
+    "storyBeat": "Hagrid returns / Grawp",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Creature — Grawp [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Rubeus Hagrid — 111",
+      "Fang — 111",
+      "Occlumency / Legilimency — 109-116"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry Gives The Quibbler Interview"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 112,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 28,
+    "xpRequired": 700,
+    "storyBeat": "Fred & George rebellion / magical swamp / great escape",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Fred Weasley — 112",
+      "George Weasley — 112",
+      "Occlumency / Legilimency — 109-116"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Fred & George's Great Escape",
+      "POOL — Rare: Fred & George's Magical Swamp"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 113,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 29,
+    "xpRequired": 700,
+    "storyBeat": "DA exposed / Marietta",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Dolores Umbridge — 113",
+      "Occlumency / Legilimency — 109-116"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 114,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 29,
+    "xpRequired": 700,
+    "storyBeat": "Dumbledore takes blame and escapes arrest",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Occlumency / Legilimency — 109-116"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Dumbledore Escapes Arrest"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 115,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 29,
+    "xpRequired": 700,
+    "storyBeat": "Snape's Worst Memory / James bullying",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Sirius Black — 115",
+      "Remus Lupin — 115",
+      "Severus Snape — 115",
+      "Levicorpus — 115",
+      "Occlumency / Legilimency — 109-116"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Harry Sees Snape's Worst Memory",
+      "POOL — Epic: Harry Confronts Sirius & Lupin About James Bullying Snape"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 116,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 29,
+    "xpRequired": 700,
+    "storyBeat": "Harry's vision of Sirius / Voldemort mental trap",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Forbidden Forest — 116",
+      "Occlumency / Legilimency — 109-116"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Umbridge Meets the Centaurs"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 117,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 30,
+    "xpRequired": 700,
+    "storyBeat": "Department of Mysteries / DA battle / prophecy orb",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Neville Longbottom — 117",
+      "Thestrals — 117",
+      "Ministry of Magic — 117-120",
+      "Protego — 117",
+      "Stupefy — 117",
+      "Impedimenta — 117",
+      "Reducto — 117"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: DA Travels to London on Thestrals",
+      "POOL — Rare: The Prophecy Orb Is Destroyed"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 118,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 30,
+    "xpRequired": 700,
+    "storyBeat": "Death Chamber / Sirius dies / Bellatrix",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Sirius Black — 118",
+      "Bellatrix Lestrange — 118",
+      "Ministry of Magic — 117-120"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "G — Legendary: Sirius Dies"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 119,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 30,
+    "xpRequired": 700,
+    "storyBeat": "Dumbledore vs Voldemort / Voldemort possesses Harry",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Lord Voldemort — 119",
+      "Ministry of Magic — 117-120"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "G — Legendary: Dumbledore vs Voldemort",
+      "POOL — Epic: Voldemort Possesses Harry"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 120,
+    "book": 5,
+    "bookName": "Order of the Phoenix",
+    "checkpoint": 30,
+    "xpRequired": 700,
+    "storyBeat": "Prophecy explained / Fudge accepts Voldemort / aftermath / Luna comforts Harry / mirror too late",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 97-120",
+      "Cornelius Fudge — 120-121",
+      "Two-Way Mirror — 120",
+      "Hogwarts Castle — 120",
+      "Ministry of Magic — 117-120"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "G — Legendary: Harry Learns the Full Prophecy",
+      "POOL — Rare: Umbridge Is Chased Out of Hogwarts",
+      "POOL — Rare: Harry Discovers Sirius's Mirror Too Late",
+      "POOL — Rare: Luna Comforts Harry After Sirius's Death"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 121,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 31,
+    "xpRequired": 750,
+    "storyBeat": "The Other Minister / Scrimgeour / Dumbledore visits Privet Drive",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Rufus Scrimgeour [Rare]",
+      "Spell / Magic — Apparition / Disapparition [Epic]"
+    ],
+    "evolutions": [
+      "Cornelius Fudge — 120-121",
+      "Privet Drive / No. 4 — 121",
+      "Apparition / Disapparition — 121"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Dumbledore Comes to Privet Drive",
+      "POOL — Rare: Dumbledore Gives the Dursleys a Lesson in Hospitality"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 122,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 31,
+    "xpRequired": 750,
+    "storyBeat": "Spinner's End / Narcissa / Bellatrix",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Bellatrix Lestrange — 122",
+      "Narcissa Malfoy — 122-123"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 123,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 31,
+    "xpRequired": 750,
+    "storyBeat": "Unbreakable Vow",
+    "guaranteedDiscoveries": [
+      "Spell / Magic — Unbreakable Vow [Epic]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Severus Snape — 123",
+      "Narcissa Malfoy — 122-123"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 124,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 31,
+    "xpRequired": 750,
+    "storyBeat": "Slughorn recruited",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Horace Slughorn [Epic]"
+    ],
+    "evolutions": [],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 125,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 32,
+    "xpRequired": 750,
+    "storyBeat": "Draco's mission / Vanishing Cabinet",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Draco Malfoy — 125-126",
+      "Room of Requirement — 125",
+      "Vanishing Cabinet — Draco/Borgin plot reconnects to the Book-2 cabinet"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 126,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 32,
+    "xpRequired": 750,
+    "storyBeat": "Hogwarts Express / Draco attacks Harry",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Draco Malfoy — 125-126",
+      "Platform 9¾ & Hogwarts Express — 126"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 127,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 32,
+    "xpRequired": 750,
+    "storyBeat": "Half-Blood Prince Potions Book / Prince magic begins",
+    "guaranteedDiscoveries": [
+      "Object / Artefact — Half-Blood Prince's Potions Book [Epic]"
+    ],
+    "eligiblePoolAdds": [
+      "Spell / Magic — Levicorpus [Epic]",
+      "Spell / Magic — Muffliato [Epic]"
+    ],
+    "evolutions": [
+      "Harry Potter — 127-144",
+      "Levicorpus — 127"
+    ],
+    "revelations": [
+      "Levicorpus — Harry connects the Prince's spell to James using it on Snape"
+    ],
+    "momentCards": [
+      "POOL — Rare: Harry Begins Using the Half-Blood Prince's Book / Excels at Potions",
+      "POOL — Rare: Harry Discovers Levicorpus / Connects It to James"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 128,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 32,
+    "xpRequired": 750,
+    "storyBeat": "Potions / Felix Felicis / Amortentia",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Spell / Magic — Felix Felicis [Rare]",
+      "Spell / Magic — Amortentia / Love Potion [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 127-144",
+      "Horace Slughorn — 128"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry Wins Felix Felicis"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 129,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 33,
+    "xpRequired": 750,
+    "storyBeat": "Dumbledore's lessons / Voldemort's past",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 127-144"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Dumbledore Shows Harry Voldemort's Past"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 130,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 33,
+    "xpRequired": 750,
+    "storyBeat": "Gaunt family memories / Merope Marvolo Morfin",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Merope Gaunt [Rare]",
+      "Character — Marvolo Gaunt [Rare]",
+      "Character — Morfin Gaunt [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 127-144"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 131,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 33,
+    "xpRequired": 750,
+    "storyBeat": "Young Tom Riddle / Hepzibah / Horcrux objects origins",
+    "guaranteedDiscoveries": [
+      "Object / Artefact — Hufflepuff's Cup [Epic]"
+    ],
+    "eligiblePoolAdds": [
+      "Character — Hepzibah Smith [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 127-144",
+      "Lord Voldemort — 131"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 132,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 33,
+    "xpRequired": 750,
+    "storyBeat": "Quidditch / Ron / Lavender social storyline",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 127-144"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 133,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 34,
+    "xpRequired": 750,
+    "storyBeat": "Katie Bell cursed / Opal Necklace",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Object / Artefact — Opal Necklace [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 127-144",
+      "Draco Malfoy — 133-136"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Katie Bell Is Cursed"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 134,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 34,
+    "xpRequired": 750,
+    "storyBeat": "Relationship tensions / Slug Club / Luna",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 127-144",
+      "Draco Malfoy — 133-136"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry Takes Luna to Slughorn's Party"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 135,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 34,
+    "xpRequired": 750,
+    "storyBeat": "Poisoned Mead / Ron poisoned / bezoar",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Object / Artefact — Poisoned Mead [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 127-144",
+      "Draco Malfoy — 133-136"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Ron Is Poisoned / Harry Uses a Bezoar"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 136,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 34,
+    "xpRequired": 750,
+    "storyBeat": "Sectumsempra / Draco breaking point / Prince spells",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Spell / Magic — Sectumsempra [Legendary]"
+    ],
+    "evolutions": [
+      "Harry Potter — 127-144",
+      "Draco Malfoy — 133-136",
+      "Half-Blood Prince's Potions Book — 136",
+      "Sectumsempra — 136"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Harry Uses Sectumsempra on Draco",
+      "POOL — Rare: Harry Hides the Prince's Book"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 137,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 35,
+    "xpRequired": 750,
+    "storyBeat": "Harry & Ginny kiss",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 127-144",
+      "Ginny Weasley — 137"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry & Ginny Kiss"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 138,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 35,
+    "xpRequired": 750,
+    "storyBeat": "Aragog dies / funeral / Felix Felicis / drunk Slughorn",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 127-144",
+      "Horace Slughorn — 138-139",
+      "Aragog — 138",
+      "Felix Felicis — 138-139"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Aragog Dies",
+      "POOL — Rare: Felix Felicis / Aragog's Funeral / Drunk Slughorn"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 139,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 35,
+    "xpRequired": 750,
+    "storyBeat": "Slughorn true memory / Horcrux secret",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 127-144",
+      "Lord Voldemort — 139-140",
+      "Horace Slughorn — 138-139",
+      "Felix Felicis — 138-139"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "G — Legendary: Harry Obtains Slughorn's True Memory"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 140,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 35,
+    "xpRequired": 750,
+    "storyBeat": "Horcruxes understood / Harry commits mission",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 127-144",
+      "Lord Voldemort — 139-140",
+      "Tom Riddle's Diary — 140"
+    ],
+    "revelations": [
+      "Lord Voldemort — 140: Horcrux system",
+      "Tom Riddle's Diary — 140: Horcrux",
+      "Hufflepuff's Cup — 140/160: Horcrux",
+      "Nagini — identified by Dumbledore as a suspected Horcrux"
+    ],
+    "momentCards": [
+      "G — Legendary: Harry Learns About Horcruxes",
+      "G — Legendary: Harry Commits to Dumbledore's Horcrux Mission"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 141,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 36,
+    "xpRequired": 750,
+    "storyBeat": "Horcrux Cave / Inferi / locket",
+    "guaranteedDiscoveries": [
+      "Object / Artefact — Slytherin's Locket [Legendary]"
+    ],
+    "eligiblePoolAdds": [
+      "Creature — Inferi [Rare]",
+      "Location — Horcrux Cave [Rare]",
+      "Spell / Magic — Aguamenti [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 127-144"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "G — Legendary: Harry & Dumbledore Retrieve the Cave Locket"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 142,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 36,
+    "xpRequired": 750,
+    "storyBeat": "Astronomy Tower / Draco disarms Dumbledore / cannot kill",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 127-144",
+      "Draco Malfoy — 142",
+      "Vanishing Cabinet — 142-143"
+    ],
+    "revelations": [
+      "Vanishing Cabinet — paired route into Hogwarts / Draco's true plan"
+    ],
+    "momentCards": [
+      "POOL — Epic: Draco Cannot Bring Himself to Kill Dumbledore"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 143,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 36,
+    "xpRequired": 750,
+    "storyBeat": "Snape kills Dumbledore / Fawkes lament / Death Eaters",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Fenrir Greyback [Rare]",
+      "Character — The Carrows [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 127-144",
+      "Severus Snape — 143-145",
+      "Fawkes — 143",
+      "Fang — 143",
+      "Vanishing Cabinet — 142-143",
+      "Unbreakable Vow — 143"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "G — Legendary: Dumbledore Dies",
+      "POOL — Rare: Fawkes's Lament"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 144,
+    "book": 6,
+    "bookName": "Half-Blood Prince",
+    "checkpoint": 36,
+    "xpRequired": 750,
+    "storyBeat": "Flight of the Prince / Snape reveals Half-Blood Prince",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 127-144",
+      "Severus Snape — 143-145",
+      "Half-Blood Prince's Potions Book — 144",
+      "Hogwarts Castle — 144",
+      "Sectumsempra — 144"
+    ],
+    "revelations": [
+      "Severus Snape — 144: Half-Blood Prince",
+      "Half-Blood Prince's Potions Book — 144: owner = Severus Snape",
+      "Sectumsempra — 144: Prince = Snape",
+      "Slytherin's Locket — cave locket revealed as fake; R.A.B. note"
+    ],
+    "momentCards": [
+      "POOL — Epic: Snape Reveals Himself as the Half-Blood Prince"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 145,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 37,
+    "xpRequired": 800,
+    "storyBeat": "Dark Lord Ascending / Harry learns Dumbledore past / Privet Drive farewell",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Severus Snape — 143-145",
+      "Privet Drive / No. 4 — 145",
+      "Apparition / Disapparition — 145-160"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Dudley Tells Harry He Isn't a Waste of Space",
+      "POOL — Rare: Harry Leaves Privet Drive Forever",
+      "POOL — Rare: Harry Learns About Dumbledore's Past / Begins Doubting Him"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 146,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 37,
+    "xpRequired": 800,
+    "storyBeat": "Battle of the Seven Potters / Hedwig death / George injured",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "George Weasley — 146",
+      "Alastor Moody — 146-147",
+      "Hedwig — 146",
+      "Polyjuice Potion — 146",
+      "Apparition / Disapparition — 145-160"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Hedwig's Death",
+      "POOL — Rare: Battle of the Seven Potters",
+      "POOL — Rare: George Loses an Ear"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 147,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 37,
+    "xpRequired": 800,
+    "storyBeat": "Mad-Eye Moody death / aftermath",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Alastor Moody — 146-147",
+      "Apparition / Disapparition — 145-160"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Moody's Death"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 148,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 37,
+    "xpRequired": 800,
+    "storyBeat": "Bill & Fleur wedding / Ministry falls / Scrimgeour end",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Xenophilius Lovegood [Rare]"
+    ],
+    "evolutions": [
+      "Kingsley Shacklebolt — 148",
+      "The Burrow — 148",
+      "Apparition / Disapparition — 145-160"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Bill & Fleur's Wedding / Ministry Falls"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 149,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 38,
+    "xpRequired": 800,
+    "storyBeat": "Kreacher's Tale / R.A.B. = Regulus / true locket",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Regulus Black [Rare]"
+    ],
+    "evolutions": [
+      "Regulus Black — 149",
+      "Grimmauld Place — 149",
+      "Apparition / Disapparition — 145-160",
+      "Fidelius Charm — 149"
+    ],
+    "revelations": [
+      "Regulus Black — 149: R.A.B. = Regulus",
+      "Slytherin's Locket — 149: R.A.B. story / true locket",
+      "Slytherin's Locket — R.A.B. = Regulus; true locket trail revealed"
+    ],
+    "momentCards": [
+      "G — Legendary: R.A.B. / Regulus's Story Is Revealed",
+      "POOL — Rare: Kreacher's Transformation / Begins Caring for the Trio"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 150,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 38,
+    "xpRequired": 800,
+    "storyBeat": "Ministry infiltration / Umbridge / locket recovered",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Dolores Umbridge — 150",
+      "Slytherin's Locket — 150-154",
+      "Ministry of Magic — 150",
+      "Polyjuice Potion — 150",
+      "Apparition / Disapparition — 145-160"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: The Trio Infiltrate the Ministry"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 151,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 38,
+    "xpRequired": 800,
+    "storyBeat": "Horcrux hunt / Ron leaves / Potterwatch",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Slytherin's Locket — 150-154",
+      "Apparition / Disapparition — 145-160"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Potterwatch",
+      "POOL — Rare: Ron Leaves Harry & Hermione"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 152,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 38,
+    "xpRequired": 800,
+    "storyBeat": "Godric's Hollow / parents' graves / Bathilda=Nagini / wand breaks",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Location — Godric's Hollow [Rare]"
+    ],
+    "evolutions": [
+      "Nagini — 152",
+      "Harry's Wand — 152",
+      "Slytherin's Locket — 150-154",
+      "Apparition / Disapparition — 145-160"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Harry Visits James & Lily's Graves",
+      "POOL — Epic: Bathilda Bagshot Is Revealed as Nagini",
+      "POOL — Rare: Godric's Hollow — Nagini Attacks / Harry's Wand Breaks"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 153,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 39,
+    "xpRequired": 800,
+    "storyBeat": "Silver Doe / Ron returns / Sword of Gryffindor",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Sword of Gryffindor — 153-154",
+      "Slytherin's Locket — 150-154",
+      "Deluminator — 153",
+      "Apparition / Disapparition — 145-160"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Silver Doe / Sword of Gryffindor",
+      "POOL — Epic: Ron Returns via the Deluminator"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 154,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 39,
+    "xpRequired": 800,
+    "storyBeat": "Ron destroys locket",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Sword of Gryffindor — 153-154",
+      "Slytherin's Locket — 150-154",
+      "Apparition / Disapparition — 145-160"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Ron Destroys the Locket"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 155,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 39,
+    "xpRequired": 800,
+    "storyBeat": "Tale of Three Brothers / Deathly Hallows / Elder Wand Resurrection Stone Cloak reveal",
+    "guaranteedDiscoveries": [
+      "Object / Artefact — Elder Wand [Mythic]",
+      "Object / Artefact — Resurrection Stone [Legendary]"
+    ],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Invisibility Cloak — 155",
+      "Apparition / Disapparition — 145-160"
+    ],
+    "revelations": [
+      "Invisibility Cloak — 155: Deathly Hallow",
+      "Elder Wand — 155: Hallow",
+      "Resurrection Stone — 155: Hallow"
+    ],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 156,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 39,
+    "xpRequired": 800,
+    "storyBeat": "Harry chooses Horcruxes over Hallows / Dumbledore doubts",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Apparition / Disapparition — 145-160"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Harry Chooses Horcruxes Over Hallows"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 157,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 40,
+    "xpRequired": 800,
+    "storyBeat": "Snatchers capture trio / Malfoy Manor / Bellatrix torture / Draco hesitates",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Location — Malfoy Manor [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Draco Malfoy — 157",
+      "Bellatrix Lestrange — 157",
+      "Crucio / Cruciatus Curse — 157",
+      "Apparition / Disapparition — 145-160"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: The Trio Are Captured by Snatchers"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 158,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 40,
+    "xpRequired": 800,
+    "storyBeat": "Dobby rescues prisoners and dies / blue eye help",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Dobby — 158",
+      "Two-Way Mirror — 158",
+      "Malfoy Manor — 158",
+      "Apparition / Disapparition — 145-160"
+    ],
+    "revelations": [
+      "Two-Way Mirror — 158: blue eye = Aberforth connection"
+    ],
+    "momentCards": [
+      "G — Legendary: Dobby Rescues Everyone from Malfoy Manor & Dies",
+      "POOL — Epic: Malfoy Manor Escape",
+      "POOL — Rare: The Blue Eye / Aberforth's Mirror / Harry Calls for Help"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 159,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 40,
+    "xpRequired": 800,
+    "storyBeat": "Shell Cottage / Harry buries Dobby / Ollivander & Griphook",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Location — Shell Cottage [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Griphook — 159-160",
+      "Apparition / Disapparition — 145-160"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Rare: Harry Buries Dobby by Hand"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 160,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 40,
+    "xpRequired": 800,
+    "storyBeat": "Gringotts break-in / Hermione as Bellatrix / Hufflepuff Cup / dragon escape",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Griphook — 159-160",
+      "Hufflepuff's Cup — 160-163",
+      "Gringotts — 160",
+      "Imperio / Imperius Curse — 160",
+      "Polyjuice Potion — 160",
+      "Apparition / Disapparition — 145-160"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "G — Legendary: Gringotts Break-In / Hufflepuff's Cup Recovered",
+      "POOL — Rare: Hermione Disguises Herself as Bellatrix",
+      "POOL — Rare: Gringotts Dragon Escape",
+      "POOL — Rare: Harry Realises the Final Horcrux Is at Hogwarts"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 161,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 41,
+    "xpRequired": 800,
+    "storyBeat": "Return to Hogsmeade and Hogwarts / Aberforth / Neville resistance / DA reunites",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [
+      "Character — Aberforth Dumbledore [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Neville Longbottom — 161",
+      "Hufflepuff's Cup — 160-163",
+      "Hogwarts Castle — 161-168",
+      "Hogsmeade — 161",
+      "Hog's Head — 161"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "G — Legendary: Harry Returns to Hogwarts",
+      "POOL — Rare: The DA Reunites"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 162,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 41,
+    "xpRequired": 800,
+    "storyBeat": "Grey Lady / Ravenclaw Diadem / Fiendfyre destroys Diadem",
+    "guaranteedDiscoveries": [
+      "Object / Artefact — Ravenclaw's Diadem [Epic]"
+    ],
+    "eligiblePoolAdds": [
+      "Spell / Magic — Fiendfyre [Rare]"
+    ],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Hufflepuff's Cup — 160-163",
+      "Ravenclaw's Diadem — 162",
+      "Hogwarts Castle — 161-168",
+      "Room of Requirement — 162",
+      "Fiendfyre — 162"
+    ],
+    "revelations": [
+      "Ravenclaw's Diadem — 162: Horcrux"
+    ],
+    "momentCards": [
+      "POOL — Epic: Diadem Destroyed / Fiendfyre",
+      "POOL — Rare: Grey Lady / Voldemort / Location of Ravenclaw's Diadem"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 163,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 41,
+    "xpRequired": 800,
+    "storyBeat": "Battle of Hogwarts / Fred dies / Lupin & Tonks / Molly defeats Bellatrix",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Ginny Weasley — 163",
+      "Remus Lupin — 163",
+      "Bellatrix Lestrange — 163",
+      "Molly Weasley — 163",
+      "Fred Weasley — 163",
+      "Kingsley Shacklebolt — 163",
+      "Nymphadora Tonks — 163",
+      "Hufflepuff's Cup — 160-163",
+      "Hogwarts Castle — 161-168",
+      "Chamber of Secrets — 163",
+      "Stupefy — 163"
+    ],
+    "revelations": [],
+    "momentCards": [
+      "POOL — Epic: Molly Defeats Bellatrix",
+      "POOL — Rare: Fred Dies / Lupin & Tonks Are Found Dead"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 164,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 41,
+    "xpRequired": 800,
+    "storyBeat": "Snape's death / memories obtained",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Severus Snape — 164-165",
+      "Hogwarts Castle — 161-168",
+      "Shrieking Shack — 164"
+    ],
+    "revelations": [],
+    "momentCards": [],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 165,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 42,
+    "xpRequired": 800,
+    "storyBeat": "The Prince's Tale / Snape truth / Harry learns he must die / soul fragment",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Severus Snape — 164-165",
+      "Hogwarts Castle — 161-168",
+      "Parseltongue — 165",
+      "Occlumency / Legilimency — 165"
+    ],
+    "revelations": [
+      "Harry Potter — 165: carries Voldemort soul fragment",
+      "Severus Snape — 165: true allegiance",
+      "Nagini — 165-167: Horcrux / destroyed",
+      "Parseltongue — 165: soul-fragment origin explained"
+    ],
+    "momentCards": [
+      "G — Legendary: The Prince's Tale — The Truth About Snape",
+      "G — Legendary: Harry Learns He Must Die"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 166,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 42,
+    "xpRequired": 800,
+    "storyBeat": "The Forest Again / Resurrection Stone / loved ones accompany Harry / King's Cross / chooses return",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Resurrection Stone — 166",
+      "Hogwarts Castle — 161-168",
+      "Forbidden Forest — 166",
+      "Avada Kedavra — 166"
+    ],
+    "revelations": [
+      "Nagini — 165-167: Horcrux / destroyed",
+      "Resurrection Stone — 166: inside Snitch"
+    ],
+    "momentCards": [
+      "G — Mythic: The Forest Again — Harry Walks Willingly to Voldemort",
+      "G — Legendary: King's Cross — Harry Chooses to Return",
+      "POOL — Epic: James, Lily, Sirius & Lupin Accompany Harry",
+      "POOL — Epic: Harry Returns to the Battle After King's Cross"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 167,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 42,
+    "xpRequired": 800,
+    "storyBeat": "Neville defies Voldemort / Sword / Nagini destroyed / Narcissa lies",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Neville Longbottom — 167",
+      "Narcissa Malfoy — 167",
+      "Nagini — 167",
+      "Sword of Gryffindor — 167",
+      "Sorting Hat — 167",
+      "Hogwarts Castle — 161-168"
+    ],
+    "revelations": [
+      "Narcissa Malfoy — 167: lies to Voldemort to protect Draco",
+      "Nagini — 165-167: Horcrux / destroyed"
+    ],
+    "momentCards": [
+      "G — Legendary: Narcissa Lies to Voldemort",
+      "G — Legendary: Neville Draws Gryffindor's Sword & Destroys Nagini",
+      "POOL — Epic: Neville Defies Voldemort"
+    ],
+    "status": "LOCKED / mapped"
+  },
+  {
+    "level": 168,
+    "book": 7,
+    "bookName": "Deathly Hallows",
+    "checkpoint": 42,
+    "xpRequired": 800,
+    "storyBeat": "The Flaw in the Plan / Elder Wand allegiance / Expelliarmus / Voldemort falls / Harry repairs wand & returns Elder Wand",
+    "guaranteedDiscoveries": [],
+    "eligiblePoolAdds": [],
+    "evolutions": [
+      "Harry Potter — 153-168",
+      "Lord Voldemort — 168",
+      "Harry's Wand — 168",
+      "Elder Wand — 168",
+      "Hogwarts Castle — 161-168",
+      "Expelliarmus — 168",
+      "Avada Kedavra — 168",
+      "Twin Cores / Priori Incantatem — 168",
+      "Reparo — 168"
+    ],
+    "revelations": [
+      "Elder Wand — 168: true master = Harry",
+      "Expelliarmus — 168: final-duel defining spell",
+      "Twin Cores / Priori Incantatem — 168 Elder Wand payoff"
+    ],
+    "momentCards": [
+      "G — Mythic: Voldemort Falls — Harry Completes His Journey",
+      "G — Legendary: Harry Reveals the Elder Wand's True Master",
+      "POOL — Rare: Harry Repairs His Wand & Returns the Elder Wand"
+    ],
+    "status": "LOCKED / mapped"
+  }
+]

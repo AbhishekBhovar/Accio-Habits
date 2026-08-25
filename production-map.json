@@ -1,0 +1,27 @@
+{
+  "version": "HP65",
+  "encounters": 51,
+  "stages": 179,
+  "books": {
+    "1": 9,
+    "2": 5,
+    "3": 7,
+    "4": 4,
+    "5": 6,
+    "6": 5,
+    "7": 15
+  },
+  "retry_trials": [
+    "Push-ups",
+    "Squats",
+    "Wall sit",
+    "Plank",
+    "Jumping jacks"
+  ],
+  "palette": {
+    "page": "#030403",
+    "section": "#181a18",
+    "mission_bubble": "#0e100f",
+    "gold": "#e3b341"
+  }
+}
