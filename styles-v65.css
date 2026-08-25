@@ -1023,3 +1023,9 @@ body,.app-shell,.view,main{background:#030403!important}
 .adv65-xp b{display:block;color:#f0cf75;margin-bottom:8px}
 .adv65-xp i{display:block;height:7px;background:#080908;border-radius:99px;overflow:hidden}
 .adv65-xp u{display:block;height:100%;background:linear-gradient(90deg,#a97b25,#e3b341);text-decoration:none;border-radius:99px}
+
+/* v66 encounter artwork */
+.adv60-atmosphere{overflow:hidden;position:relative;height:170px!important;padding:0!important}
+.adv60-atmosphere img{width:100%;height:100%;display:block;object-fit:cover;object-position:center}
+.adv60-atmosphere::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 35px rgba(0,0,0,.32)}
+@media (max-width:480px){.adv60-atmosphere{height:150px!important}}

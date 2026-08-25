@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "dailyMaxXP": 285,
+  "dailyMaxXP": 295,
   "weeklyMaxXP": 2740,
   "dailyHabits": [
     {
@@ -20,12 +20,20 @@
       "group": "Routine"
     },
     {
+      "id": "fruit",
+      "icon": "🍎",
+      "name": "Fruit",
+      "xp": 10,
+      "rule": "Eat a serving of fruit",
+      "group": "Nutrition"
+    },
+    {
       "id": "morningWaters",
       "icon": "🥤",
-      "name": "Morning Waters",
+      "name": "Soaked CFS Water",
       "xp": 15,
-      "rule": "Drink the chia + fennel + sultana morning water",
-      "group": "Routine"
+      "rule": "Drink the soaked chia + fennel + sultana water",
+      "group": "Nutrition"
     },
     {
       "id": "ccfTea",
@@ -38,9 +46,9 @@
     {
       "id": "almonds",
       "icon": "🌰",
-      "name": "Soaked Almonds",
+      "name": "Soaked Almonds & Walnuts",
       "xp": 15,
-      "rule": "Wash and eat soaked almonds",
+      "rule": "Eat soaked almonds & walnuts",
       "group": "Nutrition"
     },
     {
@@ -137,7 +145,7 @@
     {
       "id": "sport",
       "icon": "⚽",
-      "name": "Sport / Outdoor Activity",
+      "name": "Sport / Outdoor Activities",
       "xpPerCredit": 50,
       "target": 3,
       "creditType": "activity",

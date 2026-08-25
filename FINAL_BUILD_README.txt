@@ -1,11 +1,13 @@
-HP HABIT TRACKER — FINAL FULL-SAGA BUILD
+HP HABIT TRACKER — FINAL FULL SAGA + ARTWORK
 
-Production build.
-- Full 7-book battle architecture included.
-- 51 encounters across the saga.
-- Retry Trials and escalating wrong-answer requirements included.
-- Normal XP/progression rules are active.
-- This is NOT the temporary 2,000-XP demo build.
+Includes all 143 supplied encounter images across all 51 saga encounters.
+Artwork advances/rotates with battle stages and uses the first image on locked encounter previews.
 
-Battle artwork currently uses placeholders.
-A separate image-sourcing CSV lists every encounter and suggested filename.
+Final requested habit changes:
+- Sport / Outdoor Activities
+- Soaked CFS Water
+- Soaked Almonds & Walnuts
+- Fruit added directly below Supplements: 10 XP/day, Nutrition group, battle-readiness nutrition category
+- Daily maximum XP updated from 285 to 295
+
+Normal progression is active. This is not the 2,000-XP demo build.
