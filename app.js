@@ -1,7 +1,7 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '6.9.0';
+const APP_VERSION = '7.0.0';
 const FRESH_START_KEY = 'accioHabitsFreshStart_v67';
 const DEV_MODE = new URLSearchParams(location.search).get('dev') === '1';
 const CATEGORY_META = {
@@ -96,14 +96,14 @@ function getDaily(key=localDateKey()){
   return save.daily[key];
 }
 function normalizeWeek(week){
-  return Object.assign(week,{weights:week.weights||0,weightDays:week.weightDays||[],cardio:week.cardio||0,cardioLog:week.cardioLog||[],sportActual:week.sportActual||0,sportLog:week.sportLog||[],sportBankUsed:week.sportBankUsed||0,sportDueRemaining:Number.isFinite(week.sportDueRemaining)?week.sportDueRemaining:3,sauna:week.sauna||0,saunaLog:week.saunaLog||[],saunaXpDays:week.saunaXpDays||[],finalized:!!week.finalized});
+  return Object.assign(week,{weights:week.weights||0,weightDays:week.weightDays||[],cardio:week.cardio||0,cardioLog:week.cardioLog||[],sportActual:week.sportActual||0,sportLog:week.sportLog||[],sportBankUsed:week.sportBankUsed||0,sportDueRemaining:Number.isFinite(week.sportDueRemaining)?week.sportDueRemaining:3,sauna:week.sauna||0,saunaLog:week.saunaLog||[],saunaXpDays:week.saunaXpDays||[],screenCycle:week.screenCycle||0,screenCycleLog:week.screenCycleLog||[],finalized:!!week.finalized});
 }
 function ensureCurrentWeek(){
   const currentKey=weekKey();
   if(save.lastWeekKey && save.lastWeekKey!==currentKey){finalizeWeek(save.lastWeekKey);}
   if(!save.weekly[currentKey]){
     const usedFromBank=Math.min(3,save.sportBank||0);save.sportBank=(save.sportBank||0)-usedFromBank;
-    save.weekly[currentKey]={weights:0,weightDays:[],cardio:0,cardioLog:[],sportActual:0,sportLog:[],sportBankUsed:usedFromBank,sportDueRemaining:3-usedFromBank,sauna:0,saunaLog:[],saunaXpDays:[],createdAt:Date.now(),finalized:false};
+    save.weekly[currentKey]={weights:0,weightDays:[],cardio:0,cardioLog:[],sportActual:0,sportLog:[],sportBankUsed:usedFromBank,sportDueRemaining:3-usedFromBank,sauna:0,saunaLog:[],saunaXpDays:[],screenCycle:0,screenCycleLog:[],createdAt:Date.now(),finalized:false};
   }
   normalizeWeek(save.weekly[currentKey]);save.lastWeekKey=currentKey;return save.weekly[currentKey];
 }
@@ -200,6 +200,7 @@ function trackedActivityXP(){
     total+=Math.max(0,Number(week?.sportActual||0))*50;
     const saunaPaid=Array.isArray(week?.saunaXpDays)?week.saunaXpDays.length:Math.min(Math.max(0,Number(week?.sauna||0)),5);
     total+=saunaPaid*35;
+    total+=Math.max(0,Number(week?.screenCycle||0))*5;
   }
   return Math.round(total);
 }
@@ -300,6 +301,26 @@ function logSauna(credits){
 }
 function undoSauna(){const week=ensureCurrentWeek();if(week.sauna<=0)return toast('Nothing to undo for Sauna.','warn');const last=week.saunaLog.pop(),credits=Math.min(week.sauna,Math.max(1,last?.credits||1)),date=last?.date||localDateKey(),xp=Number.isFinite(last?.xpAwarded)?last.xpAwarded:(week.saunaXpDays.includes(date)?35:0);week.sauna=Math.max(0,week.sauna-credits);decrementDayCredit(date,credits);if(xp>0){const stillXpThatDay=week.saunaLog.some(x=>x.date===date&&x.xpAwarded>0);if(!stillXpThatDay)week.saunaXpDays=week.saunaXpDays.filter(d=>d!==date);removeXP(xp,'Sauna');}else{persist();render();}playChime('undo');}
 
+function logScreenCycle(){
+  ensureAudio();
+  const week=ensureCurrentWeek();
+  if(week.screenCycle>=20)return toast('Screen Time Cycling bonus target complete for this week.','warn');
+  const date=localDateKey();
+  week.screenCycle++;
+  week.screenCycleLog.push({date,intervals:1,xpAwarded:5});
+  addXP(5,'Screen Time Cycling');
+  toast(`Screen Time Cycling • ${week.screenCycle}/20 • +5 bonus XP`);
+}
+function undoScreenCycle(){
+  const week=ensureCurrentWeek();
+  if(week.screenCycle<=0)return toast('Nothing to undo for Screen Time Cycling.','warn');
+  const last=week.screenCycleLog.pop();
+  week.screenCycle=Math.max(0,week.screenCycle-1);
+  removeXP(Number(last?.xpAwarded||5),'Screen Time Cycling');
+  playChime('undo');
+}
+
+
 function sportProgressText(week=ensureCurrentWeek()){return `${3-week.sportDueRemaining}/3 weekly target • ${save.sportBank} banked`;}
 
 // ---------- sleep stats ----------
@@ -376,11 +397,13 @@ function renderWeekly(){
     <div class="weekly-mission ${week.weights>0?'has-progress':''}"><div class="weekly-info"><span class="weekly-icon">🏋️</span><div><strong>Gym</strong><small>4 sessions • 100 XP each</small><div class="mission-dots">${missionProgressDots(week.weights,4)}</div></div></div><div class="weekly-action"><b>${week.weights}/4</b><div class="stepper"><button id="undoWeights" class="undo-control" ${week.weights<=0?'disabled':''}>−</button><button id="logWeights" ${week.weights>=4?'disabled':''}>+</button></div></div></div>
     <div class="weekly-mission ${week.cardio>0?'has-progress':''}"><div class="weekly-info"><span class="weekly-icon">🏃</span><div><strong>Incline Walk / StairMaster</strong><small>4 sessions • 40 XP each</small><div class="mission-dots">${missionProgressDots(week.cardio,4)}</div></div></div><div class="weekly-action"><b>${week.cardio}/4</b><div class="stepper"><button id="undoCardio" class="undo-control" ${week.cardio<=0?'disabled':''}>−</button><button id="logCardio1" ${week.cardio>=4?'disabled':''}>+</button></div></div></div>
     <div class="weekly-mission ${week.sportDueRemaining<=0?'complete':''}"><div class="weekly-info"><span class="weekly-icon">⚽</span><div><strong>Sport / Outdoor Activities</strong><small>3 sessions • 50 XP each</small><div class="mission-dots">${missionProgressDots(3-week.sportDueRemaining,3)}</div></div></div><div class="weekly-action"><b>${3-week.sportDueRemaining}/3</b><div class="stepper"><button id="undoSport" class="undo-control" ${(3-week.sportDueRemaining)<=0?'disabled':''}>−</button><button id="logSport" ${week.sportDueRemaining<=0?'disabled':''}>+</button></div></div></div>
-    <div class="weekly-mission sauna-mission ${week.sauna>=5?'complete':''}"><div class="weekly-info"><span class="weekly-icon">🧖</span><div><strong>Sauna</strong><small>5 sessions × 30 min • 35 XP</small><div class="mission-dots">${missionProgressDots(week.sauna,5)}</div></div></div><div class="weekly-action"><b>${week.sauna}/5</b><div class="stepper"><button id="undoSauna" class="undo-control" ${week.sauna<=0?'disabled':''}>−</button><button id="logSauna1" ${week.sauna>=5?'disabled':''}>+</button></div></div></div>`;
+    <div class="weekly-mission sauna-mission ${week.sauna>=5?'complete':''}"><div class="weekly-info"><span class="weekly-icon">🧖</span><div><strong>Sauna</strong><small>5 sessions × 30 min • 35 XP</small><div class="mission-dots">${missionProgressDots(week.sauna,5)}</div></div></div><div class="weekly-action"><b>${week.sauna}/5</b><div class="stepper"><button id="undoSauna" class="undo-control" ${week.sauna<=0?'disabled':''}>−</button><button id="logSauna1" ${week.sauna>=5?'disabled':''}>+</button></div></div></div>
+    <div class="weekly-mission bonus-mission ${week.screenCycle>=20?'complete':''}"><div class="weekly-info"><span class="weekly-icon">🚴</span><div><strong>Screen Time Cycling</strong><small>BONUS • 20 × 5 min • 5 XP each</small><div class="mission-dots bonus-dots">${missionProgressDots(week.screenCycle,20)}</div></div></div><div class="weekly-action"><b>${week.screenCycle}/20</b><div class="stepper"><button id="undoScreenCycle" class="undo-control" ${week.screenCycle<=0?'disabled':''}>−</button><button id="logScreenCycle" ${week.screenCycle>=20?'disabled':''}>+</button></div></div></div>`;
   document.querySelector('#logWeights').onclick=logWeights;document.querySelector('#undoWeights').onclick=undoWeights;
   document.querySelector('#logCardio1').onclick=()=>logCardio(1);document.querySelector('#undoCardio').onclick=undoCardio;
   document.querySelector('#logSport').onclick=logSport;document.querySelector('#undoSport').onclick=undoSport;
   document.querySelector('#logSauna1').onclick=()=>logSauna(1);document.querySelector('#undoSauna').onclick=undoSauna;
+  document.querySelector('#logScreenCycle').onclick=logScreenCycle;document.querySelector('#undoScreenCycle').onclick=undoScreenCycle;
 }
 
 function renderAchievements(){const status=calculateDayStatus(),week=currentWeekStatus(),chips=[[status.discipline>=.8,'🔥','Discipline Day',`${Math.round(status.discipline*100)}% / 80%`],[status.perfectRoutine,'⭐','Daily Missions','All missions complete'],[status.perfectDay,'🌟','Perfect Day','Routine + 8–9h sleep'],[status.exceptionalDay,'👑','Exceptional','Perfect + 2 weekly credits'],[week.perfectWeek,'🏆','Perfect Week','Weekly targets + consistency'],[week.optimalSleepWeek,'🌙','Sleep Week','7-day avg 8–9h']];document.querySelector('#achievementStatus').innerHTML=chips.map(([ok,icon,name,detail])=>`<button class="achievement-badge ${ok?'earned':''}" type="button" title="${escapeHtml(detail)}"><span class="achievement-medallion">${icon}</span><strong>${name}</strong><small>${ok?'UNLOCKED':'LOCKED'}</small></button>`).join('');}
@@ -913,12 +936,13 @@ function renderStats(){
   },0);
 
   // ---- lifetime physical / study / recovery history ----
-  let gym=0,cardio=0,sport=0,sauna=0;
+  let gym=0,cardio=0,sport=0,sauna=0,screenCycle=0;
   for(const w of Object.values(save.weekly||{})){
     gym+=Number(w?.weights||0);
     cardio+=Number(w?.cardio||0);
     sport+=Number(w?.sportActual||0);
     sauna+=Number(w?.sauna||0);
+    screenCycle+=Number(w?.screenCycle||0);
   }
   const study=Object.values(save.daily||{}).reduce((n,day)=>n+(day?.habits?.readStudy?.completed?1:0),0);
 
@@ -950,6 +974,7 @@ function renderStats(){
         <div><span>⚽</span><b>${sport}</b><small>Sport</small></div>
         <div><span>📚</span><b>${study}</b><small>Study</small></div>
         <div><span>🧖</span><b>${sauna}</b><small>Sauna</small></div>
+        <div><span>🚴</span><b>${screenCycle}</b><small>Screen Cycle</small></div>
       </div>
     </section>
 
@@ -992,12 +1017,20 @@ function setupUI(){
   document.querySelector('#exportSave').onclick=()=>{
     // Human-readable Excel-friendly habit diary: one row per logged date.
     const habits=(DATA.habits?.dailyHabits||[]).filter(h=>h.input!=='sleep');
-    const header=['Date',...habits.map(h=>h.name),'Main Sleep (hours)','Nap (hours)'];
+    const header=['Date',...habits.map(h=>h.name),'Screen Time Cycling (5-min intervals)','Main Sleep (hours)','Nap (hours)'];
     const rows=[header];
-    for(const date of Object.keys(save.daily||{}).sort()){
+    const cyclingByDate={};
+    for(const week of Object.values(save.weekly||{})){
+      for(const item of (week?.screenCycleLog||[])){
+        if(!item?.date)continue;
+        cyclingByDate[item.date]=(cyclingByDate[item.date]||0)+Math.max(1,Number(item.intervals||1));
+      }
+    }
+    const dates=new Set([...Object.keys(save.daily||{}),...Object.keys(cyclingByDate)]);
+    for(const date of [...dates].sort()){
       const day=save.daily[date]||{};
       const vals=habits.map(h=>day.habits?.[h.id]?.completed?'Y':'N');
-      rows.push([date,...vals,day.sleep?.mainHours??'',day.sleep?.napHours??'']);
+      rows.push([date,...vals,cyclingByDate[date]||0,day.sleep?.mainHours??'',day.sleep?.napHours??'']);
     }
     const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
     const csv='\uFEFF'+rows.map(r=>r.map(q).join(',')).join('\r\n');

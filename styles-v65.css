@@ -1145,3 +1145,31 @@ body .topbar #networkBadge,
   object-position:var(--battle-focal,50% 45%) !important;
 }
 
+
+
+/* v7.0 Screen Time Cycling bonus */
+.weekly-mission.bonus-mission{
+  border-style:dashed;
+}
+.weekly-mission.bonus-mission .weekly-info strong::after{
+  content:" BONUS";
+  display:inline-block;
+  margin-left:7px;
+  padding:2px 6px;
+  border:1px solid rgba(224,173,47,.55);
+  border-radius:999px;
+  color:#e7bb47;
+  font-size:.58em;
+  letter-spacing:.08em;
+  vertical-align:middle;
+}
+.mission-dots.bonus-dots{
+  display:grid;
+  grid-template-columns:repeat(10,minmax(0,1fr));
+  gap:5px;
+  max-width:220px;
+}
+.mission-dots.bonus-dots .mission-dot{
+  width:100%;
+  min-width:0;
+}
