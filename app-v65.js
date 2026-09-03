@@ -1,7 +1,7 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '7.5.0';
+const APP_VERSION = '7.6.0';
 const FRESH_START_KEY = 'accioHabitsFreshStart_v67';
 const DEV_MODE = new URLSearchParams(location.search).get('dev') === '1';
 const CATEGORY_META = {
@@ -105,9 +105,7 @@ function questPriorityItems(){
   if((week.sport||0)<3 && !todayWeeklyActivityDone('sport')) items.push({label:'Sport / Outdoor Activities',xp:50});
   if((week.sauna||0)<5 && !todayWeeklyActivityDone('sauna')) items.push({label:'Sauna',xp:35});
 
-  const habitConfig=(typeof dailyHabits!=='undefined'&&Array.isArray(dailyHabits)) ? dailyHabits :
-                    (typeof APP_CONFIG!=='undefined'&&Array.isArray(APP_CONFIG?.dailyHabits)) ? APP_CONFIG.dailyHabits :
-                    (typeof CONFIG!=='undefined'&&Array.isArray(CONFIG?.dailyHabits)) ? CONFIG.dailyHabits : [];
+  const habitConfig=(DATA?.habits?.dailyHabits||[]).filter(h=>h.input!=='sleep');
 
   for(const h of habitConfig){
     if(Number(h.xp||0)<30) continue;
