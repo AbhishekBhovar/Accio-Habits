@@ -1,177 +1,799 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#030403">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Accio Habits">
-  <title>Accio Habits</title>
-  <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles-v65.css?v=76">
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0c1118"><title>Fitness Level Up</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=2">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=2">
+<link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png?v=2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Fitness Level Up">
+<style>
+:root{--bg:#090e15;--card:#182231;--card2:#101824;--line:#344258;--text:#f7f9fc;--muted:#9ca9b9;--accent:#78a9ff;--good:#62d8a5;--warn:#ffc861}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Arial,sans-serif}body{padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+header{padding:calc(11px + env(safe-area-inset-top)) 15px 11px;border-bottom:1px solid var(--line)}header b{font-size:19px}header small{display:block;color:var(--muted)}.wrap{max-width:430px;margin:auto;padding:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:13px;margin-bottom:22px;box-shadow:0 8px 24px rgba(0,0,0,.18)}.hero{background:linear-gradient(180deg,#182338,#151c26)}.eyebrow{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.big{font-size:21px;font-weight:900;margin-top:5px;color:var(--good);text-transform:uppercase;letter-spacing:.055em}.meta{color:var(--accent);font-size:13px;margin-top:5px}.char-image{display:none;width:100%;height:245px;object-fit:cover;object-position:center;border-radius:14px;margin-top:11px;border:1px solid var(--line);background:#090d13}.char-image.show{display:block}.char-image.portrait{object-position:center 18%}\n.progress{height:9px;background:#252e3a;border-radius:999px;overflow:hidden;margin-top:11px}.bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--good));width:4%}
+h2{font-size:17px;margin:0 0 10px}h3{font-size:15px;color:var(--warn);margin:26px 2px 12px;font-weight:900;text-transform:uppercase;letter-spacing:.09em;display:flex;align-items:center;gap:10px}h3:after{content:'';height:1px;background:var(--warn);opacity:.75;flex:1}.weights-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.weights-grid .exercise{margin-bottom:0;min-width:0}.weights-grid .exercise>label{font-size:12px;min-height:31px}.weights-grid input{padding:10px 8px}.weights-grid .status{font-size:9px}.weights-grid{margin-bottom:12px}
+.exercise{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:11px;margin-bottom:12px}.exercise>label{display:block;font-size:15px;font-weight:850;color:var(--text);margin-bottom:8px;line-height:1.25}.exercise .two label,.exercise #bwBox label,.exercise #weightedBox label,.exercise #inclineBox label,.exercise #runBox label,.exercise #fiveKBox label{display:block;font-size:11px;font-weight:500;color:var(--muted);margin-bottom:5px}label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}
+input{width:100%;font-size:16px;padding:12px 10px;border-radius:11px;border:1px solid #34445a;background:#0b121b;color:#fff}.status{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.4}.status.good{color:var(--good)}.status.warn{color:var(--warn)}
+.chin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}button{height:42px;border:1px solid #3a4a60;border-radius:11px;background:#1b2736;color:#ecf3fb;font-weight:800;font-size:12px}button.active{border-color:var(--accent);background:#1d2d47}button.primary{width:100%;height:48px;background:var(--accent);color:#07111f;border-color:var(--accent);font-size:15px;margin-top:10px}.cardio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}.cardio-help{font-size:10px;color:var(--muted);line-height:1.4;margin:5px 0 8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mini{background:var(--card2);border:1px solid var(--line);border-radius:13px;padding:10px;min-height:78px}.mini span{display:block;font-size:12px;color:var(--warn);font-weight:900;text-transform:uppercase;letter-spacing:.045em;line-height:1.2}.mini b{display:block;font-size:13px;margin-top:6px}.mini em{display:block;color:var(--accent);font-size:10px;font-style:normal;margin-top:3px}
+.nextbox{margin-top:10px;padding:10px;background:#101721;border:1px solid var(--line);border-radius:12px;font-size:12px;line-height:1.45;color:var(--muted)}.level-card{background:var(--card2);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden}.level-card summary{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:12px;cursor:pointer;gap:10px}.level-card summary::-webkit-details-marker{display:none}.level-card summary small{display:block;color:var(--muted);margin-top:3px;font-size:10px}.level-summary-left{display:flex;align-items:flex-start;gap:10px;min-width:0}.level-text{min-width:0}.level-dot{width:13px;height:13px;border:2px solid var(--warn);border-radius:50%;flex:0 0 auto;margin-top:2px}.level-dot.done{background:var(--warn);box-shadow:0 0 0 2px rgba(255,200,97,.08)}.chev{font-size:15px;line-height:1;color:var(--text);flex:0 0 auto}.reqs{border-top:1px solid var(--line);padding:5px 11px 9px}.reqs div{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid #222d3b;font-size:11px}.reqs span{color:var(--muted)}.notice{font-size:11px;color:var(--good);margin-bottom:10px;font-weight:700}.calc-status{font-size:11px;color:var(--good);font-weight:700;margin-top:8px;text-align:center}
+
+.tab-view{display:none}
+.tab-view.active{display:block}
+.bottom-tabs{
+  position:fixed;
+  left:0; right:0; bottom:0;
+  z-index:1000;
+  padding:8px 12px calc(8px + env(safe-area-inset-bottom));
+  background:rgba(9,14,21,.96);
+  border-top:1px solid var(--line);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+.bottom-tabs-inner{
+  max-width:430px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:5px;
+}
+.tab-btn{
+  height:48px;
+  border:1px solid transparent;
+  border-radius:14px;
+  background:transparent;
+  color:var(--muted);
+  font-size:10px;
+  font-weight:850;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.tab-btn.active{
+  color:var(--text);
+  background:#172235;
+  border-color:var(--line);
+}
+.tab-icon{font-size:15px;line-height:1}.glossary-card{background:var(--card2);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden}.glossary-card summary{list-style:none;padding:13px;font-weight:850;cursor:pointer}.glossary-card summary::-webkit-details-marker{display:none}.definition{border-top:1px solid var(--line);padding:12px;font-size:12px;line-height:1.55;color:var(--muted)}.definition b{color:var(--text)}.demo-image{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+  object-fit:contain;
+  border-radius:14px;
+  border:1px solid var(--line);
+  margin:8px 0 14px;
+  background:#0b121b;
+}.demo-note{
+  margin:8px 0 14px;
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--card2);
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.45;
+}
+body{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
 
 
-<style id="hp64-dark-hufflepuff-palette">
-/* HP64 palette-only prototype: deeper page black + lifted neutral charcoal surfaces */
+.definition ul{margin:8px 0 4px 20px;padding:0}
+.definition li{margin:7px 0;color:var(--muted);line-height:1.45}
+.definition li::marker{color:var(--warn)}
+.definition .glossary-label{color:var(--text);font-weight:800;margin-top:10px}
+
+
+.demo-section-title{font-size:15px;font-weight:900;color:var(--good);margin:14px 0 8px}
+.demo-image{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--line);margin:8px 0 14px;background:#0b121b}
+
+
+.kick-card{
+  background:var(--card2);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:12px;
+  margin:10px 0 14px;
+  overflow:hidden;
+}
+.kick-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.kick-num{
+  flex:0 0 34px;width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--good);color:#07111f;font-weight:900;font-size:15px
+}
+.kick-title{font-size:16px;font-weight:900;line-height:1.15;color:var(--text)}
+.kick-sub{font-size:11px;color:var(--muted);margin-top:3px}
+.kick-photo{
+  display:block;width:100%;max-width:100%;height:auto;object-fit:contain;
+  border-radius:11px;border:1px solid var(--line);background:#0b121b;
+  margin:8px 0 10px;
+}
+.kick-list{margin:0 0 8px 20px;padding:0;color:var(--muted);font-size:12px;line-height:1.45}
+.kick-list li{margin:5px 0}
+.kick-list li::marker{color:var(--good)}
+.kick-pass{
+  border-top:1px solid var(--line);
+  padding-top:9px;
+  color:var(--text);
+  font-size:12px;
+  line-height:1.45;
+  overflow-wrap:anywhere;
+}
+.kick-pass b{color:var(--good)}
+.demo-section-title{overflow-wrap:anywhere}
+
+
+.hip-ankle-crop{
+  width:100%;
+  padding-top:0;
+
+  max-width:100%;
+  overflow:hidden;
+  border-radius:14px;
+  border:1px solid var(--line);
+  margin:8px 0 14px;
+  background:#0b121b;
+}
+.hip-ankle-crop img{
+  display:block;
+  width:100%;
+  height:auto;
+  margin-top:-38%;
+}
+
+
+.hip-ankle-clean{
+  width:100%;max-width:100%;margin:8px 0 14px;padding:0;
+  border:0;outline:0;background:transparent;overflow:hidden;
+}
+.hip-ankle-clean img{
+  display:block;width:100%;max-width:100%;height:auto;margin:0;padding:0;
+  border:0;outline:0;border-radius:0;box-shadow:none;
+}
+
+
+/* FUTURISTIC LEVEL UP PASS */
 :root{
-  --hp-page:#030403;
-  --hp-section:#121310;
-  --hp-card:#171815;
-  --hp-secondary:#1C1D19;
-  --hp-gold:#D4AF37;
-  --hp-text:#F2EBD7;
-  --hp-muted:#C8C2B0;
+  --neon:#79aaff;
+  --neon2:#65e2b2;
+  --gold:#ffc95c;
 }
-html, body, #app, .app, .app-shell, .page, main {
-  background-color: var(--hp-page) !important;
+body{
+  background:
+    radial-gradient(circle at 85% -10%,rgba(74,119,255,.14),transparent 32rem),
+    radial-gradient(circle at -10% 45%,rgba(66,226,177,.07),transparent 28rem),
+    #070d14;
 }
-/* Broad existing surface selectors retained from prototype; palette only */
-.training-progress,
-.progress-card,
-.section-card,
-.week-card,
-.weekly-card,
-.missions-panel,
-.stats-panel,
-.adventure-card,
-.story-card,
-.sleep-card {
-  background: var(--hp-section) !important;
+.levelup-header{
+  min-height:94px;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:calc(18px + env(safe-area-inset-top)) 26px 15px;
+  background:linear-gradient(180deg,rgba(9,17,28,.98),rgba(7,13,20,.96));
+  border-bottom:1px solid rgba(121,170,255,.35);
+  box-shadow:0 10px 35px rgba(0,0,0,.28);
 }
-.mission-card,
-.habit-card,
-.task-card,
-.weekly-mission,
-.daily-mission,
-.stat-card,
-.choice-card,
-.option-card {
-  background: var(--hp-card) !important;
+.levelup-brand{display:flex;align-items:center;gap:9px;min-width:0}
+.levelup-mark{
+  width:46px;height:46px;object-fit:cover;object-position:left center;
+  filter:drop-shadow(0 0 8px rgba(255,195,73,.55));
 }
-.date-pill,
-.pill,
-.badge,
-.input-wrap,
-input,
-select,
-textarea,
-.secondary-box {
-  background-color: var(--hp-secondary) !important;
+.levelup-wordmark{
+  display:flex;align-items:baseline;gap:8px;
+  font-family:Impact,"Arial Black",system-ui,sans-serif;
+  font-style:italic;font-size:30px;line-height:1;letter-spacing:1px;
+  white-space:nowrap;
 }
-</style>
+.levelup-wordmark span{
+  color:#eef5ff;
+  text-shadow:0 1px 0 #8da1b9,0 0 12px rgba(150,195,255,.18);
+}
+.levelup-wordmark strong{
+  color:#ffc94f;
+  text-shadow:0 0 13px rgba(255,193,55,.35);
+}
+.levelup-header small{margin-left:55px;margin-top:5px;color:#8e9caf;font-size:13px}
+.card,.exercise,.level-card,.demo-note,.kick-card{
+  background:linear-gradient(145deg,rgba(25,37,55,.96),rgba(13,22,34,.98));
+  border-color:rgba(103,139,190,.42)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025),0 12px 30px rgba(0,0,0,.13);
+}
+.card h2,.exercise>label{letter-spacing:-.02em}
+input{
+  background:linear-gradient(180deg,#09111c,#080e17)!important;
+  border-color:rgba(110,150,205,.5)!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.01),0 0 0 rgba(0,0,0,0);
+  transition:.18s ease;
+}
+input:focus{
+  border-color:var(--neon)!important;
+  box-shadow:0 0 0 3px rgba(121,170,255,.13),0 0 18px rgba(121,170,255,.08);
+}
+.cardio-console{position:relative;overflow:hidden}
+.cardio-console:before{
+  content:"";position:absolute;inset:0 0 auto 0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--neon2),transparent);opacity:.55;
+}
+.cardio-grid-4{
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:9px!important;margin-top:10px;
+}
+.cardio-grid-4 button{
+  min-height:52px;padding:10px 8px!important;border-radius:13px!important;
+  font-size:13px!important;line-height:1.15;
+  background:linear-gradient(180deg,#182638,#111c2b)!important;
+  border:1px solid rgba(105,143,197,.45)!important;
+  color:#dfe9f7!important;
+}
+.cardio-grid-4 button span{color:var(--gold);margin-right:4px}
+.cardio-grid-4 button.active{
+  color:white!important;border-color:var(--neon)!important;
+  background:linear-gradient(135deg,rgba(57,103,171,.55),rgba(24,43,68,.95))!important;
+  box-shadow:0 0 0 1px rgba(121,170,255,.22),0 0 20px rgba(84,135,220,.13);
+}
+.cardio-panel{
+  margin-top:12px;padding:14px;border-radius:14px;
+  background:rgba(6,13,22,.5);border:1px solid rgba(103,139,190,.25);
+}
+.primary{
+  background:linear-gradient(100deg,#75a9ff,#74e0c0)!important;
+  box-shadow:0 10px 28px rgba(89,151,231,.18);
+}
+.bottom-nav{
+  background:rgba(5,11,18,.94)!important;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-top-color:rgba(111,150,204,.35)!important;
+}
+@media(max-width:430px){
+  .levelup-header{padding-left:20px;padding-right:18px}
+  .levelup-wordmark{font-size:27px}
+  .levelup-mark{width:42px;height:42px}
+  .levelup-header small{margin-left:51px;font-size:12px}
+}
 
-</head>
-<body>
-  <div id="app" class="app-shell">
-    <header class="topbar">
-      <div>
-<h1>Accio Habits</h1>
-      </div>
-      <span id="networkBadge" class="badge">Online</span>
-    </header>
 
-    <main>
-      <section id="view-today" class="view active">
-        <section id="statusZone" class="status-zone">
-          <div class="hero card compact-hero">
-            <div class="hero-row">
-              <div>
-                <span class="eyebrow" id="bookLabel">BATTLE TRAINING</span>
-                <h2 id="levelTitle">⚡ Preparing Harry</h2>
-                <p id="storyBeat" hidden></p>
-              </div>
-              
-            </div>
-            <div class="progress-track"><div id="xpBar" class="progress-fill"></div></div>
-            <div class="progress-meta"><span id="xpText">0 XP</span><span id="checkpointText">Next readiness award</span></div>
-          </div>
-
-          <div id="victoryBanner" class="victory-banner" hidden>
-            <div class="victory-spark">✦</div>
-            <div><span class="eyebrow">DAILY VICTORY</span><h3 id="victoryTitle">Perfect Day</h3><p id="victoryText"></p></div>
-            <div class="victory-seal">✓</div>
-          </div>
-
-          <div class="status-summary">
-            <div class="status-kpi"><span>Today</span><strong id="todayScore">0%</strong><small id="todayXp">0 XP</small></div>
-            <div class="status-kpi"><span>Streak</span><strong id="streakText">0 🔥</strong><small id="bestStreakText">Best 0</small></div>
-            <div class="status-kpi"><span>Readiness</span><strong id="ownedCount">0%</strong><small id="sagaPct">battle ready</small></div>
-          </div>
-        </section>
-
-        <section class="action-zone">
-          <div class="zone-heading compact-heading"><h2>Weekly Missions</h2></div>
-          <div class="card mission-panel">
-            <div class="section-head"><h3>This week</h3><span id="weekLabel" class="mini-badge"></span></div>
-            <div id="weeklyMissionList" class="weekly-list"></div>
-          </div>
-
-          <div class="zone-heading daily-heading compact-heading"><h2>Daily Missions</h2></div>
-          <div class="card mission-panel daily-panel">
-            <div class="section-head"><div><h3 id="todayDateLabel">Daily missions</h3></div><span id="routineBadge" class="mini-badge">0 / 11</span></div>
-            <div id="dailyHabitList" class="habit-list"></div>
-          </div>
-
-          <div class="zone-heading sleep-heading compact-heading"><h2>Sleep</h2></div>
-          <div class="card sleep-card mission-panel">
-            <div class="sleep-xp-line"><strong id="sleepXpPreview">0 / 50 XP</strong></div>
-            <div class="sleep-input-row">
-              <label>Main sleep<input id="sleepHours" style="font-size:17px!important;font-weight:700!important" type="number" inputmode="decimal" min="0" max="16" step="0.25" placeholder="e.g. 6.5"></label>
-              <label>Nap<input id="napHours" style="font-size:17px!important;font-weight:700!important" type="number" inputmode="decimal" min="0" max="8" step="0.25" placeholder="e.g. 1"></label>
-            </div>
-            <button id="saveSleep" class="primary wide">Save sleep</button>
-          </div>
-        </section>
-      </section>
-
-      <section id="view-battle" class="view"><div id="battleHub"></div></section>
-
-      <section id="view-stats" class="view">
-        <div class="section-head page-title stats57-title"><div><span class="eyebrow">YOUR PERFORMANCE</span><h2>Stats</h2></div></div>
-        <div id="statsDashboard"></div>
-        <div class="backup-inline"><span>Data</span><button id="exportSave" type="button">Export CSV</button><span>·</span><label>Import save<input id="importSave" type="file" accept="application/json,.json" hidden></label></div>
-      </section>
-    </main>
-
-    <nav class="bottom-nav bottom-nav-3" aria-label="Main navigation">
-      <button data-view="today" class="active">Today</button>
-      <button data-view="battle">Adventure</button>
-      <button data-view="stats">Stats</button>
-    </nav>
+/* FINAL IPHONE 16 PRO DEMO LAYOUT FIXES */
+.levelup-header small{display:none!important}
+.kick-card{overflow:visible!important;padding:14px!important;margin-bottom:16px!important}
+.kick-photo{object-fit:contain!important;object-position:center!important;max-height:none!important}
+.kick-list{position:relative!important;z-index:2!important;margin-top:12px!important;padding-left:2px!important}
+.kick-pass{position:relative!important;z-index:2!important;margin-top:8px!important}
+.hip-ankle-clean{overflow:visible!important;margin:14px 0 20px!important;border:0!important;border-radius:0!important;background:transparent!important}
+.hip-ankle-clean img{display:block!important;width:100%!important;height:auto!important;object-fit:contain!important;object-position:center top!important;margin:0!important;border:0!important;border-radius:0!important;clip-path:none!important}
+.demo-image{margin-top:18px!important;margin-bottom:22px!important}
+@media(max-width:430px){.wrap{padding-top:16px!important}.kick-card{padding:12px!important}.kick-list,.kick-pass{font-size:12px!important;line-height:1.5!important}}
+</style></head><body>
+<header class="levelup-header">
+  <div class="levelup-brand">
+    <img src="assets/level_up_never_settle.png" alt="" class="levelup-mark">
+    <div class="levelup-wordmark"><span>LEVEL</span><strong>UP</strong></div>
   </div>
+</header><div class="wrap">
+<div id="progressView" class="tab-view active">
+<div class="card hero"><div class="eyebrow">Current strength level</div><div id="currentChar" class="big">Green Arrow</div><div id="currentMeta" class="meta">Level 1 • Foundation</div><img id="currentImage" class="char-image" alt="Current character"><div class="progress"><div id="bar" class="bar"></div></div><div id="nextBox" class="nextbox">Enter your current bests below, then tap Calculate Rankings.</div></div>
 
-  <div id="toast" class="toast" aria-live="polite"></div>
+<div class="card"><h2>Your Fitness Benchmarks</h2><div class="notice">✓ All fields stay visible. Ranking reads the numbers directly from the boxes.</div>
+<div class="weights-grid"><div class="exercise"><label>Hack squat (kg ×8)</label><input id="hack" type="number" inputmode="decimal" step=".5"><div id="st_hack" class="status">Enter your current best</div></div>
+<div class="exercise"><label>Horizontal leg press (kg ×8)</label><input id="leg" type="number" inputmode="decimal" step=".5"><div id="st_leg" class="status">Enter your current best</div></div>
+<div class="exercise"><label>Single-leg press (kg ×8 each leg)</label><input id="single" type="number" inputmode="decimal" step=".5"><div id="st_single" class="status">Enter your current best</div></div>
+<div class="exercise"><label>Smith hip thrust (kg ×8)</label><input id="hip" type="number" inputmode="decimal" step=".5"><div id="st_hip" class="status">Enter your current best</div></div>
+<div class="exercise"><label>Chest press (kg ×8)</label><input id="chest" type="number" inputmode="decimal" step=".5"><div id="st_chest" class="status">Enter your current best</div></div>
+<div class="exercise"><label>Seated row (kg ×8)</label><input id="row" type="number" inputmode="decimal" step=".5"><div id="st_row" class="status">Enter your current best</div></div>
+<div class="exercise"><label>Lat pulldown (kg ×8)</label><input id="pull" type="number" inputmode="decimal" step=".5"><div id="st_pull" class="status">Enter your current best</div></div></div>
 
-  <div id="revealOverlay" class="reveal-overlay" hidden>
-    <div class="reveal-particles" aria-hidden="true">✦ · ✧ · ✦ · ✧ · ✦</div>
-    <div class="reveal-panel">
-      <span id="revealEyebrow" class="eyebrow">LEVEL UP</span>
-      <div id="revealArt" class="reveal-art">⚡</div>
-      <div id="revealRarity" class="reveal-rarity"></div>
-      <h2 id="revealTitle"></h2>
-      <p id="revealText"></p>
-      <div class="reveal-actions"><button id="revealNext" class="primary">Continue</button><button id="revealSkip" class="ghost-button">Skip all</button></div>
+<div class="exercise"><label>Chin-up / assisted chin-up</label><div class="chin-grid"><button id="assistBtn" type="button">Assisted</button><button id="bwBtn" type="button">Bodyweight</button><button id="weightedBtn" type="button">Weighted</button></div>
+<div id="assistBox" class="two"><div><label>Assistance kg</label><input id="chinAssist" type="number" inputmode="decimal" step=".5"></div><div><label>Reps</label><input id="chinRepsA" type="number" inputmode="numeric"></div></div>
+<div id="bwBox" style="display:none"><label>Bodyweight reps</label><input id="chinRepsBW" type="number" inputmode="numeric"></div>
+<div id="weightedBox" class="two" style="display:none"><div><label>Added kg</label><input id="chinWeight" type="number" inputmode="decimal" step=".5"></div><div><label>Reps</label><input id="chinRepsW" type="number" inputmode="numeric"></div></div>
+<div id="chinStatus" class="status">Enter your chin-up result</div></div>
+
+<div class="exercise cardio-console"><label>Cardio</label>
+<div class="cardio-grid cardio-grid-4">
+  <button id="inclineBtn" type="button"><span>↗</span> Incline Walk</button>
+  <button id="stairsBtn" type="button"><span>▥</span> StairMaster</button>
+  <button id="runBtn" type="button"><span>⌁</span> Run Distance</button>
+  <button id="fiveKBtn" type="button"><span>⚡</span> 5K Time</button>
+</div>
+
+<div id="inclineBox" class="cardio-panel">
+  <label>Distance in 15 min (km @ 12%)</label>
+  <input id="cardioInclineKm" type="number" inputmode="decimal" step=".01" placeholder="e.g. 1.05">
+  <div class="cardio-help">Incline walking benchmark for Levels 1–9.</div>
+</div>
+
+<div id="stairsBox" class="cardio-panel" style="display:none">
+  <label>Stairs / steps completed</label>
+  <input id="cardioStairs" type="number" inputmode="numeric" step="1" placeholder="e.g. 500">
+  <div class="cardio-help">StairMaster benchmark used alongside incline walking for Levels 5–9.</div>
+</div>
+
+<div id="runBox" class="cardio-panel" style="display:none">
+  <label>Continuous run distance (km)</label>
+  <input id="cardioRunKm" type="number" inputmode="decimal" step=".1" placeholder="e.g. 3.0">
+  <div class="cardio-help">Continuous running benchmark for Levels 10–16.</div>
+</div>
+
+<div id="fiveKBox" class="cardio-panel" style="display:none">
+  <div class="two"><div><label>5K minutes</label><input id="cardio5Min" type="number" inputmode="numeric" placeholder="30"></div>
+  <div><label>Seconds</label><input id="cardio5Sec" type="number" inputmode="numeric" min="0" max="59" placeholder="00"></div></div>
+  <div class="cardio-help">5K benchmark for Levels 17–26.</div>
+</div>
+<div id="cardioStatus" class="status">Enter your cardio result</div>
+</div>
+
+<button id="calcBtn" type="button" class="primary">Calculate Rankings</button><div id="calcStatus" class="calc-status"></div></div>
+
+<div class="card"><h2>Exercise levels</h2><div id="summary" class="summary-grid">
+<div class="mini"><span>Hack squat</span><b>Not ranked</b></div><div class="mini"><span>Leg press</span><b>Not ranked</b></div><div class="mini"><span>Single-leg press</span><b>Not ranked</b></div><div class="mini"><span>Hip thrust</span><b>Not ranked</b></div><div class="mini"><span>Chest press</span><b>Not ranked</b></div><div class="mini"><span>Seated row</span><b>Not ranked</b></div><div class="mini"><span>Lat pulldown</span><b>Not ranked</b></div><div class="mini"><span>Chin-up</span><b>Not ranked</b></div><div class="mini"><span>Cardio</span><b>Not ranked</b></div></div></div>
+
+</div>
+<div id="levelsView" class="tab-view">
+<div class="card"><h2>All level requirements</h2><section><h3>Foundation</h3><details class="level-card" data-level="1"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 1 — Green Arrow</b><small>Weight training + incline walking</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/01_green_arrow.jpeg" alt="Level 1 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>70 kg ×8</b></div><div><span>Leg press</span><b>70 kg ×8</b></div><div><span>Single-leg press</span><b>30 kg ×8 each</b></div><div><span>Hip thrust</span><b>20 kg ×8</b></div><div><span>Chest press</span><b>15 kg ×8</b></div><div><span>Seated row</span><b>25 kg ×8</b></div><div><span>Lat pulldown</span><b>30 kg ×8</b></div><div><span>Chin-up</span><b>110 kg assist × 5</b></div><div><span>Incline walking</span><b>0.80 km @ 12% / 15 min</b></div></div></details><details class="level-card" data-level="2"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 2 — Hawkeye</b><small>Weight training + incline walking</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/02_hawkeye.png" alt="Level 2 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>80 kg ×8</b></div><div><span>Leg press</span><b>80 kg ×8</b></div><div><span>Single-leg press</span><b>35 kg ×8 each</b></div><div><span>Hip thrust</span><b>25 kg ×8</b></div><div><span>Chest press</span><b>17.5 kg ×8</b></div><div><span>Seated row</span><b>28 kg ×8</b></div><div><span>Lat pulldown</span><b>33 kg ×8</b></div><div><span>Chin-up</span><b>105 kg assist × 5</b></div><div><span>Incline walking</span><b>0.85 km @ 12% / 15 min</b></div></div></details><details class="level-card" data-level="3"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 3 — Falcon</b><small>Weight training + incline walking</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/03_falcon.png" alt="Level 3 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>90 kg ×8</b></div><div><span>Leg press</span><b>90 kg ×8</b></div><div><span>Single-leg press</span><b>40 kg ×8 each</b></div><div><span>Hip thrust</span><b>30 kg ×8</b></div><div><span>Chest press</span><b>20 kg ×8</b></div><div><span>Seated row</span><b>31 kg ×8</b></div><div><span>Lat pulldown</span><b>36 kg ×8</b></div><div><span>Chin-up</span><b>100 kg assist × 5</b></div><div><span>Incline walking</span><b>0.90 km @ 12% / 15 min</b></div></div></details><details class="level-card" data-level="4"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 4 — Hercule / Mr. Satan</b><small>Weight training + incline walking</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/04_hercule_mr_satan.png" alt="Level 4 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>100 kg ×8</b></div><div><span>Leg press</span><b>100 kg ×8</b></div><div><span>Single-leg press</span><b>45 kg ×8 each</b></div><div><span>Hip thrust</span><b>35 kg ×8</b></div><div><span>Chest press</span><b>22.5 kg ×8</b></div><div><span>Seated row</span><b>34 kg ×8</b></div><div><span>Lat pulldown</span><b>39 kg ×8</b></div><div><span>Chin-up</span><b>95 kg assist × 5</b></div><div><span>Incline walking</span><b>0.95 km @ 12% / 15 min</b></div></div></details></section><section><h3>Conditioning</h3><details class="level-card" data-level="5"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 5 — King</b><small>Weight training + incline walking + stairs</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/05_king.png" alt="Level 5 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>110 kg ×8</b></div><div><span>Leg press</span><b>110 kg ×8</b></div><div><span>Single-leg press</span><b>50 kg ×8 each</b></div><div><span>Hip thrust</span><b>40 kg ×8</b></div><div><span>Chest press</span><b>25 kg ×8</b></div><div><span>Seated row</span><b>37 kg ×8</b></div><div><span>Lat pulldown</span><b>42 kg ×8</b></div><div><span>Chin-up</span><b>90 kg assist × 5</b></div><div><span>Incline walking</span><b>1.00 km @ 12% / 15 min</b></div><div><span>Stairs</span><b>400</b></div></div></details><details class="level-card" data-level="6"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 6 — Eddy Gordo</b><small>Weight training + incline walking + stairs</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/06_eddy_gordo.png" alt="Level 6 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>120 kg ×8</b></div><div><span>Leg press</span><b>120 kg ×8</b></div><div><span>Single-leg press</span><b>55 kg ×8 each</b></div><div><span>Hip thrust</span><b>45 kg ×8</b></div><div><span>Chest press</span><b>30 kg ×8</b></div><div><span>Seated row</span><b>40 kg ×8</b></div><div><span>Lat pulldown</span><b>45 kg ×8</b></div><div><span>Chin-up</span><b>85 kg assist × 5</b></div><div><span>Incline walking</span><b>1.05 km @ 12% / 15 min</b></div><div><span>Stairs</span><b>500</b></div></div></details><details class="level-card" data-level="7"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 7 — John Stewart</b><small>Weight training + incline walking + stairs</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/07_john_stewart_ringless.png" alt="Level 7 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>130 kg ×8</b></div><div><span>Leg press</span><b>130 kg ×8</b></div><div><span>Single-leg press</span><b>60 kg ×8 each</b></div><div><span>Hip thrust</span><b>50 kg ×8</b></div><div><span>Chest press</span><b>35 kg ×8</b></div><div><span>Seated row</span><b>43 kg ×8</b></div><div><span>Lat pulldown</span><b>48 kg ×8</b></div><div><span>Chin-up</span><b>80 kg assist × 5</b></div><div><span>Incline walking</span><b>1.10 km @ 12% / 15 min</b></div><div><span>Stairs</span><b>600</b></div></div></details><details class="level-card" data-level="8"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 8 — Hwoarang</b><small>Weight training + incline walking + stairs</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/08_hwoarang.png" alt="Level 8 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>140 kg ×8</b></div><div><span>Leg press</span><b>140 kg ×8</b></div><div><span>Single-leg press</span><b>65 kg ×8 each</b></div><div><span>Hip thrust</span><b>55 kg ×8</b></div><div><span>Chest press</span><b>40 kg ×8</b></div><div><span>Seated row</span><b>46 kg ×8</b></div><div><span>Lat pulldown</span><b>51 kg ×8</b></div><div><span>Chin-up</span><b>75 kg assist × 5</b></div><div><span>Incline walking</span><b>1.15 km @ 12% / 15 min</b></div><div><span>Stairs</span><b>700</b></div></div></details></section><section><h3>Conditioning+</h3><details class="level-card" data-level="9"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 9 — Winter Soldier</b><small>Weight training + incline walking + stairs</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/09_winter_soldier.png" alt="Level 9 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>150 kg ×8</b></div><div><span>Leg press</span><b>150 kg ×8</b></div><div><span>Single-leg press</span><b>70 kg ×8 each</b></div><div><span>Hip thrust</span><b>60 kg ×8</b></div><div><span>Chest press</span><b>45 kg ×8</b></div><div><span>Seated row</span><b>49 kg ×8</b></div><div><span>Lat pulldown</span><b>54 kg ×8</b></div><div><span>Chin-up</span><b>70 kg assist × 5</b></div><div><span>Incline walking</span><b>1.20 km @ 12% / 15 min</b></div><div><span>Stairs</span><b>800</b></div></div></details></section><section><h3>Athlete</h3><details class="level-card" data-level="10"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 10 — Marshall Law</b><small>Weight training + continuous running</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/10_marshall_law.png" alt="Level 10 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>160 kg ×8</b></div><div><span>Leg press</span><b>160 kg ×8</b></div><div><span>Single-leg press</span><b>75 kg ×8 each</b></div><div><span>Hip thrust</span><b>65 kg ×8</b></div><div><span>Chest press</span><b>50 kg ×8</b></div><div><span>Seated row</span><b>52 kg ×8</b></div><div><span>Lat pulldown</span><b>57 kg ×8</b></div><div><span>Chin-up</span><b>65 kg assist × 5</b></div><div><span>Continuous run</span><b>1 km continuous run</b></div></div></details><details class="level-card" data-level="11"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 11 — Lei Wulong</b><small>Weight training + continuous running</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/11_lei_wulong.png" alt="Level 11 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>170 kg ×8</b></div><div><span>Leg press</span><b>170 kg ×8</b></div><div><span>Single-leg press</span><b>80 kg ×8 each</b></div><div><span>Hip thrust</span><b>70 kg ×8</b></div><div><span>Chest press</span><b>55 kg ×8</b></div><div><span>Seated row</span><b>55 kg ×8</b></div><div><span>Lat pulldown</span><b>60 kg ×8</b></div><div><span>Chin-up</span><b>60 kg assist × 5</b></div><div><span>Continuous run</span><b>1.5 km continuous run</b></div></div></details></section><section><h3>Mobility &amp; Flexibility</h3><details class="level-card" data-level="12"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 12 — Hush</b><small>Weight training + running + deep squat</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/12_hush.png" alt="Level 12 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>180 kg ×8</b></div><div><span>Leg press</span><b>180 kg ×8</b></div><div><span>Single-leg press</span><b>85 kg ×8 each</b></div><div><span>Hip thrust</span><b>75 kg ×8</b></div><div><span>Chest press</span><b>60 kg ×8</b></div><div><span>Seated row</span><b>60 kg ×8</b></div><div><span>Lat pulldown</span><b>65 kg ×8</b></div><div><span>Chin-up</span><b>55 kg assist × 5</b></div><div><span>Continuous run</span><b>2 km</b></div><div><span>Mobility</span><b>Deep squat</b></div></div></details><details class="level-card" data-level="13"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 13 — Bane</b><small>Weight training + running + hamstring mobility</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/13_bane.png" alt="Level 13 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>190 kg ×8</b></div><div><span>Leg press</span><b>190 kg ×8</b></div><div><span>Single-leg press</span><b>90 kg ×8 each</b></div><div><span>Hip thrust</span><b>80 kg ×8</b></div><div><span>Chest press</span><b>65 kg ×8</b></div><div><span>Seated row</span><b>65 kg ×8</b></div><div><span>Lat pulldown</span><b>70 kg ×8</b></div><div><span>Chin-up</span><b>50 kg assist × 5</b></div><div><span>Continuous run</span><b>2.5 km</b></div><div><span>Mobility</span><b>Palms near floor</b></div></div></details><details class="level-card" data-level="14"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 14 — Red Hood</b><small>Weight training + running + flexibility</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/14_red_hood.png" alt="Level 14 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>200 kg ×8</b></div><div><span>Leg press</span><b>200 kg ×8</b></div><div><span>Single-leg press</span><b>95 kg ×8 each</b></div><div><span>Hip thrust</span><b>85 kg ×8</b></div><div><span>Chest press</span><b>70 kg ×8</b></div><div><span>Seated row</span><b>70 kg ×8</b></div><div><span>Lat pulldown</span><b>75 kg ×8</b></div><div><span>Chin-up</span><b>45 kg assist × 5</b></div><div><span>Continuous run</span><b>3 km</b></div><div><span>Mobility</span><b>Palms flat</b></div></div></details><details class="level-card" data-level="15"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 15 — Captain America</b><small>Weight training + running + hip/ankle mobility</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/15_captain_america.png" alt="Level 15 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>210 kg ×8</b></div><div><span>Leg press</span><b>210 kg ×8</b></div><div><span>Single-leg press</span><b>100 kg ×8 each</b></div><div><span>Hip thrust</span><b>90 kg ×8</b></div><div><span>Chest press</span><b>75 kg ×8</b></div><div><span>Seated row</span><b>75 kg ×8</b></div><div><span>Lat pulldown</span><b>80 kg ×8</b></div><div><span>Chin-up</span><b>40 kg assist × 5</b></div><div><span>Continuous run</span><b>4 km</b></div><div><span>Mobility</span><b>Hip / ankle mobility</b></div></div></details></section><section><h3>Mobility &amp; Flexibility+</h3><details class="level-card" data-level="16"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 16 — Black Panther</b><small>Weight training + running + high-kick mobility</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/16_black_panther.png" alt="Level 16 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>220 kg ×8</b></div><div><span>Leg press</span><b>220 kg ×8</b></div><div><span>Single-leg press</span><b>105 kg ×8 each</b></div><div><span>Hip thrust</span><b>95 kg ×8</b></div><div><span>Chest press</span><b>80 kg ×8</b></div><div><span>Seated row</span><b>80 kg ×8</b></div><div><span>Lat pulldown</span><b>85 kg ×8</b></div><div><span>Chin-up</span><b>35 kg assist × 5</b></div><div><span>Continuous run</span><b>5 km</b></div><div><span>Mobility</span><b>High-kick ROM</b></div></div></details></section><section><h3>Performance</h3><details class="level-card" data-level="17"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 17 — Nightwing</b><small>Weight training + 5K + jumps/landings</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/17_nightwing.png" alt="Level 17 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>230 kg ×8</b></div><div><span>Leg press</span><b>230 kg ×8</b></div><div><span>Single-leg press</span><b>110 kg ×8 each</b></div><div><span>Hip thrust</span><b>100 kg ×8</b></div><div><span>Chest press</span><b>85 kg ×8</b></div><div><span>Seated row</span><b>85 kg ×8</b></div><div><span>Lat pulldown</span><b>90 kg ×8</b></div><div><span>Chin-up</span><b>30 kg assist × 5</b></div><div><span>5K</span><b>≤35 min</b></div><div><span>Athletic skill</span><b>Jumps / landings</b></div></div></details><details class="level-card" data-level="18"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 18 — Deathstroke</b><small>Weight training + 5K + plyometrics</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/18_deathstroke.png" alt="Level 18 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>240 kg ×8</b></div><div><span>Leg press</span><b>240 kg ×8</b></div><div><span>Single-leg press</span><b>115 kg ×8 each</b></div><div><span>Hip thrust</span><b>105 kg ×8</b></div><div><span>Chest press</span><b>90 kg ×8</b></div><div><span>Seated row</span><b>90 kg ×8</b></div><div><span>Lat pulldown</span><b>95 kg ×8</b></div><div><span>Chin-up</span><b>25 kg assist × 5</b></div><div><span>5K</span><b>≤33 min</b></div><div><span>Athletic skill</span><b>Plyometrics</b></div></div></details></section><section><h3>Fighter</h3><details class="level-card" data-level="19"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 19 — Iron Fist</b><small>Weight training + 5K + martial arts</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/19_iron_fist.jpeg" alt="Level 19 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>245 kg ×8</b></div><div><span>Leg press</span><b>245 kg ×8</b></div><div><span>Single-leg press</span><b>120 kg ×8 each</b></div><div><span>Hip thrust</span><b>110 kg ×8</b></div><div><span>Chest press</span><b>95 kg ×8</b></div><div><span>Seated row</span><b>95 kg ×8</b></div><div><span>Lat pulldown</span><b>100 kg ×8</b></div><div><span>Chin-up</span><b>20 kg assist × 5</b></div><div><span>5K</span><b>≤32 min</b></div><div><span>Martial arts</span><b>Beginner</b></div></div></details><details class="level-card" data-level="20"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 20 — Ra's al Ghul</b><small>Weight training + 5K + martial arts</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/20_ras_al_ghul.png" alt="Level 20 character" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>250 kg ×8</b></div><div><span>Leg press</span><b>250 kg ×8</b></div><div><span>Single-leg press</span><b>125 kg ×8 each</b></div><div><span>Hip thrust</span><b>115 kg ×8</b></div><div><span>Chest press</span><b>100 kg ×8</b></div><div><span>Seated row</span><b>100 kg ×8</b></div><div><span>Lat pulldown</span><b>105 kg ×8</b></div><div><span>Chin-up</span><b>15 kg assist × 5</b></div><div><span>5K</span><b>≤31 min</b></div><div><span>Martial arts</span><b>Intermediate</b></div></div></details></section><section><h3>Master</h3><details class="level-card" data-level="21"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 21 — Batman</b><small>Weight training + 5K + sparring</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/21_batman_throne.jpeg" alt="Level 21 — Batman" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>255 kg ×8</b></div><div><span>Leg press</span><b>255 kg ×8</b></div><div><span>Single-leg press</span><b>130 kg ×8 each</b></div><div><span>Hip thrust</span><b>120 kg ×8</b></div><div><span>Chest press</span><b>105 kg ×8</b></div><div><span>Seated row</span><b>105 kg ×8</b></div><div><span>Lat pulldown</span><b>110 kg ×8</b></div><div><span>Chin-up</span><b>10 kg assist × 5</b></div><div><span>5K</span><b>≤30 min</b></div><div><span>Sparring</span><b>Competent</b></div></div></details></section><section><h3>Elite Hybrid</h3><details class="level-card" data-level="22"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 22 — Jin Kazama</b><small>Weight training + 5K</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/22_jin_kazama.png" alt="Level 22 — Jin Kazama" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>260 kg ×8</b></div><div><span>Leg press</span><b>260 kg ×8</b></div><div><span>Single-leg press</span><b>135 kg ×8 each</b></div><div><span>Hip thrust</span><b>125 kg ×8</b></div><div><span>Chest press</span><b>108 kg ×8</b></div><div><span>Seated row</span><b>110 kg ×8</b></div><div><span>Lat pulldown</span><b>115 kg ×8</b></div><div><span>Chin-up</span><b>Bodyweight × 5</b></div><div><span>5K</span><b>≤29 min</b></div></div></details><details class="level-card" data-level="23"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 23 — Spider-Man</b><small>Weight training + 5K</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/23_spider_man.png" alt="Level 23 — Spider-Man" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px" class="portrait">
+        <div><span>Hack squat</span><b>265 kg ×8</b></div><div><span>Leg press</span><b>265 kg ×8</b></div><div><span>Single-leg press</span><b>140 kg ×8 each</b></div><div><span>Hip thrust</span><b>130 kg ×8</b></div><div><span>Chest press</span><b>110 kg ×8</b></div><div><span>Seated row</span><b>115 kg ×8</b></div><div><span>Lat pulldown</span><b>120 kg ×8</b></div><div><span>Chin-up</span><b>Bodyweight × 10</b></div><div><span>5K</span><b>≤27:30</b></div></div></details></section><section><h3>Endgame</h3><details class="level-card" data-level="24"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 24 — Flash</b><small>Weight training + 5K</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/24_flash.jpeg" alt="Level 24 — Flash" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>270 kg ×8</b></div><div><span>Leg press</span><b>270 kg ×8</b></div><div><span>Single-leg press</span><b>145 kg ×8 each</b></div><div><span>Hip thrust</span><b>135 kg ×8</b></div><div><span>Chest press</span><b>113 kg ×8</b></div><div><span>Seated row</span><b>120 kg ×8</b></div><div><span>Lat pulldown</span><b>125 kg ×8</b></div><div><span>Chin-up</span><b>Bodyweight × 15</b></div><div><span>5K</span><b>≤25 min</b></div></div></details></section><section><h3>Endgame+</h3><details class="level-card" data-level="25"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 25 — Gohan</b><small>Weight training + 5K / 10K</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/25_gohan_cell_saga.png" alt="Level 25 — Gohan" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>275 kg ×8</b></div><div><span>Leg press</span><b>275 kg ×8</b></div><div><span>Single-leg press</span><b>150 kg ×8 each</b></div><div><span>Hip thrust</span><b>140 kg ×8</b></div><div><span>Chest press</span><b>116 kg ×8</b></div><div><span>Seated row</span><b>125 kg ×8</b></div><div><span>Lat pulldown</span><b>130 kg ×8</b></div><div><span>Chin-up</span><b>+15 kg × 10</b></div><div><span>5K</span><b>≤23:30</b></div><div><span>10K</span><b>≤55 min</b></div></div></details></section><section><h3>Ultimate</h3><details class="level-card" data-level="26"><summary><span class="level-summary-left"><span class="level-dot" aria-hidden="true"></span><span class="level-text"><b>Level 26 — Future Trunks</b><small>Weight training + 5K / 10K</small></span></span><span class="chev">⌄</span></summary><div class="reqs"><img src="assets/26_future_trunks.png" alt="Level 26 — Future Trunks" style="width:100%;max-height:250px;object-fit:cover;object-position:center;border-radius:10px;margin:6px 0 10px">
+        <div><span>Hack squat</span><b>280 kg ×8</b></div><div><span>Leg press</span><b>280 kg ×8</b></div><div><span>Single-leg press</span><b>155 kg ×8 each</b></div><div><span>Hip thrust</span><b>150 kg ×8</b></div><div><span>Chest press</span><b>120 kg ×8</b></div><div><span>Seated row</span><b>130 kg ×8</b></div><div><span>Lat pulldown</span><b>135 kg ×8</b></div><div><span>Chin-up</span><b>+25 kg × 10</b></div><div><span>5K</span><b>≤22:30</b></div><div><span>10K</span><b>≤50 min</b></div></div></details></section></div></div></div>
+<div id="glossaryView" class="tab-view">
+<div class="card"><h2>Glossary</h2><div class="notice">Your rulebook for the movement and fighting requirements used in Levels.</div>
+
+<details class="glossary-card"><summary>Deep Squat</summary><div class="definition">
+<div class="glossary-label">What it means</div>
+<ul>
+<li>Comfortable full-depth squat.</li>
+<li>Shows usable hip, knee and ankle range.</li>
+</ul>
+<div class="glossary-label">Pass</div>
+<ul>
+<li>Reach a deep squat under control.</li>
+<li>Keep both feet planted.</li>
+<li>Maintain balance without support.</li>
+</ul>
+</div></details>
+
+<details class="glossary-card"><summary>Hamstring Mobility</summary><div class="definition">
+<div class="glossary-label">What it means</div>
+<ul>
+<li>Enough posterior-chain range to hinge toward the floor comfortably.</li>
+<li>No bouncing or forcing the position.</li>
+</ul>
+<div class="glossary-label">Level target</div>
+<ul>
+<li>Palms near the floor with controlled form.</li>
+</ul>
+</div></details>
+
+<details class="glossary-card"><summary>Flexibility</summary><div class="definition">
+<div class="glossary-label">Level target</div>
+<ul>
+<li>Palms flat on the floor.</li>
+<li>Use controlled form.</li>
+<li>No bouncing or forcing the stretch.</li>
+</ul>
+</div></details>
+
+<details class="glossary-card"><summary>Hip &amp; Ankle Mobility</summary><div class="definition">
+<div class="glossary-label">What it means</div>
+<ul>
+<li>Strong, usable range through the hips and ankles.</li>
+<li>Supports squatting, lunging and athletic movement.</li>
+</ul>
+<div class="glossary-label">Pass</div>
+<ul>
+<li>Demonstrate comfortable deep lower-body positions.</li>
+<li>Keep the heels controlled.</li>
+<li>No major compensation.</li>
+<li>No loss of balance.</li>
+</ul>
+</div></details>
+
+<details class="glossary-card"><summary>High-Kick Mobility</summary><div class="definition">
+<div class="glossary-label">What it means</div>
+<ul>
+<li>Active range of motion for useful martial-arts kicking positions.</li>
+<li>This is a mobility test, not a fighting-proficiency test.</li>
+<li>Test both legs.</li>
+</ul>
+<div class="glossary-label">Kick targets</div>
+<ul>
+<li><b>Front kick:</b> striking foot reaches your own nose height.</li>
+<li><b>Side kick:</b> heel reaches your own shoulder height.</li>
+</ul>
+<div class="glossary-label">Pass</div>
+<ul>
+<li>Reach the required height under control.</li>
+<li>No jumping.</li>
+<li>No external assistance.</li>
+<li>Judge height using the striking part of the foot.</li>
+</ul>
+</div></details>
+
+<details class="glossary-card"><summary>Jumps &amp; Landings</summary><div class="definition">
+<div class="glossary-label">Level 17 — Control</div>
+<ul>
+<li>10 squat jumps.</li>
+<li>5 forward broad jumps.</li>
+<li>Hold each broad-jump landing for ~2 seconds.</li>
+<li>5 lateral jumps each direction.</li>
+<li>5 step/drop landings from ~20–30 cm.</li>
+</ul>
+<div class="glossary-label">Pass</div>
+<ul>
+<li>Controlled landings.</li>
+<li>Reasonably quiet landings.</li>
+<li>Knees track well.</li>
+<li>No falls.</li>
+<li>No extra recovery steps.</li>
+</ul>
+</div></details>
+
+<details class="glossary-card"><summary>Plyometrics</summary><div class="definition">
+<div class="glossary-label">Level 18 — Explosiveness &amp; Reactivity</div>
+<ul>
+<li>10 continuous pogo jumps.</li>
+<li>8 continuous squat jumps.</li>
+<li>5 powerful broad jumps.</li>
+<li>10 skater bounds — 5 each side.</li>
+<li>5 low box jumps from ~20–30 cm.</li>
+<li>Step down between box-jump reps rather than jumping down.</li>
+</ul>
+<div class="glossary-label">Pass</div>
+<ul>
+<li>Keep technique consistent.</li>
+<li>Maintain landing control.</li>
+<li>No major loss of balance.</li>
+<li>Form should not progressively break down.</li>
+</ul>
+</div></details>
+
+<details class="glossary-card"><summary>Martial Arts — Beginner</summary><div class="definition">
+<div class="glossary-label">Requirement</div>
+<ul>
+<li>Train in a recognised martial art.</li>
+<li>Demonstrate beginner-level technique and competency.</li>
+<li>This is a skill milestone, not just a mobility milestone.</li>
+</ul>
+</div></details>
+
+<details class="glossary-card"><summary>Martial Arts — Intermediate</summary><div class="definition">
+<div class="glossary-label">Requirement</div>
+<ul>
+<li>Progress beyond the beginner milestone.</li>
+<li>Demonstrate intermediate technique in your chosen martial art.</li>
+<li>Use the progression standards of your actual martial-arts school where practical.</li>
+</ul>
+</div></details>
+
+<details class="glossary-card"><summary>Sparring — Competent</summary><div class="definition">
+<div class="glossary-label">Requirement</div>
+<ul>
+<li>Demonstrate competent live sparring.</li>
+<li>Maintain control and appropriate technique.</li>
+<li>Spar at an appropriate intensity for your martial art and training environment.</li>
+</ul>
+</div></details>
+
+</div></div>
+<div id="demosView" class="tab-view">
+<div class="card">
+<h2>Exercise Demos</h2>
+<div class="notice">Visual reference for movement requirements.</div>
+
+<div class="demo-section-title">🦵 Hip &amp; Ankle Mobility</div>
+<div class="demo-note"><b>Level 15 visual standard:</b> 90/90 hip position on both sides + knee-to-wall ankle test on both sides.</div>
+<div class="hip-ankle-clean"><img src="assets/hip_ankle_mobility_clean.png" alt="Hip and ankle mobility demonstration"></div>
+<div class="demo-section-title">🥋 High-Kick Mobility</div>
+<div class="demo-note"><b>Test standard:</b> both legs • no jumping • no external assistance.</div>
+
+<div class="kick-card">
+  <div class="kick-head">
+    <div class="kick-num">1</div>
+    <div>
+      <div class="kick-title">Front Kick (Snap Kick)</div>
+      <div class="kick-sub">Nose-height mobility target</div>
     </div>
   </div>
+  <img class="kick-photo" src="assets/front_kick_photos.png" alt="Front kick chamber and nose-height finish positions">
+  <ul class="kick-list">
+    <li>Lift the knee first</li>
+    <li>Snap the lower leg forward</li>
+    <li>Strike with the ball of the foot</li>
+  </ul>
+  <div class="kick-pass">✓ <b>Pass:</b> striking foot reaches your own <strong>nose height</strong> with control and without jumping.</div>
+</div>
 
-  <script type="module" src="./app-v65.js?v=76"></script>
+<div class="kick-card">
+  <div class="kick-head">
+    <div class="kick-num">2</div>
+    <div>
+      <div class="kick-title">Side Kick</div>
+      <div class="kick-sub">Shoulder-height mobility target</div>
+    </div>
+  </div>
+  <img class="kick-photo" src="assets/side_kick_photos.png" alt="Side kick chamber and shoulder-height finish positions">
+  <ul class="kick-list">
+    <li>Chamber the knee across your body</li>
+    <li>Turn side-on and push the leg out</li>
+    <li>Strike with the heel / outside edge of the foot</li>
+  </ul>
+  <div class="kick-pass">✓ <b>Pass:</b> striking foot reaches your own <strong>shoulder height</strong> with control and no external assistance.</div>
+</div>
+
+<div class="demo-section-title">🦘 Jumps, Landings &amp; Plyometrics</div>
+<img class="demo-image" src="assets/jumps_plyometrics_demo.png" alt="Level 17 jumps and landings and Level 18 plyometrics exercise demonstration infographic">
+<div class="demo-note"><b>Level 17:</b> prioritise landing control. <b>Level 18:</b> add explosiveness and reactivity while keeping that control.</div>
+</div>
+</div>
+<nav class="bottom-tabs" aria-label="App sections">
+  <div class="bottom-tabs-inner">
+    <button id="progressTabBtn" class="tab-btn active" type="button" aria-selected="true">
+      <span class="tab-icon">🏋️</span><span>My Progress</span>
+    </button>
+    <button id="levelsTabBtn" class="tab-btn" type="button" aria-selected="false"><span class="tab-icon">⚡</span><span>Levels</span></button>
+    <button id="glossaryTabBtn" class="tab-btn" type="button" aria-selected="false"><span class="tab-icon">📖</span><span>Glossary</span></button>
+    <button id="demosTabBtn" class="tab-btn" type="button" aria-selected="false"><span class="tab-icon">🎬</span><span>Demos</span></button>
+  </div>
+</nav>
 
 <script>
-window.addEventListener('load', async () => {
-  try {
-    if ('serviceWorker' in navigator) {
-      const regs = await navigator.serviceWorker.getRegistrations();
-      await Promise.all(regs.map(r => r.unregister()));
-    }
-    if ('caches' in window) {
-      const keys = await caches.keys();
-      await Promise.all(keys.map(k => caches.delete(k)));
-    }
-  } catch(e) { console.warn('cache cleanup', e); }
+
+const tabViews={progress:document.getElementById('progressView'),levels:document.getElementById('levelsView'),glossary:document.getElementById('glossaryView'),demos:document.getElementById('demosView')};
+const tabBtns={progress:document.getElementById('progressTabBtn'),levels:document.getElementById('levelsTabBtn'),glossary:document.getElementById('glossaryTabBtn'),demos:document.getElementById('demosTabBtn')};
+function switchAppTab(tab){
+  if(!tabViews[tab]) tab='progress';
+  Object.entries(tabViews).forEach(([key,view])=>view.classList.toggle('active',key===tab));
+  Object.entries(tabBtns).forEach(([key,btn])=>{btn.classList.toggle('active',key===tab);btn.setAttribute('aria-selected',String(key===tab));});
+  window.scrollTo({top:0,behavior:'instant'});
+  try{sessionStorage.setItem('fitnessRPGActiveTab',tab)}catch(e){}
+}
+Object.entries(tabBtns).forEach(([key,btn])=>btn.addEventListener('click',()=>switchAppTab(key)));
+try{switchAppTab(sessionStorage.getItem('fitnessRPGActiveTab')||'progress')}catch(e){switchAppTab('progress')}
+
+const levels=[{"level": 1, "character": "Green Arrow", "stage": "Foundation", "hack": 70, "leg": 70, "single": 30, "hip": 20, "chest": 15, "row": 25, "pull": 30, "chin_type": "assist", "chin_assist": 110, "chin_reps": 5, "cardio": "0.80 km @ 12% / 15 min"}, {"level": 2, "character": "Hawkeye", "stage": "Foundation", "hack": 80, "leg": 80, "single": 35, "hip": 25, "chest": 17.5, "row": 28, "pull": 33, "chin_type": "assist", "chin_assist": 105, "chin_reps": 5, "cardio": "0.85 km @ 12% / 15 min"}, {"level": 3, "character": "Falcon", "stage": "Foundation", "hack": 90, "leg": 90, "single": 40, "hip": 30, "chest": 20, "row": 31, "pull": 36, "chin_type": "assist", "chin_assist": 100, "chin_reps": 5, "cardio": "0.90 km @ 12% / 15 min"}, {"level": 4, "character": "Hercule / Mr. Satan", "stage": "Foundation", "hack": 100, "leg": 100, "single": 45, "hip": 35, "chest": 22.5, "row": 34, "pull": 39, "chin_type": "assist", "chin_assist": 95, "chin_reps": 5, "cardio": "0.95 km @ 12% / 15 min"}, {"level": 5, "character": "King", "stage": "Conditioning", "hack": 110, "leg": 110, "single": 50, "hip": 40, "chest": 25, "row": 37, "pull": 42, "chin_type": "assist", "chin_assist": 90, "chin_reps": 5, "cardio": "1.00 km + 400 stairs"}, {"level": 6, "character": "Eddy Gordo", "stage": "Conditioning", "hack": 120, "leg": 120, "single": 55, "hip": 45, "chest": 30, "row": 40, "pull": 45, "chin_type": "assist", "chin_assist": 85, "chin_reps": 5, "cardio": "1.05 km + 500 stairs"}, {"level": 7, "character": "John Stewart", "stage": "Conditioning", "hack": 130, "leg": 130, "single": 60, "hip": 50, "chest": 35, "row": 43, "pull": 48, "chin_type": "assist", "chin_assist": 80, "chin_reps": 5, "cardio": "1.10 km + 600 stairs"}, {"level": 8, "character": "Hwoarang", "stage": "Conditioning", "hack": 140, "leg": 140, "single": 65, "hip": 55, "chest": 40, "row": 46, "pull": 51, "chin_type": "assist", "chin_assist": 75, "chin_reps": 5, "cardio": "1.15 km + 700 stairs"}, {"level": 9, "character": "Winter Soldier", "stage": "Conditioning+", "hack": 150, "leg": 150, "single": 70, "hip": 60, "chest": 45, "row": 49, "pull": 54, "chin_type": "assist", "chin_assist": 70, "chin_reps": 5, "cardio": "1.20 km + 800 stairs"}, {"level": 10, "character": "Marshall Law", "stage": "Athlete", "hack": 160, "leg": 160, "single": 75, "hip": 65, "chest": 50, "row": 52, "pull": 57, "chin_type": "assist", "chin_assist": 65, "chin_reps": 5, "cardio": "1 km continuous run"}, {"level": 11, "character": "Lei Wulong", "stage": "Athlete", "hack": 170, "leg": 170, "single": 80, "hip": 70, "chest": 55, "row": 55, "pull": 60, "chin_type": "assist", "chin_assist": 60, "chin_reps": 5, "cardio": "1.5 km continuous run"}, {"level": 12, "character": "Hush", "stage": "Mobility & Flexibility", "hack": 180, "leg": 180, "single": 85, "hip": 75, "chest": 60, "row": 60, "pull": 65, "chin_type": "assist", "chin_assist": 55, "chin_reps": 5, "cardio": "2 km + deep squat"}, {"level": 13, "character": "Bane", "stage": "Mobility & Flexibility", "hack": 190, "leg": 190, "single": 90, "hip": 80, "chest": 65, "row": 65, "pull": 70, "chin_type": "assist", "chin_assist": 50, "chin_reps": 5, "cardio": "2.5 km + palms near floor"}, {"level": 14, "character": "Red Hood", "stage": "Mobility & Flexibility", "hack": 200, "leg": 200, "single": 95, "hip": 85, "chest": 70, "row": 70, "pull": 75, "chin_type": "assist", "chin_assist": 45, "chin_reps": 5, "cardio": "3 km + palms flat"}, {"level": 15, "character": "Captain America", "stage": "Mobility & Flexibility", "hack": 210, "leg": 210, "single": 100, "hip": 90, "chest": 75, "row": 75, "pull": 80, "chin_type": "assist", "chin_assist": 40, "chin_reps": 5, "cardio": "4 km + hip/ankle mobility"}, {"level": 16, "character": "Black Panther", "stage": "Mobility & Flexibility+", "hack": 220, "leg": 220, "single": 105, "hip": 95, "chest": 80, "row": 80, "pull": 85, "chin_type": "assist", "chin_assist": 35, "chin_reps": 5, "cardio": "5 km + high-kick ROM"}, {"level": 17, "character": "Nightwing", "stage": "Performance", "hack": 230, "leg": 230, "single": 110, "hip": 100, "chest": 85, "row": 85, "pull": 90, "chin_type": "assist", "chin_assist": 30, "chin_reps": 5, "cardio": "5K ≤35m + jumps/landings"}, {"level": 18, "character": "Deathstroke", "stage": "Performance", "hack": 240, "leg": 240, "single": 115, "hip": 105, "chest": 90, "row": 90, "pull": 95, "chin_type": "assist", "chin_assist": 25, "chin_reps": 5, "cardio": "5K ≤33m + plyometrics"}, {"level": 19, "character": "Iron Fist", "stage": "Fighter", "hack": 245, "leg": 245, "single": 120, "hip": 110, "chest": 95, "row": 95, "pull": 100, "chin_type": "assist", "chin_assist": 20, "chin_reps": 5, "cardio": "5K ≤32m + martial arts"}, {"level": 20, "character": "Ra's al Ghul", "stage": "Fighter", "hack": 250, "leg": 250, "single": 125, "hip": 115, "chest": 100, "row": 100, "pull": 105, "chin_type": "assist", "chin_assist": 15, "chin_reps": 5, "cardio": "5K ≤31m + intermediate MA"}, {"level": 21, "character": "Batman", "stage": "Master", "hack": 255, "leg": 255, "single": 130, "hip": 120, "chest": 105, "row": 105, "pull": 110, "chin_type": "assist", "chin_assist": 10, "chin_reps": 5, "cardio": "5K ≤30m + competent sparring"}, {"level": 22, "character": "Jin Kazama", "stage": "Elite Hybrid", "hack": 260, "leg": 260, "single": 135, "hip": 125, "chest": 108, "row": 110, "pull": 115, "chin_type": "bw", "chin_reps": 5, "cardio": "5K ≤29m"}, {"level": 23, "character": "Spider-Man", "stage": "Elite Hybrid", "hack": 265, "leg": 265, "single": 140, "hip": 130, "chest": 110, "row": 115, "pull": 120, "chin_type": "bw", "chin_reps": 10, "cardio": "5K ≤27:30"}, {"level": 24, "character": "Flash", "stage": "Endgame", "hack": 270, "leg": 270, "single": 145, "hip": 135, "chest": 113, "row": 120, "pull": 125, "chin_type": "bw", "chin_reps": 15, "cardio": "5K ≤25m"}, {"level": 25, "character": "Gohan", "stage": "Endgame+", "hack": 275, "leg": 275, "single": 150, "hip": 140, "chest": 116, "row": 125, "pull": 130, "chin_type": "weighted", "chin_weight": 15, "chin_reps": 10, "cardio": "5K ≤23:30 / 10K ≤55m"}, {"level": 26, "character": "Future Trunks", "stage": "Ultimate", "hack": 280, "leg": 280, "single": 155, "hip": 150, "chest": 120, "row": 130, "pull": 135, "chin_type": "weighted", "chin_weight": 25, "chin_reps": 10, "cardio": "5K ≤22:30 / 10K ≤50m"}];
+const characterImages={1:'assets/01_green_arrow.jpeg',2:'assets/02_hawkeye.png',3:'assets/03_falcon.png',4:'assets/04_hercule_mr_satan.png',5:'assets/05_king.png',6:'assets/06_eddy_gordo.png',7:'assets/07_john_stewart_ringless.png',8:'assets/08_hwoarang.png',9:'assets/09_winter_soldier.png',10:'assets/10_marshall_law.png',11:'assets/11_lei_wulong.png',12:'assets/12_hush.png',13:'assets/13_bane.png',14:'assets/14_red_hood.png',15:'assets/15_captain_america.png',16:'assets/16_black_panther.png',17:'assets/17_nightwing.png',18:'assets/18_deathstroke.png',19:'assets/19_iron_fist.jpeg',20:'assets/20_ras_al_ghul.png',21:'assets/21_batman_throne.jpeg',22:'assets/22_jin_kazama.png',23:'assets/23_spider_man.png',24:'assets/24_flash.jpeg',25:'assets/25_gohan_cell_saga.png',26:'assets/26_future_trunks.png'};
+const keys=['hack','leg','single','hip','chest','row','pull'];
+const labels={hack:'Hack squat',leg:'Horizontal leg press',single:'Single-leg press',hip:'Smith hip thrust',chest:'Chest press',row:'Seated row',pull:'Lat pulldown',chin:'Chin-up',cardio:'Cardio'};
+let mode='assist';
+let cardioMode='incline';
+
+function setMode(m){
+  mode=m;
+  document.getElementById('assistBox').style.display=m==='assist'?'grid':'none';
+  document.getElementById('bwBox').style.display=m==='bw'?'block':'none';
+  document.getElementById('weightedBox').style.display=m==='weighted'?'grid':'none';
+  ['assist','bw','weighted'].forEach(x=>document.getElementById(x+'Btn').classList.toggle('active',x===m));
+}
+
+
+function setCardioMode(m){
+  cardioMode=m;
+  document.getElementById('inclineBox').style.display=m==='incline'?'block':'none';
+  document.getElementById('stairsBox').style.display=m==='stairs'?'block':'none';
+  document.getElementById('runBox').style.display=m==='run'?'block':'none';
+  document.getElementById('fiveKBox').style.display=m==='5k'?'block':'none';
+  [['inclineBtn','incline'],['stairsBtn','stairs'],['runBtn','run'],['fiveKBtn','5k']]
+    .forEach(([id,x])=>document.getElementById(id).classList.toggle('active',x===m));
+}
+
+function levelFor(k,v){let n=0;for(const x of levels)if(Number(v)>=x[k])n=x.level;return n}
+
+function fchin(x){
+ return x.chin_type==='assist'?`${x.chin_assist} kg assist ×${x.chin_reps}`:x.chin_type==='bw'?`BW ×${x.chin_reps}`:`+${x.chin_weight} kg ×${x.chin_reps}`;
+}
+
+function readData(){
+  const d={};
+  keys.forEach(k=>d[k]=parseFloat(document.getElementById(k).value)||0);
+  d.mode=mode;
+  d.chinAssist=parseFloat(document.getElementById('chinAssist').value);
+  d.chinRepsA=parseInt(document.getElementById('chinRepsA').value)||0;
+  d.chinRepsBW=parseInt(document.getElementById('chinRepsBW').value)||0;
+  d.chinWeight=parseFloat(document.getElementById('chinWeight').value)||0;
+  d.chinRepsW=parseInt(document.getElementById('chinRepsW').value)||0;
+  d.cardioMode=cardioMode;
+  d.cardioInclineKm=parseFloat(document.getElementById('cardioInclineKm').value)||0;
+  d.cardioStairs=parseInt(document.getElementById('cardioStairs').value)||0;
+  d.cardioRunKm=parseFloat(document.getElementById('cardioRunKm').value)||0;
+  d.cardio5Min=parseInt(document.getElementById('cardio5Min').value)||0;
+  d.cardio5Sec=parseInt(document.getElementById('cardio5Sec').value)||0;
+  return d;
+}
+
+function chinLevel(d){
+ let out=0;
+ if(d.mode==='assist'){
+   const a=Number(d.chinAssist),r=Number(d.chinRepsA);
+   if(!Number.isFinite(a)||r<5)return 0;
+   for(const x of levels)if(x.chin_type==='assist'&&a<=x.chin_assist&&r>=x.chin_reps)out=x.level;
+ } else if(d.mode==='bw'){
+   const r=Number(d.chinRepsBW)||0;
+   if(r>=5)out=21;
+   for(const x of levels)if(x.chin_type==='bw'&&r>=x.chin_reps)out=x.level;
+ } else {
+   const w=Number(d.chinWeight)||0,r=Number(d.chinRepsW)||0;
+   if(r>=5)out=24;
+   for(const x of levels)if(x.chin_type==='weighted'&&w>=x.chin_weight&&r>=x.chin_reps)out=x.level;
+ }
+ return out;
+}
+
+
+function cardioLevel(d){
+  if(d.cardioMode==='incline'){
+    const km=Number(d.cardioInclineKm)||0, stairs=Number(d.cardioStairs)||0;
+    let out=0;
+    const early=[[1,.80,0],[2,.85,0],[3,.90,0],[4,.95,0],[5,1.00,400],[6,1.05,500],[7,1.10,600],[8,1.15,700],[9,1.20,800]];
+    for(const [lvl,dist,st] of early)if(km>=dist && stairs>=st)out=lvl;
+    return out;
+  }
+  if(d.cardioMode==='run'){
+    const km=Number(d.cardioRunKm)||0;
+    let out=0;
+    [[10,1],[11,1.5],[12,2],[13,2.5],[14,3],[15,4],[16,5]].forEach(([lvl,dist])=>{if(km>=dist)out=lvl});
+    return out;
+  }
+  const mins=Number(d.cardio5Min)||0, secs=Number(d.cardio5Sec)||0;
+  if(mins<=0 || secs<0 || secs>59)return 0;
+  const total=mins*60+secs;
+  let out=0;
+  [[17,35*60],[18,33*60],[19,32*60],[20,31*60],[21,30*60],[22,29*60],[23,27*60+30],[24,25*60],[25,23*60+30],[26,22*60+30]]
+    .forEach(([lvl,max])=>{if(total<=max)out=lvl});
+  return out;
+}
+
+
+function levelSummary(x){
+  if(x.level<=4) return 'Weight training + incline walking';
+  if(x.level<=9) return 'Weight training + incline walking + stairs';
+  if(x.level<=11) return 'Weight training + continuous running';
+  if(x.level===12) return 'Weight training + running + deep squat';
+  if(x.level===13) return 'Weight training + running + hamstring mobility';
+  if(x.level===14) return 'Weight training + running + flexibility';
+  if(x.level===15) return 'Weight training + running + hip/ankle mobility';
+  if(x.level===16) return 'Weight training + running + high-kick mobility';
+  if(x.level===17) return 'Weight training + 5K + jumps/landings';
+  if(x.level===18) return 'Weight training + 5K + plyometrics';
+  if(x.level===19) return 'Weight training + 5K + martial arts';
+  if(x.level===20) return 'Weight training + 5K + martial arts';
+  if(x.level===21) return 'Weight training + 5K + sparring';
+  if(x.level>=22 && x.level<=24) return 'Weight training + 5K';
+  if(x.level===25) return 'Weight training + 5K / 10K';
+  return 'Weight training + 5K / 10K';
+}
+
+function cardioRequirement(x){
+  if(x.level<=4)return `${Number(x.cardio.match(/[\d.]+/)[0]).toFixed(2)} km @ 12% / 15 min`;
+  if(x.level<=9){
+    const m=x.cardio.match(/([\d.]+) km \+ (\d+) stairs/);
+    return m?`${m[1]} km + ${m[2]} stairs`:x.cardio;
+  }
+  if(x.level<=16){
+    const m=x.cardio.match(/([\d.]+)\s*km/i);
+    return m?`${m[1]} km continuous run`:x.cardio;
+  }
+  return x.cardio.split(' + ')[0].split(' / ')[0];
+}
+
+
+function levelCompleted(x,lv){
+  return ['hack','leg','single','hip','chest','row','pull','chin','cardio'].every(k=>(lv[k]||0)>=x.level);
+}
+
+function refreshLevelChecks(lv){
+  document.querySelectorAll('.level-card[data-level]').forEach(card=>{
+    const lvl=Number(card.dataset.level);
+    const dot=card.querySelector('.level-dot');
+    if(dot) dot.classList.toggle('done', levelCompleted(levels[lvl-1],lv));
+  });
+}
+
+function calculate(){
+ const d=readData();
+ try{localStorage.setItem('fitnessRPGv11',JSON.stringify(d))}catch(e){}
+ const lv={};
+ keys.forEach(k=>lv[k]=levelFor(k,d[k]));
+ lv.chin=chinLevel(d);
+  lv.cardio=cardioLevel(d);
+
+ const overall=Math.max(1,Math.min(...Object.values(lv)));
+ const cur=levels[overall-1];
+ document.getElementById('currentChar').textContent=cur.character;
+ document.getElementById('currentMeta').textContent=`Level ${cur.level} • ${cur.stage}`;
+ const heroImg=document.getElementById('currentImage');
+ if(characterImages[cur.level]){heroImg.src=characterImages[cur.level];heroImg.alt=cur.character;heroImg.className='char-image show'+(cur.level===23?' portrait':'')}else{heroImg.removeAttribute('src');heroImg.className='char-image'}
+ document.getElementById('bar').style.width=(overall/26*100)+'%';
+
+ const next=overall<26?levels[overall]:null;
+ const needs=[];
+ if(next){
+   keys.forEach(k=>{if(d[k]<next[k])needs.push(`${labels[k]}: ${d[k]} / ${next[k]} kg`)});
+   if(lv.chin<next.level)needs.push(`Chin-up: ${fchin(next)}`);
+    if(lv.cardio<next.level)needs.push(`Cardio: ${cardioRequirement(next)}`);
+ }
+ document.getElementById('nextBox').innerHTML=next?`<b>To unlock Level ${next.level} — ${next.character}</b><br>${needs.slice(0,5).join('<br>')}`:'<b>Future Trunks unlocked ✓</b>';
+
+ keys.forEach(k=>{
+   const n=lv[k],st=document.getElementById('st_'+k);
+   if(!d[k]){st.className='status warn';st.textContent='No result entered'}
+   else if(n>=26){st.className='status good';st.textContent='Future Trunks requirement met ✓'}
+   else {
+     const nx=levels[n],gap=Math.max(0,nx[k]-d[k]);
+     st.className='status '+(n?'good':'warn');
+     st.textContent=`${n?levels[n-1].character:'Below Green Arrow'} • Next: ${nx.character} at ${nx[k]} kg • ${gap.toFixed(gap%1?1:0)} kg to go`;
+   }
+ });
+
+ const cardioN=lv.cardio,cardioSt=document.getElementById('cardioStatus');
+  cardioSt.className='status '+(cardioN?'good':'warn');
+  cardioSt.textContent=cardioN?(cardioN>=26?'Future Trunks cardio requirement met ✓':`${levels[cardioN-1].character} • Next: ${levels[cardioN].character} — ${cardioRequirement(levels[cardioN])}`):'No qualifying cardio result';
+
+  const cn=lv.chin,cs=document.getElementById('chinStatus');
+ cs.className='status '+(cn?'good':'warn');
+ cs.textContent=cn?(cn>=26?'Future Trunks requirement met ✓':`${levels[cn-1].character} • Next: ${levels[cn].character} — ${fchin(levels[cn])}`):'No qualifying chin-up result';
+
+ const sum=document.getElementById('summary'); sum.innerHTML='';
+ [...keys,'chin','cardio'].forEach(k=>{
+   const n=lv[k]||0,e=document.createElement('div');e.className='mini';
+   e.innerHTML=`<span>${labels[k]}</span><b>${n?levels[n-1].character:'Below Level 1'}</b><em>${n?'Level '+n:'Not ranked'}</em>`;
+   sum.appendChild(e);
+ });
+ document.getElementById('calcStatus').textContent='Rankings updated ✓';
+ setTimeout(()=>document.getElementById('calcStatus').textContent='',1500);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+ document.getElementById('assistBtn').addEventListener('click',()=>setMode('assist'));
+ document.getElementById('bwBtn').addEventListener('click',()=>setMode('bw'));
+ document.getElementById('weightedBtn').addEventListener('click',()=>setMode('weighted'));
+ document.getElementById('inclineBtn').addEventListener('click',()=>setCardioMode('incline'));
+ document.getElementById('stairsBtn').addEventListener('click',()=>setCardioMode('stairs'));
+ document.getElementById('runBtn').addEventListener('click',()=>setCardioMode('run'));
+ document.getElementById('fiveKBtn').addEventListener('click',()=>setCardioMode('5k'));
+ document.getElementById('calcBtn').addEventListener('click',calculate);
+ setMode('assist');
+  setCardioMode('incline');
+ try{
+   const saved=JSON.parse(localStorage.getItem('fitnessRPGv11')||'null');
+   if(saved){
+     keys.forEach(k=>{if(saved[k])document.getElementById(k).value=saved[k]});
+     if(saved.chinAssist!=null)document.getElementById('chinAssist').value=saved.chinAssist;
+     if(saved.chinRepsA)document.getElementById('chinRepsA').value=saved.chinRepsA;
+     if(saved.chinRepsBW)document.getElementById('chinRepsBW').value=saved.chinRepsBW;
+     if(saved.chinWeight)document.getElementById('chinWeight').value=saved.chinWeight;
+     if(saved.chinRepsW)document.getElementById('chinRepsW').value=saved.chinRepsW;
+     setMode(saved.mode||'assist');
+     setCardioMode(saved.cardioMode||'incline');
+     calculate();
+   }
+ }catch(e){}
 });
 </script>
-</body>
-</html>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js', { scope: './' }).catch(() => {});
+  });
+}
+</script>
+</body></html>
