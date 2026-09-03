@@ -1,7 +1,7 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '7.2.0';
+const APP_VERSION = '7.3.0';
 const FRESH_START_KEY = 'accioHabitsFreshStart_v67';
 const DEV_MODE = new URLSearchParams(location.search).get('dev') === '1';
 const CATEGORY_META = {
@@ -94,29 +94,35 @@ function todayWeeklyActivityDone(type){
   return false;
 }
 function questPriorityItems(){
-  const day=ensureToday();
+  const today=localDateKey();
+  const day=(save.daily&&save.daily[today]) ? save.daily[today] : {habits:{},sleep:{mainHours:0,napHours:0}};
   const items=[];
-  const cfg=(typeof APP_CONFIG!=='undefined'&&APP_CONFIG?.dailyHabits)?APP_CONFIG.dailyHabits:
-            (typeof CONFIG!=='undefined'&&CONFIG?.dailyHabits)?CONFIG.dailyHabits:[];
-  for(const h of cfg){
-    if(Number(h.xp||0)<30) continue;
+
+  const habitConfig=(typeof dailyHabits!=='undefined'&&Array.isArray(dailyHabits)) ? dailyHabits :
+                    (typeof APP_CONFIG!=='undefined'&&Array.isArray(APP_CONFIG?.dailyHabits)) ? APP_CONFIG.dailyHabits :
+                    (typeof CONFIG!=='undefined'&&Array.isArray(CONFIG?.dailyHabits)) ? CONFIG.dailyHabits : [];
+
+  for(const h of habitConfig){
+    if(Number(h.xp||0) < 30) continue;
     if(day?.habits?.[h.id]?.completed) continue;
     items.push({label:h.name,xp:Number(h.xp||0)});
   }
+
   const sleepTotal=Number(day?.sleep?.mainHours||0)+Number(day?.sleep?.napHours||0);
   if(sleepTotal<8) items.push({label:'Sleep',xp:50});
+
   const week=ensureCurrentWeek();
   if((week.gym||0)<4 && !todayWeeklyActivityDone('gym')) items.push({label:'Gym',xp:100});
   if((week.cardio||0)<4 && !todayWeeklyActivityDone('cardio')) items.push({label:'Incline Walk / StairMaster',xp:40});
   if((week.sport||0)<3 && !todayWeeklyActivityDone('sport')) items.push({label:'Sport / Outdoor Activities',xp:50});
   if((week.sauna||0)<5 && !todayWeeklyActivityDone('sauna')) items.push({label:'Sauna',xp:35});
+
   return items;
 }
 function maybeShowQuestInfo(){
   const items=questPriorityItems();
   if(!items.length) return;
-  const today=localDateKey();
-  const key='accioQuestInfoShown_'+today;
+  const key='accioQuestInfoShown';
   if(sessionStorage.getItem(key)==='1') return;
   sessionStorage.setItem(key,'1');
   const overlay=document.createElement('div');
