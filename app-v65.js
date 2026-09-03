@@ -1,7 +1,7 @@
 const DATA = {};
 const stateKey = 'hpFitnessRpgSave_v3';
 const legacyStateKeys = ['hpFitnessRpgSave_v2','hpFitnessRpgSave_v1'];
-const APP_VERSION = '7.3.0';
+const APP_VERSION = '7.4.0';
 const FRESH_START_KEY = 'accioHabitsFreshStart_v67';
 const DEV_MODE = new URLSearchParams(location.search).get('dev') === '1';
 const CATEGORY_META = {
@@ -130,7 +130,7 @@ function maybeShowQuestInfo(){
   overlay.innerHTML=`<div class="quest-info-panel">
     <button class="quest-info-close" aria-label="Close">×</button>
     <div class="quest-info-kicker">⚡ QUEST INFO</div>
-    <div class="quest-info-title">Today’s Priority Quests</div>
+    <div class="quest-info-title">Today's Priorities</div>
     <div class="quest-info-list">${items.map(i=>`<div class="quest-info-row"><span>${i.label}</span><b>${i.xp} XP</b></div>`).join('')}</div>
     <button class="quest-info-continue">Continue</button>
   </div>`;
