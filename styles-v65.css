@@ -1711,3 +1711,12 @@ body .topbar #networkBadge,
     animation:none!important;
   }
 }
+
+/* v9.9 — slightly larger Disapparation sparkles */
+.brand-sparks i{
+  width:5px;
+  height:5px;
+  box-shadow:0 0 7px rgba(255,246,190,.98),0 0 15px rgba(231,187,71,.78);
+}
+.brand-sparks i:nth-child(3n){width:3px;height:3px}
+.brand-sparks i:nth-child(4n){width:6px;height:6px}
