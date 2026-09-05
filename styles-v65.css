@@ -1597,3 +1597,9 @@ body .topbar #networkBadge,
     transition:none !important;
   }
 }
+
+/* v9.7 — longer Accio Habits hold + slower dissolve into popup */
+#launchBlackout.launch-reveal{
+  opacity:0;
+  transition:opacity .70s cubic-bezier(.4,0,.2,1);
+}

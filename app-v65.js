@@ -1134,7 +1134,7 @@ try{
 
 if('serviceWorker' in navigator){window.addEventListener('load',async()=>{try{const reg=await navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'});await reg.update();}catch(err){console.warn('Service worker update failed',err);}});}
 
-window.addEventListener('load',()=>{setTimeout(()=>{try{maybeShowQuestInfo();}catch(e){console.warn('Quest info popup',e)}},4250);});
+window.addEventListener('load',()=>{setTimeout(()=>{try{maybeShowQuestInfo();}catch(e){console.warn('Quest info popup',e)}},4750);});
 
 
 function showMagicLoadingScreen(){
@@ -1172,7 +1172,7 @@ function showMagicLoadingScreen(){
     const app=document.getElementById('app');
     if(app) app.style.setProperty('visibility','visible','important');
     wrap.classList.add('launch-reveal');
-  },3850);
+  },4050);
 
   setTimeout(()=>{
     wrap.remove();
