@@ -1135,7 +1135,17 @@ function showMagicLoadingScreen(){
   if(!wrap) return;
   wrap.classList.add('launch-active');
 
-  setTimeout(()=>wrap.classList.add('lumos-ignite'),860);
+  // Anchor every Lumos layer to the wand's real rendered tip. This prevents
+  // the expanding illumination from appearing as a separate orb elsewhere.
+  setTimeout(()=>{
+    const tip=wrap.querySelector('.lumos-tip');
+    if(tip){
+      const r=tip.getBoundingClientRect();
+      wrap.style.setProperty('--lumos-x',`${r.left + r.width/2}px`);
+      wrap.style.setProperty('--lumos-y',`${r.top + r.height/2}px`);
+    }
+    wrap.classList.add('lumos-ignite');
+  },860);
   setTimeout(()=>wrap.classList.add('lumos-expand'),1320);
   setTimeout(()=>wrap.classList.add('lumos-white'),2120);
 

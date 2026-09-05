@@ -1287,8 +1287,8 @@ body .topbar #networkBadge,
    iPhone 16 Pro. Every illumination layer shares this exact source point. */
 .lumos-halo,.lumos-bloom{
   position:absolute;
-  left:65%;
-  top:68%;
+  left:var(--lumos-x,65%);
+  top:var(--lumos-y,68%);
   border-radius:50%;
   transform:translate(-50%,-50%) scale(.02);
   opacity:0;
@@ -1320,8 +1320,8 @@ body .topbar #networkBadge,
    giving the impression that Lumos is illuminating the darkness ahead. */
 .lumos-ray{
   position:absolute;
-  left:65%;
-  top:68%;
+  left:var(--lumos-x,65%);
+  top:var(--lumos-y,68%);
   width:125%;
   height:95%;
   opacity:0;
@@ -1355,7 +1355,7 @@ body .topbar #networkBadge,
 
 .lumos-whiteout{
   position:absolute;inset:0;z-index:9;opacity:0;pointer-events:none;
-  background:radial-gradient(circle at 65% 68%,
+  background:radial-gradient(circle at var(--lumos-x,65%) var(--lumos-y,68%),
     #fff 0 18%,
     rgba(255,255,252,.998) 37%,
     rgba(255,252,237,.985) 60%,
@@ -1417,8 +1417,8 @@ body .topbar #networkBadge,
 /* Exact iPhone 16 Pro portrait tuning (~402 × 874 CSS px). */
 @media (min-width:390px) and (max-width:420px) and (min-height:840px) and (max-height:900px){
   .lumos-wand{height:274px}
-  .lumos-halo,.lumos-bloom,.lumos-ray{left:65%;top:68%}
-  .lumos-whiteout{background:radial-gradient(circle at 65% 68%,#fff 0 19%,rgba(255,255,252,.998) 38%,rgba(255,252,237,.985) 61%,rgba(255,244,210,.95) 83%,rgba(255,235,178,.92) 100%)}
+  .lumos-halo,.lumos-bloom,.lumos-ray{left:var(--lumos-x,65%);top:var(--lumos-y,68%)}
+  .lumos-whiteout{background:radial-gradient(circle at var(--lumos-x,65%) var(--lumos-y,68%),#fff 0 19%,rgba(255,255,252,.998) 38%,rgba(255,252,237,.985) 61%,rgba(255,244,210,.95) 83%,rgba(255,235,178,.92) 100%)}
 }
 @media (prefers-reduced-motion:reduce){
   .lumos-wand{right:24px;bottom:24px;opacity:1;transform:rotate(-24deg)}
