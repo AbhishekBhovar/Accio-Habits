@@ -1730,3 +1730,134 @@ body .topbar #networkBadge,
   .fire-wand-glow{opacity:1;animation:none}
   .fire-core,.fire-ribbon,.fire-embers,.fire-screen-bloom{display:none}
 }
+
+
+/* v8.7 first-paint blackout + cinematic magical fire */
+#launchBlackout{
+  position:fixed;
+  inset:0;
+  z-index:2147483647;
+  overflow:hidden;
+  background:#000;
+  opacity:1;
+  transition:opacity .34s ease;
+}
+#launchBlackout.launch-reveal{opacity:0;pointer-events:none}
+
+.cinematic-fire-scene{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 14% 72%,rgba(75,29,105,.10),transparent 24%),
+    #000;
+}
+.cinematic-wand{
+  position:absolute;
+  left:-4%;
+  bottom:-38%;
+  width:min(34vw,180px);
+  height:auto;
+  z-index:6;
+  transform-origin:50% 100%;
+  transform:rotate(-24deg) translateY(16%);
+  filter:drop-shadow(0 4px 8px #000);
+}
+.launch-active .cinematic-wand{
+  animation:cinematicWandRise .95s cubic-bezier(.16,.82,.2,1) forwards;
+}
+.wand-tip-light{opacity:0;transform-origin:center}
+.launch-active .wand-tip-light{
+  animation:cinematicTip .58s ease .72s forwards;
+}
+
+.cinematic-fire{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:4;
+  overflow:visible;
+}
+.flame-path{
+  stroke-dasharray:1250;
+  stroke-dashoffset:1250;
+  opacity:0;
+}
+.launch-active .flame-path-1{animation:cinematicFlame 1.30s cubic-bezier(.08,.74,.18,1) 1.03s forwards}
+.launch-active .flame-path-2{animation:cinematicFlame 1.18s cubic-bezier(.08,.74,.18,1) 1.18s forwards}
+.launch-active .flame-path-3{animation:cinematicFlame 1.24s cubic-bezier(.08,.74,.18,1) 1.10s forwards}
+
+.flame-glow-layer{opacity:.58}
+
+.cinematic-embers,
+.cinematic-embers::before,
+.cinematic-embers::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:5;
+  opacity:0;
+  background-image:
+    radial-gradient(circle,rgba(255,239,176,.95) 0 1px,transparent 1.7px),
+    radial-gradient(circle,rgba(255,125,28,.95) 0 1.2px,transparent 1.9px),
+    radial-gradient(circle,rgba(155,70,212,.7) 0 1px,transparent 1.8px);
+  background-size:47px 47px,73px 73px,101px 101px;
+  background-position:11px 18px,36px 57px,74px 24px;
+}
+.launch-active .cinematic-embers{
+  animation:cinematicEmbers 1.55s ease 1.05s forwards;
+}
+.cinematic-embers::before{transform:scale(1.15) rotate(3deg)}
+.cinematic-embers::after{transform:scale(.86) rotate(-3deg)}
+
+.cinematic-flash{
+  position:absolute;
+  inset:-20%;
+  z-index:9;
+  opacity:0;
+  background:
+    radial-gradient(circle at 74% 45%,
+      rgba(255,255,247,1) 0 4%,
+      rgba(255,240,167,.98) 8%,
+      rgba(255,155,42,.78) 19%,
+      rgba(131,57,188,.34) 36%,
+      transparent 58%);
+  pointer-events:none;
+}
+.launch-flash .cinematic-flash{
+  animation:cinematicFlash .58s ease forwards;
+}
+
+@keyframes cinematicWandRise{
+  0%{bottom:-38%;left:-7%;transform:rotate(-29deg) translateY(18%)}
+  72%{bottom:-3%;left:1%;transform:rotate(-19deg) translateY(0)}
+  100%{bottom:-1%;left:1.5%;transform:rotate(-20deg) translateY(0)}
+}
+@keyframes cinematicTip{
+  0%{opacity:0;transform:scale(.15)}
+  55%{opacity:1;transform:scale(1.55)}
+  100%{opacity:1;transform:scale(.96)}
+}
+@keyframes cinematicFlame{
+  0%{stroke-dashoffset:1250;opacity:0}
+  7%{opacity:.45}
+  22%{opacity:1}
+  100%{stroke-dashoffset:0;opacity:1}
+}
+@keyframes cinematicEmbers{
+  0%{opacity:0;transform:translateX(-3%) scale(.96)}
+  24%{opacity:.72}
+  100%{opacity:.24;transform:translateX(3%) scale(1.05)}
+}
+@keyframes cinematicFlash{
+  0%{opacity:0}
+  38%{opacity:.28}
+  72%{opacity:1}
+  100%{opacity:.12}
+}
+@media (prefers-reduced-motion:reduce){
+  .cinematic-wand{bottom:-1%;left:1.5%;transform:rotate(-20deg)}
+  .wand-tip-light{opacity:1}
+  .flame-path{stroke-dashoffset:0;opacity:1}
+}

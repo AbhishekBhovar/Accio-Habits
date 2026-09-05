@@ -1131,28 +1131,21 @@ window.addEventListener('load',()=>{setTimeout(()=>{try{maybeShowQuestInfo();}ca
 
 
 function showMagicLoadingScreen(){
-  if(document.querySelector('.magic-loader')) return;
-  const wrap=document.createElement('div');
-  wrap.className='magic-loader';
-  wrap.innerHTML=`
-    <div class="fire-launch-scene">
-      <div class="fire-wand" aria-hidden="true">
-        <span class="fire-wand-glow"></span>
-      </div>
-      <div class="fire-core fire-core-a"></div>
-      <div class="fire-core fire-core-b"></div>
-      <div class="fire-core fire-core-c"></div>
-      <div class="fire-ribbon fire-ribbon-a"></div>
-      <div class="fire-ribbon fire-ribbon-b"></div>
-      <div class="fire-ribbon fire-ribbon-c"></div>
-      <div class="fire-embers"></div>
-      <div class="fire-screen-bloom"></div>
-    </div>`;
-  document.body.appendChild(wrap);
-  requestAnimationFrame(()=>wrap.classList.add('show'));
-  setTimeout(()=>wrap.classList.add('fade-out'),2720);
-  setTimeout(()=>wrap.remove(),3000);
+  const wrap=document.getElementById('launchBlackout');
+  if(!wrap) return;
+  wrap.classList.add('launch-active');
+  setTimeout(()=>wrap.classList.add('launch-flash'),2150);
+  setTimeout(()=>{
+    const app=document.getElementById('app');
+    if(app) app.style.setProperty('visibility','visible','important');
+    wrap.classList.add('launch-reveal');
+  },2650);
+  setTimeout(()=>{
+    wrap.remove();
+    const critical=document.getElementById('launch-blackout-critical');
+    if(critical) critical.remove();
+  },3000);
 }
 
 
-window.addEventListener('load',()=>{showMagicLoadingScreen();});
+showMagicLoadingScreen();

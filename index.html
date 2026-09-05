@@ -11,7 +11,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png?v=83">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=84">
-  <link rel="stylesheet" href="./styles-v65.css?v=86">
+  <link rel="stylesheet" href="./styles-v65.css?v=87">
 
 
 <style id="hp64-dark-hufflepuff-palette">
@@ -63,8 +63,91 @@ textarea,
 }
 </style>
 
+
+<style id="launch-blackout-critical">
+html,body{background:#000!important}
+#app{visibility:hidden!important}
+#launchBlackout{position:fixed;inset:0;z-index:2147483647;background:#000;display:block}
+</style>
+
 </head>
 <body>
+
+  <div id="launchBlackout" aria-hidden="true">
+    <div class="cinematic-fire-scene">
+      <svg class="cinematic-wand" viewBox="0 0 260 520" aria-hidden="true">
+        <defs>
+          <linearGradient id="wandWood" x1="0" x2="1">
+            <stop offset="0" stop-color="#130b07"/>
+            <stop offset=".28" stop-color="#4d2b16"/>
+            <stop offset=".52" stop-color="#9b6532"/>
+            <stop offset=".72" stop-color="#3b2111"/>
+            <stop offset="1" stop-color="#100907"/>
+          </linearGradient>
+          <radialGradient id="wandTipGlow">
+            <stop offset="0" stop-color="#fffbe6"/>
+            <stop offset=".18" stop-color="#ffd66b"/>
+            <stop offset=".48" stop-color="#ff7d15"/>
+            <stop offset="1" stop-color="#8b42c7" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <path d="M130 505 C111 425 113 343 120 270 C127 188 141 112 153 36"
+              fill="none" stroke="url(#wandWood)" stroke-width="17" stroke-linecap="round"/>
+        <path d="M126 500 C121 425 123 348 129 272 C136 190 146 113 156 41"
+              fill="none" stroke="#c48a47" stroke-opacity=".22" stroke-width="3" stroke-linecap="round"/>
+        <ellipse class="wand-tip-light" cx="156" cy="40" rx="34" ry="34" fill="url(#wandTipGlow)"/>
+      </svg>
+
+      <svg class="cinematic-fire" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <filter id="fireTurbulence" x="-30%" y="-40%" width="180%" height="200%">
+            <feTurbulence type="fractalNoise" baseFrequency=".008 .035" numOctaves="3" seed="7" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="42" xChannelSelector="R" yChannelSelector="B"/>
+            <feGaussianBlur stdDeviation="1.5"/>
+          </filter>
+          <filter id="fireGlow" x="-40%" y="-50%" width="200%" height="220%">
+            <feGaussianBlur stdDeviation="15" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <linearGradient id="flameHot" x1="0" x2="1">
+            <stop offset="0" stop-color="#fff7c7"/>
+            <stop offset=".18" stop-color="#ffd557"/>
+            <stop offset=".46" stop-color="#ff8a18"/>
+            <stop offset=".76" stop-color="#f13c08"/>
+            <stop offset="1" stop-color="#7c1fb0" stop-opacity=".18"/>
+          </linearGradient>
+          <linearGradient id="flameOuter" x1="0" x2="1">
+            <stop offset="0" stop-color="#ffbd35"/>
+            <stop offset=".4" stop-color="#ff5b0b"/>
+            <stop offset=".78" stop-color="#a22ca8"/>
+            <stop offset="1" stop-color="#4e1475" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <g class="flame-glow-layer" filter="url(#fireGlow)">
+          <path class="flame-path flame-path-1" d="M90 410 C205 355 275 390 354 292 C438 188 494 250 582 166 C671 80 731 162 840 91 C904 49 948 68 1000 31"
+                fill="none" stroke="url(#flameOuter)" stroke-width="58" stroke-linecap="round"/>
+          <path class="flame-path flame-path-2" d="M92 414 C202 447 286 403 382 463 C469 518 547 434 636 490 C735 552 819 462 1000 520"
+                fill="none" stroke="url(#flameOuter)" stroke-width="45" stroke-linecap="round"/>
+          <path class="flame-path flame-path-3" d="M100 408 C231 382 274 323 379 349 C485 374 551 294 654 324 C763 356 849 254 1000 270"
+                fill="none" stroke="url(#flameOuter)" stroke-width="72" stroke-linecap="round"/>
+        </g>
+
+        <g filter="url(#fireTurbulence)">
+          <path class="flame-path flame-path-1" d="M90 410 C205 355 275 390 354 292 C438 188 494 250 582 166 C671 80 731 162 840 91 C904 49 948 68 1000 31"
+                fill="none" stroke="url(#flameHot)" stroke-width="25" stroke-linecap="round"/>
+          <path class="flame-path flame-path-2" d="M92 414 C202 447 286 403 382 463 C469 518 547 434 636 490 C735 552 819 462 1000 520"
+                fill="none" stroke="url(#flameHot)" stroke-width="19" stroke-linecap="round"/>
+          <path class="flame-path flame-path-3" d="M100 408 C231 382 274 323 379 349 C485 374 551 294 654 324 C763 356 849 254 1000 270"
+                fill="none" stroke="url(#flameHot)" stroke-width="31" stroke-linecap="round"/>
+        </g>
+      </svg>
+
+      <div class="cinematic-embers"></div>
+      <div class="cinematic-flash"></div>
+    </div>
+  </div>
+
   <div id="app" class="app-shell">
     <header class="topbar">
       <div>
@@ -157,7 +240,7 @@ textarea,
     </div>
   </div>
 
-  <script type="module" src="./app-v65.js?v=86"></script>
+  <script type="module" src="./app-v65.js?v=87"></script>
 
 <script>
 window.addEventListener('load', async () => {
