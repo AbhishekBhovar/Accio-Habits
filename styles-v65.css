@@ -1528,3 +1528,72 @@ body .topbar #networkBadge,
   .quest-info-continue{padding:8px 11px!important;margin-top:9px!important}
 }
 @media(prefers-reduced-motion:reduce){.quest-info-panel::before{animation:none!important}}
+
+
+/* v9.6 — Accio Habits title card after Lumos */
+.launch-brand-card{
+  position:absolute;
+  inset:0;
+  z-index:12;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  background:#000;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .52s ease;
+}
+.launch-brand-logo{
+  width:88px;
+  height:88px;
+  object-fit:cover;
+  border-radius:22px;
+  opacity:0;
+  transform:scale(.92);
+  transition:opacity .48s ease .12s, transform .58s cubic-bezier(.2,.75,.2,1) .12s;
+}
+.launch-brand-title{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:25px;
+  line-height:1;
+  font-weight:600;
+  letter-spacing:.025em;
+  color:#f7f2e7;
+  opacity:0;
+  transform:translateY(5px);
+  transition:opacity .48s ease .22s, transform .48s ease .22s;
+}
+#launchBlackout.launch-brand .launch-brand-card{opacity:1}
+#launchBlackout.launch-brand .launch-brand-logo{
+  opacity:1;
+  transform:scale(1);
+}
+#launchBlackout.launch-brand .launch-brand-title{
+  opacity:1;
+  transform:translateY(0);
+}
+#launchBlackout.launch-brand .lumos-scene{
+  background:#000;
+}
+#launchBlackout.launch-brand .lumos-whiteout{
+  opacity:0 !important;
+  transition:opacity .42s ease;
+}
+#launchBlackout.launch-reveal{
+  opacity:0;
+  transition:opacity .48s ease;
+  pointer-events:none;
+}
+
+@media (max-width:430px){
+  .launch-brand-logo{width:80px;height:80px;border-radius:20px}
+  .launch-brand-title{font-size:23px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .launch-brand-card,.launch-brand-logo,.launch-brand-title,#launchBlackout.launch-reveal{
+    transition:none !important;
+  }
+}

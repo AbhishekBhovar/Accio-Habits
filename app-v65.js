@@ -1134,7 +1134,7 @@ try{
 
 if('serviceWorker' in navigator){window.addEventListener('load',async()=>{try{const reg=await navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'});await reg.update();}catch(err){console.warn('Service worker update failed',err);}});}
 
-window.addEventListener('load',()=>{setTimeout(()=>{try{maybeShowQuestInfo();}catch(e){console.warn('Quest info popup',e)}},350);});
+window.addEventListener('load',()=>{setTimeout(()=>{try{maybeShowQuestInfo();}catch(e){console.warn('Quest info popup',e)}},4250);});
 
 
 function showMagicLoadingScreen(){
@@ -1164,17 +1164,21 @@ function showMagicLoadingScreen(){
   setTimeout(()=>wrap.classList.add('lumos-expand'),1320);
   setTimeout(()=>wrap.classList.add('lumos-white'),2120);
 
+  // After Lumos fills the screen, settle into a short black Accio Habits title card.
+  setTimeout(()=>wrap.classList.add('launch-brand'),2670);
+
+  // Dissolve the title card into the app. The quest popup is timed to appear just after this.
   setTimeout(()=>{
     const app=document.getElementById('app');
     if(app) app.style.setProperty('visibility','visible','important');
     wrap.classList.add('launch-reveal');
-  },2650);
+  },3850);
 
   setTimeout(()=>{
     wrap.remove();
     const critical=document.getElementById('launch-blackout-critical');
     if(critical) critical.remove();
-  },3000);
+  },4250);
 }
 
 
