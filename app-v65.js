@@ -188,8 +188,15 @@ function finalizeWeek(key){const week=save.weekly[key];if(!week||week.finalized)
 // ---------- audio / non-blocking feedback ----------
 function ensureAudio(){if(!audioContext)audioContext=new (window.AudioContext||window.webkitAudioContext)();if(audioContext.state==='suspended')audioContext.resume();}
 function playChime(kind='success'){
-  if(!save.soundEnabled)return;try{ensureAudio();const now=audioContext.currentTime,presets={success:{n:[659,784],g:.03,s:.07,d:.15,t:'sine'},undo:{n:[659,523],g:.022,s:.055,d:.12,t:'sine'},level:{n:[392,523,659,784],g:.05,s:.095,d:.28,t:'triangle'},checkpoint:{n:[523,659,784],g:.045,s:.10,d:.25,t:'triangle'},Rare:{n:[659,784],g:.035,s:.09,d:.19,t:'sine'},Epic:{n:[523,659,784],g:.045,s:.09,d:.23,t:'triangle'},Legendary:{n:[392,523,659,988],g:.055,s:.10,d:.29,t:'triangle'},Mythic:{n:[330,494,659,988,1319],g:.06,s:.105,d:.33,t:'triangle'},book:{n:[330,392,523,659,784,1047],g:.065,s:.11,d:.37,t:'triangle'}};const p=presets[kind]||presets.success;p.n.forEach((freq,i)=>{const o=audioContext.createOscillator(),g=audioContext.createGain(),t=now+i*p.s;o.type=p.t;o.frequency.value=freq;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(p.g,t+.018);g.gain.exponentialRampToValueAtTime(.0001,t+p.d);o.connect(g).connect(audioContext.destination);o.start(t);o.stop(t+p.d+.02);});}catch(err){console.warn('Sound failed',err)}
+  if(!save.soundEnabled)return;try{ensureAudio();const now=audioContext.currentTime,presets={click:{n:[980],g:.012,s:.025,d:.045,t:'sine'},success:{n:[659,784],g:.03,s:.07,d:.15,t:'sine'},undo:{n:[659,523],g:.022,s:.055,d:.12,t:'sine'},level:{n:[392,523,659,784],g:.05,s:.095,d:.28,t:'triangle'},checkpoint:{n:[523,659,784],g:.045,s:.10,d:.25,t:'triangle'},Rare:{n:[659,784],g:.035,s:.09,d:.19,t:'sine'},Epic:{n:[523,659,784],g:.045,s:.09,d:.23,t:'triangle'},Legendary:{n:[392,523,659,988],g:.055,s:.10,d:.29,t:'triangle'},Mythic:{n:[330,494,659,988,1319],g:.06,s:.105,d:.33,t:'triangle'},book:{n:[330,392,523,659,784,1047],g:.065,s:.11,d:.37,t:'triangle'}};const p=presets[kind]||presets.success;p.n.forEach((freq,i)=>{const o=audioContext.createOscillator(),g=audioContext.createGain(),t=now+i*p.s;o.type=p.t;o.frequency.value=freq;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(p.g,t+.018);g.gain.exponentialRampToValueAtTime(.0001,t+p.d);o.connect(g).connect(audioContext.destination);o.start(t);o.stop(t+p.d+.02);});}catch(err){console.warn('Sound failed',err)}
 }
+// ---------- tactile UI click feedback ----------
+document.addEventListener('pointerdown',e=>{
+  const target=e.target.closest('button,[role="button"],.habit-row,.nav-item,.tab-btn');
+  if(!target || target.disabled || target.getAttribute('aria-disabled')==='true')return;
+  playChime('click');
+},{passive:true});
+
 let toastTimer;
 function toast(message,kind='success'){const el=document.querySelector('#toast');el.textContent=message;el.className=`toast show ${kind}`;clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.className='toast',2200);}
 
