@@ -1193,995 +1193,138 @@ body .topbar #networkBadge,
   .adv60-atmosphere:has(img.battle-remembrall){height:175px!important}
 }
 
-
-/* v8.4 magical 3-second launch animation */
-.magic-loader{
-  position:fixed;
-  inset:0;
-  z-index:10050;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 50% 38%, rgba(91,43,145,.28), transparent 34%),
-    radial-gradient(circle at 50% 60%, rgba(224,173,47,.10), transparent 28%),
-    #050505;
-  opacity:0;
-  transition:opacity .28s ease;
-}
-.magic-loader.show{opacity:1}
-.magic-loader.fade-out{opacity:0;pointer-events:none}
-
-.magic-loader-inner{
-  position:relative;
-  width:min(58vw,250px);
-  aspect-ratio:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  animation:magicFloat 2.6s ease-in-out both;
-}
-.magic-loader-logo{
-  width:72%;
-  height:72%;
-  object-fit:cover;
-  border-radius:24%;
-  position:relative;
-  z-index:3;
-  opacity:0;
-  transform:scale(.78);
-  filter:drop-shadow(0 0 0 rgba(230,177,56,0));
-  animation:magicLogoReveal 2.25s ease forwards .28s;
-}
-.magic-rings{
-  position:absolute;
-  inset:9%;
-  border:1px solid rgba(235,186,66,.28);
-  border-radius:50%;
-  box-shadow:
-    0 0 18px rgba(235,186,66,.12),
-    inset 0 0 18px rgba(235,186,66,.08);
-  animation:magicRing 2.8s ease-out both;
-}
-.magic-rings::before,
-.magic-rings::after{
-  content:"";
-  position:absolute;
-  border-radius:50%;
-  border:1px solid rgba(139,88,191,.26);
-}
-.magic-rings::before{inset:-15%}
-.magic-rings::after{inset:15%}
-
-.magic-stars,
-.magic-stars::before,
-.magic-stars::after{
-  position:absolute;
-  inset:0;
-  content:"";
-  background-image:
-    radial-gradient(circle, rgba(255,220,130,.95) 0 1px, transparent 1.6px),
-    radial-gradient(circle, rgba(162,119,215,.8) 0 1px, transparent 1.5px),
-    radial-gradient(circle, rgba(255,255,255,.75) 0 1px, transparent 1.4px);
-  background-size: 53px 53px, 79px 79px, 97px 97px;
-  background-position: 12px 18px, 37px 61px, 71px 9px;
-  opacity:.32;
-  animation:magicStars 3s linear both;
-}
-.magic-stars::before{transform:scale(1.2);opacity:.18}
-.magic-stars::after{transform:scale(.85);opacity:.24}
-
-.magic-sweep{
-  position:absolute;
-  z-index:4;
-  width:16%;
-  height:92%;
-  top:4%;
-  left:-12%;
-  background:linear-gradient(90deg,transparent,rgba(255,211,91,.9),rgba(255,246,198,.98),transparent);
-  filter:blur(4px);
-  transform:skewX(-12deg);
-  opacity:0;
-  animation:magicSweep 1.05s ease .95s both;
-}
-.magic-spark{
-  position:absolute;
-  z-index:5;
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#f5c34d;
-  box-shadow:0 0 12px #f5c34d,0 0 24px rgba(245,195,77,.55);
-  opacity:0;
-}
-.magic-spark-1{top:18%;left:22%;animation:magicSparkA 1.7s ease .65s both}
-.magic-spark-2{top:28%;right:16%;animation:magicSparkB 1.8s ease .8s both}
-.magic-spark-3{bottom:15%;left:46%;animation:magicSparkC 1.7s ease 1s both}
-
-@keyframes magicLogoReveal{
-  0%{opacity:0;transform:scale(.78);filter:drop-shadow(0 0 0 rgba(230,177,56,0))}
-  42%{opacity:1;transform:scale(1.02);filter:drop-shadow(0 0 20px rgba(230,177,56,.32))}
-  100%{opacity:1;transform:scale(1);filter:drop-shadow(0 0 28px rgba(230,177,56,.22))}
-}
-@keyframes magicFloat{
-  0%{transform:translateY(8px)}
-  50%{transform:translateY(-4px)}
-  100%{transform:translateY(0)}
-}
-@keyframes magicRing{
-  0%{opacity:0;transform:scale(.72) rotate(0deg)}
-  45%{opacity:.9;transform:scale(1.02) rotate(120deg)}
-  100%{opacity:.15;transform:scale(1.18) rotate(210deg)}
-}
-@keyframes magicStars{
-  0%{opacity:0;transform:scale(1.06)}
-  25%{opacity:.32}
-  100%{opacity:.18;transform:scale(1)}
-}
-@keyframes magicSweep{
-  0%{left:-12%;opacity:0}
-  20%{opacity:.85}
-  75%{opacity:.75}
-  100%{left:98%;opacity:0}
-}
-@keyframes magicSparkA{
-  0%{opacity:0;transform:translate(0,0) scale(.2)}
-  20%{opacity:1}
-  100%{opacity:0;transform:translate(-34px,-48px) scale(1.3)}
-}
-@keyframes magicSparkB{
-  0%{opacity:0;transform:translate(0,0) scale(.2)}
-  20%{opacity:1}
-  100%{opacity:0;transform:translate(28px,-58px) scale(1.1)}
-}
-@keyframes magicSparkC{
-  0%{opacity:0;transform:translate(0,0) scale(.2)}
-  20%{opacity:1}
-  100%{opacity:0;transform:translate(-8px,52px) scale(1.2)}
-}
-@media (prefers-reduced-motion:reduce){
-  .magic-loader *{animation:none!important}
-  .magic-loader-logo{opacity:1;transform:none}
-}
-
-
-/* v8.5 wand-cast launch animation — no logo */
-.magic-loader{
-  position:fixed;
-  inset:0;
-  z-index:10050;
-  overflow:hidden;
-  background:#050505;
-  opacity:0;
-  transition:opacity .22s ease;
-}
-.magic-loader.show{opacity:1}
-.magic-loader.fade-out{opacity:0;pointer-events:none}
-
-.wand-launch-scene{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 18% 52%, rgba(126,74,175,.16), transparent 28%),
-    radial-gradient(circle at 82% 48%, rgba(231,179,58,.08), transparent 24%),
-    #050505;
-}
-.launch-wand{
-  position:absolute;
-  left:-32%;
-  top:52%;
-  width:48vw;
-  max-width:290px;
-  min-width:210px;
-  height:44px;
-  transform:translateY(-50%) rotate(-10deg);
-  transform-origin:85% 50%;
-  animation:wandEnter 1.05s cubic-bezier(.22,.8,.25,1) forwards;
-  z-index:4;
-}
-.wand-shaft{
-  position:absolute;
-  right:28px;
-  top:18px;
-  width:72%;
-  height:7px;
-  border-radius:999px;
-  background:linear-gradient(90deg,#2a170d,#70401d 35%,#a66b2c 68%,#d9a84b);
-  box-shadow:0 0 5px rgba(226,178,72,.3);
-}
-.wand-handle{
-  position:absolute;
-  left:1%;
-  top:10px;
-  width:31%;
-  height:23px;
-  border-radius:9px 5px 5px 9px;
-  background:
-    repeating-linear-gradient(90deg,#2c1b12 0 8px,#5b3820 8px 13px,#25150e 13px 18px);
-  box-shadow:inset 0 0 6px rgba(255,205,110,.15),0 1px 4px #000;
-}
-.wand-tip{
-  position:absolute;
-  right:15px;
-  top:17px;
-  width:17px;
-  height:9px;
-  border-radius:50%;
-  background:#f7c44d;
-  opacity:0;
-  box-shadow:0 0 10px #f7c44d,0 0 22px #f39a28,0 0 36px rgba(141,84,204,.8);
-  animation:tipCharge .55s ease .88s forwards;
-}
-.spell-orb{
-  position:absolute;
-  left:18%;
-  top:52%;
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  transform:translate(-50%,-50%) scale(.2);
-  opacity:0;
-  z-index:5;
-  background:#fff7c8;
-  box-shadow:
-    0 0 10px #fff,
-    0 0 22px #f4c54d,
-    0 0 40px #f49b2b,
-    0 0 62px rgba(120,71,196,.9);
-  animation:spellShot 1.05s cubic-bezier(.2,.7,.25,1) 1.15s forwards;
-}
-.spell-trail{
-  position:absolute;
-  left:17%;
-  top:52%;
-  width:0;
-  height:5px;
-  transform:translateY(-50%);
-  opacity:0;
-  z-index:3;
-  border-radius:999px;
-  background:linear-gradient(90deg,rgba(132,76,202,0),rgba(132,76,202,.65),#f3bd44,#fff7cd);
-  filter:blur(.4px);
-  box-shadow:0 0 10px #f3bd44,0 0 22px rgba(126,75,198,.55);
-  animation:spellTrail 1.05s ease 1.15s forwards;
-}
-.spell-flash{
-  position:absolute;
-  inset:-20%;
-  opacity:0;
-  z-index:7;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 78% 50%,rgba(255,255,255,1) 0 4%,rgba(255,229,140,.98) 8%,rgba(244,176,55,.75) 18%,rgba(139,79,205,.36) 33%,transparent 52%);
-  animation:screenFlash .82s ease 1.95s forwards;
-}
-.spell-stars,
-.spell-stars::before,
-.spell-stars::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  opacity:0;
-  background-image:
-    radial-gradient(circle,rgba(255,222,123,.95) 0 1px,transparent 1.6px),
-    radial-gradient(circle,rgba(161,111,219,.8) 0 1px,transparent 1.5px);
-  background-size:61px 61px,89px 89px;
-  background-position:14px 23px,37px 65px;
-  animation:starBurst 1.45s ease 1.35s forwards;
-}
-.spell-stars::before{transform:scale(1.18)}
-.spell-stars::after{transform:scale(.83)}
-
-@keyframes wandEnter{
-  0%{left:-34%;transform:translateY(-50%) rotate(-16deg)}
-  72%{left:1.5%;transform:translateY(-50%) rotate(-8deg)}
-  100%{left:0;transform:translateY(-50%) rotate(-10deg)}
-}
-@keyframes tipCharge{
-  0%{opacity:0;transform:scale(.2)}
-  65%{opacity:1;transform:scale(1.45)}
-  100%{opacity:1;transform:scale(1)}
-}
-@keyframes spellShot{
-  0%{left:18%;opacity:0;transform:translate(-50%,-50%) scale(.2)}
-  12%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}
-  88%{opacity:1;transform:translate(-50%,-50%) scale(.9)}
-  100%{left:82%;opacity:1;transform:translate(-50%,-50%) scale(1.8)}
-}
-@keyframes spellTrail{
-  0%{width:0;opacity:0}
-  12%{opacity:.95}
-  88%{width:64%;opacity:.9}
-  100%{width:65%;opacity:0}
-}
-@keyframes screenFlash{
-  0%{opacity:0}
-  25%{opacity:.2}
-  58%{opacity:1}
-  100%{opacity:.08}
-}
-@keyframes starBurst{
-  0%{opacity:0;transform:scale(.96)}
-  30%{opacity:.38}
-  100%{opacity:.10;transform:scale(1.04)}
-}
-@media (prefers-reduced-motion:reduce){
-  .launch-wand{left:0;animation:none}
-  .wand-tip{opacity:1;animation:none}
-  .spell-orb,.spell-trail,.spell-flash,.spell-stars{display:none}
-}
-
-
-/* v8.6 magical fire launch — elegant wand + chaotic enchanted flame */
-.magic-loader{
-  position:fixed;
-  inset:0;
-  z-index:10050;
-  overflow:hidden;
-  background:#030303;
-  opacity:0;
-  transition:opacity .22s ease;
-}
-.magic-loader.show{opacity:1}
-.magic-loader.fade-out{opacity:0;pointer-events:none}
-
-.fire-launch-scene{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 22% 70%,rgba(255,119,18,.10),transparent 22%),
-    radial-gradient(circle at 50% 48%,rgba(83,32,113,.12),transparent 38%),
-    #030303;
-}
-
-/* simple wand: dark, tapered, elegant */
-.fire-wand{
-  position:absolute;
-  left:7%;
-  bottom:-42%;
-  width:16px;
-  height:56vh;
-  min-height:320px;
-  max-height:520px;
-  border-radius:10px 10px 4px 4px;
-  transform-origin:50% 100%;
-  transform:rotate(-20deg);
-  background:
-    linear-gradient(90deg,#130c08 0%,#56331b 30%,#8a582e 47%,#422613 66%,#120b07 100%);
-  box-shadow:
-    inset 2px 0 4px rgba(255,205,120,.18),
-    inset -3px 0 5px rgba(0,0,0,.7),
-    0 0 10px rgba(0,0,0,.8);
-  animation:fireWandRise 1s cubic-bezier(.18,.78,.18,1) forwards;
-  z-index:5;
-}
-.fire-wand::after{
-  content:"";
-  position:absolute;
-  left:3px;
-  top:-28px;
-  width:10px;
-  height:34px;
-  border-radius:70% 70% 45% 45%;
-  background:linear-gradient(#9a6a38,#6d4424 58%,#2d190e);
-  transform:scaleX(.7);
-}
-.fire-wand-glow{
-  position:absolute;
-  left:50%;
-  top:-34px;
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  transform:translateX(-50%) scale(.2);
-  opacity:0;
-  background:#fff3c4;
-  box-shadow:
-    0 0 10px #fff8d0,
-    0 0 22px #ffb11b,
-    0 0 42px rgba(255,69,0,.95),
-    0 0 70px rgba(112,46,160,.55);
-  animation:fireTipCharge .58s ease .82s forwards;
-}
-
-.fire-core{
-  position:absolute;
-  left:11%;
-  bottom:27%;
-  width:24px;
-  height:24px;
-  border-radius:50%;
-  opacity:0;
-  filter:blur(.2px);
-  background:#fffbd6;
-  box-shadow:
-    0 0 12px #fff7b6,
-    0 0 30px #ffba24,
-    0 0 58px #ff5b10,
-    0 0 90px rgba(118,47,175,.5);
-  z-index:7;
-}
-.fire-core-a{animation:fireCoreA 1.18s cubic-bezier(.1,.72,.2,1) 1.18s forwards}
-.fire-core-b{animation:fireCoreB 1.18s cubic-bezier(.1,.72,.2,1) 1.28s forwards}
-.fire-core-c{animation:fireCoreC 1.12s cubic-bezier(.1,.72,.2,1) 1.36s forwards}
-
-.fire-ribbon{
-  position:absolute;
-  left:9%;
-  bottom:25%;
-  width:82vw;
-  height:22vh;
-  min-height:120px;
-  max-height:240px;
-  opacity:0;
-  transform-origin:left center;
-  filter:blur(.2px);
-  z-index:4;
-}
-.fire-ribbon::before,
-.fire-ribbon::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:50%;
-}
-.fire-ribbon::before{
-  background:
-    radial-gradient(ellipse at 8% 58%,rgba(255,247,181,.98) 0 2%,rgba(255,177,28,.95) 5%,rgba(255,76,11,.8) 10%,transparent 18%),
-    radial-gradient(ellipse at 28% 32%,rgba(255,218,90,.94) 0 3%,rgba(255,89,13,.78) 9%,transparent 17%),
-    radial-gradient(ellipse at 48% 68%,rgba(255,241,160,.9) 0 2%,rgba(255,93,10,.76) 9%,transparent 17%),
-    radial-gradient(ellipse at 69% 31%,rgba(255,207,53,.88) 0 2%,rgba(255,67,6,.72) 9%,transparent 18%),
-    radial-gradient(ellipse at 90% 58%,rgba(255,229,115,.86) 0 2%,rgba(255,70,4,.68) 9%,transparent 16%);
-}
-.fire-ribbon::after{
-  background:linear-gradient(100deg,transparent 0 3%,rgba(255,84,8,.72) 9%,rgba(255,190,34,.88) 19%,rgba(255,71,4,.66) 31%,rgba(255,208,60,.82) 48%,rgba(255,63,4,.62) 68%,rgba(255,184,34,.72) 83%,transparent 100%);
-  clip-path:polygon(0 55%,7% 28%,14% 62%,22% 18%,30% 69%,39% 30%,48% 75%,57% 22%,68% 67%,78% 25%,88% 61%,100% 40%,100% 70%,89% 78%,78% 62%,67% 86%,57% 66%,47% 88%,37% 64%,27% 82%,17% 63%,8% 76%,0 67%);
-  filter:blur(5px);
-}
-.fire-ribbon-a{transform:rotate(-6deg) scaleX(.15);animation:fireRibbonA 1.35s cubic-bezier(.1,.75,.2,1) 1.2s forwards}
-.fire-ribbon-b{transform:rotate(8deg) scaleX(.12) translateY(-34px);animation:fireRibbonB 1.32s cubic-bezier(.1,.75,.2,1) 1.3s forwards}
-.fire-ribbon-c{transform:rotate(-2deg) scaleX(.10) translateY(38px);animation:fireRibbonC 1.26s cubic-bezier(.1,.75,.2,1) 1.38s forwards}
-
-.fire-embers,
-.fire-embers::before,
-.fire-embers::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  opacity:0;
-  background-image:
-    radial-gradient(circle,rgba(255,213,98,.95) 0 1px,transparent 1.6px),
-    radial-gradient(circle,rgba(255,94,16,.9) 0 1.2px,transparent 1.8px);
-  background-size:39px 39px,61px 61px;
-  background-position:8px 13px,21px 37px;
-  z-index:3;
-  animation:emberBurst 1.45s ease 1.24s forwards;
-}
-.fire-embers::before{transform:scale(1.12) rotate(4deg)}
-.fire-embers::after{transform:scale(.88) rotate(-3deg)}
-
-.fire-screen-bloom{
-  position:absolute;
-  inset:-15%;
-  opacity:0;
-  pointer-events:none;
-  z-index:8;
-  background:
-    radial-gradient(circle at 75% 48%,rgba(255,255,235,1) 0 5%,rgba(255,226,110,.94) 10%,rgba(255,102,16,.72) 23%,rgba(116,51,170,.28) 38%,transparent 58%);
-  animation:fireBloom .78s ease 2.02s forwards;
-}
-
-@keyframes fireWandRise{
-  0%{bottom:-42%;transform:rotate(-28deg)}
-  72%{bottom:5%;transform:rotate(-17deg)}
-  100%{bottom:7%;transform:rotate(-18deg)}
-}
-@keyframes fireTipCharge{
-  0%{opacity:0;transform:translateX(-50%) scale(.2)}
-  62%{opacity:1;transform:translateX(-50%) scale(1.55)}
-  100%{opacity:1;transform:translateX(-50%) scale(1)}
-}
-@keyframes fireCoreA{
-  0%{left:11%;bottom:27%;opacity:0;transform:scale(.3)}
-  12%{opacity:1;transform:scale(1.35)}
-  100%{left:78%;bottom:52%;opacity:.95;transform:scale(2.2)}
-}
-@keyframes fireCoreB{
-  0%{left:11%;bottom:27%;opacity:0;transform:scale(.3)}
-  12%{opacity:1;transform:scale(1.25)}
-  100%{left:67%;bottom:28%;opacity:.8;transform:scale(1.8)}
-}
-@keyframes fireCoreC{
-  0%{left:11%;bottom:27%;opacity:0;transform:scale(.3)}
-  12%{opacity:1;transform:scale(1.2)}
-  100%{left:88%;bottom:39%;opacity:.85;transform:scale(1.7)}
-}
-@keyframes fireRibbonA{
-  0%{opacity:0;transform:rotate(-6deg) scaleX(.06)}
-  18%{opacity:.95}
-  100%{opacity:.92;transform:rotate(-6deg) scaleX(1)}
-}
-@keyframes fireRibbonB{
-  0%{opacity:0;transform:rotate(8deg) scaleX(.04) translateY(-34px)}
-  18%{opacity:.82}
-  100%{opacity:.78;transform:rotate(8deg) scaleX(.96) translateY(-34px)}
-}
-@keyframes fireRibbonC{
-  0%{opacity:0;transform:rotate(-2deg) scaleX(.04) translateY(38px)}
-  18%{opacity:.72}
-  100%{opacity:.68;transform:rotate(-2deg) scaleX(.9) translateY(38px)}
-}
-@keyframes emberBurst{
-  0%{opacity:0;transform:scale(.94)}
-  22%{opacity:.7}
-  100%{opacity:.18;transform:scale(1.08)}
-}
-@keyframes fireBloom{
-  0%{opacity:0}
-  30%{opacity:.24}
-  66%{opacity:1}
-  100%{opacity:.08}
-}
-@media (prefers-reduced-motion:reduce){
-  .fire-wand{bottom:7%;animation:none}
-  .fire-wand-glow{opacity:1;animation:none}
-  .fire-core,.fire-ribbon,.fire-embers,.fire-screen-bloom{display:none}
-}
-
-
-/* v8.7 first-paint blackout + cinematic magical fire */
+/* v9.0 LUMOS — iPhone 16 Pro tuned, no legacy fire animation */
 #launchBlackout{
-  position:fixed;
-  inset:0;
-  z-index:2147483647;
-  overflow:hidden;
-  background:#000;
-  opacity:1;
-  transition:opacity .34s ease;
+  position:fixed; inset:0; z-index:2147483647; overflow:hidden;
+  background:#000; opacity:1; transition:opacity .30s ease;
 }
 #launchBlackout.launch-reveal{opacity:0;pointer-events:none}
+.lumos-scene{position:absolute;inset:0;overflow:hidden;background:#000}
 
-.cinematic-fire-scene{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 14% 72%,rgba(75,29,105,.10),transparent 24%),
-    #000;
-}
-.cinematic-wand{
-  position:absolute;
-  left:-4%;
-  bottom:-38%;
-  width:min(34vw,180px);
-  height:auto;
-  z-index:6;
-  transform-origin:50% 100%;
-  transform:rotate(-24deg) translateY(16%);
-  filter:drop-shadow(0 4px 8px #000);
-}
-.launch-active .cinematic-wand{
-  animation:cinematicWandRise .95s cubic-bezier(.16,.82,.2,1) forwards;
-}
-.wand-tip-light{opacity:0;transform-origin:center}
-.launch-active .wand-tip-light{
-  animation:cinematicTip .58s ease .72s forwards;
-}
-
-.cinematic-fire{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:4;
-  overflow:visible;
-}
-.flame-path{
-  stroke-dasharray:1250;
-  stroke-dashoffset:1250;
-  opacity:0;
-}
-.launch-active .flame-path-1{animation:cinematicFlame 1.30s cubic-bezier(.08,.74,.18,1) 1.03s forwards}
-.launch-active .flame-path-2{animation:cinematicFlame 1.18s cubic-bezier(.08,.74,.18,1) 1.18s forwards}
-.launch-active .flame-path-3{animation:cinematicFlame 1.24s cubic-bezier(.08,.74,.18,1) 1.10s forwards}
-
-.flame-glow-layer{opacity:.58}
-
-.cinematic-embers,
-.cinematic-embers::before,
-.cinematic-embers::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:5;
-  opacity:0;
-  background-image:
-    radial-gradient(circle,rgba(255,239,176,.95) 0 1px,transparent 1.7px),
-    radial-gradient(circle,rgba(255,125,28,.95) 0 1.2px,transparent 1.9px),
-    radial-gradient(circle,rgba(155,70,212,.7) 0 1px,transparent 1.8px);
-  background-size:47px 47px,73px 73px,101px 101px;
-  background-position:11px 18px,36px 57px,74px 24px;
-}
-.launch-active .cinematic-embers{
-  animation:cinematicEmbers 1.55s ease 1.05s forwards;
-}
-.cinematic-embers::before{transform:scale(1.15) rotate(3deg)}
-.cinematic-embers::after{transform:scale(.86) rotate(-3deg)}
-
-.cinematic-flash{
-  position:absolute;
-  inset:-20%;
-  z-index:9;
-  opacity:0;
-  background:
-    radial-gradient(circle at 74% 45%,
-      rgba(255,255,247,1) 0 4%,
-      rgba(255,240,167,.98) 8%,
-      rgba(255,155,42,.78) 19%,
-      rgba(131,57,188,.34) 36%,
-      transparent 58%);
-  pointer-events:none;
-}
-.launch-flash .cinematic-flash{
-  animation:cinematicFlash .58s ease forwards;
-}
-
-@keyframes cinematicWandRise{
-  0%{bottom:-38%;left:-7%;transform:rotate(-29deg) translateY(18%)}
-  72%{bottom:-3%;left:1%;transform:rotate(-19deg) translateY(0)}
-  100%{bottom:-1%;left:1.5%;transform:rotate(-20deg) translateY(0)}
-}
-@keyframes cinematicTip{
-  0%{opacity:0;transform:scale(.15)}
-  55%{opacity:1;transform:scale(1.55)}
-  100%{opacity:1;transform:scale(.96)}
-}
-@keyframes cinematicFlame{
-  0%{stroke-dashoffset:1250;opacity:0}
-  7%{opacity:.45}
-  22%{opacity:1}
-  100%{stroke-dashoffset:0;opacity:1}
-}
-@keyframes cinematicEmbers{
-  0%{opacity:0;transform:translateX(-3%) scale(.96)}
-  24%{opacity:.72}
-  100%{opacity:.24;transform:translateX(3%) scale(1.05)}
-}
-@keyframes cinematicFlash{
-  0%{opacity:0}
-  38%{opacity:.28}
-  72%{opacity:1}
-  100%{opacity:.12}
-}
-@media (prefers-reduced-motion:reduce){
-  .cinematic-wand{bottom:-1%;left:1.5%;transform:rotate(-20deg)}
-  .wand-tip-light{opacity:1}
-  .flame-path{stroke-dashoffset:0;opacity:1}
-}
-
-
-/* v8.8 canvas-based dragon fire launch */
-#launchBlackout{
-  position:fixed;
-  inset:0;
-  z-index:2147483647;
-  overflow:hidden;
-  background:#000;
-  opacity:1;
-  transition:opacity .32s ease;
-}
-#launchBlackout.launch-reveal{opacity:0;pointer-events:none}
-.dragon-fire-scene{position:absolute;inset:0;overflow:hidden;background:#000}
-#dragonFireCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:4}
-
-.realistic-wand{
-  position:absolute;
-  left:4.5%;
-  bottom:-36%;
-  width:12px;
-  height:49vh;
-  min-height:290px;
-  max-height:440px;
-  transform-origin:50% 100%;
-  transform:rotate(-19deg);
-  z-index:7;
-  opacity:0;
-}
-.launch-active .realistic-wand{
-  animation:wandAppear88 .86s cubic-bezier(.17,.82,.18,1) forwards;
-}
-.wand-core{
-  position:absolute;inset:0;border-radius:9px 9px 4px 4px;
-  background:
-    linear-gradient(90deg,#090604 0%,#3a2112 25%,#8b582d 48%,#4a2b17 67%,#0b0705 100%);
-  box-shadow:
-    inset 1px 0 2px rgba(255,215,155,.17),
-    inset -2px 0 4px rgba(0,0,0,.75),
-    0 2px 7px rgba(0,0,0,.85);
-}
-.wand-core::before{
-  content:"";position:absolute;left:2px;top:-24px;width:8px;height:28px;
-  border-radius:65% 65% 45% 45%;
-  background:linear-gradient(#87512a,#4a2a16 60%,#1a0d08);
-}
-.wand-tip-glow{
-  position:absolute;left:50%;top:-31px;width:9px;height:9px;border-radius:50%;
-  transform:translateX(-50%) scale(.15);
-  opacity:0;background:#fff8da;
-  box-shadow:0 0 9px #fff4b8,0 0 22px #ffaf20,0 0 42px rgba(255,65,8,.95);
-}
-.launch-active .wand-tip-glow{animation:wandCharge88 .42s ease .68s forwards}
-
-.dragon-fire-flash{
-  position:absolute;inset:-15%;z-index:9;opacity:0;pointer-events:none;
-  background:
-    radial-gradient(circle at 72% 37%,
-      rgba(255,255,248,1) 0 4%,
-      rgba(255,236,145,.98) 8%,
-      rgba(255,149,38,.76) 18%,
-      rgba(119,48,166,.24) 32%,
-      transparent 55%);
-}
-.launch-flash .dragon-fire-flash{animation:dragonFlash88 .62s ease forwards}
-
-@keyframes wandAppear88{
-  0%{bottom:-36%;left:1%;opacity:0;transform:rotate(-25deg)}
-  70%{bottom:-3%;left:5%;opacity:1;transform:rotate(-17deg)}
-  100%{bottom:-1%;left:5.5%;opacity:1;transform:rotate(-18deg)}
-}
-@keyframes wandCharge88{
-  0%{opacity:0;transform:translateX(-50%) scale(.15)}
-  60%{opacity:1;transform:translateX(-50%) scale(1.6)}
-  100%{opacity:1;transform:translateX(-50%) scale(1)}
-}
-@keyframes dragonFlash88{
-  0%{opacity:0}
-  35%{opacity:.18}
-  70%{opacity:1}
-  100%{opacity:.08}
-}
-@media (prefers-reduced-motion:reduce){
-  .realistic-wand{bottom:-1%;left:5.5%;opacity:1;transform:rotate(-18deg)}
-  .wand-tip-glow{opacity:1;transform:translateX(-50%) scale(1)}
-}
-
-
-/* v8.9 LUMOS — black -> wand -> white-gold light -> app */
-#launchBlackout{
-  position:fixed;
-  inset:0;
-  z-index:2147483647;
-  overflow:hidden;
-  background:#000;
-  opacity:1;
-  transition:opacity .34s ease;
-}
-#launchBlackout.launch-reveal{
-  opacity:0;
-  pointer-events:none;
-}
-.lumos-scene{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-  background:#000;
-}
-
-/* Wand is deliberately mostly silhouette: light is the hero. */
+/* Clearly visible short wand entering from the bottom-left. */
 .lumos-wand{
   position:absolute;
-  left:-9%;
-  bottom:-31%;
-  width:10px;
-  height:54vh;
-  min-height:315px;
-  max-height:480px;
+  left:28px;
+  bottom:-190px;
+  width:14px;
+  height:205px;
   z-index:8;
-  transform-origin:50% 100%;
-  transform:rotate(-25deg);
   opacity:0;
+  transform-origin:50% 100%;
+  transform:rotate(-18deg);
 }
 .launch-active .lumos-wand{
-  animation:lumosWandEnter .82s cubic-bezier(.16,.82,.18,1) forwards;
+  animation:lumosWand90 .72s cubic-bezier(.16,.84,.18,1) forwards;
 }
 .lumos-wand-body{
-  position:absolute;
-  inset:0;
-  border-radius:8px 8px 3px 3px;
-  background:linear-gradient(90deg,#050403,#1a100b 28%,#51321d 50%,#160e09 72%,#030302);
-  box-shadow:
-    inset 1px 0 1px rgba(255,226,176,.10),
-    inset -2px 0 3px rgba(0,0,0,.85),
-    0 2px 8px #000;
+  position:absolute; inset:0;
+  border-radius:9px 9px 5px 5px;
+  background:linear-gradient(90deg,#090604 0%,#342014 24%,#8b5c32 48%,#422818 68%,#080504 100%);
+  box-shadow:inset 1px 0 2px rgba(255,226,180,.20),inset -2px 0 4px rgba(0,0,0,.85),0 5px 12px #000;
 }
 .lumos-wand-body::before{
-  content:"";
-  position:absolute;
-  left:2px;
-  top:-26px;
-  width:6px;
-  height:30px;
-  border-radius:70% 70% 40% 40%;
-  background:linear-gradient(#4c301d,#1d120c 65%,#070504);
+  content:""; position:absolute; left:3px; top:-23px; width:8px; height:28px;
+  border-radius:70% 70% 42% 42%;
+  background:linear-gradient(#6b4729,#321e12 65%,#0b0705);
 }
 .lumos-tip{
-  position:absolute;
-  left:50%;
-  top:-33px;
-  width:7px;
-  height:7px;
-  transform:translate(-50%,-50%) scale(.05);
-  border-radius:50%;
-  opacity:0;
-  background:#fffef5;
-  box-shadow:
-    0 0 4px #fff,
-    0 0 10px #fffbe5,
-    0 0 22px rgba(255,230,149,.92),
-    0 0 42px rgba(255,201,82,.52);
+  position:absolute; left:50%; top:-29px; width:8px; height:8px;
+  transform:translate(-50%,-50%) scale(.08);
+  border-radius:50%; opacity:0; background:#fffef7;
+  box-shadow:0 0 5px #fff,0 0 12px #fff9df,0 0 26px rgba(255,229,145,.95),0 0 50px rgba(255,199,75,.55);
   z-index:10;
 }
-.lumos-ignite .lumos-tip{
-  animation:lumosTipIgnite .72s cubic-bezier(.18,.78,.2,1) forwards;
-}
+.lumos-ignite .lumos-tip{animation:lumosTip90 .58s ease forwards}
 
-.lumos-halo{
-  position:absolute;
-  left:13.5%;
-  top:38%;
-  border-radius:50%;
-  transform:translate(-50%,-50%) scale(.04);
-  opacity:0;
-  pointer-events:none;
-  z-index:5;
+/* Light source aligns with the wand tip on iPhone 16 Pro portrait. */
+.lumos-halo,.lumos-bloom{
+  position:absolute; left:58px; top:auto; bottom:196px;
+  border-radius:50%; transform:translate(-50%,50%) scale(.03);
+  opacity:0; pointer-events:none;
 }
 .lumos-halo-1{
-  width:150px;height:150px;
-  background:radial-gradient(circle,
-    rgba(255,255,249,.98) 0 4%,
-    rgba(255,249,216,.88) 11%,
-    rgba(255,222,132,.42) 27%,
-    rgba(255,194,75,.13) 48%,
-    transparent 72%);
-  filter:blur(.3px);
+  width:150px;height:150px;z-index:5;
+  background:radial-gradient(circle,rgba(255,255,250,1) 0 4%,rgba(255,249,218,.90) 11%,rgba(255,224,139,.42) 28%,rgba(255,195,78,.12) 50%,transparent 73%);
 }
 .lumos-halo-2{
-  width:360px;height:360px;
-  background:radial-gradient(circle,
-    rgba(255,247,211,.22) 0 16%,
-    rgba(255,215,127,.10) 38%,
-    transparent 70%);
-  filter:blur(6px);
+  width:430px;height:430px;z-index:4;filter:blur(7px);
+  background:radial-gradient(circle,rgba(255,250,226,.24) 0 16%,rgba(255,218,132,.10) 40%,transparent 72%);
 }
-.lumos-ignite .lumos-halo-1{animation:lumosHaloOne .9s ease forwards}
-.lumos-expand .lumos-halo-2{animation:lumosHaloTwo 1.0s ease forwards}
+.lumos-ignite .lumos-halo-1{animation:lumosHalo190 .75s ease forwards}
+.lumos-expand .lumos-halo-2{animation:lumosHalo290 .95s ease forwards}
 
 .lumos-ray{
-  position:absolute;
-  left:-18%;
-  top:18%;
-  width:72%;
-  height:62%;
-  opacity:0;
-  z-index:4;
-  transform:rotate(-8deg);
-  transform-origin:20% 55%;
-  background:conic-gradient(
-    from 265deg at 20% 55%,
-    transparent 0deg,
-    rgba(255,238,179,.025) 9deg,
-    rgba(255,248,215,.11) 14deg,
-    rgba(255,235,168,.03) 22deg,
-    transparent 31deg
-  );
-  filter:blur(9px);
+  position:absolute; left:-12%; bottom:4%; width:86%; height:58%;
+  opacity:0; z-index:4; transform:rotate(-14deg); transform-origin:18% 82%;
+  background:conic-gradient(from 260deg at 18% 82%,transparent 0deg,rgba(255,244,205,.03) 8deg,rgba(255,250,226,.12) 15deg,rgba(255,230,164,.035) 23deg,transparent 33deg);
+  filter:blur(10px);
 }
-.lumos-expand .lumos-ray{animation:lumosRayExpand .9s ease forwards}
+.lumos-expand .lumos-ray{animation:lumosRay90 .95s ease forwards}
 
 .lumos-bloom{
-  position:absolute;
-  left:13.5%;
-  top:38%;
-  width:110vmax;
-  height:110vmax;
-  border-radius:50%;
-  transform:translate(-50%,-50%) scale(.01);
-  opacity:0;
-  z-index:6;
-  pointer-events:none;
-  background:radial-gradient(circle,
-    rgba(255,255,252,1) 0 3%,
-    rgba(255,253,238,.98) 8%,
-    rgba(255,238,183,.78) 18%,
-    rgba(255,207,104,.35) 32%,
-    rgba(255,184,64,.10) 47%,
-    transparent 66%);
+  width:125vmax;height:125vmax;z-index:6;
+  background:radial-gradient(circle,rgba(255,255,253,1) 0 3%,rgba(255,253,240,.99) 8%,rgba(255,240,190,.80) 18%,rgba(255,210,111,.35) 32%,rgba(255,185,65,.09) 48%,transparent 66%);
 }
-.lumos-expand .lumos-bloom{
-  animation:lumosBloom 1.15s cubic-bezier(.12,.7,.2,1) forwards;
-}
+.lumos-expand .lumos-bloom{animation:lumosBloom90 1.10s cubic-bezier(.12,.72,.2,1) forwards}
 
 .lumos-whiteout{
-  position:absolute;
-  inset:0;
-  z-index:9;
-  opacity:0;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 25% 45%,#fff 0 22%,rgba(255,255,249,.99) 44%,rgba(255,249,224,.96) 72%,rgba(255,242,196,.90) 100%);
+  position:absolute;inset:0;z-index:9;opacity:0;pointer-events:none;
+  background:radial-gradient(circle at 15% 78%,#fff 0 20%,rgba(255,255,250,.995) 43%,rgba(255,250,228,.97) 72%,rgba(255,243,202,.92) 100%);
 }
-.lumos-white .lumos-whiteout{
-  animation:lumosWhiteout .72s ease forwards;
-}
+.lumos-white .lumos-whiteout{animation:lumosWhite90 .66s ease forwards}
 
-.lumos-dust,
-.lumos-dust::before,
-.lumos-dust::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:7;
-  opacity:0;
-  pointer-events:none;
-  background-image:
-    radial-gradient(circle,rgba(255,255,237,.95) 0 1px,transparent 1.4px),
-    radial-gradient(circle,rgba(255,221,139,.80) 0 .8px,transparent 1.3px);
-  background-size:71px 71px,103px 103px;
-  background-position:19px 29px,48px 73px;
+.lumos-dust,.lumos-dust::before,.lumos-dust::after{
+  content:"";position:absolute;inset:0;z-index:7;opacity:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(255,255,239,.9) 0 1px,transparent 1.5px),radial-gradient(circle,rgba(255,222,142,.72) 0 .8px,transparent 1.3px);
+  background-size:79px 79px,113px 113px;background-position:18px 27px,49px 74px;
 }
-.lumos-ignite .lumos-dust{
-  animation:lumosDust 1.5s ease forwards;
-}
-.lumos-dust::before{transform:scale(1.14) rotate(2deg)}
-.lumos-dust::after{transform:scale(.87) rotate(-2deg)}
+.lumos-ignite .lumos-dust{animation:lumosDust90 1.35s ease forwards}
+.lumos-dust::before{transform:scale(1.12) rotate(2deg)}
+.lumos-dust::after{transform:scale(.88) rotate(-2deg)}
 
-@keyframes lumosWandEnter{
-  0%{left:-9%;bottom:-31%;opacity:0;transform:rotate(-29deg)}
-  68%{left:3%;bottom:-4%;opacity:1;transform:rotate(-18deg)}
-  100%{left:4%;bottom:-2%;opacity:1;transform:rotate(-19deg)}
+@keyframes lumosWand90{
+  0%{bottom:-190px;left:18px;opacity:0;transform:rotate(-25deg)}
+  30%{opacity:1}
+  78%{bottom:18px;left:38px;opacity:1;transform:rotate(-12deg)}
+  100%{bottom:20px;left:40px;opacity:1;transform:rotate(-13deg)}
 }
-@keyframes lumosTipIgnite{
-  0%{opacity:0;transform:translate(-50%,-50%) scale(.05)}
-  35%{opacity:1;transform:translate(-50%,-50%) scale(.8)}
-  72%{opacity:1;transform:translate(-50%,-50%) scale(1.65)}
+@keyframes lumosTip90{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.08)}
+  40%{opacity:1;transform:translate(-50%,-50%) scale(.8)}
+  75%{opacity:1;transform:translate(-50%,-50%) scale(1.7)}
   100%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}
 }
-@keyframes lumosHaloOne{
-  0%{opacity:0;transform:translate(-50%,-50%) scale(.04)}
-  35%{opacity:.9}
-  100%{opacity:1;transform:translate(-50%,-50%) scale(1.45)}
+@keyframes lumosHalo190{
+  0%{opacity:0;transform:translate(-50%,50%) scale(.03)}
+  35%{opacity:.95}
+  100%{opacity:1;transform:translate(-50%,50%) scale(1.45)}
 }
-@keyframes lumosHaloTwo{
-  0%{opacity:0;transform:translate(-50%,-50%) scale(.08)}
-  25%{opacity:.48}
-  100%{opacity:.75;transform:translate(-50%,-50%) scale(1.65)}
+@keyframes lumosHalo290{
+  0%{opacity:0;transform:translate(-50%,50%) scale(.06)}
+  28%{opacity:.5}
+  100%{opacity:.8;transform:translate(-50%,50%) scale(1.75)}
 }
-@keyframes lumosRayExpand{
-  0%{opacity:0;transform:rotate(-8deg) scale(.5)}
-  35%{opacity:.5}
-  100%{opacity:.18;transform:rotate(-8deg) scale(1.45)}
+@keyframes lumosRay90{
+  0%{opacity:0;transform:rotate(-14deg) scale(.45)}
+  38%{opacity:.48}
+  100%{opacity:.16;transform:rotate(-14deg) scale(1.5)}
 }
-@keyframes lumosBloom{
-  0%{opacity:0;transform:translate(-50%,-50%) scale(.01)}
-  18%{opacity:.6}
-  62%{opacity:1}
-  100%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}
+@keyframes lumosBloom90{
+  0%{opacity:0;transform:translate(-50%,50%) scale(.01)}
+  18%{opacity:.58}
+  60%{opacity:1}
+  100%{opacity:1;transform:translate(-50%,50%) scale(1.08)}
 }
-@keyframes lumosWhiteout{
-  0%{opacity:0}
-  45%{opacity:.82}
-  100%{opacity:1}
-}
-@keyframes lumosDust{
-  0%{opacity:0;transform:scale(.94)}
-  24%{opacity:.42}
-  68%{opacity:.20}
-  100%{opacity:0;transform:scale(1.08)}
+@keyframes lumosWhite90{0%{opacity:0}45%{opacity:.84}100%{opacity:1}}
+@keyframes lumosDust90{0%{opacity:0;transform:scale(.95)}25%{opacity:.36}70%{opacity:.15}100%{opacity:0;transform:scale(1.07)}}
+
+/* Exact iPhone 16 Pro portrait viewport tuning (~402 x 874 CSS px). */
+@media (min-width:390px) and (max-width:420px) and (min-height:840px) and (max-height:900px){
+  .lumos-wand{height:210px;width:14px}
+  .lumos-halo,.lumos-bloom{left:60px;bottom:201px}
+  .lumos-whiteout{background:radial-gradient(circle at 15% 77%,#fff 0 21%,rgba(255,255,250,.995) 44%,rgba(255,250,228,.97) 73%,rgba(255,243,202,.92) 100%)}
 }
 @media (prefers-reduced-motion:reduce){
-  .lumos-wand{left:4%;bottom:-2%;opacity:1;transform:rotate(-19deg)}
+  .lumos-wand{bottom:20px;left:40px;opacity:1;transform:rotate(-13deg)}
   .lumos-tip{opacity:1;transform:translate(-50%,-50%) scale(1)}
 }

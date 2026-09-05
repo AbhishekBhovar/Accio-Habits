@@ -1135,9 +1135,9 @@ function showMagicLoadingScreen(){
   if(!wrap) return;
   wrap.classList.add('launch-active');
 
-  setTimeout(()=>wrap.classList.add('lumos-ignite'),850);
-  setTimeout(()=>wrap.classList.add('lumos-expand'),1350);
-  setTimeout(()=>wrap.classList.add('lumos-white'),2050);
+  setTimeout(()=>wrap.classList.add('lumos-ignite'),900);
+  setTimeout(()=>wrap.classList.add('lumos-expand'),1400);
+  setTimeout(()=>wrap.classList.add('lumos-white'),2100);
 
   setTimeout(()=>{
     const app=document.getElementById('app');
