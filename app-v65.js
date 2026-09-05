@@ -1135,18 +1135,20 @@ function showMagicLoadingScreen(){
   const wrap=document.createElement('div');
   wrap.className='magic-loader';
   wrap.innerHTML=`
-    <div class="magic-stars"></div>
-    <div class="magic-loader-inner">
-      <div class="magic-rings"></div>
-      <img class="magic-loader-logo" src="apple-touch-icon.png?v=84" alt="Accio Habits">
-      <div class="magic-spark magic-spark-1"></div>
-      <div class="magic-spark magic-spark-2"></div>
-      <div class="magic-spark magic-spark-3"></div>
-      <div class="magic-sweep"></div>
+    <div class="wand-launch-scene">
+      <div class="launch-wand" aria-hidden="true">
+        <span class="wand-tip"></span>
+        <span class="wand-shaft"></span>
+        <span class="wand-handle"></span>
+      </div>
+      <div class="spell-orb" aria-hidden="true"></div>
+      <div class="spell-trail" aria-hidden="true"></div>
+      <div class="spell-flash" aria-hidden="true"></div>
+      <div class="spell-stars" aria-hidden="true"></div>
     </div>`;
   document.body.appendChild(wrap);
   requestAnimationFrame(()=>wrap.classList.add('show'));
-  setTimeout(()=>wrap.classList.add('fade-out'),2600);
+  setTimeout(()=>wrap.classList.add('fade-out'),2700);
   setTimeout(()=>wrap.remove(),3000);
 }
 
