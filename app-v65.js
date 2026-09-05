@@ -1135,20 +1135,22 @@ function showMagicLoadingScreen(){
   const wrap=document.createElement('div');
   wrap.className='magic-loader';
   wrap.innerHTML=`
-    <div class="wand-launch-scene">
-      <div class="launch-wand" aria-hidden="true">
-        <span class="wand-tip"></span>
-        <span class="wand-shaft"></span>
-        <span class="wand-handle"></span>
+    <div class="fire-launch-scene">
+      <div class="fire-wand" aria-hidden="true">
+        <span class="fire-wand-glow"></span>
       </div>
-      <div class="spell-orb" aria-hidden="true"></div>
-      <div class="spell-trail" aria-hidden="true"></div>
-      <div class="spell-flash" aria-hidden="true"></div>
-      <div class="spell-stars" aria-hidden="true"></div>
+      <div class="fire-core fire-core-a"></div>
+      <div class="fire-core fire-core-b"></div>
+      <div class="fire-core fire-core-c"></div>
+      <div class="fire-ribbon fire-ribbon-a"></div>
+      <div class="fire-ribbon fire-ribbon-b"></div>
+      <div class="fire-ribbon fire-ribbon-c"></div>
+      <div class="fire-embers"></div>
+      <div class="fire-screen-bloom"></div>
     </div>`;
   document.body.appendChild(wrap);
   requestAnimationFrame(()=>wrap.classList.add('show'));
-  setTimeout(()=>wrap.classList.add('fade-out'),2700);
+  setTimeout(()=>wrap.classList.add('fade-out'),2720);
   setTimeout(()=>wrap.remove(),3000);
 }
 
