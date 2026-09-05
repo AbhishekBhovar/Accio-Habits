@@ -1134,7 +1134,7 @@ try{
 
 if('serviceWorker' in navigator){window.addEventListener('load',async()=>{try{const reg=await navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'});await reg.update();}catch(err){console.warn('Service worker update failed',err);}});}
 
-window.addEventListener('load',()=>{setTimeout(()=>{try{maybeShowQuestInfo();}catch(e){console.warn('Quest info popup',e)}},5200);});
+window.addEventListener('load',()=>{setTimeout(()=>{try{maybeShowQuestInfo();}catch(e){console.warn('Quest info popup',e)}},3400);});
 
 
 function showMagicLoadingScreen(){
@@ -1164,46 +1164,17 @@ function showMagicLoadingScreen(){
   setTimeout(()=>wrap.classList.add('lumos-expand'),1320);
   setTimeout(()=>wrap.classList.add('lumos-white'),2120);
 
-  // After Lumos fills the screen, settle into the Accio Habits title card.
-  setTimeout(()=>wrap.classList.add('launch-brand'),2670);
-
-  // Disapparate the brand: collapse inward and scatter small magical sparks.
-  setTimeout(()=>{
-    const card=wrap.querySelector('.launch-brand-card');
-    if(card && !card.querySelector('.brand-sparks')){
-      const sparks=document.createElement('div');
-      sparks.className='brand-sparks';
-      const sparkMap=[
-        [-56,-40,-9],[-39,-58,-4],[-20,-47,2],[3,-62,6],[24,-51,10],[48,-38,15],
-        [-63,-12,-11],[-42,4,-6],[-23,-9,-2],[21,-5,4],[43,7,9],[62,-8,13],
-        [-52,32,-8],[-31,49,-3],[-8,42,1],[15,54,5],[38,43,10],[57,30,14],
-        [-26,70,-1],[6,72,3],[31,66,8]
-      ];
-      sparkMap.forEach(([x,y,r],i)=>{
-        const s=document.createElement('i');
-        s.style.setProperty('--sx',`${x}px`);
-        s.style.setProperty('--sy',`${y}px`);
-        s.style.setProperty('--sr',`${r}deg`);
-        s.style.setProperty('--sd',`${(i%5)*22}ms`);
-        sparks.appendChild(s);
-      });
-      card.appendChild(sparks);
-    }
-    wrap.classList.add('brand-disapparate');
-  },4250);
-
-  // Tiny black beat, then reveal the app underneath.
+  // Lumos settles briefly, then reveal the app directly.
   setTimeout(()=>{
     const app=document.getElementById('app');
     if(app) app.style.setProperty('visibility','visible','important');
     wrap.classList.add('launch-reveal');
-  },4920);
-
+  },3000);
   setTimeout(()=>{
     wrap.remove();
     const critical=document.getElementById('launch-blackout-critical');
     if(critical) critical.remove();
-  },5150);
+  },3300);
 }
 
 
