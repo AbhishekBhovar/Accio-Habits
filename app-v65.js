@@ -1128,3 +1128,27 @@ try{
 if('serviceWorker' in navigator){window.addEventListener('load',async()=>{try{const reg=await navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'});await reg.update();}catch(err){console.warn('Service worker update failed',err);}});}
 
 window.addEventListener('load',()=>{setTimeout(()=>{try{maybeShowQuestInfo();}catch(e){console.warn('Quest info popup',e)}},350);});
+
+
+function showMagicLoadingScreen(){
+  if(document.querySelector('.magic-loader')) return;
+  const wrap=document.createElement('div');
+  wrap.className='magic-loader';
+  wrap.innerHTML=`
+    <div class="magic-stars"></div>
+    <div class="magic-loader-inner">
+      <div class="magic-rings"></div>
+      <img class="magic-loader-logo" src="apple-touch-icon.png?v=84" alt="Accio Habits">
+      <div class="magic-spark magic-spark-1"></div>
+      <div class="magic-spark magic-spark-2"></div>
+      <div class="magic-spark magic-spark-3"></div>
+      <div class="magic-sweep"></div>
+    </div>`;
+  document.body.appendChild(wrap);
+  requestAnimationFrame(()=>wrap.classList.add('show'));
+  setTimeout(()=>wrap.classList.add('fade-out'),2600);
+  setTimeout(()=>wrap.remove(),3000);
+}
+
+
+window.addEventListener('load',()=>{showMagicLoadingScreen();});
