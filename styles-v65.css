@@ -1193,138 +1193,235 @@ body .topbar #networkBadge,
   .adv60-atmosphere:has(img.battle-remembrall){height:175px!important}
 }
 
-/* v9.0 LUMOS — iPhone 16 Pro tuned, no legacy fire animation */
+/* v9.1 LUMOS — Elder Wand enters from bottom-right; light is anchored to its tip */
 #launchBlackout{
   position:fixed; inset:0; z-index:2147483647; overflow:hidden;
-  background:#000; opacity:1; transition:opacity .30s ease;
+  background:#000; opacity:1; transition:opacity .34s ease;
 }
 #launchBlackout.launch-reveal{opacity:0;pointer-events:none}
 .lumos-scene{position:absolute;inset:0;overflow:hidden;background:#000}
 
-/* Clearly visible short wand entering from the bottom-left. */
+/* Elder-Wand silhouette. The handle begins off-screen at bottom-right and the tip
+   finishes pointing inward toward the centre of the display. */
 .lumos-wand{
   position:absolute;
-  left:28px;
-  bottom:-190px;
-  width:14px;
-  height:205px;
+  right:-72px;
+  bottom:-248px;
+  width:20px;
+  height:270px;
   z-index:8;
   opacity:0;
   transform-origin:50% 100%;
-  transform:rotate(-18deg);
+  transform:rotate(-31deg);
 }
 .launch-active .lumos-wand{
-  animation:lumosWand90 .72s cubic-bezier(.16,.84,.18,1) forwards;
+  animation:lumosWand91 .82s cubic-bezier(.14,.84,.16,1) forwards;
 }
 .lumos-wand-body{
-  position:absolute; inset:0;
-  border-radius:9px 9px 5px 5px;
-  background:linear-gradient(90deg,#090604 0%,#342014 24%,#8b5c32 48%,#422818 68%,#080504 100%);
-  box-shadow:inset 1px 0 2px rgba(255,226,180,.20),inset -2px 0 4px rgba(0,0,0,.85),0 5px 12px #000;
+  position:absolute;
+  left:50%;
+  bottom:0;
+  width:12px;
+  height:100%;
+  transform:translateX(-50%);
+  border-radius:8px 8px 5px 5px;
+  background:
+    linear-gradient(90deg,#090705 0%,#2b1d13 18%,#755235 43%,#a1774e 52%,#4a3020 70%,#0b0806 100%);
+  box-shadow:
+    inset 1px 0 1px rgba(255,236,201,.28),
+    inset -2px 0 3px rgba(0,0,0,.92),
+    0 4px 12px rgba(0,0,0,.8);
 }
+/* Elder Wand's distinctive raised nodes, created without an image asset. */
 .lumos-wand-body::before{
-  content:""; position:absolute; left:3px; top:-23px; width:8px; height:28px;
-  border-radius:70% 70% 42% 42%;
-  background:linear-gradient(#6b4729,#321e12 65%,#0b0705);
+  content:"";
+  position:absolute;
+  left:50%;
+  top:18px;
+  width:22px;
+  height:24px;
+  transform:translateX(-50%);
+  border-radius:52% 48% 55% 45%;
+  background:radial-gradient(circle at 38% 30%,#b18a61 0 8%,#735136 28%,#392519 62%,#100b08 100%);
+  box-shadow:
+    0 46px 0 -2px #543822,
+    0 91px 0 0 #65472d,
+    0 139px 0 -1px #4a301f,
+    0 188px 0 1px #60442b,
+    inset 2px 2px 2px rgba(255,231,190,.16),
+    inset -2px -3px 4px rgba(0,0,0,.65);
+}
+.lumos-wand-body::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-20px;
+  width:8px;
+  height:28px;
+  transform:translateX(-50%);
+  border-radius:70% 70% 38% 38%;
+  background:linear-gradient(90deg,#1a110c,#806044 48%,#2f2016 76%,#090604);
+  box-shadow:inset 1px 0 1px rgba(255,230,193,.2);
 }
 .lumos-tip{
-  position:absolute; left:50%; top:-29px; width:8px; height:8px;
-  transform:translate(-50%,-50%) scale(.08);
-  border-radius:50%; opacity:0; background:#fffef7;
-  box-shadow:0 0 5px #fff,0 0 12px #fff9df,0 0 26px rgba(255,229,145,.95),0 0 50px rgba(255,199,75,.55);
+  position:absolute;
+  left:50%;
+  top:-24px;
+  width:9px;
+  height:9px;
+  transform:translate(-50%,-50%) scale(.06);
+  border-radius:50%;
+  opacity:0;
+  background:#fffef8;
+  box-shadow:
+    0 0 4px #fff,
+    0 0 11px #fff,
+    0 0 24px rgba(255,248,213,.98),
+    0 0 48px rgba(255,221,131,.78),
+    0 0 82px rgba(255,197,65,.38);
   z-index:10;
 }
-.lumos-ignite .lumos-tip{animation:lumosTip90 .58s ease forwards}
+.lumos-ignite .lumos-tip{animation:lumosTip91 .62s ease forwards}
 
-/* Light source aligns with the wand tip on iPhone 16 Pro portrait. */
+/* Final tip position is approximately 65% across / 68% down the screen on an
+   iPhone 16 Pro. Every illumination layer shares this exact source point. */
 .lumos-halo,.lumos-bloom{
-  position:absolute; left:58px; top:auto; bottom:196px;
-  border-radius:50%; transform:translate(-50%,50%) scale(.03);
-  opacity:0; pointer-events:none;
+  position:absolute;
+  left:65%;
+  top:68%;
+  border-radius:50%;
+  transform:translate(-50%,-50%) scale(.02);
+  opacity:0;
+  pointer-events:none;
 }
 .lumos-halo-1{
-  width:150px;height:150px;z-index:5;
-  background:radial-gradient(circle,rgba(255,255,250,1) 0 4%,rgba(255,249,218,.90) 11%,rgba(255,224,139,.42) 28%,rgba(255,195,78,.12) 50%,transparent 73%);
+  width:138px;height:138px;z-index:5;
+  background:radial-gradient(circle,
+    rgba(255,255,255,1) 0 4%,
+    rgba(255,254,239,.98) 10%,
+    rgba(255,239,183,.78) 24%,
+    rgba(255,214,119,.30) 43%,
+    rgba(255,190,70,.08) 61%,
+    transparent 76%);
+  filter:blur(.3px);
 }
 .lumos-halo-2{
-  width:430px;height:430px;z-index:4;filter:blur(7px);
-  background:radial-gradient(circle,rgba(255,250,226,.24) 0 16%,rgba(255,218,132,.10) 40%,transparent 72%);
+  width:510px;height:510px;z-index:4;filter:blur(10px);
+  background:radial-gradient(circle,
+    rgba(255,255,244,.42) 0 13%,
+    rgba(255,235,180,.23) 30%,
+    rgba(255,201,94,.09) 49%,
+    transparent 73%);
 }
-.lumos-ignite .lumos-halo-1{animation:lumosHalo190 .75s ease forwards}
-.lumos-expand .lumos-halo-2{animation:lumosHalo290 .95s ease forwards}
+.lumos-ignite .lumos-halo-1{animation:lumosHalo191 .76s ease forwards}
+.lumos-expand .lumos-halo-2{animation:lumosHalo291 1.08s ease forwards}
 
+/* A soft cone projects from the actual wand tip toward the upper-left/centre,
+   giving the impression that Lumos is illuminating the darkness ahead. */
 .lumos-ray{
-  position:absolute; left:-12%; bottom:4%; width:86%; height:58%;
-  opacity:0; z-index:4; transform:rotate(-14deg); transform-origin:18% 82%;
-  background:conic-gradient(from 260deg at 18% 82%,transparent 0deg,rgba(255,244,205,.03) 8deg,rgba(255,250,226,.12) 15deg,rgba(255,230,164,.035) 23deg,transparent 33deg);
-  filter:blur(10px);
+  position:absolute;
+  left:65%;
+  top:68%;
+  width:125%;
+  height:95%;
+  opacity:0;
+  z-index:4;
+  transform-origin:0 0;
+  transform:rotate(147deg) skewX(-8deg) scale(.18);
+  clip-path:polygon(0 48%,100% 0,100% 100%);
+  background:linear-gradient(90deg,
+    rgba(255,255,244,.34) 0%,
+    rgba(255,241,196,.15) 28%,
+    rgba(255,221,137,.05) 58%,
+    transparent 100%);
+  filter:blur(18px);
 }
-.lumos-expand .lumos-ray{animation:lumosRay90 .95s ease forwards}
+.lumos-expand .lumos-ray{animation:lumosRay91 1.12s ease forwards}
 
+/* This bloom grows *outward from the tip*, rather than appearing as a separate
+   full-screen flash. */
 .lumos-bloom{
-  width:125vmax;height:125vmax;z-index:6;
-  background:radial-gradient(circle,rgba(255,255,253,1) 0 3%,rgba(255,253,240,.99) 8%,rgba(255,240,190,.80) 18%,rgba(255,210,111,.35) 32%,rgba(255,185,65,.09) 48%,transparent 66%);
+  width:145vmax;height:145vmax;z-index:6;
+  background:radial-gradient(circle,
+    rgba(255,255,255,1) 0 3%,
+    rgba(255,255,249,.99) 7%,
+    rgba(255,247,218,.92) 14%,
+    rgba(255,225,153,.63) 24%,
+    rgba(255,197,81,.22) 38%,
+    rgba(255,177,49,.06) 52%,
+    transparent 68%);
 }
-.lumos-expand .lumos-bloom{animation:lumosBloom90 1.10s cubic-bezier(.12,.72,.2,1) forwards}
+.lumos-expand .lumos-bloom{animation:lumosBloom91 1.20s cubic-bezier(.10,.70,.18,1) forwards}
 
 .lumos-whiteout{
   position:absolute;inset:0;z-index:9;opacity:0;pointer-events:none;
-  background:radial-gradient(circle at 15% 78%,#fff 0 20%,rgba(255,255,250,.995) 43%,rgba(255,250,228,.97) 72%,rgba(255,243,202,.92) 100%);
+  background:radial-gradient(circle at 65% 68%,
+    #fff 0 18%,
+    rgba(255,255,252,.998) 37%,
+    rgba(255,252,237,.985) 60%,
+    rgba(255,244,210,.95) 82%,
+    rgba(255,235,178,.92) 100%);
 }
-.lumos-white .lumos-whiteout{animation:lumosWhite90 .66s ease forwards}
+.lumos-white .lumos-whiteout{animation:lumosWhite91 .72s ease forwards}
 
 .lumos-dust,.lumos-dust::before,.lumos-dust::after{
   content:"";position:absolute;inset:0;z-index:7;opacity:0;pointer-events:none;
-  background-image:radial-gradient(circle,rgba(255,255,239,.9) 0 1px,transparent 1.5px),radial-gradient(circle,rgba(255,222,142,.72) 0 .8px,transparent 1.3px);
-  background-size:79px 79px,113px 113px;background-position:18px 27px,49px 74px;
+  background-image:
+    radial-gradient(circle,rgba(255,255,239,.9) 0 1px,transparent 1.5px),
+    radial-gradient(circle,rgba(255,222,142,.7) 0 .8px,transparent 1.3px);
+  background-size:79px 79px,113px 113px;
+  background-position:18px 27px,49px 74px;
 }
-.lumos-ignite .lumos-dust{animation:lumosDust90 1.35s ease forwards}
+.lumos-ignite .lumos-dust{animation:lumosDust91 1.45s ease forwards}
 .lumos-dust::before{transform:scale(1.12) rotate(2deg)}
 .lumos-dust::after{transform:scale(.88) rotate(-2deg)}
 
-@keyframes lumosWand90{
-  0%{bottom:-190px;left:18px;opacity:0;transform:rotate(-25deg)}
-  30%{opacity:1}
-  78%{bottom:18px;left:38px;opacity:1;transform:rotate(-12deg)}
-  100%{bottom:20px;left:40px;opacity:1;transform:rotate(-13deg)}
+@keyframes lumosWand91{
+  0%{right:-72px;bottom:-248px;opacity:0;transform:rotate(-38deg)}
+  22%{opacity:1}
+  72%{right:12px;bottom:12px;opacity:1;transform:rotate(-22deg)}
+  88%{right:27px;bottom:28px;opacity:1;transform:rotate(-25deg)}
+  100%{right:24px;bottom:24px;opacity:1;transform:rotate(-24deg)}
 }
-@keyframes lumosTip90{
-  0%{opacity:0;transform:translate(-50%,-50%) scale(.08)}
-  40%{opacity:1;transform:translate(-50%,-50%) scale(.8)}
-  75%{opacity:1;transform:translate(-50%,-50%) scale(1.7)}
-  100%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}
+@keyframes lumosTip91{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.06)}
+  30%{opacity:1;transform:translate(-50%,-50%) scale(.62)}
+  60%{opacity:1;transform:translate(-50%,-50%) scale(1.9)}
+  82%{opacity:1;transform:translate(-50%,-50%) scale(1.25)}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}
 }
-@keyframes lumosHalo190{
-  0%{opacity:0;transform:translate(-50%,50%) scale(.03)}
-  35%{opacity:.95}
-  100%{opacity:1;transform:translate(-50%,50%) scale(1.45)}
+@keyframes lumosHalo191{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.02)}
+  26%{opacity:1}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1.6)}
 }
-@keyframes lumosHalo290{
-  0%{opacity:0;transform:translate(-50%,50%) scale(.06)}
-  28%{opacity:.5}
-  100%{opacity:.8;transform:translate(-50%,50%) scale(1.75)}
+@keyframes lumosHalo291{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.04)}
+  24%{opacity:.58}
+  100%{opacity:.86;transform:translate(-50%,-50%) scale(1.9)}
 }
-@keyframes lumosRay90{
-  0%{opacity:0;transform:rotate(-14deg) scale(.45)}
-  38%{opacity:.48}
-  100%{opacity:.16;transform:rotate(-14deg) scale(1.5)}
+@keyframes lumosRay91{
+  0%{opacity:0;transform:rotate(147deg) skewX(-8deg) scale(.18)}
+  34%{opacity:.42}
+  100%{opacity:.18;transform:rotate(147deg) skewX(-8deg) scale(1.05)}
 }
-@keyframes lumosBloom90{
-  0%{opacity:0;transform:translate(-50%,50%) scale(.01)}
-  18%{opacity:.58}
-  60%{opacity:1}
-  100%{opacity:1;transform:translate(-50%,50%) scale(1.08)}
+@keyframes lumosBloom91{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.008)}
+  16%{opacity:.58}
+  48%{opacity:.95}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1.02)}
 }
-@keyframes lumosWhite90{0%{opacity:0}45%{opacity:.84}100%{opacity:1}}
-@keyframes lumosDust90{0%{opacity:0;transform:scale(.95)}25%{opacity:.36}70%{opacity:.15}100%{opacity:0;transform:scale(1.07)}}
+@keyframes lumosWhite91{0%{opacity:0}42%{opacity:.78}100%{opacity:1}}
+@keyframes lumosDust91{0%{opacity:0;transform:scale(.96)}24%{opacity:.30}70%{opacity:.13}100%{opacity:0;transform:scale(1.08)}}
 
-/* Exact iPhone 16 Pro portrait viewport tuning (~402 x 874 CSS px). */
+/* Exact iPhone 16 Pro portrait tuning (~402 × 874 CSS px). */
 @media (min-width:390px) and (max-width:420px) and (min-height:840px) and (max-height:900px){
-  .lumos-wand{height:210px;width:14px}
-  .lumos-halo,.lumos-bloom{left:60px;bottom:201px}
-  .lumos-whiteout{background:radial-gradient(circle at 15% 77%,#fff 0 21%,rgba(255,255,250,.995) 44%,rgba(255,250,228,.97) 73%,rgba(255,243,202,.92) 100%)}
+  .lumos-wand{height:274px}
+  .lumos-halo,.lumos-bloom,.lumos-ray{left:65%;top:68%}
+  .lumos-whiteout{background:radial-gradient(circle at 65% 68%,#fff 0 19%,rgba(255,255,252,.998) 38%,rgba(255,252,237,.985) 61%,rgba(255,244,210,.95) 83%,rgba(255,235,178,.92) 100%)}
 }
 @media (prefers-reduced-motion:reduce){
-  .lumos-wand{bottom:20px;left:40px;opacity:1;transform:rotate(-13deg)}
+  .lumos-wand{right:24px;bottom:24px;opacity:1;transform:rotate(-24deg)}
   .lumos-tip{opacity:1;transform:translate(-50%,-50%) scale(1)}
 }
+
