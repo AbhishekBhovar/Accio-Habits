@@ -1306,12 +1306,13 @@ body .topbar #networkBadge,
   filter:blur(.3px);
 }
 .lumos-halo-2{
-  width:510px;height:510px;z-index:4;filter:blur(10px);
+  width:640px;height:640px;z-index:4;filter:blur(24px);
   background:radial-gradient(circle,
-    rgba(255,255,244,.42) 0 13%,
-    rgba(255,235,180,.23) 30%,
-    rgba(255,201,94,.09) 49%,
-    transparent 73%);
+    rgba(255,255,248,.24) 0 7%,
+    rgba(255,239,196,.13) 19%,
+    rgba(255,215,135,.055) 38%,
+    rgba(255,195,90,.018) 57%,
+    transparent 82%);
 }
 .lumos-ignite .lumos-halo-1{animation:lumosHalo191 .76s ease forwards}
 .lumos-expand .lumos-halo-2{animation:lumosHalo291 1.08s ease forwards}
@@ -1330,9 +1331,9 @@ body .topbar #networkBadge,
   transform:rotate(147deg) skewX(-8deg) scale(.18);
   clip-path:polygon(0 48%,100% 0,100% 100%);
   background:linear-gradient(90deg,
-    rgba(255,255,244,.34) 0%,
-    rgba(255,241,196,.15) 28%,
-    rgba(255,221,137,.05) 58%,
+    rgba(255,255,244,.16) 0%,
+    rgba(255,241,196,.075) 28%,
+    rgba(255,221,137,.022) 58%,
     transparent 100%);
   filter:blur(18px);
 }
@@ -1397,13 +1398,13 @@ body .topbar #networkBadge,
 }
 @keyframes lumosHalo291{
   0%{opacity:0;transform:translate(-50%,-50%) scale(.04)}
-  24%{opacity:.58}
-  100%{opacity:.86;transform:translate(-50%,-50%) scale(1.9)}
+  24%{opacity:.34}
+  100%{opacity:.48;transform:translate(-50%,-50%) scale(2.15)}
 }
 @keyframes lumosRay91{
   0%{opacity:0;transform:rotate(147deg) skewX(-8deg) scale(.18)}
-  34%{opacity:.42}
-  100%{opacity:.18;transform:rotate(147deg) skewX(-8deg) scale(1.05)}
+  34%{opacity:.22}
+  100%{opacity:.09;transform:rotate(147deg) skewX(-8deg) scale(1.05)}
 }
 @keyframes lumosBloom91{
   0%{opacity:0;transform:translate(-50%,-50%) scale(.008)}

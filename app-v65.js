@@ -1140,9 +1140,17 @@ function showMagicLoadingScreen(){
   setTimeout(()=>{
     const tip=wrap.querySelector('.lumos-tip');
     if(tip){
+      // Use coordinates relative to the blackout itself. On iOS Safari,
+      // getBoundingClientRect() is visual-viewport based while absolute
+      // children are laid out from the overlay's own origin; using raw
+      // viewport coordinates can shift the Lumos glow downward by the
+      // browser chrome height.
       const r=tip.getBoundingClientRect();
-      wrap.style.setProperty('--lumos-x',`${r.left + r.width/2}px`);
-      wrap.style.setProperty('--lumos-y',`${r.top + r.height/2}px`);
+      const wr=wrap.getBoundingClientRect();
+      const x=(r.left-wr.left)+(r.width/2);
+      const y=(r.top-wr.top)+(r.height/2);
+      wrap.style.setProperty('--lumos-x',`${x}px`);
+      wrap.style.setProperty('--lumos-y',`${y}px`);
     }
     wrap.classList.add('lumos-ignite');
   },860);
