@@ -1947,3 +1947,241 @@ body .topbar #networkBadge,
   .realistic-wand{bottom:-1%;left:5.5%;opacity:1;transform:rotate(-18deg)}
   .wand-tip-glow{opacity:1;transform:translateX(-50%) scale(1)}
 }
+
+
+/* v8.9 LUMOS — black -> wand -> white-gold light -> app */
+#launchBlackout{
+  position:fixed;
+  inset:0;
+  z-index:2147483647;
+  overflow:hidden;
+  background:#000;
+  opacity:1;
+  transition:opacity .34s ease;
+}
+#launchBlackout.launch-reveal{
+  opacity:0;
+  pointer-events:none;
+}
+.lumos-scene{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  background:#000;
+}
+
+/* Wand is deliberately mostly silhouette: light is the hero. */
+.lumos-wand{
+  position:absolute;
+  left:-9%;
+  bottom:-31%;
+  width:10px;
+  height:54vh;
+  min-height:315px;
+  max-height:480px;
+  z-index:8;
+  transform-origin:50% 100%;
+  transform:rotate(-25deg);
+  opacity:0;
+}
+.launch-active .lumos-wand{
+  animation:lumosWandEnter .82s cubic-bezier(.16,.82,.18,1) forwards;
+}
+.lumos-wand-body{
+  position:absolute;
+  inset:0;
+  border-radius:8px 8px 3px 3px;
+  background:linear-gradient(90deg,#050403,#1a100b 28%,#51321d 50%,#160e09 72%,#030302);
+  box-shadow:
+    inset 1px 0 1px rgba(255,226,176,.10),
+    inset -2px 0 3px rgba(0,0,0,.85),
+    0 2px 8px #000;
+}
+.lumos-wand-body::before{
+  content:"";
+  position:absolute;
+  left:2px;
+  top:-26px;
+  width:6px;
+  height:30px;
+  border-radius:70% 70% 40% 40%;
+  background:linear-gradient(#4c301d,#1d120c 65%,#070504);
+}
+.lumos-tip{
+  position:absolute;
+  left:50%;
+  top:-33px;
+  width:7px;
+  height:7px;
+  transform:translate(-50%,-50%) scale(.05);
+  border-radius:50%;
+  opacity:0;
+  background:#fffef5;
+  box-shadow:
+    0 0 4px #fff,
+    0 0 10px #fffbe5,
+    0 0 22px rgba(255,230,149,.92),
+    0 0 42px rgba(255,201,82,.52);
+  z-index:10;
+}
+.lumos-ignite .lumos-tip{
+  animation:lumosTipIgnite .72s cubic-bezier(.18,.78,.2,1) forwards;
+}
+
+.lumos-halo{
+  position:absolute;
+  left:13.5%;
+  top:38%;
+  border-radius:50%;
+  transform:translate(-50%,-50%) scale(.04);
+  opacity:0;
+  pointer-events:none;
+  z-index:5;
+}
+.lumos-halo-1{
+  width:150px;height:150px;
+  background:radial-gradient(circle,
+    rgba(255,255,249,.98) 0 4%,
+    rgba(255,249,216,.88) 11%,
+    rgba(255,222,132,.42) 27%,
+    rgba(255,194,75,.13) 48%,
+    transparent 72%);
+  filter:blur(.3px);
+}
+.lumos-halo-2{
+  width:360px;height:360px;
+  background:radial-gradient(circle,
+    rgba(255,247,211,.22) 0 16%,
+    rgba(255,215,127,.10) 38%,
+    transparent 70%);
+  filter:blur(6px);
+}
+.lumos-ignite .lumos-halo-1{animation:lumosHaloOne .9s ease forwards}
+.lumos-expand .lumos-halo-2{animation:lumosHaloTwo 1.0s ease forwards}
+
+.lumos-ray{
+  position:absolute;
+  left:-18%;
+  top:18%;
+  width:72%;
+  height:62%;
+  opacity:0;
+  z-index:4;
+  transform:rotate(-8deg);
+  transform-origin:20% 55%;
+  background:conic-gradient(
+    from 265deg at 20% 55%,
+    transparent 0deg,
+    rgba(255,238,179,.025) 9deg,
+    rgba(255,248,215,.11) 14deg,
+    rgba(255,235,168,.03) 22deg,
+    transparent 31deg
+  );
+  filter:blur(9px);
+}
+.lumos-expand .lumos-ray{animation:lumosRayExpand .9s ease forwards}
+
+.lumos-bloom{
+  position:absolute;
+  left:13.5%;
+  top:38%;
+  width:110vmax;
+  height:110vmax;
+  border-radius:50%;
+  transform:translate(-50%,-50%) scale(.01);
+  opacity:0;
+  z-index:6;
+  pointer-events:none;
+  background:radial-gradient(circle,
+    rgba(255,255,252,1) 0 3%,
+    rgba(255,253,238,.98) 8%,
+    rgba(255,238,183,.78) 18%,
+    rgba(255,207,104,.35) 32%,
+    rgba(255,184,64,.10) 47%,
+    transparent 66%);
+}
+.lumos-expand .lumos-bloom{
+  animation:lumosBloom 1.15s cubic-bezier(.12,.7,.2,1) forwards;
+}
+
+.lumos-whiteout{
+  position:absolute;
+  inset:0;
+  z-index:9;
+  opacity:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 25% 45%,#fff 0 22%,rgba(255,255,249,.99) 44%,rgba(255,249,224,.96) 72%,rgba(255,242,196,.90) 100%);
+}
+.lumos-white .lumos-whiteout{
+  animation:lumosWhiteout .72s ease forwards;
+}
+
+.lumos-dust,
+.lumos-dust::before,
+.lumos-dust::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:7;
+  opacity:0;
+  pointer-events:none;
+  background-image:
+    radial-gradient(circle,rgba(255,255,237,.95) 0 1px,transparent 1.4px),
+    radial-gradient(circle,rgba(255,221,139,.80) 0 .8px,transparent 1.3px);
+  background-size:71px 71px,103px 103px;
+  background-position:19px 29px,48px 73px;
+}
+.lumos-ignite .lumos-dust{
+  animation:lumosDust 1.5s ease forwards;
+}
+.lumos-dust::before{transform:scale(1.14) rotate(2deg)}
+.lumos-dust::after{transform:scale(.87) rotate(-2deg)}
+
+@keyframes lumosWandEnter{
+  0%{left:-9%;bottom:-31%;opacity:0;transform:rotate(-29deg)}
+  68%{left:3%;bottom:-4%;opacity:1;transform:rotate(-18deg)}
+  100%{left:4%;bottom:-2%;opacity:1;transform:rotate(-19deg)}
+}
+@keyframes lumosTipIgnite{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.05)}
+  35%{opacity:1;transform:translate(-50%,-50%) scale(.8)}
+  72%{opacity:1;transform:translate(-50%,-50%) scale(1.65)}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}
+}
+@keyframes lumosHaloOne{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.04)}
+  35%{opacity:.9}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1.45)}
+}
+@keyframes lumosHaloTwo{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.08)}
+  25%{opacity:.48}
+  100%{opacity:.75;transform:translate(-50%,-50%) scale(1.65)}
+}
+@keyframes lumosRayExpand{
+  0%{opacity:0;transform:rotate(-8deg) scale(.5)}
+  35%{opacity:.5}
+  100%{opacity:.18;transform:rotate(-8deg) scale(1.45)}
+}
+@keyframes lumosBloom{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.01)}
+  18%{opacity:.6}
+  62%{opacity:1}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}
+}
+@keyframes lumosWhiteout{
+  0%{opacity:0}
+  45%{opacity:.82}
+  100%{opacity:1}
+}
+@keyframes lumosDust{
+  0%{opacity:0;transform:scale(.94)}
+  24%{opacity:.42}
+  68%{opacity:.20}
+  100%{opacity:0;transform:scale(1.08)}
+}
+@media (prefers-reduced-motion:reduce){
+  .lumos-wand{left:4%;bottom:-2%;opacity:1;transform:rotate(-19deg)}
+  .lumos-tip{opacity:1;transform:translate(-50%,-50%) scale(1)}
+}

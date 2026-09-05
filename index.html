@@ -11,7 +11,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png?v=83">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=84">
-  <link rel="stylesheet" href="./styles-v65.css?v=88">
+  <link rel="stylesheet" href="./styles-v65.css?v=89">
 
 
 <style id="hp64-dark-hufflepuff-palette">
@@ -73,18 +73,23 @@ html,body{background:#000!important}
 </head>
 <body>
 
+  
   <div id="launchBlackout" aria-hidden="true">
-    <div class="dragon-fire-scene">
-      <canvas id="dragonFireCanvas"></canvas>
-      <div class="realistic-wand" aria-hidden="true">
-        <span class="wand-core"></span>
-        <span class="wand-tip-glow"></span>
+    <div class="lumos-scene">
+      <div class="lumos-dust"></div>
+      <div class="lumos-wand">
+        <span class="lumos-wand-body"></span>
+        <span class="lumos-tip"></span>
       </div>
-      <div class="dragon-fire-flash"></div>
+      <div class="lumos-halo lumos-halo-1"></div>
+      <div class="lumos-halo lumos-halo-2"></div>
+      <div class="lumos-ray"></div>
+      <div class="lumos-bloom"></div>
+      <div class="lumos-whiteout"></div>
     </div>
   </div>
 
-<div id="app" class="app-shell">
+  <div id="app" class="app-shell">
     <header class="topbar">
       <div>
 <h1>Accio Habits</h1>
@@ -176,7 +181,7 @@ html,body{background:#000!important}
     </div>
   </div>
 
-  <script type="module" src="./app-v65.js?v=88"></script>
+  <script type="module" src="./app-v65.js?v=89"></script>
 
 <script>
 window.addEventListener('load', async () => {

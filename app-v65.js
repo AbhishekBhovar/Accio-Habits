@@ -1134,13 +1134,17 @@ function showMagicLoadingScreen(){
   const wrap=document.getElementById('launchBlackout');
   if(!wrap) return;
   wrap.classList.add('launch-active');
-  runDragonFire(document.getElementById('dragonFireCanvas'));
-  setTimeout(()=>wrap.classList.add('launch-flash'),2220);
+
+  setTimeout(()=>wrap.classList.add('lumos-ignite'),850);
+  setTimeout(()=>wrap.classList.add('lumos-expand'),1350);
+  setTimeout(()=>wrap.classList.add('lumos-white'),2050);
+
   setTimeout(()=>{
     const app=document.getElementById('app');
     if(app) app.style.setProperty('visibility','visible','important');
     wrap.classList.add('launch-reveal');
-  },2680);
+  },2650);
+
   setTimeout(()=>{
     wrap.remove();
     const critical=document.getElementById('launch-blackout-critical');
@@ -1150,178 +1154,3 @@ function showMagicLoadingScreen(){
 
 
 showMagicLoadingScreen();
-
-
-function runDragonFire(canvas){
-  if(!canvas) return;
-  const ctx=canvas.getContext('2d',{alpha:true});
-  let w=0,h=0,dpr=1,start=performance.now(),particles=[],smoke=[],running=true;
-
-  function resize(){
-    dpr=Math.min(window.devicePixelRatio||1,2);
-    w=window.innerWidth; h=window.innerHeight;
-    canvas.width=Math.floor(w*dpr); canvas.height=Math.floor(h*dpr);
-    canvas.style.width=w+'px'; canvas.style.height=h+'px';
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-  }
-  resize();
-  window.addEventListener('resize',resize,{passive:true});
-
-  function rand(a,b){return a+Math.random()*(b-a)}
-  function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-  function dragonPoint(t){
-    // serpentine path from lower-left toward upper-right
-    const x = w*(0.12 + 0.78*t);
-    const y = h*(0.72 - 0.48*t) + Math.sin(t*8.2)*h*0.065 + Math.sin(t*17.0)*h*0.018;
-    return {x,y};
-  }
-  function tangent(t){
-    const a=dragonPoint(clamp(t-.01,0,1)), b=dragonPoint(clamp(t+.01,0,1));
-    const dx=b.x-a.x, dy=b.y-a.y, len=Math.hypot(dx,dy)||1;
-    return {x:dx/len,y:dy/len};
-  }
-  function spawnFlame(x,y,vx,vy,size,life,hot=1){
-    particles.push({
-      x,y,vx,vy,size,life,max:life,hot,
-      spin:rand(-1.2,1.2),seed:Math.random()*1000
-    });
-  }
-  function spawnSmoke(x,y,vx,vy,size,life){
-    smoke.push({x,y,vx,vy,size,life,max:life,seed:Math.random()*1000});
-  }
-
-  function emitDragon(progress,dt){
-    if(progress<0.15) return;
-    const headT=clamp((progress-0.15)/0.62,0,1);
-    const head=dragonPoint(headT);
-    const tan=tangent(headT);
-    const nx=-tan.y, ny=tan.x;
-
-    const rate=Math.floor(24*dt/16.7)+8;
-    for(let i=0;i<rate;i++){
-      const side=rand(-1,1);
-      const spread=(10+42*(1-headT))*side;
-      const px=head.x+nx*spread+rand(-8,8);
-      const py=head.y+ny*spread+rand(-8,8);
-      const speed=rand(18,70);
-      spawnFlame(
-        px,py,
-        tan.x*speed+nx*rand(-22,22),
-        tan.y*speed+ny*rand(-22,22)-rand(8,28),
-        rand(16,46)*(1.15-0.35*headT),
-        rand(420,850),
-        rand(.65,1)
-      );
-    }
-
-    // larger hot head mass
-    for(let i=0;i<10;i++){
-      spawnFlame(head.x+rand(-18,18),head.y+rand(-18,18),
-        tan.x*rand(18,55)+rand(-12,12),tan.y*rand(18,55)-rand(5,20),
-        rand(28,62),rand(500,900),1);
-    }
-
-    // jaw / snout
-    const snoutX=head.x+tan.x*45, snoutY=head.y+tan.y*45;
-    for(let i=0;i<6;i++){
-      spawnFlame(snoutX+rand(-12,12),snoutY+rand(-12,12),
-        tan.x*rand(30,70)+rand(-10,10),tan.y*rand(30,70)+rand(-10,10),
-        rand(20,42),rand(420,720),1);
-    }
-
-    // two horn-like flame jets
-    if(headT>.25){
-      for(const sgn of [-1,1]){
-        const hx=head.x-nx*sgn*10, hy=head.y-ny*sgn*10;
-        for(let i=0;i<3;i++){
-          spawnFlame(hx,hy,
-            tan.x*10+nx*sgn*rand(40,70),
-            tan.y*10+ny*sgn*rand(40,70)-rand(10,25),
-            rand(10,22),rand(300,520),.85);
-        }
-      }
-    }
-
-    // smoky turbulent wake
-    for(let i=0;i<4;i++){
-      spawnSmoke(head.x+rand(-20,20),head.y+rand(-20,20),
-        rand(-12,12),rand(-28,-8),rand(28,60),rand(900,1500));
-    }
-  }
-
-  function drawFlame(p){
-    const a=clamp(p.life/p.max,0,1);
-    const flicker=.82+.18*Math.sin((performance.now()+p.seed)*.018);
-    const r=p.size*(.65+.35*a)*flicker;
-
-    const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,r);
-    const hot=p.hot;
-    g.addColorStop(0,`rgba(255,255,225,${0.95*a*hot})`);
-    g.addColorStop(.18,`rgba(255,220,95,${0.95*a})`);
-    g.addColorStop(.46,`rgba(255,112,18,${0.78*a})`);
-    g.addColorStop(.72,`rgba(212,42,7,${0.42*a})`);
-    g.addColorStop(1,`rgba(92,21,120,0)`);
-    ctx.fillStyle=g;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,r,0,Math.PI*2);
-    ctx.fill();
-  }
-
-  function drawSmoke(s){
-    const a=clamp(s.life/s.max,0,1);
-    const r=s.size*(1.15-a*.15);
-    const g=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,r);
-    g.addColorStop(0,`rgba(35,21,40,${0.20*a})`);
-    g.addColorStop(.5,`rgba(18,13,20,${0.13*a})`);
-    g.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle=g;
-    ctx.beginPath(); ctx.arc(s.x,s.y,r,0,Math.PI*2); ctx.fill();
-  }
-
-  function frame(now){
-    if(!running) return;
-    const elapsed=now-start;
-    const progress=clamp(elapsed/3000,0,1);
-    const dt=16.7;
-
-    ctx.clearRect(0,0,w,h);
-
-    // subtle black smoke behind fire
-    ctx.globalCompositeOperation='source-over';
-    for(let i=smoke.length-1;i>=0;i--){
-      const s=smoke[i];
-      s.life-=dt;
-      if(s.life<=0){smoke.splice(i,1);continue}
-      s.x+=s.vx*dt/1000;
-      s.y+=s.vy*dt/1000;
-      s.vx+=Math.sin((now+s.seed)*.0017)*3*dt/1000;
-      s.vy-=3*dt/1000;
-      drawSmoke(s);
-    }
-
-    emitDragon(progress,dt);
-
-    ctx.globalCompositeOperation='lighter';
-    ctx.shadowBlur=12;
-    ctx.shadowColor='rgba(255,105,20,.35)';
-    for(let i=particles.length-1;i>=0;i--){
-      const p=particles[i];
-      p.life-=dt;
-      if(p.life<=0){particles.splice(i,1);continue}
-      const age=1-p.life/p.max;
-      p.vx += Math.sin((now+p.seed)*.004+p.spin)*14*dt/1000;
-      p.vy -= (34+18*age)*dt/1000;
-      p.x += p.vx*dt/1000;
-      p.y += p.vy*dt/1000;
-      p.size *= 0.997;
-      drawFlame(p);
-    }
-    ctx.shadowBlur=0;
-    ctx.globalCompositeOperation='source-over';
-
-    if(progress<1) requestAnimationFrame(frame);
-    else running=false;
-  }
-  requestAnimationFrame(frame);
-}
-
