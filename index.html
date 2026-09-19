@@ -11,7 +11,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png?v=83">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=84">
-  <link rel="stylesheet" href="./styles-v65.css?v=103">
+  <link rel="stylesheet" href="./styles-v65.css?v=104">
 
 
 <style id="hp64-dark-hufflepuff-palette">
@@ -70,6 +70,20 @@ html,body{background:#000!important}
 #launchBlackout{position:fixed;inset:0;z-index:2147483647;background:#000;display:block}
 </style>
 
+
+<style id="sleep-compact-v104">
+/* Compact Sleep mission: preserve full tracking without a separate oversized section. */
+.sleep-card-compact{margin-top:14px!important;padding:16px 18px!important;border-radius:24px!important;}
+.sleep-compact-head{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;margin-bottom:12px;}
+.sleep-compact-icon{font-size:27px;line-height:1;}
+.sleep-compact-head>strong{font-size:18px;color:var(--hp-text,#F2EBD7);}
+.sleep-compact-head>b{font-size:15px;color:var(--hp-gold,#D4AF37);white-space:nowrap;}
+.sleep-input-row-compact{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,.72fr) auto!important;gap:9px!important;align-items:end!important;}
+.sleep-input-row-compact label{font-size:12px!important;font-weight:700!important;color:var(--hp-muted,#C8C2B0)!important;min-width:0!important;}
+.sleep-input-row-compact input{box-sizing:border-box!important;width:100%!important;height:44px!important;margin-top:5px!important;padding:8px 10px!important;font-size:16px!important;font-weight:700!important;border-radius:13px!important;}
+.sleep-save-compact{width:auto!important;min-width:72px!important;height:44px!important;margin:0!important;padding:0 14px!important;border-radius:13px!important;font-size:15px!important;}
+@media(max-width:390px){.sleep-card-compact{padding:14px!important}.sleep-input-row-compact{grid-template-columns:minmax(0,1fr) minmax(0,.65fr) 68px!important;gap:7px!important}.sleep-save-compact{min-width:68px!important;padding:0 9px!important}}
+</style>
 </head>
 <body>
 
@@ -144,14 +158,13 @@ html,body{background:#000!important}
             <div id="dailyHabitList" class="habit-list"></div>
           </div>
 
-          <div class="zone-heading sleep-heading compact-heading"><h2>Sleep</h2></div>
-          <div class="card sleep-card mission-panel">
-            <div class="sleep-xp-line"><strong id="sleepXpPreview">0 / 50 XP</strong></div>
-            <div class="sleep-input-row">
-              <label>Main sleep<input id="sleepHours" style="font-size:17px!important;font-weight:700!important" type="number" inputmode="decimal" min="0" max="16" step="0.25" placeholder="e.g. 6.5"></label>
-              <label>Nap<input id="napHours" style="font-size:17px!important;font-weight:700!important" type="number" inputmode="decimal" min="0" max="8" step="0.25" placeholder="e.g. 1"></label>
+          <div class="card sleep-card mission-panel sleep-card-compact">
+            <div class="sleep-compact-head"><span class="sleep-compact-icon">😴</span><strong>Sleep</strong><b id="sleepXpPreview">0 / 50 XP</b></div>
+            <div class="sleep-input-row sleep-input-row-compact">
+              <label>Main sleep<input id="sleepHours" type="number" inputmode="decimal" min="0" max="16" step="0.25" placeholder="6.5"></label>
+              <label>Nap<input id="napHours" type="number" inputmode="decimal" min="0" max="8" step="0.25" placeholder="1"></label>
+              <button id="saveSleep" class="primary sleep-save-compact">Save</button>
             </div>
-            <button id="saveSleep" class="primary wide">Save sleep</button>
           </div>
         </section>
       </section>
@@ -186,7 +199,7 @@ html,body{background:#000!important}
     </div>
   </div>
 
-  <script type="module" src="./app-v65.js?v=103"></script>
+  <script type="module" src="./app-v65.js?v=104"></script>
 
 <script>
 window.addEventListener('load', async () => {
