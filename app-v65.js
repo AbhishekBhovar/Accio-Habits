@@ -1136,9 +1136,45 @@ if('serviceWorker' in navigator){window.addEventListener('load',async()=>{try{co
 window.addEventListener('load',()=>{setTimeout(()=>{try{maybeShowQuestInfo();}catch(e){console.warn('Quest info popup',e)}},3400);});
 
 
+function buildNaturalLumosStars(wrap){
+  const field=wrap.querySelector('.lumos-dust');
+  if(!field || field.dataset.built==='1') return;
+  field.dataset.built='1';
+
+  // Seeded particle field: each star has its own coordinate, size and brightness.
+  // No background tiling means there can be no repeated rows/columns on Safari.
+  let seed=0xACC10;
+  const rnd=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
+  const stars=[];
+  for(let i=0;i<96;i++){
+    let x=rnd()*100, y=rnd()*100;
+    // A minority form loose, irregular patches like a real sky, without symmetry.
+    if(i>63 && rnd()<.62){
+      const cx=[18,47,76][Math.floor(rnd()*3)];
+      const cy=[23,52,81][Math.floor(rnd()*3)];
+      x=Math.max(2,Math.min(98,cx+(rnd()+rnd()+rnd()-1.5)*20));
+      y=Math.max(2,Math.min(98,cy+(rnd()+rnd()+rnd()-1.5)*17));
+    }
+    const size=.55+Math.pow(rnd(),2.7)*2.15;
+    const opacity=.20+rnd()*.62;
+    const glow=1.5+size*(1.6+rnd()*2.2);
+    const star=document.createElement('i');
+    star.className='lumos-star'+(rnd()<.15?' bright':'')+(rnd()<.22?' warm':(rnd()<.18?' cool':''));
+    star.style.setProperty('--sx',x.toFixed(2)+'%');
+    star.style.setProperty('--sy',y.toFixed(2)+'%');
+    star.style.setProperty('--ss',size.toFixed(2)+'px');
+    star.style.setProperty('--so',opacity.toFixed(2));
+    star.style.setProperty('--sg',glow.toFixed(1)+'px');
+    star.style.setProperty('--sr',(rnd()*160-80).toFixed(0)+'deg');
+    stars.push(star);
+  }
+  field.replaceChildren(...stars);
+}
+
 function showMagicLoadingScreen(){
   const wrap=document.getElementById('launchBlackout');
   if(!wrap) return;
+  buildNaturalLumosStars(wrap);
   wrap.classList.add('launch-active');
 
   // Anchor every Lumos layer to the wand's real rendered tip. This prevents

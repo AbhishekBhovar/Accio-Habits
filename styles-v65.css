@@ -1365,46 +1365,30 @@ body .topbar #networkBadge,
 }
 .lumos-white .lumos-whiteout{animation:lumosWhite91 .72s ease forwards}
 
-.lumos-dust,.lumos-dust::before,.lumos-dust::after{
-  content:"";position:absolute;inset:-8%;z-index:7;opacity:0;pointer-events:none;
-  /* Deliberately non-uniform star field: independent layers use mismatched
-     spacing/offsets so there are no visible rows or columns. */
-  background-image:
-    radial-gradient(circle,rgba(255,255,248,.95) 0 .8px,transparent 1.35px),
-    radial-gradient(circle,rgba(255,229,157,.78) 0 .65px,transparent 1.15px),
-    radial-gradient(circle,rgba(236,244,255,.72) 0 .55px,transparent 1.05px),
-    radial-gradient(circle,rgba(255,255,245,.58) 0 .45px,transparent .95px),
-    radial-gradient(circle,rgba(255,211,116,.46) 0 .4px,transparent .9px),
-    radial-gradient(circle,rgba(255,255,255,.38) 0 .35px,transparent .82px);
-  background-size:
-    137px 181px,
-    223px 157px,
-    311px 239px,
-    173px 293px,
-    269px 347px,
-    397px 211px;
-  background-position:
-    19px 31px,
-    91px 17px,
-    47px 133px,
-    151px 71px,
-    13px 201px,
-    227px 109px;
-  filter:drop-shadow(0 0 2px rgba(255,239,188,.16));
+/* v10.6 Natural Lumos starfield — individual particles, never a repeating CSS tile. */
+.lumos-dust{
+  position:absolute;inset:0;z-index:7;opacity:0;pointer-events:none;overflow:hidden;
+  filter:drop-shadow(0 0 2px rgba(255,239,188,.14));
+}
+.lumos-dust::before,.lumos-dust::after{content:none!important;display:none!important}
+.lumos-star{
+  position:absolute;
+  left:var(--sx);top:var(--sy);
+  width:var(--ss);height:var(--ss);
+  border-radius:50%;
+  opacity:var(--so);
+  background:rgba(255,250,230,.96);
+  box-shadow:0 0 var(--sg) rgba(255,232,173,.52);
+  transform:translate(-50%,-50%);
+}
+.lumos-star.cool{background:rgba(235,243,255,.92);box-shadow:0 0 var(--sg) rgba(220,234,255,.42)}
+.lumos-star.warm{background:rgba(255,224,153,.92);box-shadow:0 0 var(--sg) rgba(255,202,104,.46)}
+.lumos-star.bright::after{
+  content:"";position:absolute;left:50%;top:50%;width:calc(var(--ss) * 5);height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,246,218,.42),transparent);
+  transform:translate(-50%,-50%) rotate(var(--sr));
 }
 .lumos-ignite .lumos-dust{animation:lumosDust91 1.45s ease forwards}
-.lumos-dust::before{
-  inset:-14%;opacity:.72;
-  transform:scale(1.17) rotate(7deg) translate(11px,-19px);
-  background-size:193px 271px,307px 229px,419px 313px,251px 367px,359px 431px,487px 283px;
-  background-position:73px 11px,29px 149px,181px 61px,7px 233px,241px 173px,109px 317px;
-}
-.lumos-dust::after{
-  inset:-18%;opacity:.52;
-  transform:scale(.93) rotate(-5deg) translate(-17px,23px);
-  background-size:257px 199px,349px 281px,461px 337px,293px 419px,401px 263px,523px 389px;
-  background-position:131px 43px,17px 207px,271px 97px,83px 311px,199px 19px,337px 251px;
-}
 
 @keyframes lumosWand91{
   0%{right:-72px;bottom:-248px;opacity:0;transform:rotate(-38deg)}
