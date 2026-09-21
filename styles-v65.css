@@ -1727,3 +1727,20 @@ body .topbar #networkBadge,
 
 /* v10.0 — remove launch logo/name */
 .launch-brand-card,.brand-sparks{display:none!important}
+
+/* v107 — individual daily XP history */
+.xp-history-card{overflow:hidden}
+.xp-history-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.xp-history-head>.eyebrow{font-size:10px;letter-spacing:.15em;font-weight:900;color:var(--hp62-gold)!important}
+.xp-range-tabs{display:flex;gap:5px;padding:3px;background:#0e100f;border:1px solid #403720;border-radius:999px}
+.xp-range-tabs button{border:0;background:transparent;color:#9f9585;font:800 9px/1 system-ui;padding:7px 9px;border-radius:999px;min-width:34px}
+.xp-range-tabs button.active{background:linear-gradient(135deg,#b87e16,#e2b83e);color:#111}
+.xp-history-scroll{margin-top:14px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 1px 5px}
+.xp-history-scroll::-webkit-scrollbar{display:none}
+.xp-history-bars{height:164px;display:flex;align-items:flex-end;gap:var(--xp-gap);width:max-content;min-width:100%}
+.xp-day-bar{appearance:none;-webkit-appearance:none;border:0;background:transparent;padding:0;width:var(--xp-bar-w);min-width:var(--xp-bar-w);height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px}
+.xp-day-bar i{position:relative;display:block;width:100%;height:140px;background:#0c0e0d;border-radius:5px;overflow:hidden}
+.xp-day-bar u{position:absolute;left:0;right:0;bottom:0;display:block;background:linear-gradient(180deg,#f0c44e,#b87e16);border-radius:5px 5px 2px 2px;box-shadow:0 0 8px rgba(224,178,55,.18);text-decoration:none}
+.xp-day-bar small{height:12px;font-size:7px;color:#8f8575;line-height:12px}
+.xp-day-bar.selected i{outline:1px solid #f0c44e;outline-offset:2px}
+.xp-day-detail{margin:8px 0 0;text-align:center;color:#b8ad9c;font-size:9px;min-height:13px}
