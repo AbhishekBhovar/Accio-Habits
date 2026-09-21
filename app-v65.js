@@ -999,11 +999,19 @@ function dailyXpHistory(days=30){
   return rows;
 }
 function xpHistoryHtml(days){
-  const rows=dailyXpHistory(days),max=Math.max(1,...rows.map(x=>x.xp));
+  const rows=dailyXpHistory(days);
+  const dailyMax=Math.max(1,Number(DATA.habits?.dailyMaxXP||360));
   const barWidth=days<=31?9:days<=90?5:3;
   const gap=days<=31?4:days<=90?3:2;
-  return `<div class="xp-history-scroll" id="xpHistoryScroll"><div class="xp-history-bars" style="--xp-bar-w:${barWidth}px;--xp-gap:${gap}px">
-    ${rows.map((x,i)=>{const h=x.xp?Math.max(4,Math.round((x.xp/max)*100)):0;const label=x.date.toLocaleDateString(undefined,{day:'numeric',month:'short'});return `<button class="xp-day-bar" data-date="${x.key}" data-xp="${x.xp}" aria-label="${label}: ${x.xp} XP"><i><u style="height:${h}%"></u></i>${days<=31?`<small>${x.date.getDate()}</small>`:''}</button>`;}).join('')}
+  const plotH=140, step=barWidth+gap, chartW=Math.max(1,rows.length*barWidth+Math.max(0,rows.length-1)*gap);
+  const points=rows.map((x,i)=>{
+    const pct=Math.max(0,Math.min(1,x.xp/dailyMax));
+    const px=i*step+(barWidth/2),py=plotH-(pct*plotH);
+    return `${px.toFixed(1)},${py.toFixed(1)}`;
+  }).join(' ');
+  return `<div class="xp-max-note">Daily maximum: ${dailyMax} XP</div><div class="xp-history-scroll" id="xpHistoryScroll"><div class="xp-history-bars" style="--xp-bar-w:${barWidth}px;--xp-gap:${gap}px">
+    <svg class="xp-trend-line" viewBox="0 0 ${chartW} ${plotH}" preserveAspectRatio="none" aria-hidden="true"><polyline points="${points}"></polyline>${rows.map((x,i)=>{const pct=Math.max(0,Math.min(1,x.xp/dailyMax)),cx=i*step+(barWidth/2),cy=plotH-(pct*plotH);return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${days<=31?1.7:1.15}"></circle>`;}).join('')}</svg>
+    ${rows.map((x,i)=>{const h=x.xp?Math.max(3,Math.min(100,(x.xp/dailyMax)*100)):0;const label=x.date.toLocaleDateString(undefined,{day:'numeric',month:'short'});const pct=Math.round((x.xp/dailyMax)*100);return `<button class="xp-day-bar" data-date="${x.key}" data-xp="${x.xp}" data-max="${dailyMax}" aria-label="${label}: ${x.xp} of ${dailyMax} XP, ${pct}%"><i><u style="height:${h}%"></u></i>${days<=31?`<small>${x.date.getDate()}</small>`:''}</button>`;}).join('')}
   </div></div>`;
 }
 function bindXpHistory(){
@@ -1011,7 +1019,7 @@ function bindXpHistory(){
   document.querySelectorAll('[data-xp-range]').forEach(btn=>btn.onclick=()=>{ui.statsXpRange=Number(btn.dataset.xpRange);renderStats();});
   document.querySelectorAll('.xp-day-bar').forEach(btn=>btn.onclick=()=>{
     const d=parseDateKey(btn.dataset.date),label=d.toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short',year:'numeric'});
-    const detail=document.querySelector('#xpDayDetail');if(detail)detail.textContent=`${label} • ${Number(btn.dataset.xp||0)} XP`;
+    const detail=document.querySelector('#xpDayDetail');if(detail){const xp=Number(btn.dataset.xp||0),max=Number(btn.dataset.max||DATA.habits?.dailyMaxXP||360),pct=Math.round((xp/max)*100);detail.textContent=`${label} • ${xp} / ${max} XP (${pct}%)`;}
     document.querySelectorAll('.xp-day-bar.selected').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');
   });
   const scroll=document.querySelector('#xpHistoryScroll');if(scroll)requestAnimationFrame(()=>{scroll.scrollLeft=scroll.scrollWidth;});

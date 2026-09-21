@@ -1744,3 +1744,14 @@ body .topbar #networkBadge,
 .xp-day-bar small{height:12px;font-size:7px;color:#8f8575;line-height:12px}
 .xp-day-bar.selected i{outline:1px solid #f0c44e;outline-offset:2px}
 .xp-day-detail{margin:8px 0 0;text-align:center;color:#b8ad9c;font-size:9px;min-height:13px}
+
+
+/* v108 — Daily XP against fixed maximum + trend line */
+.xp-max-note{margin-top:10px;color:#8f8575;font-size:8px;text-align:right}
+.xp-history-bars{position:relative}
+.xp-trend-line{position:absolute;z-index:3;left:0;top:0;width:100%;height:140px;overflow:visible;pointer-events:none}
+.xp-trend-line polyline{fill:none;stroke:#f0c44e;stroke-width:1.35;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 2px rgba(240,196,78,.35))}
+.xp-trend-line circle{fill:#f6d66b;stroke:#171914;stroke-width:.7;vector-effect:non-scaling-stroke}
+.xp-day-bar{position:relative;z-index:2}
+.xp-day-bar u{opacity:.62}
+.xp-day-bar.selected u{opacity:.9}
