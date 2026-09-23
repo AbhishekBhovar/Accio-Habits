@@ -117,7 +117,7 @@ function questPriorityItems(){
 
   return items;
 }
-function maybeShowQuestInfo(){
+function legacy_maybeShowQuestInfo(){
   const items=questPriorityItems();
   if(!items.length) return;
   const key='accioQuestInfoShown';
@@ -301,7 +301,7 @@ function closeReveal(skip=false){document.querySelector('#revealOverlay').classN
 
 // ---------- daily habits ----------
 function sleepXP(hours){hours=Number(hours)||0;if(hours<DATA.habits.sleep.zeroBelowHours)return 0;if(hours>=8)return 50;return Math.round((hours/8)*50);}
-function toggleHabit(id){
+function legacy_toggleHabit(id){
   ensureAudio();
   const habit=DATA.habits.dailyHabits.find(h=>h.id===id);if(!habit||habit.input==='sleep')return;
   const day=getDaily(),entry=day.habits[id];
@@ -317,7 +317,7 @@ function toggleHabit(id){
 }
 function completeHabit(id){toggleHabit(id);}
 
-function saveSleep(){
+function legacy_saveSleep(){
   ensureAudio();
   const day=getDaily();
   const main=Math.max(0,Number(document.querySelector('#sleepHours').value)||0);
@@ -334,7 +334,7 @@ function saveSleep(){
   if(!before.perfectDay&&after.perfectDay){playChime('perfect');toast('🌟 PERFECT DAY • balanced readiness +1','perfect');}
 }
 
-function calculateDayStatus(key=localDateKey()){
+function legacy_calculateDayStatus(key=localDateKey()){
   const day=getDaily(key);let earned=0,max=DATA.habits.dailyMaxXP;
   for(const h of DATA.habits.dailyHabits){
     if(h.id==='sleep'){earned+=day.sleep?.scoreXp||0;continue;}
@@ -355,7 +355,7 @@ function logWeights(){ensureAudio();const week=ensureCurrentWeek(),date=localDat
 function undoWeights(){const week=ensureCurrentWeek();if(week.weights<=0)return toast('Nothing to undo for Gym.','warn');const date=week.weightDays.pop()||localDateKey();week.weights=Math.max(0,week.weights-1);decrementDayCredit(date,1);removeXP(100,'Gym Weight Lifting');playChime('undo');}
 function logCardio(credits=1){ensureAudio();const week=ensureCurrentWeek(),remaining=Math.max(0,4-week.cardio),accepted=Math.min(credits,remaining);if(accepted<=0)return toast('Incline / Stairs target already complete this week.','warn');week.cardio+=accepted;week.cardioLog.push({date:localDateKey(),credits:accepted});getDaily().weeklyCreditsToday+=accepted;const xp=accepted*40;addXP(xp,'Incline Walk / StairMaster');toast(`Incline / Stairs +${accepted} • +${xp} XP`);}
 function undoCardio(){const week=ensureCurrentWeek();if(week.cardio<=0)return toast('Nothing to undo for Incline / Stairs.','warn');const last=week.cardioLog.pop(),credits=Math.min(week.cardio,Math.max(1,last?.credits||1)),date=last?.date||localDateKey();week.cardio=Math.max(0,week.cardio-credits);decrementDayCredit(date,credits);removeXP(credits*40,'Incline Walk / StairMaster');playChime('undo');}
-function logSport(){ensureAudio();const week=ensureCurrentWeek();if(week.sportDueRemaining<=0)return toast('Sport / Outdoor weekly target is already complete.','warn');const date=localDateKey();week.sportActual++;week.sportLog.push({date,banked:false});getDaily().weeklyCreditsToday++;week.sportDueRemaining=Math.max(0,week.sportDueRemaining-1);addXP(50,'Sport / Outdoor Activities');toast(`Sport / Outdoor Activities • ${3-week.sportDueRemaining}/3 • +50 XP`);}
+function legacy_logSport(){ensureAudio();const week=ensureCurrentWeek();if(week.sportDueRemaining<=0)return toast('Sport / Outdoor weekly target is already complete.','warn');const date=localDateKey();week.sportActual++;week.sportLog.push({date,banked:false});getDaily().weeklyCreditsToday++;week.sportDueRemaining=Math.max(0,week.sportDueRemaining-1);addXP(50,'Sport / Outdoor Activities');toast(`Sport / Outdoor Activities • ${3-week.sportDueRemaining}/3 • +50 XP`);}
 function undoSport(){const week=ensureCurrentWeek(),progress=3-week.sportDueRemaining;if(progress<=0)return toast('Nothing to undo for Sport / Outdoor Activities.','warn');if(week.sportActual>0){const last=week.sportLog.pop(),date=last?.date||localDateKey();week.sportActual=Math.max(0,week.sportActual-1);week.sportDueRemaining=Math.min(3,week.sportDueRemaining+1);decrementDayCredit(date,1);removeXP(50,'Sport / Outdoor Activities');}else if((week.sportBankUsed||0)>0){week.sportBankUsed=Math.max(0,week.sportBankUsed-1);save.sportBank=(save.sportBank||0)+1;week.sportDueRemaining=Math.min(3,week.sportDueRemaining+1);persist();render();}playChime('undo');}
 function logSauna(credits){
   ensureAudio();const week=ensureCurrentWeek(),date=localDateKey(),remaining=Math.max(0,5-week.sauna),accepted=Math.min(credits,remaining);if(accepted<=0)return toast('Sauna target already complete this week.','warn');
@@ -436,14 +436,14 @@ function eventTimelineHtml(e,i){
   return `<article class="timeline-event ${type}"><div class="timeline-rail"><span>${icon}</span>${i<7?'<i></i>':''}</div><div class="timeline-copy"><small>${label}</small><strong>${escapeHtml(title)}</strong><em>${escapeHtml(meta)}</em></div></article>`;
 }
 
-function habitRowsHtml(habits,day){return habits.map(h=>{const entry=day.habits[h.id],done=entry?.completed;return `<button class="habit-row ${done?'done':''} ${h.id==='readStudy'?'study-row':''}" data-habit="${h.id}"><span class="habit-icon">${h.icon}</span><span class="habit-copy"><strong>${escapeHtml(h.name)}</strong></span><span class="habit-xp">${done?'↶':`+${h.xp}`}</span></button>`;}).join('');}
-function renderDailyHabits(){
+function legacy_habitRowsHtml(habits,day){return habits.map(h=>{const entry=day.habits[h.id],done=entry?.completed;return `<button class="habit-row ${done?'done':''} ${h.id==='readStudy'?'study-row':''}" data-habit="${h.id}"><span class="habit-icon">${h.icon}</span><span class="habit-copy"><strong>${escapeHtml(h.name)}</strong></span><span class="habit-xp">${done?'↶':`+${h.xp}`}</span></button>`;}).join('');}
+function legacy_renderDailyHabits(){
   const day=getDaily(),list=document.querySelector('#dailyHabitList'),habits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),completed=habits.filter(h=>day.habits[h.id]?.completed).length;document.querySelector('#routineBadge').textContent=`${completed} / ${habits.length}`;document.querySelector('#todayDateLabel').textContent=prettyDate(localDateKey());
   if(completed===habits.length){list.innerHTML=`<div class="routine-complete-strip"><span>✨</span><div><strong>All ${habits.length} daily missions complete</strong><small>Your checklist is tucked away for the rest of today.</small></div></div><details class="completed-details"><summary>View completed missions</summary><div class="completed-list">${habitRowsHtml(habits,day)}</div></details>`;}
   else list.innerHTML=habitRowsHtml(habits,day);
   list.querySelectorAll('[data-habit]').forEach(b=>b.onclick=()=>toggleHabit(b.dataset.habit));
 }
-function renderSleep(){
+function legacy_renderSleep(){
   const day=getDaily(),s=day.sleep;
   if(document.activeElement!==document.querySelector('#sleepHours'))document.querySelector('#sleepHours').value=s?.mainHours??'';
   if(document.activeElement!==document.querySelector('#napHours'))document.querySelector('#napHours').value=s?.napHours??'';
@@ -453,7 +453,7 @@ function renderSleep(){
 }
 
 function missionProgressDots(value,target){return Array.from({length:target},(_,i)=>`<span class="mission-dot ${i<value?'filled':''}"></span>`).join('');}
-function renderWeekly(){
+function legacy_renderWeekly(){
   const week=ensureCurrentWeek();document.querySelector('#weekLabel').textContent=`${prettyDate(weekKey())} – ${weekEndFromKey(weekKey()).toLocaleDateString(undefined,{day:'numeric',month:'short'})}`;
   document.querySelector('#weeklyMissionList').innerHTML=`
     <div class="weekly-mission ${week.weights>0?'has-progress':''}"><div class="weekly-info"><span class="weekly-icon">🏋️</span><div><strong>Gym</strong><small>4 sessions • 100 XP each</small><div class="mission-dots">${missionProgressDots(week.weights,4)}</div></div></div><div class="weekly-action"><b>${week.weights}/4</b><div class="stepper"><button id="undoWeights" class="undo-control" ${week.weights<=0?'disabled':''}>−</button><button id="logWeights" ${week.weights>=4?'disabled':''}>+</button></div></div></div>
@@ -968,7 +968,7 @@ function renderBattle(){
   });
 }
 
-function dailyXpHistory(days=30){
+function legacy_dailyXpHistory(days=30){
   const today=parseDateKey(localDateKey());
   const habitById=Object.fromEntries((DATA.habits?.dailyHabits||[]).map(h=>[h.id,h]));
   const xpByDate={};
@@ -998,7 +998,7 @@ function dailyXpHistory(days=30){
   }
   return rows;
 }
-function xpHistoryHtml(days){
+function legacy_xpHistoryHtml(days){
   const rows=dailyXpHistory(days);
   const dailyMax=Math.max(1,Number(DATA.habits?.dailyMaxXP||360));
   const barWidth=days<=31?9:days<=90?5:3;
@@ -1014,7 +1014,7 @@ function xpHistoryHtml(days){
     ${rows.map((x,i)=>{const h=x.xp?Math.max(3,Math.min(100,(x.xp/dailyMax)*100)):0;const label=x.date.toLocaleDateString(undefined,{day:'numeric',month:'short'});const pct=Math.round((x.xp/dailyMax)*100);return `<button class="xp-day-bar" data-date="${x.key}" data-xp="${x.xp}" data-max="${dailyMax}" aria-label="${label}: ${x.xp} of ${dailyMax} XP, ${pct}%"><i><u style="height:${h}%"></u></i>${days<=31?`<small>${x.date.getDate()}</small>`:''}</button>`;}).join('')}
   </div></div>`;
 }
-function bindXpHistory(){
+function legacy_bindXpHistory(){
   const days=Number(ui.statsXpRange||30),rows=dailyXpHistory(days);
   document.querySelectorAll('[data-xp-range]').forEach(btn=>btn.onclick=()=>{ui.statsXpRange=Number(btn.dataset.xpRange);renderStats();});
   document.querySelectorAll('.xp-day-bar').forEach(btn=>btn.onclick=()=>{
@@ -1025,7 +1025,7 @@ function bindXpHistory(){
   const scroll=document.querySelector('#xpHistoryScroll');if(scroll)requestAnimationFrame(()=>{scroll.scrollLeft=scroll.scrollWidth;});
 }
 
-function renderStats(){
+function legacy_renderStats(){
   const root=document.querySelector('#statsDashboard'); if(!root)return;
 
   const today=new Date();
@@ -1282,3 +1282,68 @@ function showMagicLoadingScreen(){
 
 
 showMagicLoadingScreen();
+
+// ===== v109 comprehensive habit-system redesign =====
+Object.assign(DATA.habits,{dailyMaxXP:280,weeklyMaxXP:80});
+DATA.habits.dailyHabits=[
+{id:'wake330',icon:'⏰',name:'Wake Up at 3:30 am',xp:20,rule:'Be out of bed at 3:30 am',group:'Routine',keystone:true,perfect:true},
+{id:'vipassanaMorning',icon:'🧘',name:'Morning Anapana & Vipassana',xp:20,rule:'10 minutes',group:'Mindfulness',keystone:true,perfect:true},
+{id:'morningShower',icon:'🚿',name:'Morning Shower',xp:10,rule:'Before 7:00 am',group:'Routine',perfect:true},
+{id:'fruit',icon:'🍌',name:'Fruit',xp:10,rule:'At least one serving of fruit',group:'Nutrition'},
+{id:'supplements',icon:'💊',name:'B12 + Vitamin D',xp:15,rule:'Take planned B12 + Vitamin D',group:'Routine',perfect:true},
+{id:'gym',icon:'🏋️',name:'Gym Workout',xp:100,rule:'Complete a genuine planned gym workout',group:'Activity',keystone:true,perfect:true},
+{id:'incline',icon:'🚶',name:'Incline Walk L15 / StairMaster',xp:40,rule:'At least 15 minutes',group:'Activity'},
+{id:'hindiSpeaking',icon:'🗣️',name:'Speak Hindi',xp:20,rule:'10 minutes of active speaking',group:'Knowledge',perfect:true},
+{id:'saunaDaily',icon:'🧖',name:'Sauna',xp:30,rule:'30 minutes = today; another 30 minutes banks tomorrow',group:'Recovery'},
+{id:'proteinCreatine',icon:'🥤',name:'Protein + Creatine Smoothie',xp:25,rule:'Have your protein + creatine smoothie',group:'Nutrition',perfect:true},
+{id:'healthyLunch',icon:'🥗',name:'Healthy Lunch',xp:25,rule:'Intentional, nutritionally sensible lunch',group:'Nutrition',perfect:true},
+{id:'herbalTea',icon:'☕',name:'Herbal Tea',xp:5,rule:'Have one herbal tea',group:'Nutrition'},
+{id:'water',icon:'💧',name:'2.5 L Water by 8 PM',xp:25,rule:'5 XP per 500 mL; full target by 8:00 pm',group:'Hydration',keystone:true,perfect:true,input:'water'},
+{id:'vipassanaNight',icon:'🧘',name:'Evening Anapana & Vipassana',xp:20,rule:'10 minutes in the evening/night',group:'Mindfulness',perfect:true},
+{id:'sleep',icon:'😴',name:'Sleep',xp:50,rule:'8 hours target; proportional XP below target',group:'Recovery',input:'sleep'}
+];
+DATA.habits.weeklyMissions=[
+{id:'sport',icon:'⚽',name:'Sport / Dance / Outdoor Activity',xpPerCredit:50,target:null,rule:'At least 60 minutes'},
+{id:'cycling',icon:'🚴',name:'Optional Cardio Cycling',xpPerCredit:30,target:null,rule:'At least 30 minutes'}
+];
+const V109_PERFECT=['wake330','vipassanaMorning','morningShower','supplements','gym','hindiSpeaking','proteinCreatine','healthyLunch','water','vipassanaNight'];
+const V109_KEYSTONE=['wake330','vipassanaMorning','gym','water'];
+const V109_MILESTONES=[[7,25],[14,50],[30,100],[60,150],[100,250],[180,400],[365,750]];
+ui.dailyDate=ui.dailyDate||localDateKey();
+function activeDailyKey(){const today=localDateKey(),y=localDateKey(addDays(parseDateKey(today),-1));return ui.dailyDate===y?y:today;}
+function dayHabitDone(key,id){const d=save.daily?.[key];if(id==='water')return Number(d?.waterMl||0)>=2500;return !!d?.habits?.[id]?.completed;}
+function waterXp(ml){return Math.min(25,Math.floor(Math.max(0,Number(ml)||0)/500)*5);}
+function v109Status(key=activeDailyKey()){
+ const d=getDaily(key),perfectDone=V109_PERFECT.filter(id=>dayHabitDone(key,id)).length,keyDone=V109_KEYSTONE.filter(id=>dayHabitDone(key,id)).length;
+ return {perfectDone,keyDone,perfectDay:perfectDone===V109_PERFECT.length,keystoneDay:keyDone===V109_KEYSTONE.length};
+}
+function streakFor(predicate,endKey=localDateKey()){let n=0,d=parseDateKey(endKey);for(let i=0;i<1500;i++){const k=localDateKey(d);if(!predicate(k))break;n++;d=addDays(d,-1);}return n;}
+function bestStreak(predicate){const keys=Object.keys(save.daily||{}).sort();let best=0,run=0,prev=null;for(const k of keys){if(prev&&localDateKey(addDays(parseDateKey(prev),1))!==k)run=0;if(predicate(k))run++;else run=0;best=Math.max(best,run);prev=k;}return best;}
+function celebration(kind,title,sub){const old=document.querySelector('.v109-celebrate');if(old)old.remove();const el=document.createElement('div');el.className=`v109-celebrate ${kind}`;el.innerHTML=`<div class="v109-magic-ring"></div><div class="v109-celebrate-card"><div class="v109-sigil">${kind==='meditation'?'🧘':kind==='keystone'?'🔑':'✦'}</div><small>${kind==='perfect'?'MAGICAL ACHIEVEMENT':'STREAK MILESTONE'}</small><h2>${escapeHtml(title)}</h2><p>${escapeHtml(sub||'')}</p></div>`;document.body.appendChild(el);setTimeout(()=>el.classList.add('show'),20);setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),500)},2800);}
+function awardMilestones(key,celebrate=false){save.v109Milestones=save.v109Milestones||{};const defs=[['keystone',k=>v109Status(k).keystoneDay,'Keystone Streak'],['perfect',k=>v109Status(k).perfectDay,'Perfect Day Streak'],['meditation',k=>dayHabitDone(k,'vipassanaMorning')&&dayHabitDone(k,'vipassanaNight'),'Meditation Streak']];for(const [type,pred,label] of defs){const n=streakFor(pred,key);const hit=V109_MILESTONES.find(x=>x[0]===n);if(!hit)continue;const token=`${type}:${n}:${key}`;if(save.v109Milestones[token])continue;save.v109Milestones[token]=true;addXP(hit[1],`${label} ${n} days`);if(celebrate)celebration(type,`${n} DAY ${label.toUpperCase()}`,`+${hit[1]} XP`);}}
+function evaluateV109(key,celebrate=false){const d=getDaily(key),s=v109Status(key);if(s.keystoneDay&&!d.v109KeystoneAwarded){d.v109KeystoneAwarded=true;addXP(50,'Keystone Day');if(celebrate)celebration('keystone','KEYSTONE DAY','4 / 4 COMPLETE • +50 XP');}if(s.perfectDay&&!d.v109PerfectAwarded){d.v109PerfectAwarded=true;if(celebrate)celebration('perfect','PERFECT DAY','All 10 core habits complete');}awardMilestones(key,celebrate);persist();}
+function toggleHabit(id){ensureAudio();const key=activeDailyKey(),habit=DATA.habits.dailyHabits.find(h=>h.id===id);if(!habit||habit.input)return;const day=getDaily(key),entry=day.habits[id];if(entry?.completed){const xp=entry.xpAwarded??habit.xp;delete day.habits[id];removeXP(xp,habit.name);playChime('undo');render();return;}day.habits[id]={completed:true,xpAwarded:habit.xp,ts:Date.now()};addXP(habit.xp,habit.name);playChime('success');toast(`${habit.name} complete • +${habit.xp} XP`);evaluateV109(key,true);render();}
+function addWater(ml){const key=activeDailyKey(),day=getDaily(key),old=Number(day.waterMl||0),next=Math.min(3000,old+Number(ml||0)),oldXp=waterXp(old),newXp=waterXp(next);day.waterMl=next;day.habits.water={completed:next>=2500,xpAwarded:newXp,ts:Date.now()};if(newXp>oldXp)addXP(newXp-oldXp,'Water');else{persist();render();}toast(`Water • ${(next/1000).toFixed(1)} / 2.5 L • ${newXp}/25 XP`);evaluateV109(key,true);render();}
+function resetWater(){const key=activeDailyKey(),d=getDaily(key),xp=waterXp(d.waterMl);d.waterMl=0;delete d.habits.water;if(xp)removeXP(xp,'Water');else{persist();render();}}
+function saunaSessions(key=activeDailyKey()){return Number(getDaily(key).saunaSessions||0);}
+function logSaunaDaily(){const key=activeDailyKey(),d=getDaily(key),n=saunaSessions(key);if(n>=2)return toast('Today and tomorrow sauna credit are already logged.','warn');d.saunaSessions=n+1;if(n===0){d.habits.saunaDaily={completed:true,xpAwarded:30,ts:Date.now()};addXP(30,'Sauna');}else{d.saunaBankTomorrow=true;persist();render();toast('Sauna • tomorrow banked ✓');}render();}
+function applySaunaBank(){const key=activeDailyKey(),prev=localDateKey(addDays(parseDateKey(key),-1)),pd=save.daily?.[prev],d=getDaily(key);if(pd?.saunaBankTomorrow&&!d.saunaBankApplied&&!d.habits.saunaDaily?.completed){d.saunaBankApplied=true;d.habits.saunaDaily={completed:true,xpAwarded:30,banked:true,ts:Date.now()};addXP(30,'Sauna — banked yesterday');}}
+function saveSleep(){ensureAudio();const key=activeDailyKey(),day=getDaily(key),main=Math.max(0,Number(document.querySelector('#sleepHours').value)||0),nap=Math.max(0,Number(document.querySelector('#napHours').value)||0),total=main+nap;if(total<=0)return toast('Enter your sleep or nap hours first.','warn');const newXp=sleepXP(total),oldXp=day.sleep?.xpAwarded||0,delta=newXp-oldXp;day.sleep={mainHours:main,napHours:nap,totalHours:total,xpAwarded:newXp,scoreXp:newXp,savedAt:Date.now()};if(delta>0)addXP(delta,'Sleep');else if(delta<0)removeXP(-delta,'Sleep');else{persist();render();}toast(`Sleep saved • ${total.toFixed(1)}h • ${newXp}/50 XP`);render();}
+function habitRowsHtml(habits,day){return habits.map(h=>{if(h.id==='water'){const ml=Number(day.waterMl||0),xp=waterXp(ml);return `<div class="habit-row water-row ${ml>=2500?'done':''}"><span class="habit-icon">💧</span><span class="habit-copy"><strong>2.5 L Water by 8 PM</strong><small>${(ml/1000).toFixed(1)} / 2.5 L • ${xp}/25 XP</small></span><button class="water-quick" data-water="500">+0.5L</button></div>`;}if(h.id==='saunaDaily'){const n=Number(day.saunaSessions||0),done=day.habits?.saunaDaily?.completed;return `<button class="habit-row ${done?'done':''}" data-sauna><span class="habit-icon">🧖</span><span class="habit-copy"><strong>Sauna — 30 min</strong><small>${day.habits?.saunaDaily?.banked?'Banked yesterday ✓':n>=2?'Tomorrow banked ✓':done?'Tap again after another 30 min to bank tomorrow':'30 min = +30 XP'}</small></span><span class="habit-xp">${done?'✓':'+30'}</span></button>`;}const entry=day.habits[h.id],done=entry?.completed;return `<button class="habit-row ${done?'done':''}" data-habit="${h.id}"><span class="habit-icon">${h.icon}</span><span class="habit-copy"><strong>${escapeHtml(h.name)}</strong><small>${escapeHtml(h.rule||'')}</small></span><span class="habit-xp">${done?'↶':`+${h.xp}`}</span></button>`;}).join('');}
+function renderDailyHabits(){const key=activeDailyKey();applySaunaBank();const day=getDaily(key),list=document.querySelector('#dailyHabitList'),habits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),completed=habits.filter(h=>h.id==='water'?Number(day.waterMl||0)>=2500:day.habits[h.id]?.completed).length;document.querySelector('#routineBadge').textContent=`${completed} / ${habits.length}`;document.querySelector('#todayDateLabel').textContent=key===localDateKey()?'Today':`Yesterday · ${prettyDate(key)}`;list.innerHTML=habitRowsHtml(habits,day);list.querySelectorAll('[data-habit]').forEach(b=>b.onclick=()=>toggleHabit(b.dataset.habit));list.querySelectorAll('[data-water]').forEach(b=>b.onclick=()=>addWater(Number(b.dataset.water)));list.querySelectorAll('[data-sauna]').forEach(b=>b.onclick=logSaunaDaily);const s=v109Status(key),strip=document.querySelector('#v109StatusStrip');if(strip)strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/4</button><span>✨ ${s.perfectDone}/10</span><span>💧 ${(Number(day.waterMl||0)/1000).toFixed(1)}/2.5 L</span>`;const yBtn=document.querySelector('#v109Yesterday'),tBtn=document.querySelector('#v109Today');if(yBtn)yBtn.classList.toggle('active',key!==localDateKey());if(tBtn)tBtn.classList.toggle('active',key===localDateKey());document.querySelector('#openKeystones')?.addEventListener('click',showKeystonePopup);}
+function renderSleep(){const day=getDaily(activeDailyKey()),s=day.sleep;const a=document.querySelector('#sleepHours'),b=document.querySelector('#napHours');if(document.activeElement!==a)a.value=s?.mainHours??'';if(document.activeElement!==b)b.value=s?.napHours??'';document.querySelector('#sleepXpPreview').textContent=`${s?.scoreXp??0} / 50 XP`;}
+function showKeystonePopup(){document.querySelector('.quest-info-overlay')?.remove();const key=activeDailyKey(),d=getDaily(key),s=v109Status(key),bottle=Number(save.v109Bottle||600);const overlay=document.createElement('div');overlay.className='quest-info-overlay quest-summon v109-keystone-overlay';overlay.innerHTML=`<div class="quest-info-panel v109-keystone-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🔑 KEYSTONE HABITS</div><div class="quest-info-title">${key===localDateKey()?"Today's anchors":"Yesterday's anchors"}</div><div class="v109-key-list">${[['wake330','⏰','Wake Up — 3:30 am',20],['vipassanaMorning','🧘','Morning Anapana & Vipassana',20],['gym','🏋️','Gym Workout',100]].map(x=>`<button data-keyhabit="${x[0]}" class="v109-key-row ${dayHabitDone(key,x[0])?'done':''}"><span>${x[1]}</span><b>${x[2]}</b><em>${dayHabitDone(key,x[0])?'✓':`+${x[3]}`}</em></button>`).join('')}<div class="v109-water-box"><div><b>💧 Water</b><em>${(Number(d.waterMl||0)/1000).toFixed(1)} / 2.5 L</em></div><div class="v109-water-track"><i style="width:${Math.min(100,Number(d.waterMl||0)/25)}%"></i></div><small>Bottle</small><div class="v109-bottles">${[600,1000,2200].map(n=>`<button data-bottle="${n}" class="${bottle===n?'active':''}">${n===1000?'1 L':n===2200?'2.2 L':'600 mL'}</button>`).join('')}</div><div class="v109-water-actions"><button data-addbottle="${bottle}">+ Finished bottle</button><button data-water500>+ 500 mL</button></div></div></div><div class="v109-key-footer">${s.keystoneDay?'🔑 Keystone Day complete ✓':'Complete all four → +50 XP'}</div></div>`;document.body.appendChild(overlay);const close=()=>overlay.remove();overlay.querySelector('.quest-info-close').onclick=close;overlay.onclick=e=>{if(e.target===overlay)close();};overlay.querySelectorAll('[data-keyhabit]').forEach(b=>b.onclick=()=>{toggleHabit(b.dataset.keyhabit);close();showKeystonePopup();});overlay.querySelectorAll('[data-bottle]').forEach(b=>b.onclick=()=>{save.v109Bottle=Number(b.dataset.bottle);persist();close();showKeystonePopup();});overlay.querySelector('[data-addbottle]').onclick=()=>{addWater(Number(overlay.querySelector('[data-addbottle]').dataset.addbottle));close();showKeystonePopup();};overlay.querySelector('[data-water500]').onclick=()=>{addWater(500);close();showKeystonePopup();};}
+function maybeShowQuestInfo(){const key='accioKeystoneShownV109';if(sessionStorage.getItem(key)==='1')return;sessionStorage.setItem(key,'1');showKeystonePopup();}
+function logSport(){const week=ensureCurrentWeek(),date=activeDailyKey();week.sportActual=(week.sportActual||0)+1;week.sportLog=week.sportLog||[];week.sportLog.push({date,banked:false,v109:true});addXP(50,'Sport / Dance / Outdoor Activity');toast('Sport / Dance / Outdoor • +50 XP');}
+function logCycling(){const week=ensureCurrentWeek(),date=activeDailyKey();week.cyclingLog=week.cyclingLog||[];week.cyclingLog.push({date,xpAwarded:30});addXP(30,'Optional Cardio Cycling');toast('Cycling • +30 XP');}
+function renderWeekly(){const week=ensureCurrentWeek();document.querySelector('#weekLabel').textContent=`${prettyDate(weekKey())} – ${weekEndFromKey(weekKey()).toLocaleDateString(undefined,{day:'numeric',month:'short'})}`;const sport=(week.sportLog||[]).filter(x=>x.v109).length,cycling=(week.cyclingLog||[]).length;document.querySelector('#weeklyMissionList').innerHTML=`<div class="weekly-mission"><div class="weekly-info"><span class="weekly-icon">⚽</span><div><strong>Sport / Dance / Outdoor</strong><small>60+ min • 50 XP each</small></div></div><div class="weekly-action"><b>${sport}</b><button id="logSport">+</button></div></div><div class="weekly-mission"><div class="weekly-info"><span class="weekly-icon">🚴</span><div><strong>Optional Cardio Cycling</strong><small>30+ min • 30 XP each</small></div></div><div class="weekly-action"><b>${cycling}</b><button id="logCycling">+</button></div></div>`;document.querySelector('#logSport').onclick=logSport;document.querySelector('#logCycling').onclick=logCycling;}
+function calculateDayStatus(key=activeDailyKey()){const d=getDaily(key),s=v109Status(key);let earned=0;for(const h of DATA.habits.dailyHabits){if(h.id==='sleep')earned+=d.sleep?.scoreXp||0;else if(h.id==='water')earned+=waterXp(d.waterMl);else if(d.habits[h.id]?.completed)earned+=d.habits[h.id].xpAwarded??h.xp;}return {earned,max:280,discipline:s.perfectDone/10,perfectRoutine:s.perfectDay,perfectDay:s.perfectDay,exceptionalDay:false,sleepHours:d.sleep?.totalHours||0};}
+function dailyXpHistory(days=30){const today=parseDateKey(localDateKey()),xpByDate={};const add=(date,a)=>{if(date)xpByDate[date]=(xpByDate[date]||0)+Math.max(0,Number(a)||0)};for(const [date,d] of Object.entries(save.daily||{})){for(const [id,e] of Object.entries(d.habits||{})){if(e?.completed&&id!=='water')add(date,e.xpAwarded||0);}add(date,waterXp(d.waterMl));add(date,d.sleep?.xpAwarded||0);if(d.v109KeystoneAwarded)add(date,50);}for(const w of Object.values(save.weekly||{})){for(const x of (w.sportLog||[]))if(x.v109)add(x.date,50);for(const x of (w.cyclingLog||[]))add(x.date,30);}const rows=[];for(let o=days-1;o>=0;o--){const d=addDays(today,-o),key=localDateKey(d);rows.push({key,date:d,xp:Math.round(xpByDate[key]||0)});}return rows;}
+function xpHistoryHtml(days){const rows=dailyXpHistory(days),ref=280,barWidth=days<=31?9:days<=90?5:3,gap=days<=31?4:days<=90?3:2,plotH=140,peak=Math.max(400,...rows.map(x=>x.xp)),step=barWidth+gap,chartW=rows.length*barWidth+(rows.length-1)*gap,points=rows.map((x,i)=>`${(i*step+barWidth/2).toFixed(1)},${(plotH-(x.xp/peak*plotH)).toFixed(1)}`).join(' '),refY=plotH-(ref/peak*plotH);return `<div class="xp-max-note">Reference: ${ref} XP — Perfect Day Core</div><div class="xp-history-scroll" id="xpHistoryScroll"><div class="xp-history-bars" style="--xp-bar-w:${barWidth}px;--xp-gap:${gap}px;width:${chartW}px;min-width:${chartW}px"><svg class="xp-trend-line" style="width:${chartW}px" viewBox="0 0 ${chartW} ${plotH}" preserveAspectRatio="none"><line class="xp-core-line" x1="0" y1="${refY}" x2="${chartW}" y2="${refY}"></line><polyline points="${points}"></polyline></svg>${rows.map(x=>`<button class="xp-day-bar" data-date="${x.key}" data-xp="${x.xp}" data-max="${ref}"><i><u style="height:${Math.min(100,x.xp/peak*100)}%"></u></i>${days<=31?`<small>${x.date.getDate()}</small>`:''}</button>`).join('')}</div></div>`;}
+function completionRate(id,days){let hit=0;const today=parseDateKey(localDateKey());for(let i=0;i<days;i++){const k=localDateKey(addDays(today,-i));if(dayHabitDone(k,id))hit++;}return hit;}
+function habitLifetime(id){return Object.keys(save.daily||{}).reduce((n,k)=>n+(dayHabitDone(k,id)?1:0),0);}
+function habitMini(id){const today=parseDateKey(localDateKey());return Array.from({length:30},(_,i)=>{const k=localDateKey(addDays(today,-29+i));return `<i class="${dayHabitDone(k,id)?'on':''}"></i>`}).join('');}
+function renderStats(){const root=document.querySelector('#statsDashboard');if(!root)return;const today=localDateKey(),ks=k=>v109Status(k).keystoneDay,ps=k=>v109Status(k).perfectDay,ms=k=>dayHabitDone(k,'vipassanaMorning')&&dayHabitDone(k,'vipassanaNight'),core7=Math.round(Array.from({length:7},(_,i)=>v109Status(localDateKey(addDays(parseDateKey(today),-i))).perfectDone).reduce((a,b)=>a+b,0)/(7*10)*100),core30=Math.round(Array.from({length:30},(_,i)=>v109Status(localDateKey(addDays(parseDateKey(today),-i))).perfectDone).reduce((a,b)=>a+b,0)/(30*10)*100);const perfectTotal=Object.keys(save.daily||{}).filter(ps).length;const habits=DATA.habits.dailyHabits.filter(h=>!['sleep','water'].includes(h.id));let sleepVals=[],waterVals=[];for(let i=0;i<30;i++){const k=localDateKey(addDays(parseDateKey(today),-i)),d=save.daily?.[k];if(d?.sleep?.totalHours>0)sleepVals.push(d.sleep.totalHours);waterVals.push(Number(d?.waterMl||0)/1000);}root.innerHTML=`<section class="stats62 v109-stats"><div class="v109-overall"><div><span>🔑 Keystone</span><strong>${streakFor(ks)} days</strong><small>Best ${bestStreak(ks)}</small></div><div><span>✨ Perfect Day</span><strong>${streakFor(ps)} days</strong><small>Best ${bestStreak(ps)}</small></div><div><span>🧘 Meditation</span><strong>${streakFor(ms)} days</strong><small>Best ${bestStreak(ms)}</small></div><div><span>🏆 Perfect Days</span><strong>${perfectTotal}</strong><small>Lifetime</small></div></div><div class="v109-rates"><span>7-day core <b>${core7}%</b></span><span>30-day core <b>${core30}%</b></span></div><section class="stats62-card xp-history-card"><div class="xp-history-head"><span class="eyebrow">DAILY XP</span><div class="xp-range-tabs"><button data-xp-range="30" class="${Number(ui.statsXpRange||30)===30?'active':''}">1M</button><button data-xp-range="90" class="${Number(ui.statsXpRange||30)===90?'active':''}">3M</button><button data-xp-range="365" class="${Number(ui.statsXpRange||30)===365?'active':''}">1Y</button></div></div>${xpHistoryHtml(Number(ui.statsXpRange||30))}<p class="xp-day-detail" id="xpDayDetail">Tap a day to see its XP</p></section><section class="stats62-card"><span class="eyebrow">WATER</span><div class="v109-stat-grid"><b>${(waterVals.slice(0,7).reduce((a,b)=>a+b,0)/7).toFixed(1)} L<small>7-day avg</small></b><b>${(waterVals.reduce((a,b)=>a+b,0)/30).toFixed(1)} L<small>30-day avg</small></b><b>${waterVals.filter(x=>x>=2.5).length}/30<small>Target days</small></b></div></section><section class="stats62-card"><span class="eyebrow">SLEEP</span><div class="v109-stat-grid"><b>${sleepVals[0]?sleepVals[0].toFixed(1)+'h':'—'}<small>Last sleep</small></b><b>${sleepVals.length?(sleepVals.slice(0,7).reduce((a,b)=>a+b,0)/Math.min(7,sleepVals.length)).toFixed(1)+'h':'—'}<small>7-day avg</small></b><b>${sleepVals.filter(x=>x>=8).length}<small>8h nights / 30</small></b></div></section><div class="v109-habit-stats">${habits.map(h=>`<details class="stats62-card v109-habit-card"><summary><span>${h.icon} ${escapeHtml(h.name)}</span><b>${completionRate(h.id,7)}/7</b></summary><div class="v109-stat-grid"><b>${streakFor(k=>dayHabitDone(k,h.id))}<small>Current streak</small></b><b>${bestStreak(k=>dayHabitDone(k,h.id))}<small>Best streak</small></b><b>${completionRate(h.id,30)}/30<small>Last 30 days</small></b><b>${habitLifetime(h.id)}<small>Lifetime</small></b></div><div class="v109-mini-history">${habitMini(h.id)}</div></details>`).join('')}</div></section>`;bindXpHistory();}
+const _v109Bind=bindXpHistory;function bindXpHistory(){document.querySelectorAll('[data-xp-range]').forEach(btn=>btn.onclick=()=>{ui.statsXpRange=Number(btn.dataset.xpRange);renderStats();});document.querySelectorAll('.xp-day-bar').forEach(btn=>btn.onclick=()=>{const detail=document.querySelector('#xpDayDetail');if(detail)detail.textContent=`${prettyDate(btn.dataset.date)} • ${btn.dataset.xp} XP`;});const sc=document.querySelector('#xpHistoryScroll');if(sc)requestAnimationFrame(()=>sc.scrollLeft=sc.scrollWidth);}
+// Install date controls and refresh the redesigned UI after legacy startup.
+setTimeout(()=>{const y=document.querySelector('#v109Yesterday'),t=document.querySelector('#v109Today');if(y)y.onclick=()=>{ui.dailyDate=localDateKey(addDays(parseDateKey(localDateKey()),-1));render();};if(t)t.onclick=()=>{ui.dailyDate=localDateKey();render();};render();},0);

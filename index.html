@@ -11,7 +11,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png?v=83">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=84">
-  <link rel="stylesheet" href="./styles-v65.css?v=108">
+  <link rel="stylesheet" href="./styles-v65.css?v=109">
 
 
 <style id="hp64-dark-hufflepuff-palette">
@@ -146,12 +146,8 @@ html,body{background:#000!important}
         </section>
 
         <section class="action-zone">
-          <div class="zone-heading compact-heading"><h2>Weekly Missions</h2></div>
-          <div class="card mission-panel">
-            <div class="section-head"><h3>This week</h3><span id="weekLabel" class="mini-badge"></span></div>
-            <div id="weeklyMissionList" class="weekly-list"></div>
-          </div>
-
+          <div class="v109-day-nav"><button id="v109Yesterday">‹ Yesterday</button><button id="v109Today" class="active">Today</button></div>
+          <div id="v109StatusStrip" class="v109-status-strip"></div>
           <div class="zone-heading daily-heading compact-heading"><h2>Daily Missions</h2></div>
           <div class="card mission-panel daily-panel">
             <div class="section-head"><div><h3 id="todayDateLabel">Daily missions</h3></div><span id="routineBadge" class="mini-badge">0 / 11</span></div>
@@ -166,6 +162,13 @@ html,body{background:#000!important}
               <button id="saveSleep" class="primary sleep-save-compact">Save</button>
             </div>
           </div>
+
+          <div class="zone-heading compact-heading v109-weekly-heading"><h2>Weekly / Optional</h2></div>
+          <div class="card mission-panel v109-weekly-panel">
+            <div class="section-head"><h3>This week</h3><span id="weekLabel" class="mini-badge"></span></div>
+            <div id="weeklyMissionList" class="weekly-list"></div>
+          </div>
+
         </section>
       </section>
 
@@ -199,7 +202,7 @@ html,body{background:#000!important}
     </div>
   </div>
 
-  <script type="module" src="./app-v65.js?v=108"></script>
+  <script type="module" src="./app-v65.js?v=109"></script>
 
 <script>
 window.addEventListener('load', async () => {
