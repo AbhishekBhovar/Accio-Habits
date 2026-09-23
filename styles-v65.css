@@ -1766,3 +1766,50 @@ body .topbar #networkBadge,
 .water-row{grid-template-columns:auto minmax(0,1fr) auto!important;align-items:center}.v110-water-buttons{display:flex;gap:4px;align-items:center}.v110-water-buttons button{border:1px solid #665327;background:#1b1810;color:#e8c85d;border-radius:9px;min-width:34px;height:34px;padding:0 7px;font-size:9px;font-weight:900}.v110-water-buttons button:disabled,.weekly-action button:disabled,.v110-water-meta button:disabled{opacity:.3}
 .v110-row-water-track{display:block;height:4px;background:#29271f;border-radius:99px;overflow:hidden;margin-top:5px}.v110-row-water-track i{display:block;height:100%;background:linear-gradient(90deg,#b58725,#f0d46d)}
 .v109-keystone-panel{max-width:370px!important}.v110-water-compact{border:1px solid #3b3423;background:#10120f;border-radius:14px;padding:10px 11px}.v110-water-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.v110-water-head span{display:flex;align-items:center;gap:7px;color:#eee5d0}.v110-water-head small{color:#d4af37;font-weight:900;font-size:10px}.v110-water-head button{border:1px solid #6b5727;background:#d4af37;color:#111;border-radius:10px;padding:8px 10px;font-size:10px;font-weight:900;white-space:nowrap}.v110-five-step{position:relative;margin:8px 0 5px!important}.v110-five-step>span{position:absolute;top:0;bottom:0;width:1px;background:rgba(10,10,8,.65)}.v110-five-step>span:nth-of-type(1){left:20%}.v110-five-step>span:nth-of-type(2){left:40%}.v110-five-step>span:nth-of-type(3){left:60%}.v110-five-step>span:nth-of-type(4){left:80%}.v110-water-meta{display:flex;justify-content:space-between;align-items:center;color:#d4af37;font-size:9px}.v110-water-meta button{border:0;background:transparent;color:#a89e8c;font-size:9px;font-weight:800;padding:4px 0}.v110-mini-panel{max-width:350px!important}.v110-mini-actions{display:grid;gap:8px;margin-top:13px}.v110-mini-actions button{border:1px solid #5b4824;background:#171812;color:#e5d9c2;border-radius:12px;padding:12px;font-weight:900}.v110-mini-actions button:first-child{color:#e7c34f}.v110-perfect-panel{max-width:370px!important}.v110-perfect-list{display:grid;gap:5px;margin-top:12px}.v110-perfect-list>div{display:grid;grid-template-columns:24px minmax(0,1fr) 22px;align-items:center;gap:7px;padding:7px 9px;border:1px solid #302b20;border-radius:10px;background:#11120f}.v110-perfect-list b{font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#d8cfbd}.v110-perfect-list em{font-style:normal;text-align:center;color:#777064}.v110-perfect-list .done{border-color:#756023}.v110-perfect-list .done em{color:#e2bd43;font-weight:900}.weekly-info{min-width:0}.weekly-info>div{min-width:0}.weekly-info strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:clamp(9px,2.8vw,12px)}.weekly-action{display:flex!important;align-items:center;gap:5px}.weekly-action button{min-width:32px;height:32px;border-radius:9px!important}
+\n\n/* v111 — Expelliarmus launch. Preserve the approved Elder Wand geometry; replace Lumos light with a red/gold disarming-spell cast. */
+#launchBlackout .lumos-tip{
+  background:#fff7ed;
+  box-shadow:0 0 4px #fff,0 0 10px #ffd7b0,0 0 22px rgba(255,82,82,.98),0 0 48px rgba(219,28,28,.86),0 0 86px rgba(127,15,15,.54);
+}
+#launchBlackout .lumos-halo-1{
+  background:radial-gradient(circle,rgba(255,248,232,1) 0 4%,rgba(255,190,152,.98) 10%,rgba(255,77,77,.82) 24%,rgba(202,28,28,.34) 44%,rgba(125,14,14,.10) 62%,transparent 77%);
+}
+#launchBlackout .lumos-halo-2{
+  background:radial-gradient(circle,rgba(255,190,160,.26) 0 8%,rgba(239,68,68,.16) 20%,rgba(185,28,28,.07) 39%,rgba(127,29,29,.02) 58%,transparent 82%);
+}
+#launchBlackout .lumos-ray{
+  background:linear-gradient(90deg,rgba(255,244,226,.48) 0%,rgba(255,118,92,.31) 24%,rgba(239,68,68,.13) 55%,transparent 100%);
+  filter:blur(9px);
+}
+#launchBlackout .lumos-bloom{
+  width:92vmax;height:92vmax;
+  background:radial-gradient(circle,rgba(255,248,232,.98) 0 2%,rgba(255,169,124,.91) 6%,rgba(255,76,76,.68) 13%,rgba(211,32,32,.32) 23%,rgba(128,17,17,.10) 37%,transparent 57%);
+}
+#launchBlackout .lumos-whiteout{
+  background:radial-gradient(circle at var(--lumos-x,65%) var(--lumos-y,68%),rgba(255,247,235,.94) 0 4%,rgba(255,112,91,.62) 12%,rgba(190,24,24,.28) 26%,rgba(50,5,8,.30) 49%,rgba(0,0,0,.04) 72%,transparent 100%);
+}
+#launchBlackout .lumos-star.warm{background:rgba(255,194,153,.94);box-shadow:0 0 var(--sg) rgba(255,93,73,.48)}
+.expelliarmus-spell{
+  position:absolute;z-index:12;left:50%;top:30%;transform:translate(-50%,-50%) scale(.84);
+  opacity:0;white-space:nowrap;pointer-events:none;
+  font-family:Georgia,'Times New Roman',serif;font-weight:800;font-size:clamp(25px,8vw,39px);letter-spacing:.075em;
+  color:#fff2df;text-shadow:0 0 5px #fff,0 0 14px #ffb07d,0 0 30px #ef4444,0 0 58px #991b1b;
+}
+.lumos-ignite .expelliarmus-spell{animation:expelliarmusWord111 1.12s cubic-bezier(.18,.76,.24,1) forwards}
+.expelliarmus-bolt{
+  position:absolute;z-index:11;left:var(--lumos-x,65%);top:var(--lumos-y,68%);width:7px;height:7px;border-radius:50%;opacity:0;pointer-events:none;
+  background:#fff8e7;box-shadow:0 0 5px #fff,0 0 13px #ffd0a6,0 0 28px #ef4444,0 0 54px #b91c1c;
+  transform:translate(-50%,-50%);
+}
+.expelliarmus-bolt::after{content:"";position:absolute;right:2px;top:50%;width:66vw;height:4px;transform-origin:100% 50%;transform:translateY(-50%) rotate(-33deg);background:linear-gradient(90deg,transparent,rgba(239,68,68,.10),rgba(255,98,80,.74),#fff4dd);filter:blur(.6px);border-radius:999px;box-shadow:0 0 9px rgba(239,68,68,.72)}
+.lumos-expand .expelliarmus-bolt{animation:expelliarmusBolt111 .72s cubic-bezier(.12,.72,.15,1) forwards}
+@keyframes expelliarmusWord111{0%{opacity:0;transform:translate(-50%,-50%) scale(.84);letter-spacing:.13em}24%{opacity:1}58%{opacity:1;transform:translate(-50%,-50%) scale(1.04);letter-spacing:.075em}100%{opacity:0;transform:translate(-50%,-54%) scale(1.08);filter:blur(1.2px)}}
+@keyframes expelliarmusBolt111{0%{opacity:0;transform:translate(-50%,-50%) scale(.15)}18%{opacity:1}48%{opacity:1;transform:translate(-50%,-50%) scale(2.1)}100%{opacity:0;transform:translate(-50%,-50%) scale(4.2)}}
+@media(prefers-reduced-motion:reduce){.expelliarmus-spell{opacity:1}.expelliarmus-bolt{opacity:.8}}
+
+/* v112 — compact status, aggregate sleep, line-only XP chart, tap stability */
+button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.v109-status-strip{grid-template-columns:repeat(2,1fr)!important}
+.v112-sleep-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:11px}.v112-sleep-copy{min-width:0}.v112-sleep-copy strong{display:block;color:var(--hp-text,#F2EBD7);font-size:clamp(11px,3vw,14px);white-space:nowrap}.v112-sleep-copy small{display:block;color:#9a9182;font-size:9px;margin-top:3px}.v112-sleep-track{display:block;height:5px;background:#29271f;border-radius:99px;overflow:hidden;margin-top:7px}.v112-sleep-track i{display:block;height:100%;background:linear-gradient(90deg,#b58725,#f0d46d)}.v112-sleep-buttons{display:flex;gap:5px}.v112-sleep-buttons button{border:1px solid #665327;background:#1b1810;color:#e8c85d;border-radius:9px;min-width:42px;height:38px;padding:0 7px;font-size:9px;font-weight:900}.v112-sleep-buttons button:disabled{opacity:.3}
+.v112-overall{grid-template-columns:repeat(2,1fr)!important;margin-bottom:12px}.v109-rates{display:none!important}
+.v112-xp-line-wrap{position:relative;height:164px;min-width:100%}.xp-trend-line.v112-line-only{position:relative!important;display:block;height:162px!important;overflow:visible;pointer-events:auto}.v112-line-only polyline{fill:none;stroke:#f0c44e;stroke-width:1.7;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 2px rgba(240,196,78,.35))}.v112-line-only .v112-xp-point{fill:#f6d66b;stroke:#171914;stroke-width:1;vector-effect:non-scaling-stroke;cursor:pointer}.v112-line-only .v112-xp-point.selected{stroke:#fff2b3;stroke-width:2.5}.v112-line-only text{fill:#8f8575;font:7px system-ui;pointer-events:none}
