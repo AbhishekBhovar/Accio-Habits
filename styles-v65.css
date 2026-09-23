@@ -1831,3 +1831,89 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
 @keyframes v113RedBloom{0%{opacity:0;transform:translate(-50%,-50%) scale(.05)}18%{opacity:1}100%{opacity:1;transform:translate(-50%,-50%) scale(15)}}
 @keyframes v113RedBolt{0%{opacity:0;transform:translate(-50%,-50%) scale(.1)}15%{opacity:1}60%{opacity:1;transform:translate(-50%,-50%) scale(3.8)}100%{opacity:.15;transform:translate(-50%,-50%) scale(7)}}
 @keyframes v113RedConsume{0%{opacity:0;transform:scale(.12)}20%{opacity:.92}100%{opacity:1;transform:scale(1.35)}}
+
+/* v114 — home date + non-directional Expelliarmus flood */
+.v114-home-date{
+  margin-top:3px;
+  color:rgba(34,28,13,.72);
+  font-size:10px;
+  line-height:1.1;
+  font-weight:900;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+#launchBlackout .lumos-ray,
+#launchBlackout .expelliarmus-bolt{display:none!important}
+
+/* No laser / directional streak: every launch layer expands from the measured wand tip. */
+#launchBlackout .lumos-halo-1,
+#launchBlackout .lumos-halo-2,
+#launchBlackout .lumos-bloom{
+  left:var(--lumos-x,65%)!important;
+  top:var(--lumos-y,68%)!important;
+  transform-origin:50% 50%!important;
+}
+#launchBlackout .lumos-halo-1{
+  background:radial-gradient(circle,
+    rgba(255,238,224,.98) 0 2%,
+    rgba(255,38,38,.98) 5%,
+    rgba(225,0,28,.96) 15%,
+    rgba(161,0,22,.82) 34%,
+    rgba(83,0,14,.52) 56%,
+    transparent 76%)!important;
+}
+#launchBlackout .lumos-halo-2{
+  background:radial-gradient(circle,
+    rgba(255,61,51,.92) 0 5%,
+    rgba(226,0,28,.92) 17%,
+    rgba(153,0,21,.75) 38%,
+    rgba(70,0,13,.42) 62%,
+    transparent 80%)!important;
+}
+#launchBlackout .lumos-bloom{
+  width:78vmax!important;height:78vmax!important;
+  background:radial-gradient(circle,
+    rgba(255,228,211,.92) 0 1.5%,
+    rgba(255,34,36,.99) 5%,
+    rgba(222,0,29,.98) 17%,
+    rgba(157,0,23,.92) 38%,
+    rgba(89,0,17,.84) 61%,
+    rgba(39,0,10,.72) 79%,
+    transparent 100%)!important;
+  filter:blur(1.5px)!important;
+}
+#launchBlackout .lumos-whiteout{
+  background:radial-gradient(circle at var(--lumos-x,65%) var(--lumos-y,68%),
+    #ff5a4d 0 2%,
+    #ee001f 10%,
+    #c40020 28%,
+    #850018 51%,
+    #4a000f 72%,
+    #170006 100%)!important;
+  mix-blend-mode:normal!important;
+}
+.lumos-ignite .lumos-halo-1{animation:v114SpellIgnite .16s cubic-bezier(.02,.94,.06,1) forwards!important}
+.lumos-expand .lumos-halo-2{animation:v114SpellFlood .30s cubic-bezier(.01,.95,.04,1) forwards!important}
+.lumos-expand .lumos-bloom{animation:v114SpellBloom .34s cubic-bezier(.01,.96,.04,1) forwards!important}
+.lumos-white .lumos-whiteout{animation:v114SpellConsume .22s cubic-bezier(.01,.96,.04,1) forwards!important}
+@keyframes v114SpellIgnite{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.03)}
+  30%{opacity:1}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(2.1)}
+}
+@keyframes v114SpellFlood{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.08)}
+  14%{opacity:1}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(12)}
+}
+@keyframes v114SpellBloom{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.025)}
+  12%{opacity:1}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(17)}
+}
+@keyframes v114SpellConsume{
+  0%{opacity:0}
+  18%{opacity:.96}
+  100%{opacity:1}
+}
