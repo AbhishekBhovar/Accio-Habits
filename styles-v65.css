@@ -2012,3 +2012,43 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
 /* v117 — three-day editor */
 .v109-day-nav{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important}
 .v109-day-nav button{padding:8px 6px!important;font-size:10px!important;white-space:nowrap!important}
+
+/* v118 — compact, consistent Keystone popup */
+.v109-keystone-panel .v109-key-row{min-height:58px!important}
+.v109-keystone-panel .v109-key-row b{
+  font-size:13px!important;line-height:1.18!important;letter-spacing:0!important
+}
+.v109-keystone-panel .v109-key-row em{
+  font-size:15px!important;line-height:1!important
+}
+.v109-keystone-panel .v110-water-compact{
+  padding:12px 14px 11px!important;border-radius:16px!important;min-height:0!important
+}
+.v109-keystone-panel .v110-water-head{
+  min-height:34px!important;gap:8px!important;align-items:center!important
+}
+.v109-keystone-panel .v110-water-head>span{
+  gap:7px!important;align-items:center!important
+}
+.v109-keystone-panel .v110-water-head b{
+  font-size:14px!important;line-height:1!important
+}
+.v109-keystone-panel .v110-water-head small{
+  font-size:11px!important;line-height:1!important;letter-spacing:0!important
+}
+.v109-keystone-panel .v110-water-head>button{
+  min-width:76px!important;min-height:34px!important;padding:7px 10px!important;
+  border-radius:11px!important;font-size:11px!important;line-height:1!important
+}
+.v109-keystone-panel .v110-water-bar{
+  height:7px!important;margin-top:9px!important
+}
+.v109-keystone-panel .v110-water-foot{
+  margin-top:7px!important;font-size:10px!important;line-height:1!important
+}
+.v109-keystone-panel .v110-water-foot button{
+  font-size:10px!important;line-height:1!important;padding:4px 0!important;min-height:24px!important
+}
+.v109-keystone-panel .v109-key-footer{
+  font-size:15px!important;line-height:1.15!important
+}
