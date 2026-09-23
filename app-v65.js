@@ -1264,20 +1264,20 @@ function showMagicLoadingScreen(){
     }
     wrap.classList.add('lumos-ignite');
   },860);
-  setTimeout(()=>wrap.classList.add('lumos-expand'),1320);
-  setTimeout(()=>wrap.classList.add('lumos-white'),2120);
+  setTimeout(()=>wrap.classList.add('lumos-expand'),1040);
+  setTimeout(()=>wrap.classList.add('lumos-white'),1330);
 
   // Expelliarmus resolves, then reveal the app directly.
   setTimeout(()=>{
     const app=document.getElementById('app');
     if(app) app.style.setProperty('visibility','visible','important');
     wrap.classList.add('launch-reveal');
-  },3000);
+  },1830);
   setTimeout(()=>{
     wrap.remove();
     const critical=document.getElementById('launch-blackout-critical');
     if(critical) critical.remove();
-  },3300);
+  },2080);
 }
 
 
@@ -1447,3 +1447,18 @@ renderStats = function(){const root=document.querySelector('#statsDashboard');if
 document.addEventListener('dblclick',e=>{if(e.target.closest('button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel'))e.preventDefault();},{passive:false});
 document.addEventListener('touchend',(()=>{let last=0;return e=>{if(!e.target.closest('button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel'))return;const now=Date.now();if(now-last<300)e.preventDefault();last=now;};})(),{passive:false});
 setTimeout(()=>render(),0);
+
+/* v113 — final polish: dated keystones, optional cycling intervals */
+function v113PopupDate(key){return parseDateKey(key).toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'short'}).toUpperCase().replace(',',' ·');}
+showKeystonePopup = function(){
+  document.querySelector('.quest-info-overlay')?.remove();
+  const key=activeDailyKey(),d=getDaily(key),s=v109Status(key);
+  const o=document.createElement('div');o.className='quest-info-overlay quest-summon v109-keystone-overlay';
+  o.innerHTML=`<div class="quest-info-panel v109-keystone-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🔑 KEYSTONE HABITS</div><div class="quest-info-title">${key===localDateKey()?"Today's anchors":"Yesterday's anchors"}</div><div class="v113-popup-date">${v113PopupDate(key)}</div><div class="v109-key-list">${[['wake330','⏰','Wake Up — 3:30 am',20],['vipassanaMorning','🧘','Morning Anapana & Vipassana — 10 min',20],['gym','🏋️','Gym Workout',100]].map(x=>`<button data-keyhabit="${x[0]}" class="v109-key-row ${dayHabitDone(key,x[0])?'done':''}"><span>${x[1]}</span><b>${x[2]}</b><em>${dayHabitDone(key,x[0])?'✓':`+${x[3]}`}</em></button>`).join('')}${compactWaterHtml(d)}</div><div class="v109-key-footer">${s.keystoneDay?'🔑 Keystone Day complete ✓':'Complete all four → +50 XP'}</div></div>`;
+  document.body.appendChild(o);const close=()=>o.remove();o.querySelector('.quest-info-close').onclick=close;o.onclick=e=>{if(e.target===o)close()};o.querySelectorAll('[data-keyhabit]').forEach(b=>b.onclick=()=>{toggleHabit(b.dataset.keyhabit);close();showKeystonePopup()});bindCompactWater(o,showKeystonePopup);
+};
+
+function cyclingIntervalsV113(week){return (week.cyclingLog||[]).reduce((n,x)=>n+(x?.v113Interval?1:Math.max(1,Math.round(Number(x?.xpAwarded||30)/5))),0);}
+function logCyclingIntervalV113(){const w=ensureCurrentWeek(),n=cyclingIntervalsV113(w);if(n>=6)return toast('Optional Cycling is already 6 / 6 intervals.','warn');w.cyclingLog=w.cyclingLog||[];w.cyclingLog.push({date:activeDailyKey(),xpAwarded:5,v113Interval:true,minutes:5});addXP(5,'Optional Cycling — 5 min');toast(`Cycling ${n+1} / 6 • +5 XP`);}
+function undoCyclingIntervalV113(){const w=ensureCurrentWeek(),a=w.cyclingLog||[];if(!a.length)return toast('No Cycling interval to undo.','warn');const x=a.pop(),xp=Number(x?.xpAwarded||30);removeXP(xp,'Optional Cycling');playChime('undo');render();}
+renderWeekly = function(){const week=ensureCurrentWeek();document.querySelector('#weekLabel').textContent=`${prettyDate(weekKey())} – ${weekEndFromKey(weekKey()).toLocaleDateString(undefined,{day:'numeric',month:'short'})}`;const sport=(week.sportLog||[]).filter(x=>x.v109).length,cycling=Math.min(6,cyclingIntervalsV113(week));document.querySelector('#weeklyMissionList').innerHTML=`<div class="weekly-mission"><div class="weekly-info"><span class="weekly-icon">⚽</span><div><strong>Sport / Dance / Outdoor — 60 min</strong><small>Minimum 60 min • +50 XP</small></div></div><div class="weekly-action"><b>${sport}</b><button id="undoSport" ${sport?'':'disabled'}>−</button><button id="logSport">+</button></div></div><div class="weekly-mission"><div class="weekly-info"><span class="weekly-icon">🚴</span><div><strong>Optional Cycling — 5 min × 6</strong><small>${cycling}/6 intervals • ${cycling*5}/30 XP</small></div></div><div class="weekly-action"><b>${cycling}/6</b><button id="undoCycling" ${cycling?'':'disabled'}>−</button><button id="logCycling" ${cycling>=6?'disabled':''}>+</button></div></div>`;document.querySelector('#logSport').onclick=logSport;document.querySelector('#undoSport').onclick=undoSportV110;document.querySelector('#logCycling').onclick=logCyclingIntervalV113;document.querySelector('#undoCycling').onclick=undoCyclingIntervalV113;};
