@@ -1263,21 +1263,21 @@ function showMagicLoadingScreen(){
       wrap.style.setProperty('--lumos-y',`${y}px`);
     }
     wrap.classList.add('lumos-ignite');
-  },860);
-  setTimeout(()=>wrap.classList.add('lumos-expand'),1040);
-  setTimeout(()=>wrap.classList.add('lumos-white'),1330);
+  },760);
+  setTimeout(()=>wrap.classList.add('lumos-expand'),1120);
+  setTimeout(()=>wrap.classList.add('lumos-white'),1720);
 
   // Expelliarmus resolves, then reveal the app directly.
   setTimeout(()=>{
     const app=document.getElementById('app');
     if(app) app.style.setProperty('visibility','visible','important');
     wrap.classList.add('launch-reveal');
-  },1830);
+  },2450);
   setTimeout(()=>{
     wrap.remove();
     const critical=document.getElementById('launch-blackout-critical');
     if(critical) critical.remove();
-  },2080);
+  },2750);
 }
 
 

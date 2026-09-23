@@ -1917,3 +1917,94 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
   18%{opacity:.96}
   100%{opacity:1}
 }
+
+/* v115 — slower silver spell bloom; wand remains visible throughout the launch */
+#launchBlackout .lumos-wand{
+  z-index:30!important;
+  opacity:1!important;
+  visibility:visible!important;
+  filter:none!important;
+}
+#launchBlackout.launch-reveal .lumos-wand{
+  opacity:1!important;
+  visibility:visible!important;
+}
+#launchBlackout .lumos-tip{
+  z-index:31!important;
+  background:#ffffff!important;
+  box-shadow:
+    0 0 5px #fff,
+    0 0 14px #f8fbff,
+    0 0 32px rgba(221,230,239,.98),
+    0 0 64px rgba(183,198,214,.86),
+    0 0 105px rgba(145,164,186,.52)!important;
+}
+#launchBlackout .lumos-halo-1{
+  background:radial-gradient(circle,
+    rgba(255,255,255,1) 0 2%,
+    rgba(245,249,255,.98) 6%,
+    rgba(218,228,240,.88) 18%,
+    rgba(173,190,210,.56) 39%,
+    rgba(105,124,148,.22) 61%,
+    transparent 79%)!important;
+  filter:blur(1.5px)!important;
+}
+#launchBlackout .lumos-halo-2{
+  background:radial-gradient(circle,
+    rgba(255,255,255,.95) 0 3%,
+    rgba(226,235,246,.82) 13%,
+    rgba(181,198,218,.58) 32%,
+    rgba(109,130,155,.26) 58%,
+    transparent 80%)!important;
+  filter:blur(4px)!important;
+}
+#launchBlackout .lumos-bloom{
+  width:78vmax!important;height:78vmax!important;
+  background:radial-gradient(circle,
+    rgba(255,255,255,.98) 0 2%,
+    rgba(238,244,251,.94) 7%,
+    rgba(204,217,232,.82) 20%,
+    rgba(158,178,201,.60) 40%,
+    rgba(92,113,139,.34) 63%,
+    rgba(38,52,70,.16) 81%,
+    transparent 100%)!important;
+  filter:blur(2.5px)!important;
+}
+#launchBlackout .lumos-whiteout{
+  background:radial-gradient(circle at var(--lumos-x,65%) var(--lumos-y,68%),
+    rgba(255,255,255,.98) 0 2%,
+    rgba(238,244,251,.92) 10%,
+    rgba(205,218,233,.78) 27%,
+    rgba(153,173,197,.58) 48%,
+    rgba(82,103,130,.36) 70%,
+    rgba(12,18,27,.12) 100%)!important;
+  mix-blend-mode:screen!important;
+}
+#launchBlackout .lumos-star{
+  background:rgba(238,245,255,.92)!important;
+  box-shadow:0 0 var(--sg) rgba(211,225,241,.55)!important;
+}
+.lumos-ignite .lumos-halo-1{animation:v115SilverIgnite .48s cubic-bezier(.12,.72,.18,1) forwards!important}
+.lumos-expand .lumos-halo-2{animation:v115SilverFlood .95s cubic-bezier(.12,.74,.16,1) forwards!important}
+.lumos-expand .lumos-bloom{animation:v115SilverBloom 1.12s cubic-bezier(.1,.72,.14,1) forwards!important}
+.lumos-white .lumos-whiteout{animation:v115SilverConsume .72s cubic-bezier(.12,.76,.16,1) forwards!important}
+@keyframes v115SilverIgnite{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.05)}
+  30%{opacity:.92}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1.65)}
+}
+@keyframes v115SilverFlood{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.12)}
+  20%{opacity:.82}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(8)}
+}
+@keyframes v115SilverBloom{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.06)}
+  18%{opacity:.88}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(13)}
+}
+@keyframes v115SilverConsume{
+  0%{opacity:0}
+  25%{opacity:.72}
+  100%{opacity:1}
+}
