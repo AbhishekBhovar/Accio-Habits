@@ -2008,3 +2008,7 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
   25%{opacity:.72}
   100%{opacity:1}
 }
+
+/* v117 — three-day editor */
+.v109-day-nav{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important}
+.v109-day-nav button{padding:8px 6px!important;font-size:10px!important;white-space:nowrap!important}

@@ -1307,11 +1307,11 @@ DATA.habits.weeklyMissions=[
 {id:'sport',icon:'⚽',name:'Sport / Dance / Outdoor Activity',xpPerCredit:50,target:null,rule:'At least 60 minutes'},
 {id:'cycling',icon:'🚴',name:'Optional Cardio Cycling',xpPerCredit:30,target:null,rule:'At least 30 minutes'}
 ];
-const V109_PERFECT=['wake330','vipassanaMorning','morningShower','supplements','gym','hindiSpeaking','proteinCreatine','healthyLunch','water','vipassanaNight'];
+const V109_PERFECT=['wake330','vipassanaMorning','morningShower','healthyBreakfast','supplements','gym','hindiSpeaking','proteinCreatine','healthyLunch','water','vipassanaNight'];
 const V109_KEYSTONE=['wake330','vipassanaMorning','gym','water'];
 const V109_MILESTONES=[[7,25],[14,50],[30,100],[60,150],[100,250],[180,400],[365,750]];
 ui.dailyDate=ui.dailyDate||localDateKey();
-function activeDailyKey(){const today=localDateKey(),y=localDateKey(addDays(parseDateKey(today),-1));return ui.dailyDate===y?y:today;}
+function activeDailyKey(){const today=localDateKey(),y=localDateKey(addDays(parseDateKey(today),-1)),t=localDateKey(addDays(parseDateKey(today),1));return ui.dailyDate===y?y:ui.dailyDate===t?t:today;}
 function dayHabitDone(key,id){const d=save.daily?.[key];if(id==='water')return Number(d?.waterMl||0)>=2500;return !!d?.habits?.[id]?.completed;}
 function waterXp(ml){return Math.min(25,Math.floor(Math.max(0,Number(ml)||0)/500)*5);}
 function v109Status(key=activeDailyKey()){
@@ -1322,7 +1322,7 @@ function streakFor(predicate,endKey=localDateKey()){let n=0,d=parseDateKey(endKe
 function bestStreak(predicate){const keys=Object.keys(save.daily||{}).sort();let best=0,run=0,prev=null;for(const k of keys){if(prev&&localDateKey(addDays(parseDateKey(prev),1))!==k)run=0;if(predicate(k))run++;else run=0;best=Math.max(best,run);prev=k;}return best;}
 function celebration(kind,title,sub){const old=document.querySelector('.v109-celebrate');if(old)old.remove();const el=document.createElement('div');el.className=`v109-celebrate ${kind}`;el.innerHTML=`<div class="v109-magic-ring"></div><div class="v109-celebrate-card"><div class="v109-sigil">${kind==='meditation'?'🧘':kind==='keystone'?'🔑':'✦'}</div><small>${kind==='perfect'?'MAGICAL ACHIEVEMENT':'STREAK MILESTONE'}</small><h2>${escapeHtml(title)}</h2><p>${escapeHtml(sub||'')}</p></div>`;document.body.appendChild(el);setTimeout(()=>el.classList.add('show'),20);setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),500)},2800);}
 function awardMilestones(key,celebrate=false){save.v109Milestones=save.v109Milestones||{};const defs=[['keystone',k=>v109Status(k).keystoneDay,'Keystone Streak'],['perfect',k=>v109Status(k).perfectDay,'Perfect Day Streak'],['meditation',k=>dayHabitDone(k,'vipassanaMorning')&&dayHabitDone(k,'vipassanaNight'),'Meditation Streak']];for(const [type,pred,label] of defs){const n=streakFor(pred,key);const hit=V109_MILESTONES.find(x=>x[0]===n);if(!hit)continue;const token=`${type}:${n}:${key}`;if(save.v109Milestones[token])continue;save.v109Milestones[token]=true;addXP(hit[1],`${label} ${n} days`);if(celebrate)celebration(type,`${n} DAY ${label.toUpperCase()}`,`+${hit[1]} XP`);}}
-function evaluateV109(key,celebrate=false){const d=getDaily(key),s=v109Status(key);if(s.keystoneDay&&!d.v109KeystoneAwarded){d.v109KeystoneAwarded=true;addXP(50,'Keystone Day');if(celebrate)celebration('keystone','KEYSTONE DAY','4 / 4 COMPLETE • +50 XP');}if(s.perfectDay&&!d.v109PerfectAwarded){d.v109PerfectAwarded=true;if(celebrate)celebration('perfect','PERFECT DAY','All 10 core habits complete');}awardMilestones(key,celebrate);persist();}
+function evaluateV109(key,celebrate=false){const d=getDaily(key),s=v109Status(key);if(s.keystoneDay&&!d.v109KeystoneAwarded){d.v109KeystoneAwarded=true;addXP(50,'Keystone Day');if(celebrate)celebration('keystone','KEYSTONE DAY','4 / 4 COMPLETE • +50 XP');}if(s.perfectDay&&!d.v109PerfectAwarded){d.v109PerfectAwarded=true;if(celebrate)celebration('perfect','PERFECT DAY','All 11 core habits complete');}awardMilestones(key,celebrate);persist();}
 function toggleHabit(id){ensureAudio();const key=activeDailyKey(),habit=DATA.habits.dailyHabits.find(h=>h.id===id);if(!habit||habit.input)return;const day=getDaily(key),entry=day.habits[id];if(entry?.completed){const xp=entry.xpAwarded??habit.xp;delete day.habits[id];removeXP(xp,habit.name);playChime('undo');render();return;}day.habits[id]={completed:true,xpAwarded:habit.xp,ts:Date.now()};addXP(habit.xp,habit.name);playChime('success');toast(`${habit.name} complete • +${habit.xp} XP`);evaluateV109(key,true);render();}
 function addWater(ml){const key=activeDailyKey(),day=getDaily(key),old=Number(day.waterMl||0),next=Math.min(3000,old+Number(ml||0)),oldXp=waterXp(old),newXp=waterXp(next);day.waterMl=next;day.habits.water={completed:next>=2500,xpAwarded:newXp,ts:Date.now()};if(newXp>oldXp)addXP(newXp-oldXp,'Water');else{persist();render();}toast(`Water • ${(next/1000).toFixed(1)} / 2.5 L • ${newXp}/25 XP`);evaluateV109(key,true);render();}
 function resetWater(){const key=activeDailyKey(),d=getDaily(key),xp=waterXp(d.waterMl);d.waterMl=0;delete d.habits.water;if(xp)removeXP(xp,'Water');else{persist();render();}}
@@ -1398,7 +1398,7 @@ function compactWaterHtml(d){const ml=Number(d.waterMl||0),pct=Math.min(100,Math
 function bindCompactWater(o,reopen){o.querySelector('[data-water-plus]')?.addEventListener('click',()=>{o.remove();addWater(500);reopen()});o.querySelector('[data-water-minus-popup]')?.addEventListener('click',()=>{o.remove();removeWater(500);reopen()});}
 showKeystonePopup = function(){document.querySelector('.quest-info-overlay')?.remove();const key=activeDailyKey(),d=getDaily(key),s=v109Status(key);const o=document.createElement('div');o.className='quest-info-overlay quest-summon v109-keystone-overlay';o.innerHTML=`<div class="quest-info-panel v109-keystone-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🔑 KEYSTONE HABITS</div><div class="quest-info-title">${key===localDateKey()?"Today's anchors":"Yesterday's anchors"}</div><div class="v109-key-list">${[['wake330','⏰','Wake Up — 3:30 am',20],['vipassanaMorning','🧘','Morning Anapana & Vipassana — 10 min',20],['gym','🏋️','Gym Workout',100]].map(x=>`<button data-keyhabit="${x[0]}" class="v109-key-row ${dayHabitDone(key,x[0])?'done':''}"><span>${x[1]}</span><b>${x[2]}</b><em>${dayHabitDone(key,x[0])?'✓':`+${x[3]}`}</em></button>`).join('')}${compactWaterHtml(d)}</div><div class="v109-key-footer">${s.keystoneDay?'🔑 Keystone Day complete ✓':'Complete all four → +50 XP'}</div></div>`;document.body.appendChild(o);const close=()=>o.remove();o.querySelector('.quest-info-close').onclick=close;o.onclick=e=>{if(e.target===o)close()};o.querySelectorAll('[data-keyhabit]').forEach(b=>b.onclick=()=>{toggleHabit(b.dataset.keyhabit);close();showKeystonePopup()});bindCompactWater(o,showKeystonePopup);}
 function showWaterPopup(){document.querySelector('.quest-info-overlay')?.remove();const o=document.createElement('div');o.className='quest-info-overlay quest-summon v110-mini-overlay';o.innerHTML=`<div class="quest-info-panel v110-mini-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">💧 WATER</div><div class="quest-info-title">2.5 L by 8 pm</div>${compactWaterHtml(getDaily(activeDailyKey()))}</div>`;document.body.appendChild(o);const close=()=>o.remove();o.querySelector('.quest-info-close').onclick=close;o.onclick=e=>{if(e.target===o)close()};bindCompactWater(o,showWaterPopup);}
-function showPerfectPopup(){document.querySelector('.quest-info-overlay')?.remove();const key=activeDailyKey(),s=v109Status(key),o=document.createElement('div');o.className='quest-info-overlay quest-summon v110-perfect-overlay';o.innerHTML=`<div class="quest-info-panel v110-perfect-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">✨ PERFECT DAY</div><div class="quest-info-title">${s.perfectDone} / 10 core habits</div><div class="v110-perfect-list">${V109_PERFECT.map(id=>{const h=DATA.habits.dailyHabits.find(x=>x.id===id),done=dayHabitDone(key,id);return `<div class="${done?'done':''}"><span>${h.icon}</span><b>${escapeHtml(h.name)}</b><em>${done?'✓':'○'}</em></div>`}).join('')}</div></div>`;document.body.appendChild(o);const close=()=>o.remove();o.querySelector('.quest-info-close').onclick=close;o.onclick=e=>{if(e.target===o)close()};}
+function showPerfectPopup(){document.querySelector('.quest-info-overlay')?.remove();const key=activeDailyKey(),s=v109Status(key),o=document.createElement('div');o.className='quest-info-overlay quest-summon v110-perfect-overlay';o.innerHTML=`<div class="quest-info-panel v110-perfect-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">✨ PERFECT DAY</div><div class="quest-info-title">${s.perfectDone} / 11 core habits</div><div class="v110-perfect-list">${V109_PERFECT.map(id=>{const h=DATA.habits.dailyHabits.find(x=>x.id===id),done=dayHabitDone(key,id);return `<div class="${done?'done':''}"><span>${h.icon}</span><b>${escapeHtml(h.name)}</b><em>${done?'✓':'○'}</em></div>`}).join('')}</div></div>`;document.body.appendChild(o);const close=()=>o.remove();o.querySelector('.quest-info-close').onclick=close;o.onclick=e=>{if(e.target===o)close()};}
 
 function undoSportV110(){const w=ensureCurrentWeek(),a=w.sportLog||[],idx=a.map(x=>!!x?.v109).lastIndexOf(true);if(idx<0)return toast('No Sport session to undo.','warn');a.splice(idx,1);w.sportActual=Math.max(0,(w.sportActual||0)-1);removeXP(50,'Sport / Dance / Outdoor Activity');playChime('undo');render();}
 function undoCyclingV110(){const w=ensureCurrentWeek(),a=w.cyclingLog||[];if(!a.length)return toast('No Cycling session to undo.','warn');a.pop();removeXP(30,'Optional Cardio Cycling');playChime('undo');render();}
@@ -1439,7 +1439,7 @@ showSaunaControls = function(){
 
 renderDailyHabits = function(){const key=activeDailyKey();applySaunaBank();const day=getDaily(key),list=document.querySelector('#dailyHabitList'),habits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),completed=habits.filter(h=>h.id==='water'?Number(day.waterMl||0)>=2500:day.habits[h.id]?.completed).length;document.querySelector('#routineBadge').textContent=`${completed} / ${habits.length}`;document.querySelector('#todayDateLabel').textContent=key===localDateKey()?'Today':`Yesterday · ${prettyDate(key)}`;list.innerHTML=habitRowsHtml(habits,day);list.querySelectorAll('[data-habit]').forEach(b=>b.onclick=()=>toggleHabit(b.dataset.habit));list.querySelectorAll('[data-water]').forEach(b=>b.onclick=()=>addWater(Number(b.dataset.water)));list.querySelectorAll('[data-water-minus]').forEach(b=>b.onclick=()=>removeWater(Number(b.dataset.waterMinus)));list.querySelectorAll('[data-sauna]').forEach(b=>b.onclick=showSaunaControls);const s=v109Status(key),strip=document.querySelector('#v109StatusStrip');if(strip)strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/4</button><button id="openPerfect">✨ ${s.perfectDone}/11</button>`;const yBtn=document.querySelector('#v109Yesterday'),tBtn=document.querySelector('#v109Today');if(yBtn)yBtn.classList.toggle('active',key!==localDateKey());if(tBtn)tBtn.classList.toggle('active',key===localDateKey());document.querySelector('#openKeystones')?.addEventListener('click',showKeystonePopup);document.querySelector('#openPerfect')?.addEventListener('click',showPerfectPopup);}
 
-xpHistoryHtml = function(days){const rows=dailyXpHistory(days),ref=280,pointGap=days<=31?14:days<=90?8:5,chartW=Math.max(300,(rows.length-1)*pointGap+16),plotH=140,peak=Math.max(400,...rows.map(x=>x.xp)),points=rows.map((x,i)=>`${(8+i*pointGap).toFixed(1)},${(plotH-(x.xp/peak*plotH)).toFixed(1)}`).join(' '),refY=plotH-(ref/peak*plotH);return `<div class="xp-max-note">Reference: ${ref} XP — Perfect Day Core</div><div class="xp-history-scroll" id="xpHistoryScroll"><div class="v112-xp-line-wrap" style="width:${chartW}px"><svg class="xp-trend-line v112-line-only" style="width:${chartW}px" viewBox="0 0 ${chartW} ${plotH+22}" preserveAspectRatio="none"><line class="xp-core-line" x1="0" y1="${refY}" x2="${chartW}" y2="${refY}"></line><polyline points="${points}"></polyline>${rows.map((x,i)=>`<circle class="v112-xp-point" data-date="${x.key}" data-xp="${x.xp}" data-max="${ref}" cx="${8+i*pointGap}" cy="${plotH-(x.xp/peak*plotH)}" r="${days<=31?3:2.2}"></circle>`).join('')}${days<=31?rows.map((x,i)=>`<text x="${8+i*pointGap}" y="${plotH+18}" text-anchor="middle">${x.date.getDate()}</text>`).join(''):''}</svg></div></div>`;}
+xpHistoryHtml = function(days){const rows=dailyXpHistory(days),ref=295,pointGap=days<=31?14:days<=90?8:5,chartW=Math.max(300,(rows.length-1)*pointGap+16),plotH=140,peak=Math.max(400,...rows.map(x=>x.xp)),points=rows.map((x,i)=>`${(8+i*pointGap).toFixed(1)},${(plotH-(x.xp/peak*plotH)).toFixed(1)}`).join(' '),refY=plotH-(ref/peak*plotH);return `<div class="xp-max-note">Reference: ${ref} XP — Perfect Day Core</div><div class="xp-history-scroll" id="xpHistoryScroll"><div class="v112-xp-line-wrap" style="width:${chartW}px"><svg class="xp-trend-line v112-line-only" style="width:${chartW}px" viewBox="0 0 ${chartW} ${plotH+22}" preserveAspectRatio="none"><line class="xp-core-line" x1="0" y1="${refY}" x2="${chartW}" y2="${refY}"></line><polyline points="${points}"></polyline>${rows.map((x,i)=>`<circle class="v112-xp-point" data-date="${x.key}" data-xp="${x.xp}" data-max="${ref}" cx="${8+i*pointGap}" cy="${plotH-(x.xp/peak*plotH)}" r="${days<=31?3:2.2}"></circle>`).join('')}${days<=31?rows.map((x,i)=>`<text x="${8+i*pointGap}" y="${plotH+18}" text-anchor="middle">${x.date.getDate()}</text>`).join(''):''}</svg></div></div>`;}
 bindXpHistory = function(){const days=Number(ui.statsXpRange||30);document.querySelectorAll('[data-xp-range]').forEach(btn=>btn.onclick=()=>{ui.statsXpRange=Number(btn.dataset.xpRange);renderStats();});document.querySelectorAll('.v112-xp-point').forEach(pt=>pt.addEventListener('click',()=>{const d=parseDateKey(pt.dataset.date),label=d.toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short',year:'numeric'}),detail=document.querySelector('#xpDayDetail');if(detail)detail.textContent=`${label} • ${Number(pt.dataset.xp||0)} XP`;document.querySelectorAll('.v112-xp-point.selected').forEach(x=>x.classList.remove('selected'));pt.classList.add('selected');}));const scroll=document.querySelector('#xpHistoryScroll');if(scroll)requestAnimationFrame(()=>{scroll.scrollLeft=scroll.scrollWidth;});}
 
 renderStats = function(){const root=document.querySelector('#statsDashboard');if(!root)return;const today=localDateKey(),ks=k=>v109Status(k).keystoneDay,ps=k=>v109Status(k).perfectDay;const habits=DATA.habits.dailyHabits.filter(h=>!['sleep','water'].includes(h.id));let sleepVals=[],waterVals=[];for(let i=0;i<30;i++){const k=localDateKey(addDays(parseDateKey(today),-i)),d=save.daily?.[k];if(Number(d?.sleep?.totalHours||0)>0)sleepVals.push(Number(d.sleep.totalHours));waterVals.push(Number(d?.waterMl||0)/1000);}root.innerHTML=`<section class="stats62 v109-stats"><div class="v109-overall v112-overall"><div><span>🔑 Keystone</span><strong>${streakFor(ks)} days</strong><small>Best ${bestStreak(ks)}</small></div><div><span>✨ Perfect Day</span><strong>${streakFor(ps)} days</strong><small>Best ${bestStreak(ps)}</small></div></div><section class="stats62-card xp-history-card"><div class="xp-history-head"><span class="eyebrow">DAILY XP</span><div class="xp-range-tabs"><button data-xp-range="30" class="${Number(ui.statsXpRange||30)===30?'active':''}">1M</button><button data-xp-range="90" class="${Number(ui.statsXpRange||30)===90?'active':''}">3M</button><button data-xp-range="365" class="${Number(ui.statsXpRange||30)===365?'active':''}">1Y</button></div></div>${xpHistoryHtml(Number(ui.statsXpRange||30))}<p class="xp-day-detail" id="xpDayDetail">Tap a point to see its XP</p></section><section class="stats62-card"><span class="eyebrow">WATER</span><div class="v109-stat-grid"><b>${(waterVals.slice(0,7).reduce((a,b)=>a+b,0)/7).toFixed(1)} L<small>7-day avg</small></b><b>${(waterVals.reduce((a,b)=>a+b,0)/30).toFixed(1)} L<small>30-day avg</small></b><b>${waterVals.filter(x=>x>=2.5).length}/30<small>Target days</small></b></div></section><section class="stats62-card"><span class="eyebrow">SLEEP</span><div class="v109-stat-grid"><b>${sleepVals[0]?sleepVals[0].toFixed(1)+'h':'—'}<small>Last sleep</small></b><b>${sleepVals.length?(sleepVals.slice(0,7).reduce((a,b)=>a+b,0)/Math.min(7,sleepVals.length)).toFixed(1)+'h':'—'}<small>7-day avg</small></b><b>${sleepVals.filter(x=>x>=8).length}<small>8h days / 30</small></b></div></section><div class="v109-habit-stats">${habits.map(h=>`<details class="stats62-card v109-habit-card"><summary><span>${h.icon} ${escapeHtml(h.name)}</span><b>${completionRate(h.id,7)}/7</b></summary><div class="v109-stat-grid"><b>${streakFor(k=>dayHabitDone(k,h.id))}<small>Current streak</small></b><b>${bestStreak(k=>dayHabitDone(k,h.id))}<small>Best streak</small></b><b>${completionRate(h.id,30)}/30<small>Last 30 days</small></b><b>${habitLifetime(h.id)}<small>Lifetime</small></b></div><div class="v109-mini-history">${habitMini(h.id)}</div></details>`).join('')}</div></section>`;bindXpHistory();}
@@ -1476,3 +1476,71 @@ renderDailyHabits=function(){
   if(el) el.textContent=v114HomeDateLabel(activeDailyKey());
 };
 setTimeout(()=>render(),0);
+
+
+/* v117 — simple Sauna + Yesterday / Today / Tomorrow editing */
+applySaunaBank = function(){};
+
+function v117DateRelation(key){
+  const today=localDateKey(),y=localDateKey(addDays(parseDateKey(today),-1)),t=localDateKey(addDays(parseDateKey(today),1));
+  return key===y?'Yesterday':key===t?'Tomorrow':'Today';
+}
+
+logSaunaDaily = function(){
+  ensureAudio();
+  const key=activeDailyKey(),d=getDaily(key),entry=d.habits?.saunaDaily;
+  d.saunaSessions=0;
+  d.saunaBankTomorrow=false;
+  d.saunaBankApplied=false;
+  if(entry?.completed){
+    const xp=Number(entry.xpAwarded||30);
+    delete d.habits.saunaDaily;
+    removeXP(xp,'Sauna');
+    playChime('undo');
+    toast(`Sauna removed from ${v117DateRelation(key).toLowerCase()}.`);
+    return;
+  }
+  d.habits.saunaDaily={completed:true,xpAwarded:30,ts:Date.now()};
+  addXP(30,'Sauna');
+  playChime('success');
+  toast(`Sauna • ${v117DateRelation(key)} • +30 XP`);
+  render();
+};
+undoSaunaDaily = function(){
+  const key=activeDailyKey(),d=getDaily(key),entry=d.habits?.saunaDaily;
+  if(!entry?.completed)return toast('No Sauna session to undo.','warn');
+  const xp=Number(entry.xpAwarded||30);
+  delete d.habits.saunaDaily;
+  d.saunaSessions=0;d.saunaBankTomorrow=false;d.saunaBankApplied=false;
+  removeXP(xp,'Sauna');playChime('undo');toast('Sauna session undone.');
+};
+showSaunaControls = function(){logSaunaDaily();};
+
+const v117HabitRowsHtml=habitRowsHtml;
+habitRowsHtml=function(habits,day){
+  return v117HabitRowsHtml(habits,day).replace(/<button class="habit-row ([^"]*)" data-sauna>[\s\S]*?<\/button>/,()=>{
+    const done=!!day.habits?.saunaDaily?.completed;
+    return `<button class="habit-row ${done?'done':''}" data-sauna><span class="habit-icon">🧖</span><span class="habit-copy"><strong>Sauna — 30 min</strong><small>${done?'Completed • tap to undo':'30 min = +30 XP'}</small></span><span class="habit-xp">${done?'↶':'+30'}</span></button>`;
+  });
+};
+
+const v117RenderDailyHabits=renderDailyHabits;
+renderDailyHabits=function(){
+  v117RenderDailyHabits();
+  const key=activeDailyKey(),today=localDateKey(),y=localDateKey(addDays(parseDateKey(today),-1)),t=localDateKey(addDays(parseDateKey(today),1));
+  const label=document.querySelector('#todayDateLabel');
+  if(label)label.textContent=key===today?'Today':`${key===y?'Yesterday':'Tomorrow'} · ${prettyDate(key)}`;
+  const yb=document.querySelector('#v109Yesterday'),tb=document.querySelector('#v109Today'),nb=document.querySelector('#v117Tomorrow');
+  if(yb)yb.classList.toggle('active',key===y);
+  if(tb)tb.classList.toggle('active',key===today);
+  if(nb)nb.classList.toggle('active',key===t);
+  document.querySelectorAll('[data-sauna]').forEach(b=>b.onclick=showSaunaControls);
+};
+
+setTimeout(()=>{
+  const y=document.querySelector('#v109Yesterday'),t=document.querySelector('#v109Today'),n=document.querySelector('#v117Tomorrow');
+  if(y)y.onclick=()=>{ui.dailyDate=localDateKey(addDays(parseDateKey(localDateKey()),-1));render();};
+  if(t)t.onclick=()=>{ui.dailyDate=localDateKey();render();};
+  if(n)n.onclick=()=>{ui.dailyDate=localDateKey(addDays(parseDateKey(localDateKey()),1));render();};
+  render();
+},0);
