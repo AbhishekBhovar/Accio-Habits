@@ -1265,19 +1265,19 @@ function showMagicLoadingScreen(){
     wrap.classList.add('lumos-ignite');
   },760);
   setTimeout(()=>wrap.classList.add('lumos-expand'),1120);
-  setTimeout(()=>wrap.classList.add('lumos-white'),1720);
+  setTimeout(()=>wrap.classList.add('lumos-white'),2150);
 
   // Expelliarmus resolves, then reveal the app directly.
   setTimeout(()=>{
     const app=document.getElementById('app');
     if(app) app.style.setProperty('visibility','visible','important');
     wrap.classList.add('launch-reveal');
-  },2450);
+  },3000);
   setTimeout(()=>{
     wrap.remove();
     const critical=document.getElementById('launch-blackout-critical');
     if(critical) critical.remove();
-  },2750);
+  },3300);
 }
 
 
@@ -1544,3 +1544,49 @@ setTimeout(()=>{
   if(n)n.onclick=()=>{ui.dailyDate=localDateKey(addDays(parseDateKey(localDateKey()),1));render();};
   render();
 },0);
+
+
+/* v119 — one-time historical XP revaluation using the current point system.
+   Recorded completions only; unrelated weekly XP and earned milestone bonuses are preserved. */
+function migrateHistoricalXpV119(){
+  const token='v119-current-xp-values';
+  if(save.migrations?.[token])return;
+  const currentXp={wake330:20,vipassanaMorning:20,morningShower:10,healthyBreakfast:20,fruit:10,supplements:15,gym:100,incline:40,hindiSpeaking:20,saunaDaily:30,proteinCreatine:25,healthyLunch:20,herbalTea:5,vipassanaNight:20};
+  let delta=0;
+  for(const [key,d] of Object.entries(save.daily||{})){
+    d.habits=d.habits||{};
+    for(const [id,newXp] of Object.entries(currentXp)){
+      const e=d.habits[id]; if(!e?.completed)continue;
+      const oldXp=Math.max(0,Number(e.xpAwarded)||0);
+      e.xpAwarded=newXp; delta+=newXp-oldXp;
+    }
+    const newWaterXp=waterXp(Number(d.waterMl||0)),we=d.habits.water;
+    if(we){
+      const old=Math.max(0,Number(we.xpAwarded)||0);
+      we.xpAwarded=newWaterXp;we.completed=Number(d.waterMl||0)>=2500;delta+=newWaterXp-old;
+    }else if(newWaterXp>0){
+      d.habits.water={completed:Number(d.waterMl||0)>=2500,xpAwarded:newWaterXp,ts:Date.now()};delta+=newWaterXp;
+    }
+    if(d.sleep&&Number(d.sleep.totalHours||0)>0){
+      const old=Math.max(0,Number(d.sleep.xpAwarded??d.sleep.scoreXp)||0);
+      const now=Math.min(40,Math.floor(Math.max(0,Number(d.sleep.totalHours)||0)*5));
+      d.sleep.xpAwarded=now;d.sleep.scoreXp=now;delta+=now-old;
+    }
+    const qualifies=v109Status(key).keystoneDay,had=!!d.v109KeystoneAwarded;
+    if(qualifies&&!had){d.v109KeystoneAwarded=true;delta+=50}
+    else if(!qualifies&&had){d.v109KeystoneAwarded=false;delta-=50}
+    d.v109PerfectAwarded=v109Status(key).perfectDay;
+  }
+  save.totalXP=Math.max(0,Math.round(Number(save.totalXP||0)+delta));
+  save.migrations=save.migrations||{};save.migrations[token]={at:Date.now(),delta};
+  let level=0;while(level<168&&save.totalXP>=cumulativeXpForLevel(level+1))level++;
+  if(level<save.currentLevel)syncProgressAfterXpRemoval();
+  else{
+    save.currentLevel=level;
+    for(let l=1;l<=level;l++)grantGuaranteedAt(l);
+    save.completedBooks=DATA.config.bookCompletionLevels.filter(l=>l<=level).map(l=>DATA.levels[l-1].book).filter((v,i,a)=>a.indexOf(v)===i);
+  }
+  persist();
+}
+migrateHistoricalXpV119();
+

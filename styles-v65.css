@@ -1985,8 +1985,8 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
   box-shadow:0 0 var(--sg) rgba(211,225,241,.55)!important;
 }
 .lumos-ignite .lumos-halo-1{animation:v115SilverIgnite .48s cubic-bezier(.12,.72,.18,1) forwards!important}
-.lumos-expand .lumos-halo-2{animation:v115SilverFlood .95s cubic-bezier(.12,.74,.16,1) forwards!important}
-.lumos-expand .lumos-bloom{animation:v115SilverBloom 1.12s cubic-bezier(.1,.72,.14,1) forwards!important}
+.lumos-expand .lumos-halo-2{animation:v115SilverFlood 1.45s cubic-bezier(.12,.74,.16,1) forwards!important}
+.lumos-expand .lumos-bloom{animation:v115SilverBloom 1.65s cubic-bezier(.1,.72,.14,1) forwards!important}
 .lumos-white .lumos-whiteout{animation:v115SilverConsume .72s cubic-bezier(.12,.76,.16,1) forwards!important}
 @keyframes v115SilverIgnite{
   0%{opacity:0;transform:translate(-50%,-50%) scale(.05)}
