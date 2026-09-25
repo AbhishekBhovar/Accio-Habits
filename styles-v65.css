@@ -2052,3 +2052,8 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
 .v109-keystone-panel .v109-key-footer{
   font-size:15px!important;line-height:1.15!important
 }
+
+/* v120 — reward reveal: Continue only */
+.reveal-actions{justify-content:center!important}
+.reveal-actions #revealNext{min-width:150px!important}
+#revealSkip{display:none!important}

@@ -1147,7 +1147,21 @@ function escapeHtml(s){return String(s??'').replace(/[&<>'"]/g,m=>({'&':'&amp;',
 function setupUI(){
   document.querySelectorAll('.bottom-nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.bottom-nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===`view-${b.dataset.view}`));if(b.dataset.view==='battle')renderBattle();if(b.dataset.view==='stats')renderStats();window.scrollTo({top:0,behavior:'smooth'});});
   document.querySelector('#saveSleep').onclick=saveSleep;document.querySelector('#sleepHours').oninput=renderSleep;document.querySelector('#napHours').oninput=renderSleep;document.querySelector('#napHours').oninput=renderSleep;
-  document.querySelector('#revealNext').onclick=()=>closeReveal(false);document.querySelector('#revealSkip').onclick=()=>closeReveal(true);
+  {
+    const revealNext=document.querySelector('#revealNext');
+    if(revealNext){
+      let revealAdvancing=false;
+      const advanceReveal=(e)=>{
+        e?.preventDefault?.();e?.stopPropagation?.();
+        if(revealAdvancing)return;
+        revealAdvancing=true;
+        closeReveal(false);
+        setTimeout(()=>{revealAdvancing=false;},220);
+      };
+      revealNext.onclick=advanceReveal;
+      revealNext.addEventListener('touchend',advanceReveal,{passive:false});
+    }
+  }
   const soundToggle=document.querySelector('#soundToggle');if(soundToggle)soundToggle.onclick=()=>{save.soundEnabled=!save.soundEnabled;persist();if(save.soundEnabled)playChime('success');};
   document.querySelector('#exportSave').onclick=()=>{
     // Human-readable Excel-friendly habit diary: one row per logged date.
