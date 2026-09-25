@@ -2057,3 +2057,30 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
 .reveal-actions{justify-content:center!important}
 .reveal-actions #revealNext{min-width:150px!important}
 #revealSkip{display:none!important}
+
+/* v121 — Keystone popup shows outstanding anchors only */
+.v121-keystone-complete{
+  margin:18px 0 4px;
+  padding:22px 16px;
+  border:1px solid rgba(216,178,63,.52);
+  border-radius:18px;
+  background:linear-gradient(180deg,rgba(216,178,63,.10),rgba(216,178,63,.035));
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:6px;
+}
+.v121-keystone-complete>span{font-size:27px;line-height:1}
+.v121-keystone-complete>b{
+  color:#f0c84d;
+  font-size:17px;
+  line-height:1.15;
+  letter-spacing:.01em;
+}
+.v121-keystone-complete>small{
+  color:rgba(245,238,220,.72);
+  font-size:11px;
+  line-height:1.25;
+  font-weight:800;
+}

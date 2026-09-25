@@ -1468,9 +1468,40 @@ function v113PopupDate(key){return parseDateKey(key).toLocaleDateString(undefine
 showKeystonePopup = function(){
   document.querySelector('.quest-info-overlay')?.remove();
   const key=activeDailyKey(),d=getDaily(key),s=v109Status(key);
-  const o=document.createElement('div');o.className='quest-info-overlay quest-summon v109-keystone-overlay';
-  o.innerHTML=`<div class="quest-info-panel v109-keystone-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🔑 KEYSTONE HABITS</div><div class="quest-info-title">${key===localDateKey()?"Today's anchors":"Yesterday's anchors"}</div><div class="v109-key-list">${[['wake330','⏰','Wake Up — 3:30 am',20],['vipassanaMorning','🧘','Morning Anapana & Vipassana — 10 min',20],['gym','🏋️','Gym Workout',100]].map(x=>`<button data-keyhabit="${x[0]}" class="v109-key-row ${dayHabitDone(key,x[0])?'done':''}"><span>${x[1]}</span><b>${x[2]}</b><em>${dayHabitDone(key,x[0])?'✓':`+${x[3]}`}</em></button>`).join('')}${compactWaterHtml(d)}</div><div class="v109-key-footer">${s.keystoneDay?'🔑 Keystone Day complete ✓':'Complete all four → +50 XP'}</div></div>`;
-  document.body.appendChild(o);const close=()=>o.remove();o.querySelector('.quest-info-close').onclick=close;o.onclick=e=>{if(e.target===o)close()};o.querySelectorAll('[data-keyhabit]').forEach(b=>b.onclick=()=>{toggleHabit(b.dataset.keyhabit);close();showKeystonePopup()});bindCompactWater(o,showKeystonePopup);
+  const habits=[
+    ['wake330','⏰','Wake Up — 3:30 am',20],
+    ['vipassanaMorning','🧘','Morning Anapana & Vipassana — 10 min',20],
+    ['gym','🏋️','Gym Workout',100]
+  ];
+  const outstanding=habits.filter(x=>!dayHabitDone(key,x[0]));
+  const waterDone=Number(d.waterMl||0)>=2500;
+  const allDone=outstanding.length===0&&waterDone;
+
+  const o=document.createElement('div');
+  o.className='quest-info-overlay quest-summon v109-keystone-overlay';
+  o.innerHTML=`<div class="quest-info-panel v109-keystone-panel">
+    <button class="quest-info-close">×</button>
+    <div class="quest-info-kicker">🔑 KEYSTONE HABITS</div>
+    <div class="quest-info-title">${key===localDateKey()?"Today's anchors":key===tomorrowDateKey?.()?"Tomorrow's anchors":"Yesterday's anchors"}</div>
+    ${allDone
+      ? `<div class="v121-keystone-complete"><span>🔑</span><b>Keystone Day Complete</b><small>All four anchors complete • +50 XP</small></div>`
+      : `<div class="v109-key-list">
+          ${outstanding.map(x=>`<button data-keyhabit="${x[0]}" class="v109-key-row"><span>${x[1]}</span><b>${x[2]}</b><em>+${x[3]}</em></button>`).join('')}
+          ${waterDone?'':compactWaterHtml(d)}
+        </div>
+        <div class="v109-key-footer">Complete all four → +50 XP</div>`}
+  </div>`;
+
+  document.body.appendChild(o);
+  const close=()=>o.remove();
+  o.querySelector('.quest-info-close').onclick=close;
+  o.onclick=e=>{if(e.target===o)close()};
+  o.querySelectorAll('[data-keyhabit]').forEach(b=>b.onclick=()=>{
+    toggleHabit(b.dataset.keyhabit);
+    close();
+    showKeystonePopup();
+  });
+  if(!waterDone)bindCompactWater(o,showKeystonePopup);
 };
 
 function cyclingIntervalsV113(week){return (week.cyclingLog||[]).reduce((n,x)=>n+(x?.v113Interval?1:Math.max(1,Math.round(Number(x?.xpAwarded||30)/5))),0);}
