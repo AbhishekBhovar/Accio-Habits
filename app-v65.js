@@ -2263,3 +2263,96 @@ renderDailyHabits = function(){
 v123EnsureProgression();
 v123RefreshUnlocks();
 setTimeout(()=>render(),0);
+
+
+/* =========================================================
+   v125 — Steps progression + Today section ordering
+   ========================================================= */
+function v125StepsTargetForLevel(level=Number(save.currentLevel||1)){
+  level=Math.max(1,Number(level)||1);
+  if(level<=24)return 7000;
+  if(level<=48)return 10000;
+  if(level<=72)return 12000;
+  if(level<=120)return 15000;
+  return 20000;
+}
+function v125StepsXpForCount(count,level=Number(save.currentLevel||1)){
+  const target=v125StepsTargetForLevel(level);
+  return Math.min(target,Math.max(0,Math.floor(Number(count||0)/1000)*1000))/1000*5;
+}
+function v125StepState(key=activeDailyKey()){
+  const d=getDaily(key);
+  if(!Number.isFinite(Number(d.stepsCount)))d.stepsCount=0;
+  if(!Number.isFinite(Number(d.stepsXpAwarded)))d.stepsXpAwarded=v125StepsXpForCount(d.stepsCount);
+  return d;
+}
+function v125ChangeSteps(delta){
+  const key=activeDailyKey(),d=v125StepState(key),target=v125StepsTargetForLevel();
+  const old=Math.max(0,Number(d.stepsCount||0));
+  const next=Math.max(0,Math.min(target,old+Number(delta||0)));
+  const oldXp=Math.max(0,Number(d.stepsXpAwarded||0));
+  const newXp=v125StepsXpForCount(next);
+  const diff=newXp-oldXp;
+  d.stepsCount=next;
+  d.stepsXpAwarded=newXp;
+  if(diff>0)addXP(diff,'Steps');
+  else if(diff<0)removeXP(-diff,'Steps');
+  else{persist();render();}
+  toast(`Steps • ${next.toLocaleString()} / ${target.toLocaleString()} • ${newXp}/${target/1000*5} XP`);
+  render();
+}
+function v125RenderSteps(){
+  const root=document.querySelector('#v125StepsRow');if(!root)return;
+  const d=v125StepState(activeDailyKey()),target=v125StepsTargetForLevel();
+  const steps=Math.max(0,Number(d.stepsCount||0)),xp=Math.max(0,Number(d.stepsXpAwarded||0));
+  const maxXp=target/1000*5,pct=Math.min(100,(steps/target)*100);
+  root.innerHTML=`<div class="v125-steps-row">
+    <span class="v125-steps-icon">👟</span>
+    <span class="v125-steps-copy">
+      <strong>Steps — ${target.toLocaleString()} target</strong>
+      <small>${steps.toLocaleString()} / ${target.toLocaleString()} • ${xp}/${maxXp} XP</small>
+      <span class="v125-steps-track"><i style="width:${pct}%"></i></span>
+    </span>
+    <span class="v125-steps-actions">
+      <button data-steps-minus ${steps<=0?'disabled':''}>−1K</button>
+      <button data-steps-plus ${steps>=target?'disabled':''}>+1K</button>
+    </span>
+  </div>`;
+  root.querySelector('[data-steps-minus]')?.addEventListener('click',()=>v125ChangeSteps(-1000));
+  root.querySelector('[data-steps-plus]')?.addEventListener('click',()=>v125ChangeSteps(1000));
+}
+
+/* No unlock banner in Today; keep the information in the small Data footer instead. */
+function v125RenderUnlockFooter(){
+  const el=document.querySelector('#v125UnlockFooter');if(!el)return;
+  const next=Object.keys(V124_UNLOCK_LEVELS)
+    .map(id=>({id,...v123UnlockInfo(id)}))
+    .filter(x=>!x.unlocked)
+    .sort((a,b)=>a.targetLevel-b.targetLevel)[0];
+  if(!next){el.textContent='🔓 All habits unlocked ·';return;}
+  const [,label]=V123_UNLOCK_LABELS[next.id];
+  el.textContent=`🔒 ${label} · L${next.targetLevel} ·`;
+}
+
+/* Fold Steps into the Daily card and keep the old next-unlock strip hidden. */
+const v125BaseRenderDailyHabits=renderDailyHabits;
+renderDailyHabits=function(){
+  v125BaseRenderDailyHabits();
+  const oldHint=document.querySelector('#v123UnlockHint');
+  if(oldHint)oldHint.hidden=true;
+  v125RenderSteps();
+  v125RenderUnlockFooter();
+};
+
+/* Steps count toward total daily XP history but not Perfect Day or Keystone. */
+const v125BaseDailyXpHistory=dailyXpHistory;
+dailyXpHistory=function(days=30){
+  const rows=v125BaseDailyXpHistory(days);
+  for(const row of rows){
+    const d=save.daily?.[row.key];
+    row.xp=Math.max(0,Number(row.xp||0)+Number(d?.stepsXpAwarded||0));
+  }
+  return rows;
+};
+
+setTimeout(()=>render(),0);

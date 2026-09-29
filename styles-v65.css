@@ -2171,3 +2171,74 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
   .v123-penalty-row{grid-template-columns:32px minmax(0,1fr) auto;padding:10px}
   .v123-penalty-action{min-width:64px;padding:0 8px}
 }
+
+
+/* v125 — Daily grouping, Steps counter, unlock info moved to footer */
+.v125-sleep-in-daily{
+  margin:10px 0 0!important;
+  border-radius:18px!important;
+}
+.v125-steps-wrap{margin-top:10px}
+.v125-steps-row{
+  display:grid;
+  grid-template-columns:42px minmax(0,1fr) auto;
+  align-items:center;
+  gap:10px;
+  padding:12px 0;
+  border-top:1px solid rgba(255,255,255,.065);
+}
+.v125-steps-icon{font-size:23px;text-align:center}
+.v125-steps-copy{min-width:0}
+.v125-steps-copy strong{
+  display:block;
+  color:var(--hp-text,#F2EBD7);
+  font-size:12px;
+  line-height:1.2;
+}
+.v125-steps-copy small{
+  display:block;
+  margin-top:4px;
+  color:rgba(242,235,215,.63);
+  font-size:10px;
+}
+.v125-steps-track{
+  display:block;
+  height:5px;
+  margin-top:7px;
+  overflow:hidden;
+  border-radius:999px;
+  background:rgba(255,255,255,.075);
+}
+.v125-steps-track i{
+  display:block;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,#d2ab35,#f0cf61);
+}
+.v125-steps-actions{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.v125-steps-actions button{
+  min-width:42px;
+  height:38px;
+  border:1px solid rgba(212,175,55,.25);
+  border-radius:11px;
+  background:rgba(255,255,255,.035);
+  color:#f0c44e;
+  font-weight:800;
+  font-size:11px;
+  touch-action:manipulation;
+}
+.v125-steps-actions button:disabled{opacity:.28}
+.v125-unlock-footer{
+  color:rgba(242,235,215,.55);
+  font-size:10px;
+  white-space:nowrap;
+}
+.v125-penalties-bottom{margin-top:20px!important}
+@media(max-width:390px){
+  .v125-steps-row{grid-template-columns:34px minmax(0,1fr) auto;gap:7px}
+  .v125-steps-actions button{min-width:38px;padding:0 7px}
+}
