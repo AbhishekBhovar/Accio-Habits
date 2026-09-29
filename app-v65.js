@@ -1365,7 +1365,7 @@ const _v109Bind=bindXpHistory;function bindXpHistory(){document.querySelectorAll
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='wake330'),{name:'Wake Up — 3:30 am',rule:'Be out of bed at 3:30 am'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='vipassanaMorning'),{name:'Morning Anapana & Vipassana — 10 min',rule:'Complete 10 minutes'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='morningShower'),{name:'Morning Shower — before 5:30 am',rule:'Complete before 5:30 am'});
-Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='incline'),{name:'Incline Walk — 10% incline · 4.5 km/h · 15 min',rule:'Minimum 15 minutes'});
+Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='incline'),{name:'Incline Walk — 15 min',rule:'Minimum 15 minutes'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='hindiSpeaking'),{name:'Speak Hindi — 10 min',rule:'10 minutes active speaking'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='saunaDaily'),{name:'Sauna — 30 min',rule:'30 min session'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='water'),{name:'Water — 2.5 L by 8 pm',rule:'5 XP per 500 mL'});
@@ -2235,8 +2235,8 @@ v123RefreshUnlocks = function(){
   }
   const incline=DATA.habits.dailyHabits.find(h=>h.id==='incline');
   if(incline){
-    incline.name='Incline Walk — 10% incline · 4.5 km/h · 15 min';
-    incline.rule='10% incline • 4.5 km/h • 15 min';
+    incline.name='Incline Walk — 15 min';
+    incline.rule='10% incline • 4.5 km/h';
   }
 }
 
@@ -2470,3 +2470,155 @@ function v126BindExport(){
 }
 setTimeout(v126BindExport,0);
 setTimeout(v126BindExport,500);
+
+
+/* v128 — Keystone anchors corrected to the intended four */
+const V128_KEYSTONE_IDS=['wake330','morningShower','gym','water'];
+
+v123KeystoneIdsForDate=function(key){
+  return [...V128_KEYSTONE_IDS];
+};
+
+/* Ensure the status calculation always uses the corrected four anchors. */
+v109Status=function(key=activeDailyKey()){
+  const perfectIds=v123PerfectIdsForDate(key);
+  const keyIds=V128_KEYSTONE_IDS;
+  const perfectDone=perfectIds.filter(id=>dayHabitDone(key,id)).length;
+  const keyDone=keyIds.filter(id=>dayHabitDone(key,id)).length;
+  return {
+    perfectDone,
+    keyDone,
+    perfectTotal:perfectIds.length,
+    keyTotal:keyIds.length,
+    perfectDay:perfectDone===perfectIds.length,
+    keystoneDay:keyDone===keyIds.length
+  };
+};
+
+/* Outstanding-only Keystone popup with Morning Shower included and Meditation removed. */
+showKeystonePopup=function(){
+  document.querySelector('.quest-info-overlay')?.remove();
+  const key=activeDailyKey(),d=getDaily(key),s=v109Status(key);
+  const meta={
+    wake330:['⏰','Wake Up — 3:30 am',20],
+    morningShower:['🚿','Morning Shower — before 5:30 am',10],
+    gym:['🏋️','Gym Workout',100]
+  };
+  const outstanding=V128_KEYSTONE_IDS.filter(id=>id!=='water'&&!dayHabitDone(key,id));
+  const waterDone=dayHabitDone(key,'water');
+  const allDone=outstanding.length===0&&waterDone;
+
+  const rows=outstanding.map(id=>{
+    const x=meta[id];
+    return `<button data-keyhabit="${id}" class="v109-key-row"><span>${x[0]}</span><b>${x[1]}</b><em>+${x[2]}</em></button>`;
+  }).join('');
+
+  const o=document.createElement('div');
+  o.className='quest-info-overlay quest-summon v109-keystone-overlay';
+  o.innerHTML=`<div class="quest-info-panel v109-keystone-panel">
+    <button class="quest-info-close">×</button>
+    <div class="quest-info-kicker">🔑 KEYSTONE HABITS</div>
+    <div class="quest-info-title">${s.keyDone} / 4 anchors</div>
+    <div class="v109-key-list">
+      ${allDone
+        ? `<div class="v121-keystone-complete"><span>🔑</span><b>Keystone Day Complete</b><small>All four anchors complete • +50 XP</small></div>`
+        : `${rows}${!waterDone?compactWaterHtml(d):''}`
+      }
+    </div>
+    ${allDone?'':'<div class="v109-key-footer">Complete all 4 → +50 XP</div>'}
+  </div>`;
+  document.body.appendChild(o);
+
+  const close=()=>o.remove();
+  o.querySelector('.quest-info-close').onclick=close;
+  o.onclick=e=>{if(e.target===o)close()};
+  o.querySelectorAll('[data-keyhabit]').forEach(b=>b.onclick=()=>{
+    toggleHabit(b.dataset.keyhabit);
+    close();
+    showKeystonePopup();
+  });
+  if(!waterDone)bindCompactWater(o,showKeystonePopup);
+};
+
+setTimeout(()=>render(),0);
+
+
+/* v129 — Perfect Day corrected to the current 8 core daily habits */
+const V129_PERFECT_IDS=[
+  'wake330',
+  'morningShower',
+  'healthyBreakfast',
+  'supplements',
+  'gym',
+  'proteinCreatine',
+  'healthyLunch',
+  'water'
+];
+
+v123PerfectIdsForDate=function(key){
+  return [...V129_PERFECT_IDS];
+};
+
+v109Status=function(key=activeDailyKey()){
+  const perfectIds=V129_PERFECT_IDS;
+  const keyIds=V128_KEYSTONE_IDS;
+  const perfectDone=perfectIds.filter(id=>dayHabitDone(key,id)).length;
+  const keyDone=keyIds.filter(id=>dayHabitDone(key,id)).length;
+  return {
+    perfectDone,
+    keyDone,
+    perfectTotal:perfectIds.length,
+    keyTotal:keyIds.length,
+    perfectDay:perfectDone===perfectIds.length,
+    keystoneDay:keyDone===keyIds.length
+  };
+};
+
+showPerfectPopup=function(){
+  document.querySelector('.quest-info-overlay')?.remove();
+  const key=activeDailyKey(),s=v109Status(key),ids=V129_PERFECT_IDS,o=document.createElement('div');
+  o.className='quest-info-overlay quest-summon v110-perfect-overlay';
+  o.innerHTML=`<div class="quest-info-panel v110-perfect-panel">
+    <button class="quest-info-close">×</button>
+    <div class="quest-info-kicker">✨ PERFECT DAY</div>
+    <div class="quest-info-title">${s.perfectDone} / 8 core habits</div>
+    <div class="v110-perfect-list">
+      ${ids.map(id=>{
+        const h=DATA.habits.dailyHabits.find(x=>x.id===id),done=dayHabitDone(key,id);
+        return `<div class="${done?'done':''}"><span>${h?.icon||'✦'}</span><b>${escapeHtml(h?.name||id)}</b><em>${done?'✓':'○'}</em></div>`;
+      }).join('')}
+    </div>
+  </div>`;
+  document.body.appendChild(o);
+  const close=()=>o.remove();
+  o.querySelector('.quest-info-close').onclick=close;
+  o.onclick=e=>{if(e.target===o)close()};
+};
+
+/* Current Perfect Day core XP:
+   Wake 20 + Shower 10 + Breakfast 20 + Supplements 15 + Gym 100
+   + Protein 25 + Lunch 20 + Water 30 = 240 XP.
+*/
+v123PerfectCoreXp=function(key=localDateKey()){
+  return V129_PERFECT_IDS.reduce((sum,id)=>{
+    if(id==='water')return sum+(v123WaterTargetForDate(key)>=3000?30:25);
+    return sum+Number(DATA.habits.dailyHabits.find(h=>h.id===id)?.xp||0);
+  },0);
+};
+
+evaluateV109=function(key,celebrate=false){
+  const d=getDaily(key),s=v109Status(key);
+  if(s.keystoneDay&&!d.v109KeystoneAwarded){
+    d.v109KeystoneAwarded=true;
+    addXP(50,'Keystone Day');
+    if(celebrate)celebration('keystone','KEYSTONE DAY','4 / 4 COMPLETE • +50 XP');
+  }
+  if(s.perfectDay&&!d.v109PerfectAwarded){
+    d.v109PerfectAwarded=true;
+    if(celebrate)celebration('perfect','PERFECT DAY','All 8 current core habits complete');
+  }
+  awardMilestones(key,celebrate);
+  persist();
+};
+
+setTimeout(()=>render(),0);
