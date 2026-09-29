@@ -11,7 +11,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png?v=83">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=84">
-  <link rel="stylesheet" href="./styles-v65.css?v=121">
+  <link rel="stylesheet" href="./styles-v65.css?v=124">
 
 
 <style id="hp64-dark-hufflepuff-palette">
@@ -154,8 +154,11 @@ html,body{background:#000!important}
           <div class="zone-heading daily-heading compact-heading"><h2>Daily Missions</h2></div>
           <div class="card mission-panel daily-panel">
             <div class="section-head"><div><h3 id="todayDateLabel">Daily missions</h3></div><span id="routineBadge" class="mini-badge">0 / 11</span></div>
-            <div id="dailyHabitList" class="habit-list"></div>
+            <div id="dailyHabitList" class="habit-list"></div><div id="v123UnlockHint" class="v123-unlock-hint" hidden></div>
           </div>
+
+          <div class="zone-heading compact-heading v123-penalty-heading"><h2>Penalties</h2></div>
+          <div id="v123PenaltyPanel" class="v123-penalty-panel"></div>
 
           <div class="card sleep-card mission-panel sleep-card-compact">
             <div class="sleep-compact-head"><span class="sleep-compact-icon">😴</span><strong>Sleep</strong><b id="sleepXpPreview">0 / 50 XP</b></div>
@@ -205,7 +208,7 @@ html,body{background:#000!important}
     </div>
   </div>
 
-  <script type="module" src="./app-v65.js?v=118"></script>
+  <script type="module" src="./app-v65.js?v=124"></script>
 
 <script>
 window.addEventListener('load', async () => {

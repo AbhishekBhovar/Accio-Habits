@@ -1364,8 +1364,8 @@ const _v109Bind=bindXpHistory;function bindXpHistory(){document.querySelectorAll
 // ===== v110 interaction + compact controls patch =====
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='wake330'),{name:'Wake Up — 3:30 am',rule:'Be out of bed at 3:30 am'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='vipassanaMorning'),{name:'Morning Anapana & Vipassana — 10 min',rule:'Complete 10 minutes'});
-Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='morningShower'),{name:'Morning Shower — before 7 am',rule:'Complete before 7:00 am'});
-Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='incline'),{name:'Incline Walk L15 / StairMaster — 15 min',rule:'Minimum 15 minutes'});
+Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='morningShower'),{name:'Morning Shower — before 5:30 am',rule:'Complete before 5:30 am'});
+Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='incline'),{name:'Incline Walk — 10% incline · 4.5 km/h · 15 min',rule:'Minimum 15 minutes'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='hindiSpeaking'),{name:'Speak Hindi — 10 min',rule:'10 minutes active speaking'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='saunaDaily'),{name:'Sauna — 30 min',rule:'30 min session'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='water'),{name:'Water — 2.5 L by 8 pm',rule:'5 XP per 500 mL'});
@@ -1635,3 +1635,631 @@ function migrateHistoricalXpV119(){
 }
 migrateHistoricalXpV119();
 
+
+/* v122 — weekly optional activities: up to 20 intervals each */
+const V122_WEEKLY_INTERVAL_MAX=20;
+
+logSport = function(){
+  const w=ensureCurrentWeek();
+  const n=(w.sportLog||[]).filter(x=>x?.v109).length;
+  if(n>=V122_WEEKLY_INTERVAL_MAX)return toast('Sport / Dance / Outdoor is already 20 / 20 intervals.','warn');
+  const date=activeDailyKey();
+  w.sportActual=(w.sportActual||0)+1;
+  w.sportLog=w.sportLog||[];
+  w.sportLog.push({date,banked:false,v109:true,xpAwarded:50,minutes:60});
+  addXP(50,'Sport / Dance / Outdoor Activity');
+  toast(`Sport / Dance / Outdoor ${n+1} / 20 • +50 XP`);
+};
+
+logCyclingIntervalV113 = function(){
+  const w=ensureCurrentWeek(),n=cyclingIntervalsV113(w);
+  if(n>=V122_WEEKLY_INTERVAL_MAX)return toast('Optional Cycling is already 20 / 20 intervals.','warn');
+  w.cyclingLog=w.cyclingLog||[];
+  w.cyclingLog.push({date:activeDailyKey(),xpAwarded:5,v113Interval:true,minutes:5});
+  addXP(5,'Optional Cycling — 5 min');
+  toast(`Cycling ${n+1} / 20 • +5 XP`);
+};
+
+renderWeekly = function(){
+  const week=ensureCurrentWeek();
+  document.querySelector('#weekLabel').textContent=`${prettyDate(weekKey())} – ${weekEndFromKey(weekKey()).toLocaleDateString(undefined,{day:'numeric',month:'short'})}`;
+  const sport=Math.min(V122_WEEKLY_INTERVAL_MAX,(week.sportLog||[]).filter(x=>x?.v109).length);
+  const cycling=Math.min(V122_WEEKLY_INTERVAL_MAX,cyclingIntervalsV113(week));
+  document.querySelector('#weeklyMissionList').innerHTML=`
+    <div class="weekly-mission">
+      <div class="weekly-info"><span class="weekly-icon">⚽</span><div>
+        <strong>Sport / Dance / Outdoor — 60 min</strong>
+        <small>${sport}/20 intervals • ${sport*50}/1000 XP</small>
+      </div></div>
+      <div class="weekly-action"><b>${sport}/20</b><button id="undoSport" ${sport?'':'disabled'}>−</button><button id="logSport" ${sport>=20?'disabled':''}>+</button></div>
+    </div>
+    <div class="weekly-mission">
+      <div class="weekly-info"><span class="weekly-icon">🚴</span><div>
+        <strong>Optional Cycling — 5 min</strong>
+        <small>${cycling}/20 intervals • ${cycling*5}/100 XP</small>
+      </div></div>
+      <div class="weekly-action"><b>${cycling}/20</b><button id="undoCycling" ${cycling?'':'disabled'}>−</button><button id="logCycling" ${cycling>=20?'disabled':''}>+</button></div>
+    </div>`;
+  document.querySelector('#logSport').onclick=logSport;
+  document.querySelector('#undoSport').onclick=undoSportV110;
+  document.querySelector('#logCycling').onclick=logCyclingIntervalV113;
+  document.querySelector('#undoCycling').onclick=undoCyclingIntervalV113;
+};
+
+
+/* =========================================================
+   v123 — progression habits + penalties + 3 L water + early gym
+   ========================================================= */
+const V123_WATER_GOAL_ML = 3000;
+const V123_SPORT_MAX = 10;
+const V123_CYCLING_MAX = 20;
+const V123_EARLY_GYM_BONUS = 20;
+
+/*
+  Delayed habits start from the player's level when v123 is first installed.
+  They unlock permanently at these offsets:
+  Herbal Tea +2, Morning Meditation +4, Evening Meditation +7,
+  Speak Hindi +10, Optional Cycling +14.
+*/
+const V123_UNLOCK_OFFSETS = {
+  herbalTea: 2,
+  vipassanaMorning: 4,
+  vipassanaNight: 7,
+  hindiSpeaking: 10,
+  cycling: 14
+};
+const V123_UNLOCK_LABELS = {
+  herbalTea: ['☕','Herbal Tea'],
+  vipassanaMorning: ['🧘','Morning Anapana & Vipassana'],
+  vipassanaNight: ['🧘','Evening Anapana & Vipassana'],
+  hindiSpeaking: ['🗣️','Speak Hindi'],
+  cycling: ['🚴','Optional Cycling']
+};
+
+function v123TomorrowKey(key=localDateKey()){
+  return localDateKey(addDays(parseDateKey(key),1));
+}
+function v123EnsureProgression(){
+  save.v123Progression = save.v123Progression || {};
+  const p = save.v123Progression;
+  if(!Number.isFinite(Number(p.baseLevel))){
+    p.baseLevel = Number(save.currentLevel||0);
+    p.startedDate = localDateKey();
+    p.unlocks = {};
+    p.initialized = true;
+  }
+  p.unlocks = p.unlocks || {};
+  save.v123WaterGoalDate = save.v123WaterGoalDate || localDateKey();
+  return p;
+}
+function v123RefreshUnlocks(){
+  const p=v123EnsureProgression();
+  let changed=false;
+  for(const [id,offset] of Object.entries(V123_UNLOCK_OFFSETS)){
+    if(p.unlocks[id]?.unlocked) continue;
+    const target=Number(p.baseLevel||0)+offset;
+    if(Number(save.currentLevel||0)>=target){
+      p.unlocks[id]={
+        unlocked:true,
+        unlockedDate:localDateKey(),
+        requiredFrom:v123TomorrowKey(),
+        targetLevel:target
+      };
+      changed=true;
+      const label=V123_UNLOCK_LABELS[id]?.[1]||id;
+      toast(`🔓 New habit unlocked — ${label}`);
+    }
+  }
+  if(changed)persist();
+}
+function v123UnlockInfo(id){
+  const p=v123EnsureProgression(),stored=p.unlocks?.[id];
+  return stored || {unlocked:false,targetLevel:Number(p.baseLevel||0)+Number(V123_UNLOCK_OFFSETS[id]||0)};
+}
+function v123Unlocked(id){
+  if(!(id in V123_UNLOCK_OFFSETS)) return true;
+  return !!v123UnlockInfo(id).unlocked;
+}
+function v123RequiredOnDate(id,key){
+  if(!(id in V123_UNLOCK_OFFSETS)) return true;
+  const u=v123UnlockInfo(id);
+  return !!u.unlocked && key >= String(u.requiredFrom||u.unlockedDate||localDateKey());
+}
+function v123VisibleDailyHabits(){
+  return DATA.habits.dailyHabits.filter(h=>h.input!=='sleep' && v123Unlocked(h.id));
+}
+function v123PerfectIdsForDate(key){
+  return V109_PERFECT.filter(id=>v123RequiredOnDate(id,key));
+}
+function v123KeystoneIdsForDate(key){
+  return V109_KEYSTONE.filter(id=>v123RequiredOnDate(id,key));
+}
+function v123WaterTargetForDate(key){
+  const start=String(save.v123WaterGoalDate||localDateKey());
+  return key < start ? 2500 : V123_WATER_GOAL_ML;
+}
+function v123WaterXpForDate(ml,key){
+  const cap=v123WaterTargetForDate(key)>=3000?30:25;
+  return Math.min(cap,Math.floor(Math.max(0,Number(ml)||0)/500)*5);
+}
+
+/* Update canonical habit copy. */
+Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='water')||{},{
+  name:'Water — 3.0 L by 8 pm',
+  xp:30,
+  rule:'5 XP per 500 mL; 3.0 L target by 8:00 pm'
+});
+DATA.habits.dailyMaxXP=300;
+
+/* Water completion is 3 L from v123 onward, but old dates keep their old 2.5 L target. */
+waterXp = function(ml){
+  return v123WaterXpForDate(ml,activeDailyKey());
+};
+dayHabitDone = function(key,id){
+  const d=save.daily?.[key];
+  if(id==='water') return Number(d?.waterMl||0)>=v123WaterTargetForDate(key);
+  return !!d?.habits?.[id]?.completed;
+};
+
+v109Status = function(key=activeDailyKey()){
+  const perfectIds=v123PerfectIdsForDate(key),keyIds=v123KeystoneIdsForDate(key);
+  const perfectDone=perfectIds.filter(id=>dayHabitDone(key,id)).length;
+  const keyDone=keyIds.filter(id=>dayHabitDone(key,id)).length;
+  return {
+    perfectDone,keyDone,
+    perfectTotal:perfectIds.length,
+    keyTotal:keyIds.length,
+    perfectDay:perfectDone===perfectIds.length,
+    keystoneDay:keyDone===keyIds.length
+  };
+};
+
+/* Water controls */
+function v123ChangeWater(delta){
+  const key=activeDailyKey(),day=getDaily(key);
+  const target=v123WaterTargetForDate(key);
+  const old=Math.max(0,Number(day.waterMl||0));
+  const next=Math.max(0,Math.min(target,old+Number(delta||0)));
+  const oldXp=v123WaterXpForDate(old,key),newXp=v123WaterXpForDate(next,key),diff=newXp-oldXp;
+  day.waterMl=next;
+  if(next>0) day.habits.water={completed:next>=target,xpAwarded:newXp,ts:Date.now()};
+  else delete day.habits.water;
+  if(diff>0)addXP(diff,'Water');
+  else if(diff<0)removeXP(-diff,'Water');
+  else{persist();render();}
+  if(diff>=0)evaluateV109(key,true);
+  toast(`Water • ${(next/1000).toFixed(1)} / ${(target/1000).toFixed(1)} L • ${newXp}/${target>=3000?30:25} XP`);
+  render();
+}
+addWater = function(ml){v123ChangeWater(Math.abs(Number(ml)||0));};
+removeWater = function(ml=500){v123ChangeWater(-Math.abs(Number(ml)||500));};
+
+compactWaterHtml = function(d){
+  const key=activeDailyKey(),target=v123WaterTargetForDate(key),ml=Number(d.waterMl||0);
+  const steps=target/500,pct=Math.min(100,(Math.floor(ml/500)/steps)*100);
+  return `<div class="v110-water-compact"><div class="v110-water-head"><span>💧 <b>Water</b><small>${(ml/1000).toFixed(1)} / ${(target/1000).toFixed(1)} L</small></span><button data-water-plus ${ml>=target?'disabled':''}>+500 mL</button></div><div class="v109-water-track v110-five-step"><i style="width:${pct}%"></i><span></span><span></span><span></span><span></span></div><div class="v110-water-meta"><b>${Math.round(pct)}%</b><button data-water-minus-popup ${ml<=0?'disabled':''}>↶ −500 mL</button></div></div>`;
+};
+
+showWaterPopup = function(){
+  document.querySelector('.quest-info-overlay')?.remove();
+  const key=activeDailyKey(),target=v123WaterTargetForDate(key),o=document.createElement('div');
+  o.className='quest-info-overlay quest-summon v110-mini-overlay';
+  o.innerHTML=`<div class="quest-info-panel v110-mini-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">💧 WATER</div><div class="quest-info-title">${(target/1000).toFixed(1)} L by 8 pm</div>${compactWaterHtml(getDaily(key))}</div>`;
+  document.body.appendChild(o);
+  const close=()=>o.remove();
+  o.querySelector('.quest-info-close').onclick=close;
+  o.onclick=e=>{if(e.target===o)close()};
+  bindCompactWater(o,showWaterPopup);
+};
+
+/* Habit row rendering, including the 3 L water row. */
+habitRowsHtml = function(habits,day){
+  const key=activeDailyKey();
+  return habits.map(h=>{
+    if(h.id==='water'){
+      const target=v123WaterTargetForDate(key),ml=Number(day.waterMl||0),xp=v123WaterXpForDate(ml,key);
+      const pct=Math.min(100,(Math.floor(ml/500)/(target/500))*100);
+      return `<div class="habit-row water-row ${ml>=target?'done':''}"><span class="habit-icon">💧</span><span class="habit-copy"><strong>Water — ${(target/1000).toFixed(1)} L by 8 pm</strong><small>${(ml/1000).toFixed(1)} / ${(target/1000).toFixed(1)} L • ${Math.round(pct)}% • ${xp}/${target>=3000?30:25} XP</small><span class="v110-row-water-track"><i style="width:${pct}%"></i></span></span><span class="v110-water-buttons"><button data-water-minus="500" ${ml<=0?'disabled':''}>−</button><button data-water="500" ${ml>=target?'disabled':''}>+500</button></span></div>`;
+    }
+    if(h.id==='saunaDaily'){
+      const done=!!day.habits?.saunaDaily?.completed;
+      return `<button class="habit-row ${done?'done':''}" data-sauna><span class="habit-icon">🧖</span><span class="habit-copy"><strong>Sauna — 30 min</strong><small>${done?'Completed • tap to undo':'30 min = +30 XP'}</small></span><span class="habit-xp">${done?'↶':'+30'}</span></button>`;
+    }
+    const entry=day.habits[h.id],done=entry?.completed;
+    const early=h.id==='gym'&&Number(day.v123EarlyGymBonus||0)>0;
+    return `<button class="habit-row ${done?'done':''}" data-habit="${h.id}"><span class="habit-icon">${h.icon}</span><span class="habit-copy"><strong>${escapeHtml(h.name)}</strong><small class="${early?'v123-early-gym':''}">${early?'🌅 Early Gym Bonus • +20 XP':escapeHtml(h.rule||'')}</small></span><span class="habit-xp">${done?'↶':`+${h.xp}`}</span></button>`;
+  }).join('');
+};
+
+/* Early Gym: +20 only for a real-time completion before 08:00 today. */
+const v123BaseToggleHabit=toggleHabit;
+toggleHabit = function(id){
+  if(id!=='gym') return v123BaseToggleHabit(id);
+  ensureAudio();
+  const key=activeDailyKey(),habit=DATA.habits.dailyHabits.find(h=>h.id==='gym'),day=getDaily(key),entry=day.habits.gym;
+  if(entry?.completed){
+    const bonus=Math.max(0,Number(day.v123EarlyGymBonus||0));
+    delete day.habits.gym;
+    day.v123EarlyGymBonus=0;
+    removeXP(Number(entry.xpAwarded??habit.xp)+bonus,'Gym Workout');
+    playChime('undo');
+    render();
+    return;
+  }
+  day.habits.gym={completed:true,xpAwarded:habit.xp,ts:Date.now()};
+  const now=new Date(),isToday=key===localDateKey(),isBefore8=now.getHours()<8;
+  if(isToday&&isBefore8){
+    day.v123EarlyGymBonus=V123_EARLY_GYM_BONUS;
+    addXP(habit.xp+V123_EARLY_GYM_BONUS,'Gym Workout');
+    toast(`Gym Workout complete • +100 XP • 🌅 Early Gym +20`);
+  }else{
+    day.v123EarlyGymBonus=0;
+    addXP(habit.xp,'Gym Workout');
+    toast('Gym Workout complete • +100 XP');
+  }
+  playChime('success');
+  evaluateV109(key,true);
+  render();
+};
+
+/* One-time: if today's existing Gym was genuinely logged before 8 am, honour the new bonus. */
+function v123MigrateTodayEarlyGym(){
+  if(save.v123EarlyGymMigrationDone)return;
+  save.v123EarlyGymMigrationDone=true;
+  const key=localDateKey(),d=save.daily?.[key],e=d?.habits?.gym;
+  if(e?.completed && !d.v123EarlyGymBonus && Number(e.ts||0)){
+    const t=new Date(Number(e.ts));
+    if(localDateKey(t)===key && t.getHours()<8){
+      d.v123EarlyGymBonus=V123_EARLY_GYM_BONUS;
+      addXP(V123_EARLY_GYM_BONUS,'Early Gym Bonus');
+      return;
+    }
+  }
+  persist();
+}
+
+/* Penalties */
+const V123_PENALTIES = {
+  junkFoodBinge:{icon:'🍔',name:'Junk Food Binge',xp:40,sub:'Max once per day'},
+  foodAfter5:{icon:'🌙',name:'Food After 5 pm',xp:20,sub:'Max once per day'}
+};
+function v123PenaltyState(key=activeDailyKey()){
+  const d=getDaily(key);
+  d.v123Penalties=d.v123Penalties||{};
+  return d.v123Penalties;
+}
+function v123LogPenalty(id){
+  const def=V123_PENALTIES[id];if(!def)return;
+  const key=activeDailyKey(),state=v123PenaltyState(key);
+  if(state[id]?.logged)return;
+  const deducted=Math.min(def.xp,Math.max(0,Number(save.totalXP||0)));
+  state[id]={logged:true,nominal:def.xp,deducted,ts:Date.now()};
+  if(deducted)removeXP(deducted,def.name);else{persist();render();}
+  save.eventLog=save.eventLog||[];
+  save.eventLog.unshift({level:save.currentLevel,title:`−${def.xp} XP — ${def.name}`,kind:'penalty',ts:Date.now()});
+  persist();render();
+  toast(`Penalty Logged • −${def.xp} XP`,'warn');
+}
+function v123UndoPenalty(id){
+  const def=V123_PENALTIES[id];if(!def)return;
+  const key=activeDailyKey(),state=v123PenaltyState(key),entry=state[id];
+  if(!entry?.logged)return;
+  const restore=Math.max(0,Number(entry.deducted||0));
+  delete state[id];
+  if(restore)addXP(restore,`Penalty Undo — ${def.name}`);else{persist();render();}
+  toast(`${def.name} penalty undone.`);
+}
+function v123RenderPenalties(){
+  const root=document.querySelector('#v123PenaltyPanel');if(!root)return;
+  const state=v123PenaltyState(activeDailyKey());
+  root.innerHTML=Object.entries(V123_PENALTIES).map(([id,p])=>{
+    const logged=!!state[id]?.logged;
+    return `<div class="v123-penalty-row ${logged?'logged':''}">
+      <span class="v123-penalty-icon">${p.icon}</span>
+      <span class="v123-penalty-copy"><strong>${escapeHtml(p.name)} — −${p.xp} XP</strong><small>${logged?'Logged today ✓ • tap Undo to reverse':p.sub}</small></span>
+      <button class="v123-penalty-action" data-penalty="${id}" data-mode="${logged?'undo':'log'}">${logged?'Undo':`Log −${p.xp}`}</button>
+    </div>`;
+  }).join('');
+  root.querySelectorAll('[data-penalty]').forEach(b=>b.onclick=()=>b.dataset.mode==='undo'?v123UndoPenalty(b.dataset.penalty):v123LogPenalty(b.dataset.penalty));
+}
+
+/* Daily view: only unlocked habits appear; Perfect/Keystone totals grow as habits activate. */
+renderDailyHabits = function(){
+  v123RefreshUnlocks();
+  const key=activeDailyKey(),day=getDaily(key),list=document.querySelector('#dailyHabitList'),habits=v123VisibleDailyHabits();
+  const completed=habits.filter(h=>dayHabitDone(key,h.id)).length;
+  document.querySelector('#routineBadge').textContent=`${completed} / ${habits.length}`;
+  const today=localDateKey(),y=localDateKey(addDays(parseDateKey(today),-1)),t=localDateKey(addDays(parseDateKey(today),1));
+  document.querySelector('#todayDateLabel').textContent=key===today?'Today':`${key===y?'Yesterday':'Tomorrow'} · ${prettyDate(key)}`;
+  list.innerHTML=habitRowsHtml(habits,day);
+  list.querySelectorAll('[data-habit]').forEach(b=>b.onclick=()=>toggleHabit(b.dataset.habit));
+  list.querySelectorAll('[data-water]').forEach(b=>b.onclick=()=>addWater(Number(b.dataset.water)));
+  list.querySelectorAll('[data-water-minus]').forEach(b=>b.onclick=()=>removeWater(Number(b.dataset.waterMinus)));
+  list.querySelectorAll('[data-sauna]').forEach(b=>b.onclick=showSaunaControls);
+
+  const s=v109Status(key),strip=document.querySelector('#v109StatusStrip');
+  if(strip)strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/${s.keyTotal}</button><button id="openPerfect">✨ ${s.perfectDone}/${s.perfectTotal}</button>`;
+  document.querySelector('#openKeystones')?.addEventListener('click',showKeystonePopup);
+  document.querySelector('#openPerfect')?.addEventListener('click',showPerfectPopup);
+
+  const yb=document.querySelector('#v109Yesterday'),tb=document.querySelector('#v109Today'),nb=document.querySelector('#v117Tomorrow');
+  if(yb)yb.classList.toggle('active',key===y);
+  if(tb)tb.classList.toggle('active',key===today);
+  if(nb)nb.classList.toggle('active',key===t);
+
+  const dateEl=document.querySelector('#v114HomeDate');
+  if(dateEl)dateEl.textContent=v114HomeDateLabel(key);
+
+  const hint=document.querySelector('#v123UnlockHint');
+  if(hint){
+    const next=Object.keys(V123_UNLOCK_OFFSETS).map(id=>({id,...v123UnlockInfo(id)})).filter(x=>!x.unlocked).sort((a,b)=>a.targetLevel-b.targetLevel)[0];
+    if(next){
+      const [icon,label]=V123_UNLOCK_LABELS[next.id];
+      hint.hidden=false;
+      hint.innerHTML=`🔒 Next habit: <b>${icon} ${escapeHtml(label)}</b> • unlocks at Level ${next.targetLevel}`;
+    }else hint.hidden=true;
+  }
+  v123RenderPenalties();
+};
+
+/* Keystone popup: outstanding-only, with a dynamic requirement count. */
+showKeystonePopup = function(){
+  document.querySelector('.quest-info-overlay')?.remove();
+  const key=activeDailyKey(),d=getDaily(key),s=v109Status(key),ids=v123KeystoneIdsForDate(key);
+  const meta={
+    wake330:['⏰','Wake Up — 3:30 am',20],
+    vipassanaMorning:['🧘','Morning Anapana & Vipassana — 10 min',20],
+    gym:['🏋️','Gym Workout',100]
+  };
+  const outstanding=ids.filter(id=>id!=='water'&&!dayHabitDone(key,id));
+  const waterRequired=ids.includes('water'),waterDone=!waterRequired||dayHabitDone(key,'water');
+  const allDone=outstanding.length===0&&waterDone;
+  const rows=outstanding.map(id=>{
+    const x=meta[id];return `<button data-keyhabit="${id}" class="v109-key-row"><span>${x[0]}</span><b>${x[1]}</b><em>+${x[2]}</em></button>`;
+  }).join('');
+  const o=document.createElement('div');
+  o.className='quest-info-overlay quest-summon v109-keystone-overlay';
+  o.innerHTML=`<div class="quest-info-panel v109-keystone-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🔑 KEYSTONE HABITS</div><div class="quest-info-title">${s.keyDone} / ${s.keyTotal} anchors</div><div class="v109-key-list">${allDone?`<div class="v121-keystone-complete"><span>🔑</span><b>Keystone Day Complete</b><small>All ${s.keyTotal} anchors complete • +50 XP</small></div>`:`${rows}${waterRequired&&!waterDone?compactWaterHtml(d):''}`}</div>${allDone?'':`<div class="v109-key-footer">Complete all ${s.keyTotal} → +50 XP</div>`}</div>`;
+  document.body.appendChild(o);
+  const close=()=>o.remove();
+  o.querySelector('.quest-info-close').onclick=close;
+  o.onclick=e=>{if(e.target===o)close()};
+  o.querySelectorAll('[data-keyhabit]').forEach(b=>b.onclick=()=>{toggleHabit(b.dataset.keyhabit);close();showKeystonePopup()});
+  if(waterRequired&&!waterDone)bindCompactWater(o,showKeystonePopup);
+};
+
+/* Perfect Day popup uses only habits actually required on that date. */
+showPerfectPopup = function(){
+  document.querySelector('.quest-info-overlay')?.remove();
+  const key=activeDailyKey(),s=v109Status(key),ids=v123PerfectIdsForDate(key),o=document.createElement('div');
+  o.className='quest-info-overlay quest-summon v110-perfect-overlay';
+  o.innerHTML=`<div class="quest-info-panel v110-perfect-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">✨ PERFECT DAY</div><div class="quest-info-title">${s.perfectDone} / ${s.perfectTotal} core habits</div><div class="v110-perfect-list">${ids.map(id=>{const h=DATA.habits.dailyHabits.find(x=>x.id===id),done=dayHabitDone(key,id);return `<div class="${done?'done':''}"><span>${h.icon}</span><b>${escapeHtml(h.name)}</b><em>${done?'✓':'○'}</em></div>`}).join('')}</div></div>`;
+  document.body.appendChild(o);
+  const close=()=>o.remove();
+  o.querySelector('.quest-info-close').onclick=close;
+  o.onclick=e=>{if(e.target===o)close()};
+};
+
+/* Weekly / Optional: Sport max 10. Cycling stays hidden until it unlocks, then max 20. */
+logSport = function(){
+  const w=ensureCurrentWeek(),n=(w.sportLog||[]).filter(x=>x?.v109).length;
+  if(n>=V123_SPORT_MAX)return toast('Sport / Dance / Outdoor is already 10 / 10 intervals.','warn');
+  w.sportActual=(w.sportActual||0)+1;
+  w.sportLog=w.sportLog||[];
+  w.sportLog.push({date:activeDailyKey(),banked:false,v109:true,xpAwarded:50,minutes:60});
+  addXP(50,'Sport / Dance / Outdoor Activity');
+  toast(`Sport / Dance / Outdoor ${n+1} / 10 • +50 XP`);
+};
+logCyclingIntervalV113 = function(){
+  if(!v123Unlocked('cycling'))return toast('Optional Cycling is still locked.','warn');
+  const w=ensureCurrentWeek(),n=cyclingIntervalsV113(w);
+  if(n>=V123_CYCLING_MAX)return toast('Optional Cycling is already 20 / 20 intervals.','warn');
+  w.cyclingLog=w.cyclingLog||[];
+  w.cyclingLog.push({date:activeDailyKey(),xpAwarded:5,v113Interval:true,minutes:5});
+  addXP(5,'Optional Cycling — 5 min');
+  toast(`Cycling ${n+1} / 20 • +5 XP`);
+};
+renderWeekly = function(){
+  v123RefreshUnlocks();
+  const week=ensureCurrentWeek();
+  document.querySelector('#weekLabel').textContent=`${prettyDate(weekKey())} – ${weekEndFromKey(weekKey()).toLocaleDateString(undefined,{day:'numeric',month:'short'})}`;
+  const sport=Math.min(V123_SPORT_MAX,(week.sportLog||[]).filter(x=>x?.v109).length);
+  const cycling=Math.min(V123_CYCLING_MAX,cyclingIntervalsV113(week));
+  const cyclingHtml=v123Unlocked('cycling')?`
+    <div class="weekly-mission">
+      <div class="weekly-info"><span class="weekly-icon">🚴</span><div><strong>Optional Cycling — 5 min</strong><small>${cycling}/20 intervals • ${cycling*5}/100 XP</small></div></div>
+      <div class="weekly-action"><b>${cycling}/20</b><button id="undoCycling" ${cycling?'':'disabled'}>−</button><button id="logCycling" ${cycling>=20?'disabled':''}>+</button></div>
+    </div>`:'';
+  document.querySelector('#weeklyMissionList').innerHTML=`
+    <div class="weekly-mission">
+      <div class="weekly-info"><span class="weekly-icon">⚽</span><div><strong>Sport / Dance / Outdoor — 60 min</strong><small>${sport}/10 intervals • ${sport*50}/500 XP</small></div></div>
+      <div class="weekly-action"><b>${sport}/10</b><button id="undoSport" ${sport?'':'disabled'}>−</button><button id="logSport" ${sport>=10?'disabled':''}>+</button></div>
+    </div>${cyclingHtml}`;
+  document.querySelector('#logSport').onclick=logSport;
+  document.querySelector('#undoSport').onclick=undoSportV110;
+  if(v123Unlocked('cycling')){
+    document.querySelector('#logCycling').onclick=logCyclingIntervalV113;
+    document.querySelector('#undoCycling').onclick=undoCyclingIntervalV113;
+  }
+};
+
+/* Daily XP graph includes the early-gym bonus and subtracts penalties. */
+dailyXpHistory = function(days=30){
+  const today=parseDateKey(localDateKey()),xpByDate={};
+  const add=(date,a)=>{if(date)xpByDate[date]=(xpByDate[date]||0)+Number(a||0)};
+  for(const [date,d] of Object.entries(save.daily||{})){
+    for(const [id,e] of Object.entries(d.habits||{})){
+      if(e?.completed&&id!=='water')add(date,Number(e.xpAwarded||0));
+    }
+    add(date,v123WaterXpForDate(d.waterMl,date));
+    add(date,d.sleep?.xpAwarded||0);
+    add(date,d.v109KeystoneAwarded?50:0);
+    add(date,d.v123EarlyGymBonus||0);
+    for(const [id,p] of Object.entries(d.v123Penalties||{})){
+      if(p?.logged)add(date,-Number(p.nominal||V123_PENALTIES[id]?.xp||0));
+    }
+  }
+  for(const w of Object.values(save.weekly||{})){
+    for(const x of (w.sportLog||[]))if(x.v109)add(x.date,Number(x.xpAwarded||50));
+    for(const x of (w.cyclingLog||[]))add(x.date,Number(x.xpAwarded||5));
+  }
+  const rows=[];
+  for(let o=days-1;o>=0;o--){
+    const d=addDays(today,-o),key=localDateKey(d);
+    rows.push({key,date:d,xp:Math.max(0,Math.round(xpByDate[key]||0))});
+  }
+  return rows;
+};
+function v123PerfectCoreXp(key=localDateKey()){
+  return v123PerfectIdsForDate(key).reduce((sum,id)=>{
+    if(id==='water')return sum+(v123WaterTargetForDate(key)>=3000?30:25);
+    return sum+Number(DATA.habits.dailyHabits.find(h=>h.id===id)?.xp||0);
+  },0);
+}
+xpHistoryHtml = function(days){
+  const rows=dailyXpHistory(days),ref=v123PerfectCoreXp(localDateKey()),pointGap=days<=31?14:days<=90?8:5,chartW=Math.max(300,(rows.length-1)*pointGap+16),plotH=140,peak=Math.max(400,...rows.map(x=>x.xp)),points=rows.map((x,i)=>`${(8+i*pointGap).toFixed(1)},${(plotH-(x.xp/peak*plotH)).toFixed(1)}`).join(' '),refY=plotH-(ref/peak*plotH);
+  return `<div class="xp-max-note">Reference: ${ref} XP — Current Perfect Day Core</div><div class="xp-history-scroll" id="xpHistoryScroll"><div class="v112-xp-line-wrap" style="width:${chartW}px"><svg class="xp-trend-line v112-line-only" style="width:${chartW}px" viewBox="0 0 ${chartW} ${plotH+22}" preserveAspectRatio="none"><line class="xp-core-line" x1="0" y1="${refY}" x2="${chartW}" y2="${refY}"></line><polyline points="${points}"></polyline>${rows.map((x,i)=>`<circle class="v112-xp-point" data-date="${x.key}" data-xp="${x.xp}" data-max="${ref}" cx="${8+i*pointGap}" cy="${plotH-(x.xp/peak*plotH)}" r="${days<=31?3:2.2}"></circle>`).join('')}${days<=31?rows.map((x,i)=>`<text x="${8+i*pointGap}" y="${plotH+18}" text-anchor="middle">${x.date.getDate()}</text>`).join(''):''}</svg></div></div>`;
+};
+
+/* Keep locked habits out of per-habit Stats and update the water target-days figure. */
+const v123BaseRenderStats=renderStats;
+renderStats=function(){
+  v123BaseRenderStats();
+  const root=document.querySelector('#statsDashboard');if(!root)return;
+  const lockedNames=Object.keys(V123_UNLOCK_OFFSETS).filter(id=>!v123Unlocked(id)).map(id=>V123_UNLOCK_LABELS[id]?.[1]).filter(Boolean);
+  root.querySelectorAll('.v109-habit-card').forEach(card=>{
+    const tx=card.querySelector('summary')?.textContent||'';
+    if(lockedNames.some(n=>tx.includes(n)))card.remove();
+  });
+  const waterCard=[...root.querySelectorAll('.stats62-card')].find(x=>x.querySelector('.eyebrow')?.textContent.trim()==='WATER');
+  if(waterCard){
+    const b=waterCard.querySelectorAll('.v109-stat-grid b')[2];
+    if(b){
+      let hit=0;
+      const today=parseDateKey(localDateKey());
+      for(let i=0;i<30;i++){
+        const key=localDateKey(addDays(today,-i)),ml=Number(save.daily?.[key]?.waterMl||0);
+        if(ml>=v123WaterTargetForDate(key))hit++;
+      }
+      b.innerHTML=`${hit}/30<small>Target days</small>`;
+    }
+  }
+};
+
+/* Fix Perfect/Keystone celebration copy for dynamic totals. */
+evaluateV109 = function(key,celebrate=false){
+  const d=getDaily(key),s=v109Status(key);
+  if(s.keystoneDay&&!d.v109KeystoneAwarded){
+    d.v109KeystoneAwarded=true;
+    addXP(50,'Keystone Day');
+    if(celebrate)celebration('keystone','KEYSTONE DAY',`${s.keyTotal} / ${s.keyTotal} COMPLETE • +50 XP`);
+  }
+  if(s.perfectDay&&!d.v109PerfectAwarded){
+    d.v109PerfectAwarded=true;
+    if(celebrate)celebration('perfect','PERFECT DAY',`All ${s.perfectTotal} current core habits complete`);
+  }
+  awardMilestones(key,celebrate);
+  persist();
+};
+
+v123EnsureProgression();
+v123MigrateTodayEarlyGym();
+v123RefreshUnlocks();
+setTimeout(()=>render(),0);
+
+
+/* =========================================================
+   v124 — finalise absolute unlock levels + routine timing
+   ========================================================= */
+
+/* Absolute unlock levels chosen from the current Level 4 starting point:
+   L6 Herbal Tea → L8 Morning Meditation → L10 Evening Meditation
+   → L13 Speak Hindi → L16 Optional Cycling.
+*/
+const V124_UNLOCK_LEVELS = {
+  herbalTea: 6,
+  vipassanaMorning: 8,
+  vipassanaNight: 10,
+  hindiSpeaking: 13,
+  cycling: 16
+};
+
+/* Replace offset-based v123 unlock targets with fixed absolute levels.
+   Existing unlocks remain unlocked; locked habits use the new absolute targets.
+*/
+v123EnsureProgression = function(){
+  save.v123Progression = save.v123Progression || {};
+  const p = save.v123Progression;
+  p.initialized = true;
+  p.unlocks = p.unlocks || {};
+  p.absoluteUnlockLevels = {...V124_UNLOCK_LEVELS};
+  save.v123WaterGoalDate = save.v123WaterGoalDate || localDateKey();
+  return p;
+};
+
+v123UnlockInfo = function(id){
+  const p=v123EnsureProgression(),stored=p.unlocks?.[id];
+  if(stored?.unlocked) return stored;
+  return {
+    unlocked:false,
+    targetLevel:Number(V124_UNLOCK_LEVELS[id]||0)
+  };
+};
+
+v123RefreshUnlocks = function(){
+  const p=v123EnsureProgression();
+  let changed=false;
+  for(const [id,target] of Object.entries(V124_UNLOCK_LEVELS)){
+    if(p.unlocks[id]?.unlocked) continue;
+    if(Number(save.currentLevel||0)>=target){
+      p.unlocks[id]={
+        unlocked:true,
+        unlockedDate:localDateKey(),
+        requiredFrom:v123TomorrowKey(),
+        targetLevel:target
+      };
+      changed=true;
+      const label=V123_UNLOCK_LABELS[id]?.[1]||id;
+      toast(`🔓 New habit unlocked — ${label}`);
+    }
+  }
+  if(changed)persist();
+};
+
+/* Lock the updated routine wording regardless of older DATA text. */
+{
+  const shower=DATA.habits.dailyHabits.find(h=>h.id==='morningShower');
+  if(shower){
+    shower.name='Morning Shower — before 5:30 am';
+    shower.rule='Complete before 5:30 am';
+  }
+  const incline=DATA.habits.dailyHabits.find(h=>h.id==='incline');
+  if(incline){
+    incline.name='Incline Walk — 10% incline · 4.5 km/h · 15 min';
+    incline.rule='10% incline • 4.5 km/h • 15 min';
+  }
+}
+
+/* Ensure unlock hint uses the new absolute targets. */
+const v124BaseRenderDailyHabits = renderDailyHabits;
+renderDailyHabits = function(){
+  v124BaseRenderDailyHabits();
+  const hint=document.querySelector('#v123UnlockHint');
+  if(hint){
+    const next=Object.keys(V124_UNLOCK_LEVELS)
+      .map(id=>({id,...v123UnlockInfo(id)}))
+      .filter(x=>!x.unlocked)
+      .sort((a,b)=>a.targetLevel-b.targetLevel)[0];
+    if(next){
+      const [icon,label]=V123_UNLOCK_LABELS[next.id];
+      hint.hidden=false;
+      hint.innerHTML=`🔒 Next habit: <b>${icon} ${escapeHtml(label)}</b> • unlocks at Level ${next.targetLevel}`;
+    }else{
+      hint.hidden=true;
+    }
+  }
+};
+
+v123EnsureProgression();
+v123RefreshUnlocks();
+setTimeout(()=>render(),0);
