@@ -2356,3 +2356,117 @@ dailyXpHistory=function(days=30){
 };
 
 setTimeout(()=>render(),0);
+
+
+/* =========================================================
+   v126 — robust CSV export on iPhone/Chrome
+   No save key or stored data is changed by this patch.
+   ========================================================= */
+function v126BuildCsv(){
+  const habits=(DATA.habits?.dailyHabits||[]).filter(h=>h.input!=='sleep');
+  const header=[
+    'Date',
+    ...habits.map(h=>h.name),
+    'Water (mL)',
+    'Steps',
+    'Steps XP',
+    'Sleep (hours)',
+    'Sleep XP',
+    'Junk Food Binge Penalty',
+    'Food After 5 pm Penalty',
+    'Sport / Dance / Outdoor Intervals',
+    'Cycling 5-min Intervals',
+    'Early Gym Bonus XP'
+  ];
+  const rows=[header];
+
+  const sportByDate={},cyclingByDate={};
+  for(const week of Object.values(save.weekly||{})){
+    for(const item of (week?.sportLog||[])){
+      if(!item?.date)continue;
+      sportByDate[item.date]=(sportByDate[item.date]||0)+1;
+    }
+    for(const item of (week?.cyclingLog||[])){
+      if(!item?.date)continue;
+      const n=item?.v113Interval?1:Math.max(1,Math.round(Number(item?.xpAwarded||5)/5));
+      cyclingByDate[item.date]=(cyclingByDate[item.date]||0)+n;
+    }
+  }
+
+  const dates=new Set([
+    ...Object.keys(save.daily||{}),
+    ...Object.keys(sportByDate),
+    ...Object.keys(cyclingByDate)
+  ]);
+
+  for(const date of [...dates].sort()){
+    const day=save.daily?.[date]||{};
+    const vals=habits.map(h=>{
+      if(h.id==='water')return Number(day.waterMl||0)>0?'Y':'N';
+      return day.habits?.[h.id]?.completed?'Y':'N';
+    });
+    const penalties=day.v123Penalties||{};
+    rows.push([
+      date,
+      ...vals,
+      Number(day.waterMl||0),
+      Number(day.stepsCount||0),
+      Number(day.stepsXpAwarded||0),
+      Number(day.sleep?.totalHours||0),
+      Number(day.sleep?.xpAwarded||0),
+      penalties.junkFoodBinge?.logged?'Y':'N',
+      penalties.foodAfter5?.logged?'Y':'N',
+      Number(sportByDate[date]||0),
+      Number(cyclingByDate[date]||0),
+      Number(day.v123EarlyGymBonus||0)
+    ]);
+  }
+  const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
+  return '\uFEFF'+rows.map(r=>r.map(q).join(',')).join('\r\n');
+}
+
+async function v126ExportCsv(){
+  try{
+    const csv=v126BuildCsv();
+    const filename=`accio-habits-habit-log-${localDateKey()}.csv`;
+    const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+
+    /* iOS browsers are most reliable when offered the native share sheet for files. */
+    try{
+      const file=new File([blob],filename,{type:'text/csv'});
+      if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+        await navigator.share({files:[file],title:'Accio Habits CSV'});
+        toast('CSV ready to save or share.');
+        return;
+      }
+    }catch(shareErr){
+      if(shareErr?.name==='AbortError')return;
+      console.warn('CSV share fallback',shareErr);
+    }
+
+    /* Standard browser download fallback. Keep the object URL alive long enough for iOS Chrome. */
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download=filename;
+    a.rel='noopener';
+    a.style.display='none';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{
+      try{a.remove();URL.revokeObjectURL(url);}catch(e){}
+    },5000);
+    toast('CSV export started.');
+  }catch(err){
+    console.error('CSV export failed',err);
+    toast('CSV export failed — please try again.','warn');
+  }
+}
+
+function v126BindExport(){
+  const btn=document.querySelector('#exportSave');
+  if(!btn)return;
+  btn.onclick=(e)=>{e.preventDefault();v126ExportCsv();};
+}
+setTimeout(v126BindExport,0);
+setTimeout(v126BindExport,500);

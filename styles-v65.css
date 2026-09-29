@@ -2242,3 +2242,50 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
   .v125-steps-row{grid-template-columns:34px minmax(0,1fr) auto;gap:7px}
   .v125-steps-actions button{min-width:38px;padding:0 7px}
 }
+
+
+/* v126 — Steps/Sleep should read as active Daily missions, not disabled grey blocks */
+.v125-steps-wrap{margin-top:10px!important}
+.v125-steps-row,
+.v125-sleep-in-daily{
+  background:#0b0d0b!important;
+  border:1px solid rgba(242,235,215,.14)!important;
+  border-radius:18px!important;
+  box-shadow:none!important;
+}
+.v125-steps-row{
+  padding:14px 16px!important;
+  border-top:1px solid rgba(242,235,215,.14)!important;
+}
+.v125-sleep-in-daily{
+  padding:14px 16px!important;
+  margin:10px 0 0!important;
+}
+.v125-steps-copy strong,
+.v112-sleep-copy strong{
+  color:#f7f1df!important;
+}
+.v125-steps-copy small,
+.v112-sleep-copy small{
+  color:#aaa292!important;
+}
+.v125-steps-track,
+.v112-sleep-track{
+  background:#28271f!important;
+}
+.v125-steps-actions button:not(:disabled),
+.v112-sleep-buttons button:not(:disabled){
+  background:#19170f!important;
+  border-color:#7b6428!important;
+  color:#f0c44e!important;
+  opacity:1!important;
+  filter:none!important;
+}
+.v125-steps-actions button:disabled,
+.v112-sleep-buttons button:disabled{
+  background:#11110e!important;
+  border-color:#3b3523!important;
+  color:#756a3a!important;
+  opacity:.48!important;
+  filter:none!important;
+}
