@@ -2289,3 +2289,42 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
   opacity:.48!important;
   filter:none!important;
 }
+
+
+/* v130 — compact top dashboard + review polish */
+.status-zone{
+  margin-bottom:2px!important;
+  padding-bottom:8px!important;
+}
+.action-zone{
+  padding-top:6px!important;
+}
+.v109-day-nav{
+  margin-top:0!important;
+  margin-bottom:7px!important;
+}
+.v109-status-strip{
+  gap:6px!important;
+  margin-bottom:9px!important;
+}
+.v109-status-strip>*{
+  min-height:44px!important;
+  height:44px!important;
+  padding:4px 6px!important;
+  border-radius:11px!important;
+  font-size:10px!important;
+  line-height:1!important;
+}
+.v109-status-strip button{
+  min-height:44px!important;
+  height:44px!important;
+  padding:4px 6px!important;
+}
+.v123-penalty-action{
+  min-width:54px!important;
+  padding:0 9px!important;
+  font-size:12px!important;
+}
+.v125-unlock-footer{
+  font-size:10px!important;
+}

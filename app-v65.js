@@ -1286,12 +1286,12 @@ function showMagicLoadingScreen(){
     const app=document.getElementById('app');
     if(app) app.style.setProperty('visibility','visible','important');
     wrap.classList.add('launch-reveal');
-  },3000);
+  },2550);
   setTimeout(()=>{
     wrap.remove();
     const critical=document.getElementById('launch-blackout-critical');
     if(critical) critical.remove();
-  },3300);
+  },2850);
 }
 
 
@@ -1957,7 +1957,7 @@ function v123RenderPenalties(){
     return `<div class="v123-penalty-row ${logged?'logged':''}">
       <span class="v123-penalty-icon">${p.icon}</span>
       <span class="v123-penalty-copy"><strong>${escapeHtml(p.name)} — −${p.xp} XP</strong><small>${logged?'Logged today ✓ • tap Undo to reverse':p.sub}</small></span>
-      <button class="v123-penalty-action" data-penalty="${id}" data-mode="${logged?'undo':'log'}">${logged?'Undo':`Log −${p.xp}`}</button>
+      <button class="v123-penalty-action" data-penalty="${id}" data-mode="${logged?'undo':'log'}">${logged?'Undo':`−${p.xp}`}</button>
     </div>`;
   }).join('');
   root.querySelectorAll('[data-penalty]').forEach(b=>b.onclick=()=>b.dataset.mode==='undo'?v123UndoPenalty(b.dataset.penalty):v123LogPenalty(b.dataset.penalty));
@@ -2619,6 +2619,26 @@ evaluateV109=function(key,celebrate=false){
   }
   awardMilestones(key,celebrate);
   persist();
+};
+
+setTimeout(()=>render(),0);
+
+
+/* v130 — compact polish requested from current UI review */
+{
+  const incline=DATA.habits.dailyHabits.find(h=>h.id==='incline');
+  if(incline){
+    incline.name='Incline Walk | 10% | 4.5 km/h | 15 min';
+    incline.rule='';
+  }
+}
+
+/* Generic footer label: don't reveal/name the next habit here. */
+v125RenderUnlockFooter=function(){
+  const el=document.querySelector('#v125UnlockFooter');
+  if(!el)return;
+  const locked=Object.keys(V124_UNLOCK_LEVELS).some(id=>!v123UnlockInfo(id).unlocked);
+  el.textContent=locked?'🔒 Future unlocks ·':'🔓 All habits unlocked ·';
 };
 
 setTimeout(()=>render(),0);
