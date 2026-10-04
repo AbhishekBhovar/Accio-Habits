@@ -2642,3 +2642,58 @@ v125RenderUnlockFooter=function(){
 };
 
 setTimeout(()=>render(),0);
+
+
+/* v131 — Adventure ready-state fix
+   Preserve all save/history data; this only repairs rendering once an encounter unlocks. */
+const V131_CAT_META = Object.fromEntries(
+  (BATTLE_PROTO.categories||[]).map(c=>[c.id,{name:c.name,icon:c.icon}])
+);
+
+stageChoices=function(enc,stage){
+  const cats=['knowledge','combat','assets','magic'];
+  const correct=(enc.level+stage*3)%3;
+  const labels=[
+    ['Read the situation first','Commit to the direct approach','Use what the journey has already given Harry'],
+    ['Control the immediate threat','Force the quickest route','Trust the strongest available advantage'],
+    ['Act on what Harry knows now','Overpower the obstacle','Use an ally, tool or earlier lesson']
+  ][stage%3];
+  const outcomes=[
+    `Harry notices the detail that changes the encounter. The path forward opens.`,
+    `Harry commits too early. The threat turns that impatience against him.`,
+    `Something earned earlier in the journey becomes useful at exactly the right moment.`
+  ];
+  return labels.map((label,i)=>{
+    const good=i===correct;
+    const cat=cats[(i+stage)%cats.length];
+    const meta=V131_CAT_META[cat]||{name:cat,icon:'✦'};
+    return {
+      icon:meta.icon,
+      cat,
+      rank:Math.min(5,Math.max(1,Math.ceil(enc.book/2)+(stage>2?1:0))),
+      label,
+      outcome:good?outcomes[i]:`The choice is plausible, but Harry has missed something important. ${enc.title} turns against him and he must regroup before trying this stage again.`,
+      advance:good
+    };
+  });
+};
+
+/* Guard battle rendering so a future content issue can never leave Adventure as a blank black panel. */
+const v131RenderBattleBase=renderBattle;
+renderBattle=function(){
+  const hub=document.querySelector('#battleHub');
+  try{
+    v131RenderBattleBase();
+  }catch(err){
+    console.error('Adventure render failed',err);
+    if(hub){
+      const state=sagaState(),enc=SAGA_ENCOUNTERS[state.encounterIndex];
+      hub.innerHTML=`<section class="adv60 adv65-locked">
+        <div class="adv60-top"><div><span>ENCOUNTER READY</span><h2>${enc?.art||'⚡'} ${escapeHtml(enc?.title||'Adventure')}</h2></div></div>
+        <p class="adv60-story">The encounter is ready. Refresh once if this fallback appears; your XP and progress are safe.</p>
+      </section>`;
+    }
+  }
+};
+
+setTimeout(()=>{try{renderBattle();}catch(e){console.error(e)}},0);
