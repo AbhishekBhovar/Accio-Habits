@@ -2328,3 +2328,209 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
 .v125-unlock-footer{
   font-size:10px!important;
 }
+
+
+/* v135 — transparent readiness training + next-encounter tracker */
+.v135-readiness-mini{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin:0 0 10px;
+  padding:8px 11px;
+  border:1px solid #3a3323!important;
+  border-radius:12px!important;
+  background:#0d0f0d!important;
+  color:#d8cfbd!important;
+  font-size:9px!important;
+  text-align:left;
+}
+.v135-readiness-mini b{
+  color:#e7bd46!important;
+  font-size:9px!important;
+  white-space:nowrap;
+}
+.v135-readiness-mini span{
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+.v135-readiness-card{
+  margin:0 0 14px;
+  padding:14px;
+  border:1px solid #51452d;
+  border-radius:18px;
+  background:linear-gradient(145deg,#171915,#0d0f0d);
+}
+.v135-readiness-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:11px;
+}
+.v135-readiness-head small{
+  display:block;
+  color:#d8ab38;
+  font-size:9px;
+  letter-spacing:.13em;
+  font-weight:900;
+}
+.v135-readiness-head strong{
+  display:block;
+  margin-top:3px;
+  color:#f3ecda;
+  font-size:15px;
+  line-height:1.2;
+}
+.v135-readiness-head em{
+  flex:0 0 auto;
+  font-style:normal;
+  color:#9e9585;
+  font-size:9px;
+  text-align:right;
+}
+.v135-readiness-grid{
+  display:grid;
+  gap:7px;
+}
+.v135-skill{
+  display:grid;
+  grid-template-columns:28px minmax(0,1fr) auto;
+  gap:8px;
+  align-items:center;
+  padding:9px 10px;
+  border-radius:12px;
+  background:#0a0c0a;
+  border:1px solid rgba(255,255,255,.07);
+}
+.v135-skill.ready{border-color:rgba(212,175,55,.28)}
+.v135-skill-icon{font-size:17px;text-align:center}
+.v135-skill-copy{min-width:0}
+.v135-skill-copy b{
+  display:block;
+  color:#f2ead8;
+  font-size:11px;
+}
+.v135-skill-copy small{
+  display:block;
+  margin-top:3px;
+  color:#948b7c;
+  font-size:9px;
+  line-height:1.25;
+}
+.v135-skill-status{
+  font-style:normal;
+  font-size:10px;
+  font-weight:900;
+  color:#d6a83d;
+  white-space:nowrap;
+}
+.v135-skill.ready .v135-skill-status{color:#91caa0}
+.v135-skill-track{
+  display:block;
+  height:4px;
+  margin-top:6px;
+  border-radius:99px;
+  overflow:hidden;
+  background:#28261f;
+}
+.v135-skill-track i{
+  display:block;
+  height:100%;
+  background:linear-gradient(90deg,#9a7328,#e2b442);
+}
+.v135-training-map{
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,.07);
+}
+.v135-training-map summary{
+  color:#d8cfbd;
+  font-size:10px;
+  font-weight:800;
+  cursor:pointer;
+}
+.v135-training-map div{
+  display:grid;
+  gap:5px;
+  margin-top:8px;
+}
+.v135-training-map p{
+  margin:0;
+  color:#a89f90;
+  font-size:9px;
+  line-height:1.35;
+}
+.v135-training-map b{color:#e8c34e}
+.v135-xp-note{
+  margin:9px 1px 0;
+  color:#8f8779;
+  font-size:9px;
+  line-height:1.35;
+}
+@media(max-width:390px){
+  .v135-skill{grid-template-columns:25px minmax(0,1fr) auto;padding:8px}
+  .v135-readiness-card{padding:12px}
+}
+
+
+/* v136 — XP-based readiness rows with compact dropdown habit mapping */
+.v135-skill{
+  display:block!important;
+  padding:0!important;
+  overflow:hidden;
+}
+.v135-skill>summary{
+  list-style:none;
+  display:grid;
+  grid-template-columns:28px minmax(0,1fr) auto;
+  gap:8px;
+  align-items:center;
+  padding:9px 10px;
+  cursor:pointer;
+}
+.v135-skill>summary::-webkit-details-marker{display:none}
+.v135-skill>summary:after{
+  content:'▾';
+  margin-left:2px;
+  color:#8d836f;
+  font-size:10px;
+}
+.v135-skill[open]>summary:after{content:'▴'}
+.v135-skill-status{
+  margin-right:3px;
+}
+.v136-habit-list{
+  display:grid;
+  gap:5px;
+  padding:0 10px 10px 46px;
+}
+.v136-habit-list>small{
+  color:#8f8779;
+  font-size:9px;
+  margin:1px 0 3px;
+}
+.v136-habit-line{
+  display:grid;
+  grid-template-columns:20px minmax(0,1fr) auto;
+  align-items:center;
+  gap:6px;
+  padding:5px 0;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.v136-habit-line:first-of-type{border-top:0}
+.v136-habit-line span{font-size:13px}
+.v136-habit-line b{
+  color:#d8cfbd!important;
+  font-size:9px!important;
+  font-weight:700!important;
+}
+.v136-habit-line em{
+  color:#d8ad42;
+  font-size:9px;
+  font-style:normal;
+  white-space:nowrap;
+}
+.v136-habit-line.locked{opacity:.48}

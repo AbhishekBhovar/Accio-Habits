@@ -2770,3 +2770,215 @@ stagePrompt=function(enc,stage){
 };
 
 setTimeout(()=>{try{renderBattle();}catch(e){console.error(e)}},0);
+
+
+/* =========================================================
+   v135 — readiness is driven by the CURRENT habit system.
+   It remains derived from saved history, so no old data is reset.
+   ========================================================= */
+const V135_SKILLS={
+  magic:{icon:'⚡',name:'Magic'},
+  combat:{icon:'⚔️',name:'Combat & Skills'},
+  knowledge:{icon:'📚',name:'Knowledge & Focus'},
+  assets:{icon:'🛡️',name:'Recovery & Resources'}
+};
+
+const V135_HABIT_READINESS={
+  /* One Keystone feeds each readiness family. */
+  water:{cat:'magic',pts:12,label:'Water',tags:'🔑✨'},
+  gym:{cat:'combat',pts:30,label:'Gym',tags:'🔑✨'},
+  wake330:{cat:'knowledge',pts:20,label:'Wake 3:30',tags:'🔑✨'},
+  morningShower:{cat:'assets',pts:15,label:'Morning Shower',tags:'🔑✨'},
+
+  /* Remaining Perfect Day habits. */
+  healthyBreakfast:{cat:'magic',pts:10,label:'Healthy Breakfast',tags:'✨'},
+  supplements:{cat:'magic',pts:10,label:'B12 + Vitamin D',tags:'✨'},
+  healthyLunch:{cat:'magic',pts:10,label:'Healthy Lunch',tags:'✨'},
+  proteinCreatine:{cat:'combat',pts:10,label:'Protein + Creatine',tags:'✨'},
+
+  /* Supporting / later-unlocked habits. */
+  fruit:{cat:'magic',pts:5,label:'Fruit',tags:''},
+  herbalTea:{cat:'magic',pts:4,label:'Herbal Tea',tags:'🔒'},
+  incline:{cat:'combat',pts:12,label:'Incline Walk',tags:''},
+  vipassanaMorning:{cat:'knowledge',pts:12,label:'Morning Meditation',tags:'🔒'},
+  vipassanaNight:{cat:'knowledge',pts:12,label:'Evening Meditation',tags:'🔒'},
+  hindiSpeaking:{cat:'knowledge',pts:15,label:'Speak Hindi',tags:'🔒'},
+  saunaDaily:{cat:'assets',pts:12,label:'Sauna',tags:''}
+};
+
+/* Replace the old Read/Study-era readiness calculation. */
+readinessPoints=function(){
+  const p={magic:0,combat:0,knowledge:0,assets:0};
+
+  for(const [date,d] of Object.entries(save.daily||{})){
+    for(const [id,e] of Object.entries(d.habits||{})){
+      if(!e?.completed)continue;
+      const x=V135_HABIT_READINESS[id];
+      if(x)p[x.cat]+=x.pts;
+    }
+
+    /* Steps: 2 readiness points per recorded 1,000 steps, capped at that day's target. */
+    const steps=Math.max(0,Number(d.stepsCount||0));
+    const target=v125StepsTargetForLevel(Number(save.currentLevel||1));
+    p.combat+=Math.floor(Math.min(steps,target)/1000)*2;
+
+    /* Sleep: recovery grows gradually, max 16 readiness points/day. */
+    const hrs=Math.max(0,Number(d.sleep?.totalHours||0));
+    p.assets+=Math.min(16,Math.floor(hrs)*2);
+  }
+
+  for(const w of Object.values(save.weekly||{})){
+    const sport=(w.sportLog||[]).filter(x=>x?.v109).length;
+    const cycling=(w.cyclingLog||[]).filter(x=>x?.v113Interval).length;
+    p.combat+=sport*20+cycling*3;
+    p.assets+=sport*4;
+  }
+
+  return p;
+};
+
+/* Rank is now purely the readiness earned in that category. */
+readinessRank=function(id){
+  const pts=readinessPoints()[id]||0;
+  return (READINESS_THRESHOLDS[id]||[]).filter(x=>pts>=x).length;
+};
+
+readinessSourceLabel=function(id){
+  return {
+    magic:'Water • nutrition • supplements',
+    combat:'Gym • protein • incline • steps • sport • cycling',
+    knowledge:'Wake routine • meditation • Hindi',
+    assets:'Morning shower • sleep • sauna • recovery'
+  }[id]||'';
+};
+
+/* Reintroduce meaningful option requirements as encounters become harder. */
+const v135SceneChoicesBase=stageChoices;
+stageChoices=function(enc,stage){
+  const choices=v135SceneChoicesBase(enc,stage);
+  const requiredRank=Math.min(8,Math.max(1,Math.ceil(Number(enc.book||1)/2)+(stage>=3?1:0)));
+  return choices.map(c=>({...c,rank:requiredRank}));
+};
+
+function v135RequiredRanks(enc){
+  const req={magic:0,combat:0,knowledge:0,assets:0};
+  if(!enc)return req;
+  for(let stage=0;stage<Number(enc.stages||0);stage++){
+    const choices=stageChoices(enc,stage);
+    for(const c of choices)req[c.cat]=Math.max(req[c.cat]||0,Number(c.rank||0));
+  }
+  return req;
+}
+
+function v135ThresholdForRank(cat,rank){
+  if(!rank)return 0;
+  return Number((READINESS_THRESHOLDS[cat]||[])[rank-1]||0);
+}
+
+function v135HabitLines(){
+  return {
+    magic:'💧 Water 🔑✨ · 🥣 Breakfast ✨ · 💊 B12+D ✨ · 🥗 Lunch ✨ · 🍌 Fruit · ☕ Tea',
+    combat:'🏋️ Gym 🔑✨ · 🥤 Protein ✨ · 🚶 Incline · 👟 Steps · ⚽ Sport · 🚴 Cycling',
+    knowledge:'⏰ Wake 3:30 🔑✨ · 🧘 Meditation · 🗣️ Hindi',
+    assets:'🚿 Shower 🔑✨ · 😴 Sleep · 🧖 Sauna'
+  };
+}
+
+function v136HabitBreakdown(cat){
+  const rows=[];
+  for(const [id,x] of Object.entries(V135_HABIT_READINESS)){
+    if(x.cat!==cat)continue;
+    const h=DATA.habits.dailyHabits.find(z=>z.id===id);
+    const locked=(id in V124_UNLOCK_LEVELS) && !v123UnlockInfo(id).unlocked;
+    let amount=`+${x.pts} readiness XP`;
+    if(id==='incline')amount='+12 readiness XP';
+    rows.push(`<div class="v136-habit-line ${locked?'locked':''}">
+      <span>${h?.icon||'✦'}</span>
+      <b>${escapeHtml(x.label)} ${x.tags||''}${locked?' 🔒':''}</b>
+      <em>${amount}</em>
+    </div>`);
+  }
+  if(cat==='combat'){
+    rows.push(`<div class="v136-habit-line"><span>👟</span><b>Steps</b><em>+2 / 1,000</em></div>`);
+    rows.push(`<div class="v136-habit-line"><span>⚽</span><b>Sport / Dance / Outdoor</b><em>+20 / interval</em></div>`);
+    rows.push(`<div class="v136-habit-line ${v123Unlocked('cycling')?'':'locked'}"><span>🚴</span><b>Optional Cycling ${v123Unlocked('cycling')?'':'🔒'}</b><em>+3 / interval</em></div>`);
+  }
+  if(cat==='assets'){
+    rows.push(`<div class="v136-habit-line"><span>😴</span><b>Sleep</b><em>+2 / hour</em></div>`);
+  }
+  return rows.join('');
+}
+
+function v135ReadinessCardHtml(enc){
+  if(!enc)return '';
+  const pts=readinessPoints(),req=v135RequiredRanks(enc);
+  const ids=['magic','combat','knowledge','assets'];
+  const rows=ids.map(id=>{
+    const rank=readinessRank(id),needRank=req[id]||0,target=v135ThresholdForRank(id,needRank);
+    const current=Number(pts[id]||0),short=Math.max(0,target-current),ready=rank>=needRank;
+    const pct=target?Math.min(100,Math.round(current/target*100)):100;
+    const meta=V135_SKILLS[id];
+    const status=needRank===0?'No requirement':ready?'✓ Ready':`${short} XP short`;
+    return `<details class="v135-skill ${ready?'ready':''}">
+      <summary>
+        <span class="v135-skill-icon">${meta.icon}</span>
+        <span class="v135-skill-copy">
+          <b>${meta.name}</b>
+          <small>${current.toLocaleString()} / ${target.toLocaleString()} readiness XP${needRank?` · Rank ${rank} → ${needRank}`:''}</small>
+          <span class="v135-skill-track"><i style="width:${pct}%"></i></span>
+        </span>
+        <em class="v135-skill-status">${status}</em>
+      </summary>
+      <div class="v136-habit-list">
+        <small>Build ${meta.name} with</small>
+        ${v136HabitBreakdown(id)}
+      </div>
+    </details>`;
+  }).join('');
+
+  return `<section class="v135-readiness-card">
+    <div class="v135-readiness-head">
+      <div><small>ALL-OPTIONS READINESS</small><strong>${escapeHtml(enc.title)}</strong></div>
+      <em>Tap a skill to see<br>which habits build it</em>
+    </div>
+    <div class="v135-readiness-grid">${rows}</div>
+    <p class="v135-xp-note">Your normal XP and readiness keep accumulating even if you leave this encounter unanswered.</p>
+  </section>`;
+}
+
+function v135DecorateBattle(){
+  const hub=document.querySelector('#battleHub');if(!hub)return;
+  const state=sagaState();
+  if(state.sagaComplete)return;
+  const enc=SAGA_ENCOUNTERS[state.encounterIndex];
+  if(!enc||hub.querySelector('.v135-readiness-card'))return;
+  hub.insertAdjacentHTML('afterbegin',v135ReadinessCardHtml(enc));
+}
+
+const v135RenderBattleBase=renderBattle;
+renderBattle=function(){
+  v135RenderBattleBase();
+  v135DecorateBattle();
+};
+
+function v135RenderMini(){
+  const el=document.querySelector('#v135ReadinessMini');if(!el)return;
+  const state=sagaState(),enc=SAGA_ENCOUNTERS[state.encounterIndex];
+  if(!enc||state.sagaComplete){el.hidden=true;return;}
+  el.hidden=false;
+  const req=v135RequiredRanks(enc),pts=readinessPoints(),ids=['magic','combat','knowledge','assets'];
+  const compact=ids.map(id=>{
+    const m=V135_SKILLS[id],target=v135ThresholdForRank(id,req[id]||0),cur=Number(pts[id]||0);
+    return `${m.icon}${cur}/${target}`;
+  }).join(' · ');
+  el.innerHTML=`<span><b>NEXT BATTLE</b> · ${compact} XP</span><b>View ›</b>`;
+  el.onclick=()=>activateV110View('battle');
+}
+
+const v135RenderDailyBase=renderDailyHabits;
+renderDailyHabits=function(){
+  v135RenderDailyBase();
+  v135RenderMini();
+};
+
+setTimeout(()=>{try{render();}catch(e){console.error('v135 render',e)}},0);
