@@ -811,6 +811,18 @@ function encounterArtwork(enc,stage=0){
   const specialClass=file==='1-remembrall-2.jpg'?'battle-remembrall':'';
   return `<img class="${specialClass}" src="${src}" alt="" loading="eager" decoding="async" style="--battle-focal:${focal}" onerror="this.style.display='none';this.parentElement.classList.add('art-failed')"><span class="art-fallback">${enc.art}</span>`;
 };
+
+/* v134 — physical Retry Trials for wrong Adventure answers.
+   No XP is lost or awarded; the trial only earns another attempt.
+   Difficulty scales with consecutive failures on the same encounter. */
+const RETRY_TRIALS=[
+  {id:'squats',icon:'🦵',label:'Bodyweight squats',unit:' reps',amounts:[10,15,20]},
+  {id:'incline-pushups',icon:'💪',label:'Incline push-ups',unit:' reps',amounts:[6,10,14]},
+  {id:'wall-sit',icon:'🧱',label:'Wall sit',unit:' sec',amounts:[20,30,45]},
+  {id:'march',icon:'🚶',label:'Brisk walk / march',unit:' min',amounts:[2,3,5]},
+  {id:'plank',icon:'⏱️',label:'Plank',unit:' sec',amounts:[15,25,35]}
+];
+
 function retryTrialFor(fails){
   const tier=Math.min(2,Math.max(0,fails-1));
   const pick=RETRY_TRIALS[Math.floor(Math.random()*RETRY_TRIALS.length)];
@@ -910,9 +922,9 @@ function renderBattle(){
     hub.innerHTML=`<section class="adv60 adv63-retry">
       <span class="adv63-kicker">ATTEMPT FAILED</span><div class="adv63-retry-icon">${t.icon}</div>
       <h2>Retry Trial</h2>
-      <p>Harry needs to regroup before returning to <strong>${enc.title}</strong>.</p>
+      <p>Wrong choice. Complete this physical challenge to earn another attempt at <strong>${enc.title}</strong>.</p>
       <div class="adv63-task"><b>${t.amount}${t.unit}</b><span>${t.label}</span></div>
-      <small>No XP awarded. This challenge only earns another attempt.</small>
+      <small>No XP lost or awarded. Complete it, then return to the same battle stage.</small>
       <button class="primary wide" id="completeRetry">Complete Retry Trial</button>
     </section>`;
     hub.querySelector('#completeRetry').onclick=()=>{retry.locked=false;retry.trial=null;persist();renderBattle();window.scrollTo({top:0,behavior:'smooth'});};
