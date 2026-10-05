@@ -2856,7 +2856,8 @@ readinessSourceLabel=function(id){
 const v135SceneChoicesBase=stageChoices;
 stageChoices=function(enc,stage){
   const choices=v135SceneChoicesBase(enc,stage);
-  const requiredRank=Math.min(8,Math.max(1,Math.ceil(Number(enc.book||1)/2)+(stage>=3?1:0)));
+  const baseRank=Math.min(8,Math.max(2,Number(enc.book||1)+1));
+  const requiredRank=Math.min(8,baseRank+(stage>=3?1:0));
   return choices.map(c=>({...c,rank:requiredRank}));
 };
 
@@ -2952,7 +2953,7 @@ function v135DecorateBattle(){
   if(state.sagaComplete)return;
   const enc=SAGA_ENCOUNTERS[state.encounterIndex];
   if(!enc||hub.querySelector('.v135-readiness-card'))return;
-  hub.insertAdjacentHTML('afterbegin',v135ReadinessCardHtml(enc));
+  hub.insertAdjacentHTML('beforeend',v135ReadinessCardHtml(enc));
 }
 
 const v135RenderBattleBase=renderBattle;

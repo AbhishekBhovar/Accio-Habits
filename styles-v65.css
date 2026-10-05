@@ -2534,3 +2534,10 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
   white-space:nowrap;
 }
 .v136-habit-line.locked{opacity:.48}
+
+
+/* v137 — encounter first, readiness tracker underneath */
+#battleHub .v135-readiness-card{
+  margin-top:18px!important;
+  margin-bottom:28px!important;
+}
