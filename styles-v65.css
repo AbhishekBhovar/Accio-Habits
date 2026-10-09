@@ -2541,3 +2541,53 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
   margin-top:18px!important;
   margin-bottom:28px!important;
 }
+
+
+/* v138 — compact routine families; grouping is visual, never a dependency */
+.v138-habit-family{
+  position:relative;
+  display:grid;
+  gap:6px;
+  padding:7px;
+  border:1px solid #2d302c;
+  border-radius:16px;
+  background:rgba(255,255,255,.012);
+}
+.v138-family-label{
+  padding:0 6px 1px;
+  color:#8e897d;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.12em;
+}
+.v138-linked-wrap{
+  position:relative;
+  display:grid;
+  grid-template-columns:13px minmax(0,1fr);
+  gap:2px;
+  align-items:stretch;
+  padding-left:5px;
+}
+.v138-link-mark{
+  align-self:center;
+  color:#625f57;
+  font-size:11px;
+  text-align:left;
+}
+.v138-linked-row{
+  opacity:.94;
+  padding-top:9px!important;
+  padding-bottom:9px!important;
+  background:#0b0d0c!important;
+}
+.v138-linked-row .habit-icon{font-size:18px!important}
+.v138-linked-row .habit-copy strong{font-size:clamp(9px,2.55vw,12px)!important}
+.v138-linked-row .habit-copy small{font-size:9px!important}
+.v138-habit-family>.habit-row{
+  margin:0!important;
+}
+.v138-habit-family+.habit-row,
+.habit-row+.v138-habit-family,
+.v138-habit-family+.v138-habit-family{
+  margin-top:2px;
+}

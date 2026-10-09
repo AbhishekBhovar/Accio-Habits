@@ -1316,7 +1316,7 @@ showMagicLoadingScreen();
 // ===== v109 comprehensive habit-system redesign =====
 Object.assign(DATA.habits,{dailyMaxXP:295,weeklyMaxXP:80});
 DATA.habits.dailyHabits=[
-{id:'wake330',icon:'⏰',name:'Wake Up at 3:30 am',xp:20,rule:'Be out of bed at 3:30 am',group:'Routine',keystone:true,perfect:true},
+{id:'wake330',icon:'⏰',name:'Wake Up at 3:30 am',xp:20,rule:'Be out of bed at 3:15 am',group:'Routine',keystone:true,perfect:true},
 {id:'vipassanaMorning',icon:'🧘',name:'Morning Anapana & Vipassana',xp:20,rule:'10 minutes',group:'Mindfulness',keystone:true,perfect:true},
 {id:'morningShower',icon:'🚿',name:'Morning Shower',xp:10,rule:'Before 7:00 am',group:'Routine',perfect:true},
 {id:'healthyBreakfast',icon:'🥣',name:'Healthy Breakfast',xp:20,rule:'Complete a healthy breakfast',group:'Nutrition',perfect:true},
@@ -1363,7 +1363,7 @@ function saveSleep(){ensureAudio();const key=activeDailyKey(),day=getDaily(key),
 function habitRowsHtml(habits,day){return habits.map(h=>{if(h.id==='water'){const ml=Number(day.waterMl||0),xp=waterXp(ml);return `<div class="habit-row water-row ${ml>=2500?'done':''}"><span class="habit-icon">💧</span><span class="habit-copy"><strong>2.5 L Water by 8 PM</strong><small>${(ml/1000).toFixed(1)} / 2.5 L • ${xp}/25 XP</small></span><button class="water-quick" data-water="500">+0.5L</button></div>`;}if(h.id==='saunaDaily'){const n=Number(day.saunaSessions||0),done=day.habits?.saunaDaily?.completed;return `<button class="habit-row ${done?'done':''}" data-sauna><span class="habit-icon">🧖</span><span class="habit-copy"><strong>Sauna — 30 min</strong><small>${day.habits?.saunaDaily?.banked?'Banked yesterday ✓':n>=2?'Tomorrow banked ✓':done?'Tap again after another 30 min to bank tomorrow':'30 min = +30 XP'}</small></span><span class="habit-xp">${done?'✓':'+30'}</span></button>`;}const entry=day.habits[h.id],done=entry?.completed;return `<button class="habit-row ${done?'done':''}" data-habit="${h.id}"><span class="habit-icon">${h.icon}</span><span class="habit-copy"><strong>${escapeHtml(h.name)}</strong><small>${escapeHtml(h.rule||'')}</small></span><span class="habit-xp">${done?'↶':`+${h.xp}`}</span></button>`;}).join('');}
 function renderDailyHabits(){const key=activeDailyKey();applySaunaBank();const day=getDaily(key),list=document.querySelector('#dailyHabitList'),habits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),completed=habits.filter(h=>h.id==='water'?Number(day.waterMl||0)>=2500:day.habits[h.id]?.completed).length;document.querySelector('#routineBadge').textContent=`${completed} / ${habits.length}`;document.querySelector('#todayDateLabel').textContent=key===localDateKey()?'Today':`Yesterday · ${prettyDate(key)}`;list.innerHTML=habitRowsHtml(habits,day);list.querySelectorAll('[data-habit]').forEach(b=>b.onclick=()=>toggleHabit(b.dataset.habit));list.querySelectorAll('[data-water]').forEach(b=>b.onclick=()=>addWater(Number(b.dataset.water)));list.querySelectorAll('[data-sauna]').forEach(b=>b.onclick=logSaunaDaily);const s=v109Status(key),strip=document.querySelector('#v109StatusStrip');if(strip)strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/4</button><span>✨ ${s.perfectDone}/11</span><span>💧 ${(Number(day.waterMl||0)/1000).toFixed(1)}/2.5 L</span>`;const yBtn=document.querySelector('#v109Yesterday'),tBtn=document.querySelector('#v109Today');if(yBtn)yBtn.classList.toggle('active',key!==localDateKey());if(tBtn)tBtn.classList.toggle('active',key===localDateKey());document.querySelector('#openKeystones')?.addEventListener('click',showKeystonePopup);}
 function renderSleep(){const day=getDaily(activeDailyKey()),s=day.sleep;const a=document.querySelector('#sleepHours'),b=document.querySelector('#napHours');if(document.activeElement!==a)a.value=s?.mainHours??'';if(document.activeElement!==b)b.value=s?.napHours??'';document.querySelector('#sleepXpPreview').textContent=`${s?.scoreXp??0} / 50 XP`;}
-function showKeystonePopup(){document.querySelector('.quest-info-overlay')?.remove();const key=activeDailyKey(),d=getDaily(key),s=v109Status(key),bottle=Number(save.v109Bottle||600);const overlay=document.createElement('div');overlay.className='quest-info-overlay quest-summon v109-keystone-overlay';overlay.innerHTML=`<div class="quest-info-panel v109-keystone-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🔑 KEYSTONE HABITS</div><div class="quest-info-title">${key===localDateKey()?"Today's anchors":"Yesterday's anchors"}</div><div class="v109-key-list">${[['wake330','⏰','Wake Up — 3:30 am',20],['vipassanaMorning','🧘','Morning Anapana & Vipassana',20],['gym','🏋️','Gym Workout',100]].map(x=>`<button data-keyhabit="${x[0]}" class="v109-key-row ${dayHabitDone(key,x[0])?'done':''}"><span>${x[1]}</span><b>${x[2]}</b><em>${dayHabitDone(key,x[0])?'✓':`+${x[3]}`}</em></button>`).join('')}<div class="v109-water-box"><div><b>💧 Water</b><em>${(Number(d.waterMl||0)/1000).toFixed(1)} / 2.5 L</em></div><div class="v109-water-track"><i style="width:${Math.min(100,Number(d.waterMl||0)/25)}%"></i></div><small>Bottle</small><div class="v109-bottles">${[600,1000,2200].map(n=>`<button data-bottle="${n}" class="${bottle===n?'active':''}">${n===1000?'1 L':n===2200?'2.2 L':'600 mL'}</button>`).join('')}</div><div class="v109-water-actions"><button data-addbottle="${bottle}">+ Finished bottle</button><button data-water500>+ 500 mL</button></div></div></div><div class="v109-key-footer">${s.keystoneDay?'🔑 Keystone Day complete ✓':'Complete all four → +50 XP'}</div></div>`;document.body.appendChild(overlay);const close=()=>overlay.remove();overlay.querySelector('.quest-info-close').onclick=close;overlay.onclick=e=>{if(e.target===overlay)close();};overlay.querySelectorAll('[data-keyhabit]').forEach(b=>b.onclick=()=>{toggleHabit(b.dataset.keyhabit);close();showKeystonePopup();});overlay.querySelectorAll('[data-bottle]').forEach(b=>b.onclick=()=>{save.v109Bottle=Number(b.dataset.bottle);persist();close();showKeystonePopup();});overlay.querySelector('[data-addbottle]').onclick=()=>{addWater(Number(overlay.querySelector('[data-addbottle]').dataset.addbottle));close();showKeystonePopup();};overlay.querySelector('[data-water500]').onclick=()=>{addWater(500);close();showKeystonePopup();};}
+function showKeystonePopup(){document.querySelector('.quest-info-overlay')?.remove();const key=activeDailyKey(),d=getDaily(key),s=v109Status(key),bottle=Number(save.v109Bottle||600);const overlay=document.createElement('div');overlay.className='quest-info-overlay quest-summon v109-keystone-overlay';overlay.innerHTML=`<div class="quest-info-panel v109-keystone-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🔑 KEYSTONE HABITS</div><div class="quest-info-title">${key===localDateKey()?"Today's anchors":"Yesterday's anchors"}</div><div class="v109-key-list">${[['wake330','⏰','Wake Up | 3:15 am',20],['vipassanaMorning','🧘','Morning Anapana & Vipassana',20],['gym','🏋️','Gym Workout',100]].map(x=>`<button data-keyhabit="${x[0]}" class="v109-key-row ${dayHabitDone(key,x[0])?'done':''}"><span>${x[1]}</span><b>${x[2]}</b><em>${dayHabitDone(key,x[0])?'✓':`+${x[3]}`}</em></button>`).join('')}<div class="v109-water-box"><div><b>💧 Water</b><em>${(Number(d.waterMl||0)/1000).toFixed(1)} / 2.5 L</em></div><div class="v109-water-track"><i style="width:${Math.min(100,Number(d.waterMl||0)/25)}%"></i></div><small>Bottle</small><div class="v109-bottles">${[600,1000,2200].map(n=>`<button data-bottle="${n}" class="${bottle===n?'active':''}">${n===1000?'1 L':n===2200?'2.2 L':'600 mL'}</button>`).join('')}</div><div class="v109-water-actions"><button data-addbottle="${bottle}">+ Finished bottle</button><button data-water500>+ 500 mL</button></div></div></div><div class="v109-key-footer">${s.keystoneDay?'🔑 Keystone Day complete ✓':'Complete all four → +50 XP'}</div></div>`;document.body.appendChild(overlay);const close=()=>overlay.remove();overlay.querySelector('.quest-info-close').onclick=close;overlay.onclick=e=>{if(e.target===overlay)close();};overlay.querySelectorAll('[data-keyhabit]').forEach(b=>b.onclick=()=>{toggleHabit(b.dataset.keyhabit);close();showKeystonePopup();});overlay.querySelectorAll('[data-bottle]').forEach(b=>b.onclick=()=>{save.v109Bottle=Number(b.dataset.bottle);persist();close();showKeystonePopup();});overlay.querySelector('[data-addbottle]').onclick=()=>{addWater(Number(overlay.querySelector('[data-addbottle]').dataset.addbottle));close();showKeystonePopup();};overlay.querySelector('[data-water500]').onclick=()=>{addWater(500);close();showKeystonePopup();};}
 function maybeShowQuestInfo(){const key='accioKeystoneShownV109';if(sessionStorage.getItem(key)==='1')return;sessionStorage.setItem(key,'1');showKeystonePopup();}
 function logSport(){const week=ensureCurrentWeek(),date=activeDailyKey();week.sportActual=(week.sportActual||0)+1;week.sportLog=week.sportLog||[];week.sportLog.push({date,banked:false,v109:true});addXP(50,'Sport / Dance / Outdoor Activity');toast('Sport / Dance / Outdoor • +50 XP');}
 function logCycling(){const week=ensureCurrentWeek(),date=activeDailyKey();week.cyclingLog=week.cyclingLog||[];week.cyclingLog.push({date,xpAwarded:30});addXP(30,'Optional Cardio Cycling');toast('Cycling • +30 XP');}
@@ -1378,9 +1378,9 @@ function renderStats(){const root=document.querySelector('#statsDashboard');if(!
 const _v109Bind=bindXpHistory;function bindXpHistory(){document.querySelectorAll('[data-xp-range]').forEach(btn=>btn.onclick=()=>{ui.statsXpRange=Number(btn.dataset.xpRange);renderStats();});document.querySelectorAll('.xp-day-bar').forEach(btn=>btn.onclick=()=>{const detail=document.querySelector('#xpDayDetail');if(detail)detail.textContent=`${prettyDate(btn.dataset.date)} • ${btn.dataset.xp} XP`;});const sc=document.querySelector('#xpHistoryScroll');if(sc)requestAnimationFrame(()=>sc.scrollLeft=sc.scrollWidth);}
 
 // ===== v110 interaction + compact controls patch =====
-Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='wake330'),{name:'Wake Up — 3:30 am',rule:'Be out of bed at 3:30 am'});
+Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='wake330'),{name:'Wake Up | 3:15 am',rule:'Be out of bed at 3:15 am'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='vipassanaMorning'),{name:'Morning Anapana & Vipassana — 10 min',rule:'Complete 10 minutes'});
-Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='morningShower'),{name:'Morning Shower — before 5:30 am',rule:'Complete before 5:30 am'});
+Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='morningShower'),{name:'Shower | out by 4:00 am',rule:'Be out of the shower by 4:00 am'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='incline'),{name:'Incline Walk — 15 min',rule:'Minimum 15 minutes'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='hindiSpeaking'),{name:'Speak Hindi — 10 min',rule:'10 minutes active speaking'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='saunaDaily'),{name:'Sauna — 30 min',rule:'30 min session'});
@@ -1426,7 +1426,7 @@ renderDailyHabits = function(){const key=activeDailyKey();applySaunaBank();const
 
 function compactWaterHtml(d){const ml=Number(d.waterMl||0),pct=Math.min(100,Math.floor(ml/500)*20);return `<div class="v110-water-compact"><div class="v110-water-head"><span>💧 <b>Water</b><small>${(ml/1000).toFixed(1)} / 2.5 L</small></span><button data-water-plus>+500 mL</button></div><div class="v109-water-track v110-five-step"><i style="width:${pct}%"></i><span></span><span></span><span></span><span></span></div><div class="v110-water-meta"><b>${pct}%</b><button data-water-minus-popup ${ml<=0?'disabled':''}>↶ −500 mL</button></div></div>`;}
 function bindCompactWater(o,reopen){o.querySelector('[data-water-plus]')?.addEventListener('click',()=>{o.remove();addWater(500);reopen()});o.querySelector('[data-water-minus-popup]')?.addEventListener('click',()=>{o.remove();removeWater(500);reopen()});}
-showKeystonePopup = function(){document.querySelector('.quest-info-overlay')?.remove();const key=activeDailyKey(),d=getDaily(key),s=v109Status(key);const o=document.createElement('div');o.className='quest-info-overlay quest-summon v109-keystone-overlay';o.innerHTML=`<div class="quest-info-panel v109-keystone-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🔑 KEYSTONE HABITS</div><div class="quest-info-title">${key===localDateKey()?"Today's anchors":"Yesterday's anchors"}</div><div class="v109-key-list">${[['wake330','⏰','Wake Up — 3:30 am',20],['vipassanaMorning','🧘','Morning Anapana & Vipassana — 10 min',20],['gym','🏋️','Gym Workout',100]].map(x=>`<button data-keyhabit="${x[0]}" class="v109-key-row ${dayHabitDone(key,x[0])?'done':''}"><span>${x[1]}</span><b>${x[2]}</b><em>${dayHabitDone(key,x[0])?'✓':`+${x[3]}`}</em></button>`).join('')}${compactWaterHtml(d)}</div><div class="v109-key-footer">${s.keystoneDay?'🔑 Keystone Day complete ✓':'Complete all four → +50 XP'}</div></div>`;document.body.appendChild(o);const close=()=>o.remove();o.querySelector('.quest-info-close').onclick=close;o.onclick=e=>{if(e.target===o)close()};o.querySelectorAll('[data-keyhabit]').forEach(b=>b.onclick=()=>{toggleHabit(b.dataset.keyhabit);close();showKeystonePopup()});bindCompactWater(o,showKeystonePopup);}
+showKeystonePopup = function(){document.querySelector('.quest-info-overlay')?.remove();const key=activeDailyKey(),d=getDaily(key),s=v109Status(key);const o=document.createElement('div');o.className='quest-info-overlay quest-summon v109-keystone-overlay';o.innerHTML=`<div class="quest-info-panel v109-keystone-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🔑 KEYSTONE HABITS</div><div class="quest-info-title">${key===localDateKey()?"Today's anchors":"Yesterday's anchors"}</div><div class="v109-key-list">${[['wake330','⏰','Wake Up | 3:15 am',20],['vipassanaMorning','🧘','Morning Anapana & Vipassana — 10 min',20],['gym','🏋️','Gym Workout',100]].map(x=>`<button data-keyhabit="${x[0]}" class="v109-key-row ${dayHabitDone(key,x[0])?'done':''}"><span>${x[1]}</span><b>${x[2]}</b><em>${dayHabitDone(key,x[0])?'✓':`+${x[3]}`}</em></button>`).join('')}${compactWaterHtml(d)}</div><div class="v109-key-footer">${s.keystoneDay?'🔑 Keystone Day complete ✓':'Complete all four → +50 XP'}</div></div>`;document.body.appendChild(o);const close=()=>o.remove();o.querySelector('.quest-info-close').onclick=close;o.onclick=e=>{if(e.target===o)close()};o.querySelectorAll('[data-keyhabit]').forEach(b=>b.onclick=()=>{toggleHabit(b.dataset.keyhabit);close();showKeystonePopup()});bindCompactWater(o,showKeystonePopup);}
 function showWaterPopup(){document.querySelector('.quest-info-overlay')?.remove();const o=document.createElement('div');o.className='quest-info-overlay quest-summon v110-mini-overlay';o.innerHTML=`<div class="quest-info-panel v110-mini-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">💧 WATER</div><div class="quest-info-title">2.5 L by 8 pm</div>${compactWaterHtml(getDaily(activeDailyKey()))}</div>`;document.body.appendChild(o);const close=()=>o.remove();o.querySelector('.quest-info-close').onclick=close;o.onclick=e=>{if(e.target===o)close()};bindCompactWater(o,showWaterPopup);}
 function showPerfectPopup(){document.querySelector('.quest-info-overlay')?.remove();const key=activeDailyKey(),s=v109Status(key),o=document.createElement('div');o.className='quest-info-overlay quest-summon v110-perfect-overlay';o.innerHTML=`<div class="quest-info-panel v110-perfect-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">✨ PERFECT DAY</div><div class="quest-info-title">${s.perfectDone} / 11 core habits</div><div class="v110-perfect-list">${V109_PERFECT.map(id=>{const h=DATA.habits.dailyHabits.find(x=>x.id===id),done=dayHabitDone(key,id);return `<div class="${done?'done':''}"><span>${h.icon}</span><b>${escapeHtml(h.name)}</b><em>${done?'✓':'○'}</em></div>`}).join('')}</div></div>`;document.body.appendChild(o);const close=()=>o.remove();o.querySelector('.quest-info-close').onclick=close;o.onclick=e=>{if(e.target===o)close()};}
 
@@ -1485,7 +1485,7 @@ showKeystonePopup = function(){
   document.querySelector('.quest-info-overlay')?.remove();
   const key=activeDailyKey(),d=getDaily(key),s=v109Status(key);
   const habits=[
-    ['wake330','⏰','Wake Up — 3:30 am',20],
+    ['wake330','⏰','Wake Up | 3:15 am',20],
     ['vipassanaMorning','🧘','Morning Anapana & Vipassana — 10 min',20],
     ['gym','🏋️','Gym Workout',100]
   ];
@@ -2023,7 +2023,7 @@ showKeystonePopup = function(){
   document.querySelector('.quest-info-overlay')?.remove();
   const key=activeDailyKey(),d=getDaily(key),s=v109Status(key),ids=v123KeystoneIdsForDate(key);
   const meta={
-    wake330:['⏰','Wake Up — 3:30 am',20],
+    wake330:['⏰','Wake Up | 3:15 am',20],
     vipassanaMorning:['🧘','Morning Anapana & Vipassana — 10 min',20],
     gym:['🏋️','Gym Workout',100]
   };
@@ -2246,8 +2246,8 @@ v123RefreshUnlocks = function(){
 {
   const shower=DATA.habits.dailyHabits.find(h=>h.id==='morningShower');
   if(shower){
-    shower.name='Morning Shower — before 5:30 am';
-    shower.rule='Complete before 5:30 am';
+    shower.name='Shower | out by 4:00 am';
+    shower.rule='Be out of the shower by 4:00 am';
   }
   const incline=DATA.habits.dailyHabits.find(h=>h.id==='incline');
   if(incline){
@@ -2516,8 +2516,8 @@ showKeystonePopup=function(){
   document.querySelector('.quest-info-overlay')?.remove();
   const key=activeDailyKey(),d=getDaily(key),s=v109Status(key);
   const meta={
-    wake330:['⏰','Wake Up — 3:30 am',20],
-    morningShower:['🚿','Morning Shower — before 5:30 am',10],
+    wake330:['⏰','Wake Up | 3:15 am',20],
+    morningShower:['🚿','Shower | out by 4:00 am',10],
     gym:['🏋️','Gym Workout',100]
   };
   const outstanding=V128_KEYSTONE_IDS.filter(id=>id!=='water'&&!dayHabitDone(key,id));
@@ -2787,7 +2787,7 @@ const V135_HABIT_READINESS={
   /* One Keystone feeds each readiness family. */
   water:{cat:'magic',pts:12,label:'Water',tags:'🔑✨'},
   gym:{cat:'combat',pts:30,label:'Gym',tags:'🔑✨'},
-  wake330:{cat:'knowledge',pts:20,label:'Wake 3:30',tags:'🔑✨'},
+  wake330:{cat:'knowledge',pts:20,label:'Wake 3:15',tags:'🔑✨'},
   morningShower:{cat:'assets',pts:15,label:'Morning Shower',tags:'🔑✨'},
 
   /* Remaining Perfect Day habits. */
@@ -2880,7 +2880,7 @@ function v135HabitLines(){
   return {
     magic:'💧 Water 🔑✨ · 🥣 Breakfast ✨ · 💊 B12+D ✨ · 🥗 Lunch ✨ · 🍌 Fruit · ☕ Tea',
     combat:'🏋️ Gym 🔑✨ · 🥤 Protein ✨ · 🚶 Incline · 👟 Steps · ⚽ Sport · 🚴 Cycling',
-    knowledge:'⏰ Wake 3:30 🔑✨ · 🧘 Meditation · 🗣️ Hindi',
+    knowledge:'⏰ Wake 3:15 🔑✨ · 🧘 Meditation · 🗣️ Hindi',
     assets:'🚿 Shower 🔑✨ · 😴 Sleep · 🧖 Sauna'
   };
 }
@@ -2983,3 +2983,157 @@ renderDailyHabits=function(){
 };
 
 setTimeout(()=>{try{render();}catch(e){console.error('v135 render',e)}},0);
+
+
+/* v138 — time-bound routine + visual habit families.
+   Visual grouping only: every habit remains independently completable/scored. */
+{
+  const byId=id=>DATA.habits.dailyHabits.find(h=>h.id===id);
+  Object.assign(byId('wake330')||{},{
+    name:'Wake Up | 3:15 am',
+    rule:'Out of bed at 3:15 am'
+  });
+  Object.assign(byId('morningShower')||{},{
+    name:'Shower | out by 4:00 am',
+    rule:'Be out of the shower by 4:00 am'
+  });
+  Object.assign(byId('healthyBreakfast')||{},{
+    name:'Healthy Breakfast',
+    rule:'Finish eating by 5 pm'
+  });
+  Object.assign(byId('fruit')||{},{
+    name:'Fruit',
+    rule:'Pre-workout · finish eating by 5 pm'
+  });
+  Object.assign(byId('gym')||{},{
+    name:'Gym Workout',
+    rule:''
+  });
+  Object.assign(byId('incline')||{},{
+    name:'Incline Walk | 10% | 4.5 km/h | 15 min',
+    rule:'At the gym'
+  });
+  Object.assign(byId('saunaDaily')||{},{
+    name:'Sauna | 30 min',
+    rule:'Post-workout when used'
+  });
+  Object.assign(byId('proteinCreatine')||{},{
+    name:'Protein + Creatine Smoothie',
+    rule:'Finish by 5 pm'
+  });
+  Object.assign(byId('supplements')||{},{
+    name:'B12 + Vitamin D',
+    rule:'With Protein + Creatine'
+  });
+  Object.assign(byId('healthyLunch')||{},{
+    name:'Healthy Lunch',
+    rule:'Finish eating by 5 pm'
+  });
+}
+
+function v138DateFromKey(key){
+  const p=String(key||'').split('-').map(Number);
+  return new Date(p[0]||2000,(p[1]||1)-1,p[2]||1,12,0,0);
+}
+function v138GymRule(key){
+  const d=v138DateFromKey(key).getDay();
+  return (d===0||d===6)
+    ? 'Weekend · finish by 10 am or start after 7 pm'
+    : 'Weekday · finish by 3 pm';
+}
+function v138StandardRow(h,day,key,linked=false){
+  const entry=day.habits?.[h.id],done=!!entry?.completed;
+  const early=h.id==='gym'&&Number(day.v123EarlyGymBonus||0)>0;
+  let rule=h.rule||'';
+  if(h.id==='gym') rule=v138GymRule(key);
+  if(early) rule=`🌅 Early Gym Bonus +20 · ${rule}`;
+  return `<button class="habit-row ${done?'done':''} ${linked?'v138-linked-row':''}" data-habit="${h.id}">
+    <span class="habit-icon">${h.icon}</span>
+    <span class="habit-copy"><strong>${escapeHtml(h.name)}</strong><small class="${early?'v123-early-gym':''}">${escapeHtml(rule)}</small></span>
+    <span class="habit-xp">${done?'↶':`+${h.xp}`}</span>
+  </button>`;
+}
+function v138SaunaRow(h,day,linked=false){
+  const done=!!day.habits?.saunaDaily?.completed;
+  return `<button class="habit-row ${done?'done':''} ${linked?'v138-linked-row':''}" data-sauna>
+    <span class="habit-icon">🧖</span>
+    <span class="habit-copy"><strong>Sauna | 30 min</strong><small>${done?'Completed · tap to undo':'Post-workout when used'}</small></span>
+    <span class="habit-xp">${done?'↶':'+30'}</span>
+  </button>`;
+}
+function v138WaterRow(day,key){
+  const target=v123WaterTargetForDate(key),ml=Number(day.waterMl||0),xp=v123WaterXpForDate(ml,key);
+  const pct=Math.min(100,(Math.floor(ml/500)/(target/500))*100);
+  return `<div class="habit-row water-row ${ml>=target?'done':''}">
+    <span class="habit-icon">💧</span>
+    <span class="habit-copy"><strong>Water | ${(target/1000).toFixed(1)} L by 8 pm</strong><small>${(ml/1000).toFixed(1)} / ${(target/1000).toFixed(1)} L • ${Math.round(pct)}% • ${xp}/${target>=3000?30:25} XP</small><span class="v110-row-water-track"><i style="width:${pct}%"></i></span></span>
+    <span class="v110-water-buttons"><button data-water-minus="500" ${ml<=0?'disabled':''}>−</button><button data-water="500" ${ml>=target?'disabled':''}>+500</button></span>
+  </div>`;
+}
+function v138Family(label,primaryHtml,linkedHtmls=[]){
+  return `<div class="v138-habit-family">
+    <div class="v138-family-label">${label}</div>
+    ${primaryHtml}
+    ${linkedHtmls.map(x=>`<div class="v138-linked-wrap"><span class="v138-link-mark">↳</span>${x}</div>`).join('')}
+  </div>`;
+}
+
+habitRowsHtml=function(habits,day){
+  const key=activeDailyKey();
+  const map=Object.fromEntries(habits.map(h=>[h.id,h]));
+  const used=new Set();
+  const out=[];
+
+  const addFamily=(label,primaryId,linkedIds)=>{
+    const p=map[primaryId]; if(!p)return;
+    used.add(primaryId);
+    const primary=primaryId==='saunaDaily'?v138SaunaRow(p,day,false):v138StandardRow(p,day,key,false);
+    const linked=linkedIds.filter(id=>map[id]).map(id=>{
+      used.add(id);
+      return id==='saunaDaily'?v138SaunaRow(map[id],day,true):v138StandardRow(map[id],day,key,true);
+    });
+    out.push(v138Family(label,primary,linked));
+  };
+
+  addFamily('MORNING', 'wake330', ['morningShower']);
+
+  if(map.healthyBreakfast){
+    used.add('healthyBreakfast');
+    out.push(v138StandardRow(map.healthyBreakfast,day,key,false));
+  }
+
+  addFamily('TRAINING', 'gym', ['fruit','incline','saunaDaily']);
+  addFamily('POST-WORKOUT', 'proteinCreatine', ['supplements']);
+
+  if(map.healthyLunch){
+    used.add('healthyLunch');
+    out.push(v138StandardRow(map.healthyLunch,day,key,false));
+  }
+
+  for(const h of habits){
+    if(used.has(h.id))continue;
+    if(h.id==='water') out.push(v138WaterRow(day,key));
+    else if(h.id==='saunaDaily') out.push(v138SaunaRow(h,day,false));
+    else out.push(v138StandardRow(h,day,key,false));
+  }
+  return out.join('');
+};
+
+/* Keep Keystone popup wording aligned with the new routine times. */
+const v138BaseShowKeystonePopup=showKeystonePopup;
+showKeystonePopup=function(){
+  v138BaseShowKeystonePopup();
+  const panel=document.querySelector('.v109-keystone-panel');
+  if(!panel)return;
+  panel.querySelectorAll('.v109-key-row b').forEach(b=>{
+    if(b.textContent.includes('Wake Up')) b.textContent='Wake Up | 3:15 am';
+    if(b.textContent.includes('Shower')) b.textContent='Shower | out by 4:00 am';
+  });
+};
+
+/* Readiness mapping should show the current Wake target. */
+if(typeof V135_HABIT_READINESS!=='undefined' && V135_HABIT_READINESS.wake330){
+  V135_HABIT_READINESS.wake330.label='Wake 3:15';
+}
+
+setTimeout(()=>render(),0);
