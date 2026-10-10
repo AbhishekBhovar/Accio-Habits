@@ -2591,3 +2591,83 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
 .v138-habit-family+.v138-habit-family{
   margin-top:2px;
 }
+
+
+/* v140 — cleaner two-row Next Battle readiness card */
+#v135ReadinessMini{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:7px!important;
+  width:100%!important;
+  min-height:0!important;
+  padding:10px 13px!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+#v135ReadinessMini .v140-mini-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  width:100%;
+}
+#v135ReadinessMini .v140-mini-head>b:first-child{
+  color:#d8ad42;
+  font-size:10px;
+  letter-spacing:.08em;
+}
+#v135ReadinessMini .v140-mini-head>b:last-child{
+  color:#d8ad42;
+  font-size:10px;
+  white-space:nowrap;
+}
+#v135ReadinessMini .v140-mini-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5px 14px;
+  width:100%;
+}
+#v135ReadinessMini .v140-mini-skill{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  min-width:0;
+}
+#v135ReadinessMini .v140-mini-skill>b{
+  font-size:13px;
+  line-height:1;
+}
+#v135ReadinessMini .v140-mini-skill>strong{
+  font-size:10px;
+  white-space:nowrap;
+  color:#d9d1c2;
+}
+#v135ReadinessMini .v140-mini-skill.ready>strong{
+  color:#8fd5a7;
+}
+#v135ReadinessMini .v140-mini-skill.short>strong{
+  color:#e2b13a;
+}
+
+
+/* v142 — readiness reveal must always remain tappable above app chrome */
+#revealOverlay{
+  z-index:2147483600!important;
+  pointer-events:auto!important;
+}
+#revealOverlay .reveal-panel{
+  position:relative;
+  z-index:2;
+  pointer-events:auto!important;
+}
+#revealOverlay .reveal-particles{
+  pointer-events:none!important;
+}
+#revealOverlay #revealNext{
+  position:relative;
+  z-index:5;
+  pointer-events:auto!important;
+  touch-action:manipulation!important;
+  -webkit-tap-highlight-color:transparent;
+}
