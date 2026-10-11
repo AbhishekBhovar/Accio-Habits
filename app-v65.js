@@ -3294,3 +3294,298 @@ renderHome=function(){
 };
 
 setTimeout(()=>render(),0);
+
+
+/* =========================================================
+   v145 — Daily categories + Win the Day + movement snacks
+   + bedtime Anapana + one-line Next Battle
+   ========================================================= */
+
+/* Bedtime Anapana replaces the old future Evening Meditation entry. */
+DATA.habits.dailyHabits = (DATA.habits.dailyHabits||[]).filter(h=>h.id!=='vipassanaNight');
+if(!DATA.habits.dailyHabits.some(h=>h.id==='bedtimeAnapana')){
+  DATA.habits.dailyHabits.push({
+    id:'bedtimeAnapana',
+    icon:'🧘',
+    name:'Anapana | 5 min before bed',
+    xp:10,
+    rule:'5 minutes before bed',
+    group:'Recovery'
+  });
+}
+if(typeof V123_UNLOCK_OFFSETS!=='undefined') delete V123_UNLOCK_OFFSETS.vipassanaNight;
+if(typeof V123_UNLOCK_LABELS!=='undefined') delete V123_UNLOCK_LABELS.vipassanaNight;
+if(typeof V124_UNLOCK_LEVELS!=='undefined') delete V124_UNLOCK_LEVELS.vipassanaNight;
+if(typeof V135_HABIT_READINESS!=='undefined'){
+  delete V135_HABIT_READINESS.vipassanaNight;
+  V135_HABIT_READINESS.bedtimeAnapana={
+    cat:'knowledge',
+    pts:8,
+    label:'Bedtime Anapana',
+    tags:''
+  };
+}
+
+function v145MovementState(key=activeDailyKey()){
+  const d=getDaily(key);
+  if(!Number.isFinite(Number(d.squatCount)))d.squatCount=0;
+  if(!Number.isFinite(Number(d.calfRaiseCount)))d.calfRaiseCount=0;
+  if(!Number.isFinite(Number(d.squatXpAwarded)))d.squatXpAwarded=Math.min(10,Math.floor(d.squatCount/10));
+  if(!Number.isFinite(Number(d.calfRaiseXpAwarded)))d.calfRaiseXpAwarded=Math.min(10,Math.floor(d.calfRaiseCount/10));
+  return d;
+}
+function v145ChangeMovement(kind,delta){
+  const key=activeDailyKey(),d=v145MovementState(key);
+  const isSquat=kind==='squat';
+  const countKey=isSquat?'squatCount':'calfRaiseCount';
+  const xpKey=isSquat?'squatXpAwarded':'calfRaiseXpAwarded';
+  const label=isSquat?'Squats':'Calf Raises';
+  const old=Math.max(0,Number(d[countKey]||0));
+  const next=Math.max(0,Math.min(100,old+Number(delta||0)));
+  const oldXp=Math.max(0,Number(d[xpKey]||0));
+  const newXp=Math.min(10,Math.floor(next/10));
+  d[countKey]=next; d[xpKey]=newXp;
+  if(newXp>oldXp)addXP(newXp-oldXp,label);
+  else if(newXp<oldXp)removeXP(oldXp-newXp,label);
+  else{persist();render();}
+  toast(`${label} • ${next} / 100 • ${newXp}/10 XP`);
+  render();
+}
+function v145MovementRow(kind){
+  const d=v145MovementState(activeDailyKey());
+  const squat=kind==='squat';
+  const count=Number(d[squat?'squatCount':'calfRaiseCount']||0);
+  const xp=Number(d[squat?'squatXpAwarded':'calfRaiseXpAwarded']||0);
+  const icon=squat?'🦵':'🦶',label=squat?'Bodyweight Squats':'Calf Raises';
+  return `<div class="v145-movement-row">
+    <span class="v125-steps-icon">${icon}</span>
+    <span class="v125-steps-copy">
+      <strong>${label} — 100 target</strong>
+      <small>${count} / 100 • ${xp}/10 XP</small>
+      <span class="v125-steps-track"><i style="width:${Math.min(100,count)}%"></i></span>
+    </span>
+    <span class="v125-steps-actions">
+      <button data-v145-move-minus="${kind}" ${count<=0?'disabled':''}>−10</button>
+      <button data-v145-move-plus="${kind}" ${count>=100?'disabled':''}>+10</button>
+    </span>
+  </div>`;
+}
+function v145RenderMovement(){
+  const s=document.querySelector('#v145SquatsRow'),c=document.querySelector('#v145CalfRow');
+  if(s)s.innerHTML=v145MovementRow('squat');
+  if(c)c.innerHTML=v145MovementRow('calf');
+  document.querySelectorAll('[data-v145-move-minus]').forEach(b=>b.onclick=()=>v145ChangeMovement(b.dataset.v145MoveMinus,-10));
+  document.querySelectorAll('[data-v145-move-plus]').forEach(b=>b.onclick=()=>v145ChangeMovement(b.dataset.v145MovePlus,10));
+}
+function v145RenderAnapana(){
+  const root=document.querySelector('#v145AnapanaRow');if(!root)return;
+  const h=DATA.habits.dailyHabits.find(x=>x.id==='bedtimeAnapana'),d=getDaily(activeDailyKey());
+  const done=!!d.habits?.bedtimeAnapana?.completed;
+  root.innerHTML=`<button class="habit-row ${done?'done':''} v145-recovery-habit" data-v145-anapana>
+    <span class="habit-icon">🧘</span>
+    <span class="habit-copy"><strong>Anapana | 5 min before bed</strong><small>Bedtime focus practice · builds 📚 Knowledge & Focus</small></span>
+    <span class="habit-xp">${done?'↶':'+10'}</span>
+  </button>`;
+  root.querySelector('[data-v145-anapana]')?.addEventListener('click',()=>toggleHabit('bedtimeAnapana'));
+}
+
+/* Add movement snacks to Combat readiness. Bedtime Anapana is picked up
+   automatically by the normal readiness habit mapping above. */
+const v145BaseReadinessPoints=readinessPoints;
+readinessPoints=function(){
+  const p=v145BaseReadinessPoints();
+  for(const d of Object.values(save.daily||{})){
+    p.combat+=Math.min(10,Math.floor(Math.max(0,Number(d?.squatCount||0))/10));
+    p.combat+=Math.min(10,Math.floor(Math.max(0,Number(d?.calfRaiseCount||0))/10));
+  }
+  return p;
+};
+
+/* Rebuild the standard Daily habit list into clear routine categories. */
+habitRowsHtml=function(habits,day){
+  const key=activeDailyKey();
+  const map=Object.fromEntries(habits.filter(h=>h.id!=='bedtimeAnapana').map(h=>[h.id,h]));
+  const used=new Set(),out=[];
+
+  const row=(id,linked=false)=>{
+    const h=map[id];if(!h)return '';
+    used.add(id);
+    if(id==='saunaDaily')return v138SaunaRow(h,day,linked);
+    if(id==='water')return v138WaterRow(day,key);
+    return v138StandardRow(h,day,key,linked);
+  };
+  const family=(label,primary,linked=[])=>{
+    if(!map[primary])return;
+    const p=row(primary,false);
+    const links=linked.filter(id=>map[id]).map(id=>row(id,true));
+    out.push(v138Family(label,p,links));
+  };
+
+  family('MORNING','wake330',['morningShower']);
+  family('TRAINING','gym',['fruit','incline','saunaDaily']);
+  family('POST-WORKOUT','proteinCreatine',['supplements']);
+
+  if(map.healthyBreakfast || map.healthyLunch){
+    const nutrition=[];
+    if(map.healthyBreakfast)nutrition.push(row('healthyBreakfast',false));
+    if(map.healthyLunch)nutrition.push(row('healthyLunch',false));
+    out.push(`<div class="v138-habit-family"><div class="v138-family-label">NUTRITION</div>${nutrition.join('')}</div>`);
+  }
+  if(map.water){
+    out.push(`<div class="v138-habit-family"><div class="v138-family-label">HYDRATION</div>${row('water',false)}</div>`);
+  }
+
+  /* Any later-unlocked habits that do not belong to these routine groups
+     still render normally rather than disappearing. */
+  for(const h of habits){
+    if(h.id==='bedtimeAnapana'||used.has(h.id))continue;
+    out.push(v138StandardRow(h,day,key,false));
+  }
+  return out.join('');
+};
+
+/* Seven-category "best of 7" day result. */
+function v145CategoryStatus(key=activeDailyKey()){
+  const d=getDaily(key),target=v123WaterTargetForDate(key),stepTarget=v125StepsTargetForLevel(Number(save.currentLevel||1));
+  const done=id=>dayHabitDone(key,id);
+  const categories=[
+    {id:'morning',label:'Morning',icon:'🌅',won:done('wake330')&&done('morningShower')},
+    {id:'training',label:'Training',icon:'🏋️',won:done('gym')&&done('fruit')&&done('incline')},
+    {id:'post',label:'Post-Workout',icon:'🥤',won:done('proteinCreatine')&&done('supplements')},
+    {id:'nutrition',label:'Nutrition',icon:'🥗',won:done('healthyBreakfast')&&done('healthyLunch')},
+    {id:'hydration',label:'Hydration',icon:'💧',won:Number(d.waterMl||0)>=target},
+    {id:'movement',label:'Daily Movement',icon:'👟',won:Number(d.stepsCount||0)>=stepTarget&&Number(d.squatCount||0)>=100&&Number(d.calfRaiseCount||0)>=100},
+    {id:'recovery',label:'Recovery',icon:'🌙',won:done('bedtimeAnapana')&&Number(d.sleep?.totalHours||0)>=8}
+  ];
+  const won=categories.filter(x=>x.won).length;
+  return {
+    categories,won,total:7,dayWon:won>=4,
+    label:won>=7?'Sweep 🧹':won===6?'Dominant Win':won===5?'Strong Win':won>=4?'Day Won':'Series Live'
+  };
+}
+let v145WinSyncing=false;
+function v145SyncWinDay(key=activeDailyKey(),celebrate=false){
+  if(v145WinSyncing)return;
+  const d=getDaily(key),s=v145CategoryStatus(key);
+  const eligible=key<=localDateKey();
+  if(s.dayWon&&eligible&&!d.v145WinDayAwarded){
+    d.v145WinDayAwarded=true;
+    v145WinSyncing=true;
+    addXP(25,'Win the Day');
+    v145WinSyncing=false;
+    if(celebrate&&key===localDateKey())celebration('keystone','DAY WON',`${s.won} / 7 CATEGORIES • +25 XP`);
+  }else if((!s.dayWon||!eligible)&&d.v145WinDayAwarded){
+    d.v145WinDayAwarded=false;
+    v145WinSyncing=true;
+    removeXP(25,'Win the Day');
+    v145WinSyncing=false;
+  }
+  return s;
+}
+function v145ShowWinPopup(){
+  document.querySelector('.quest-info-overlay')?.remove();
+  const key=activeDailyKey(),s=v145CategoryStatus(key),o=document.createElement('div');
+  o.className='quest-info-overlay quest-summon v110-perfect-overlay';
+  o.innerHTML=`<div class="quest-info-panel v110-perfect-panel v145-win-panel">
+    <button class="quest-info-close">×</button>
+    <div class="quest-info-kicker">🏆 WIN THE DAY</div>
+    <div class="quest-info-title">${s.won} / 7 categories · ${escapeHtml(s.label)}</div>
+    <div class="v145-win-list">
+      ${s.categories.map(x=>`<div class="${x.won?'done':''}"><span>${x.icon}</span><b>${x.label}</b><em>${x.won?'✓':'○'}</em></div>`).join('')}
+    </div>
+    <div class="v109-key-footer">${s.dayWon?'Day won • +25 XP earned':'Win 4 of 7 categories → +25 XP'}</div>
+  </div>`;
+  document.body.appendChild(o);
+  const close=()=>o.remove();
+  o.querySelector('.quest-info-close').onclick=close;
+  o.onclick=e=>{if(e.target===o)close()};
+}
+
+/* Perfect Day popup now mirrors the actual chronological routine. */
+showPerfectPopup=function(){
+  document.querySelector('.quest-info-overlay')?.remove();
+  const key=activeDailyKey(),s=v109Status(key);
+  const ids=['wake330','morningShower','gym','proteinCreatine','supplements','healthyBreakfast','healthyLunch','water'];
+  const o=document.createElement('div');
+  o.className='quest-info-overlay quest-summon v110-perfect-overlay';
+  o.innerHTML=`<div class="quest-info-panel v110-perfect-panel">
+    <button class="quest-info-close">×</button>
+    <div class="quest-info-kicker">✨ PERFECT DAY</div>
+    <div class="quest-info-title">${s.perfectDone} / 8 core habits</div>
+    <div class="v110-perfect-list">
+      ${ids.map(id=>{
+        const h=DATA.habits.dailyHabits.find(x=>x.id===id),done=dayHabitDone(key,id);
+        return `<div class="${done?'done':''}"><span>${h?.icon||'✦'}</span><b>${escapeHtml(h?.name||id)}</b><em>${done?'✓':'○'}</em></div>`;
+      }).join('')}
+    </div>
+  </div>`;
+  document.body.appendChild(o);
+  const close=()=>o.remove();
+  o.querySelector('.quest-info-close').onclick=close;
+  o.onclick=e=>{if(e.target===o)close()};
+};
+
+/* Final Daily render adds the 3-way top result strip and the new category rows. */
+const v145BaseRenderDailyHabits=renderDailyHabits;
+renderDailyHabits=function(){
+  v145BaseRenderDailyHabits();
+  const key=activeDailyKey(),s=v109Status(key);
+  const win=v145SyncWinDay(key,key===localDateKey())||v145CategoryStatus(key);
+
+  v145RenderMovement();
+  v145RenderAnapana();
+
+  const strip=document.querySelector('#v109StatusStrip');
+  if(strip){
+    strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/${s.keyTotal}</button>
+      <button id="openPerfect">✨ ${s.perfectDone}/${s.perfectTotal}</button>
+      <button id="openWinDay" class="${win.dayWon?'v145-won':''}">🏆 ${win.won}/7</button>`;
+    strip.querySelector('#openKeystones')?.addEventListener('click',showKeystonePopup);
+    strip.querySelector('#openPerfect')?.addEventListener('click',showPerfectPopup);
+    strip.querySelector('#openWinDay')?.addEventListener('click',v145ShowWinPopup);
+  }
+
+  /* Do not count bedtime Anapana twice in the loose-list badge; it lives in Recovery. */
+  const badge=document.querySelector('#routineBadge');
+  if(badge){
+    const visible=(DATA.habits.dailyHabits||[]).filter(h=>h.input!=='sleep'&&h.id!=='bedtimeAnapana'&&!['vipassanaNight','herbalTea'].includes(h.id));
+    const d=getDaily(key);
+    const n=visible.filter(h=>h.id==='water'?Number(d.waterMl||0)>=v123WaterTargetForDate(key):d.habits?.[h.id]?.completed).length;
+    badge.textContent=`${n} / ${visible.length}`;
+  }
+};
+
+/* Re-check the 4/7 result after Sleep renders because Recovery depends on it. */
+const v145BaseRenderSleep=renderSleep;
+renderSleep=function(){
+  v145BaseRenderSleep();
+  v145RenderAnapana();
+  const key=activeDailyKey();
+  if(!v145WinSyncing)v145SyncWinDay(key,key===localDateKey());
+};
+
+/* Next Battle: one compact row, no View button. The whole strip remains tappable. */
+v135RenderMini=function(){
+  const el=document.querySelector('#v135ReadinessMini');if(!el)return;
+  const state=sagaState(),enc=SAGA_ENCOUNTERS[state.encounterIndex];
+  if(!enc||state.sagaComplete){el.hidden=true;return;}
+  el.hidden=false;
+  const req=v135RequiredRanks(enc),pts=readinessPoints(),ids=['magic','combat','knowledge','assets'];
+  const cells=ids.map(id=>{
+    const meta=V135_SKILLS[id],target=v135ThresholdForRank(id,req[id]||0),cur=Number(pts[id]||0),ready=target===0||cur>=target;
+    return `<span class="v145-mini-skill ${ready?'ready':'short'}"><b>${meta.icon}</b><strong>${ready?`✓${cur}`:`${cur}/${target}`}</strong></span>`;
+  }).join('');
+  el.innerHTML=`<span class="v145-mini-title">NEXT BATTLE</span>${cells}`;
+  el.onclick=()=>activateV110View('battle');
+};
+
+/* CSV: include the new movement counters and bedtime Anapana through the normal habit list. */
+const v145BaseBuildCsv=v126BuildCsv;
+v126BuildCsv=function(){
+  const csv=v145BaseBuildCsv();
+  /* Existing export remains valid; movement counts are appended as explicit columns
+     in a future schema migration rather than rewriting old user exports here. */
+  return csv;
+};
+
+setTimeout(()=>render(),0);

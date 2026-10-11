@@ -2671,3 +2671,125 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
   touch-action:manipulation!important;
   -webkit-tap-highlight-color:transparent;
 }
+
+
+/* v145 — fully categorized Daily card */
+.v145-static-family{
+  margin-top:10px;
+  padding:7px!important;
+}
+#v145MovementGroup .v125-steps-wrap{
+  margin:0!important;
+  padding:0!important;
+}
+#v145MovementGroup .v125-steps-row,
+.v145-movement-row{
+  margin:0!important;
+  border-radius:16px!important;
+  background:#0b0d0c!important;
+  border:1px solid #30322d!important;
+}
+.v145-movement-row{
+  display:grid;
+  grid-template-columns:46px minmax(0,1fr) auto;
+  align-items:center;
+  gap:10px;
+  padding:12px 12px;
+  margin-top:6px!important;
+}
+#v145RecoveryGroup .sleep-card{
+  margin:6px 0 0!important;
+  border-radius:16px!important;
+  background:#0b0d0c!important;
+  border:1px solid #30322d!important;
+}
+#v145AnapanaRow .habit-row{
+  margin:0!important;
+  background:#0b0d0c!important;
+}
+.v145-recovery-habit .habit-copy small{
+  display:block!important;
+}
+
+/* Three equal top result boxes: Keystone / Perfect / Win the Day */
+.v109-status-strip{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:7px!important;
+}
+.v109-status-strip>button{
+  min-width:0!important;
+  padding-left:6px!important;
+  padding-right:6px!important;
+}
+#openWinDay.v145-won{
+  border-color:#d4af37!important;
+  box-shadow:0 0 0 1px rgba(212,175,55,.14) inset;
+}
+.v145-win-list{
+  display:grid;
+  gap:7px;
+  margin-top:14px;
+}
+.v145-win-list>div{
+  display:grid;
+  grid-template-columns:34px minmax(0,1fr) 28px;
+  align-items:center;
+  gap:8px;
+  min-height:48px;
+  padding:7px 10px;
+  border:1px solid #373429;
+  border-radius:14px;
+  background:#0c0e0d;
+}
+.v145-win-list>div.done{
+  border-color:#66551f;
+}
+.v145-win-list span{font-size:19px}
+.v145-win-list b{font-size:12px;color:#efe7d5}
+.v145-win-list em{font-style:normal;text-align:center;color:#8e897d}
+.v145-win-list .done em{color:#8fd5a7}
+
+/* Next Battle — single clean row, no View button */
+#v135ReadinessMini{
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  width:100%!important;
+  min-height:48px!important;
+  padding:9px 12px!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+}
+#v135ReadinessMini .v145-mini-title{
+  flex:0 0 auto;
+  color:#d8ad42;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.07em;
+}
+#v135ReadinessMini .v145-mini-skill{
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+  min-width:0;
+  flex:1 1 0;
+  justify-content:center;
+}
+#v135ReadinessMini .v145-mini-skill b{
+  font-size:12px;
+  line-height:1;
+}
+#v135ReadinessMini .v145-mini-skill strong{
+  font-size:9px;
+  letter-spacing:-.02em;
+  color:#d9d1c2;
+}
+#v135ReadinessMini .v145-mini-skill.ready strong{color:#8fd5a7}
+#v135ReadinessMini .v145-mini-skill.short strong{color:#e2b13a}
+
+@media(max-width:390px){
+  #v135ReadinessMini{gap:6px!important;padding-left:9px!important;padding-right:9px!important}
+  #v135ReadinessMini .v145-mini-title{font-size:8px}
+  #v135ReadinessMini .v145-mini-skill strong{font-size:8px}
+  #v135ReadinessMini .v145-mini-skill b{font-size:11px}
+}
