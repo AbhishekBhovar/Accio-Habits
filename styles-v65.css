@@ -2793,3 +2793,6 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
   #v135ReadinessMini .v145-mini-skill strong{font-size:8px}
   #v135ReadinessMini .v145-mini-skill b{font-size:11px}
 }
+
+/* v146 — cleaner movement/anapana labels and popups */
+.v145-recovery-habit .habit-copy small{display:none!important}

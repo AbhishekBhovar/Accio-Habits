@@ -2541,7 +2541,7 @@ showKeystonePopup=function(){
         : `${rows}${!waterDone?compactWaterHtml(d):''}`
       }
     </div>
-    ${allDone?'':'<div class="v109-key-footer">Complete all 4 → +50 XP</div>'}
+    
   </div>`;
   document.body.appendChild(o);
 
@@ -3360,7 +3360,7 @@ function v145MovementRow(kind){
   return `<div class="v145-movement-row">
     <span class="v125-steps-icon">${icon}</span>
     <span class="v125-steps-copy">
-      <strong>${label} — 100 target</strong>
+      <strong>${label}</strong>
       <small>${count} / 100 • ${xp}/10 XP</small>
       <span class="v125-steps-track"><i style="width:${Math.min(100,count)}%"></i></span>
     </span>
@@ -3383,7 +3383,7 @@ function v145RenderAnapana(){
   const done=!!d.habits?.bedtimeAnapana?.completed;
   root.innerHTML=`<button class="habit-row ${done?'done':''} v145-recovery-habit" data-v145-anapana>
     <span class="habit-icon">🧘</span>
-    <span class="habit-copy"><strong>Anapana | 5 min before bed</strong><small>Bedtime focus practice · builds 📚 Knowledge & Focus</small></span>
+    <span class="habit-copy"><strong>Anapana | 5 min before bed</strong></span>
     <span class="habit-xp">${done?'↶':'+10'}</span>
   </button>`;
   root.querySelector('[data-v145-anapana]')?.addEventListener('click',()=>toggleHabit('bedtimeAnapana'));
@@ -3489,11 +3489,11 @@ function v145ShowWinPopup(){
   o.innerHTML=`<div class="quest-info-panel v110-perfect-panel v145-win-panel">
     <button class="quest-info-close">×</button>
     <div class="quest-info-kicker">🏆 WIN THE DAY</div>
-    <div class="quest-info-title">${s.won} / 7 categories · ${escapeHtml(s.label)}</div>
+    <div class="quest-info-title">${s.won} / 7 categories</div>
     <div class="v145-win-list">
       ${s.categories.map(x=>`<div class="${x.won?'done':''}"><span>${x.icon}</span><b>${x.label}</b><em>${x.won?'✓':'○'}</em></div>`).join('')}
     </div>
-    <div class="v109-key-footer">${s.dayWon?'Day won • +25 XP earned':'Win 4 of 7 categories → +25 XP'}</div>
+    
   </div>`;
   document.body.appendChild(o);
   const close=()=>o.remove();
