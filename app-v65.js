@@ -1380,7 +1380,7 @@ const _v109Bind=bindXpHistory;function bindXpHistory(){document.querySelectorAll
 // ===== v110 interaction + compact controls patch =====
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='wake330'),{name:'Wake Up | 3:00 am',rule:'Be out of bed at 3:15 am'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='vipassanaMorning'),{name:'Morning Anapana & Vipassana — 10 min',rule:'Complete 10 minutes'});
-Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='morningShower'),{name:'Shower | out by 3:30 am',rule:'Be out of the shower by 3:30 am'});
+Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='morningShower'),{name:'Shower | start by 3:15 am',rule:'Start shower by 3:15 am'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='incline'),{name:'Incline Walk — 15 min',rule:'Minimum 15 minutes'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='hindiSpeaking'),{name:'Speak Hindi — 10 min',rule:'10 minutes active speaking'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='saunaDaily'),{name:'Sauna — 30 min',rule:'30 min session'});
@@ -2246,8 +2246,8 @@ v123RefreshUnlocks = function(){
 {
   const shower=DATA.habits.dailyHabits.find(h=>h.id==='morningShower');
   if(shower){
-    shower.name='Shower | out by 3:30 am';
-    shower.rule='Be out of the shower by 3:30 am';
+    shower.name='Shower | start by 3:15 am';
+    shower.rule='Start shower by 3:15 am';
   }
   const incline=DATA.habits.dailyHabits.find(h=>h.id==='incline');
   if(incline){
@@ -2517,7 +2517,7 @@ showKeystonePopup=function(){
   const key=activeDailyKey(),d=getDaily(key),s=v109Status(key);
   const meta={
     wake330:['⏰','Wake Up | 3:00 am',20],
-    morningShower:['🚿','Shower | out by 3:30 am',10],
+    morningShower:['🚿','Shower | start by 3:15 am',10],
     gym:['🏋️','Gym Workout',100]
   };
   const outstanding=V128_KEYSTONE_IDS.filter(id=>id!=='water'&&!dayHabitDone(key,id));
@@ -3003,8 +3003,8 @@ setTimeout(()=>{try{render();}catch(e){console.error('v135 render',e)}},0);
     rule:'Out of bed at 3:00 am'
   });
   Object.assign(byId('morningShower')||{},{
-    name:'Shower | out by 3:30 am',
-    rule:'Be out of the shower by 3:30 am'
+    name:'Shower | start by 3:15 am',
+    rule:'Start shower by 3:15 am'
   });
   Object.assign(byId('healthyBreakfast')||{},{
     name:'Healthy Breakfast',
@@ -3136,7 +3136,7 @@ showKeystonePopup=function(){
   if(!panel)return;
   panel.querySelectorAll('.v109-key-row b').forEach(b=>{
     if(b.textContent.includes('Wake Up')) b.textContent='Wake Up | 3:00 am';
-    if(b.textContent.includes('Shower')) b.textContent='Shower | out by 3:30 am';
+    if(b.textContent.includes('Shower')) b.textContent='Shower | start by 3:15 am';
   });
 };
 
@@ -3245,3 +3245,52 @@ setTimeout(()=>render(),0);
   /* If a reveal is already visible when this patch loads, bind immediately. */
   v142BindRevealButton();
 })();
+
+
+/* =========================================================
+   v144 — live Training Progress + retire Herbal Tea
+   ========================================================= */
+
+/* Herbal Tea is retired from the routine/unlock/readiness systems.
+   Historical saved completions and XP are deliberately left untouched. */
+DATA.habits.dailyHabits = (DATA.habits.dailyHabits||[]).filter(h=>h.id!=='herbalTea');
+if(typeof V123_UNLOCK_OFFSETS!=='undefined') delete V123_UNLOCK_OFFSETS.herbalTea;
+if(typeof V123_UNLOCK_LABELS!=='undefined') delete V123_UNLOCK_LABELS.herbalTea;
+if(typeof V124_UNLOCK_LEVELS!=='undefined') delete V124_UNLOCK_LEVELS.herbalTea;
+if(typeof V135_HABIT_READINESS!=='undefined') delete V135_HABIT_READINESS.herbalTea;
+
+/* Training Progress is now true overall XP/level progress instead of the
+   current unresolved encounter's capped XP (which could sit at 2,000/2,000
+   forever while XP kept accumulating). */
+const v144BaseRenderHome=renderHome;
+renderHome=function(){
+  v144BaseRenderHome();
+
+  const total=Math.max(0,Number(save.totalXP||0));
+  const level=Math.max(0,Number(save.currentLevel||0));
+  const maxed=level>=168;
+  const prev=maxed?cumulativeXpForLevel(167):cumulativeXpForLevel(level);
+  const next=maxed?cumulativeXpForLevel(168):cumulativeXpForLevel(level+1);
+  const span=Math.max(1,next-prev);
+  const within=Math.max(0,total-prev);
+  const pct=maxed?100:Math.max(0,Math.min(100,(within/span)*100));
+
+  const bar=document.querySelector('#xpBar');
+  if(bar)bar.style.width=`${pct}%`;
+
+  const xpText=document.querySelector('#xpText');
+  if(xpText){
+    xpText.textContent=maxed
+      ? `${total.toLocaleString()} XP`
+      : `${total.toLocaleString()} / ${next.toLocaleString()} XP`;
+  }
+
+  const checkpoint=document.querySelector('#checkpointText');
+  if(checkpoint){
+    checkpoint.textContent=maxed
+      ? 'Level 168 · Complete'
+      : `Level ${level} → ${level+1}`;
+  }
+};
+
+setTimeout(()=>render(),0);
