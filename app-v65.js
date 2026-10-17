@@ -3589,3 +3589,186 @@ v126BuildCsv=function(){
 };
 
 setTimeout(()=>render(),0);
+
+
+/* =========================================================
+   v148 — Food Urge Prevention experiment
+   ========================================================= */
+const V148_FOOD_ACTIONS=[
+  {id:'water',icon:'💧',label:'Have water'},
+  {id:'zeroDrink',icon:'☕',label:'Have a zero-calorie drink'},
+  {id:'proteinShake',icon:'🥤',label:'Try just drinking a protein shake'},
+  {id:'brushTeeth',icon:'🪥',label:'Brush teeth / close kitchen'},
+  {id:'move5',icon:'🚶',label:'Get up and move for 5 minutes'},
+  {id:'changeEnvironment',icon:'🧊',label:'Change the environment'},
+  {id:'avalanche',icon:'🏔️',label:'Open Avalanche'},
+  {id:'motivationVideo',icon:'🎧',label:'Listen to a motivational video'},
+  {id:'entertainment',icon:'🎬',label:'Do a fun entertainment activity'},
+  {id:'meditation15',icon:'🧘',label:'Do 15 minutes of meditation'}
+];
+const V148_ACTION_XP=2;
+const V148_FOOD_PENALTY=50;
+
+function v148FoodState(key=activeDailyKey()){
+  const d=getDaily(key);
+  d.v148FoodUrges=d.v148FoodUrges||[];
+  return d.v148FoodUrges;
+}
+function v148PendingFoodUrge(key=activeDailyKey()){
+  return v148FoodState(key).slice().reverse().find(x=>!x?.outcome)||null;
+}
+function v148NewFoodUrge(key=activeDailyKey()){
+  const s={id:`urge-${Date.now()}-${Math.random().toString(36).slice(2,7)}`,ts:Date.now(),actions:[],actionXpAwarded:0,outcome:null,penalties:{}};
+  v148FoodState(key).push(s);persist();return s;
+}
+function v148CurrentFoodUrge(key=activeDailyKey()){
+  return v148PendingFoodUrge(key)||v148NewFoodUrge(key);
+}
+function v148FindUrge(key,id){return v148FoodState(key).find(x=>x.id===id)||null;}
+function v148ToggleFoodAction(urgeId,actionId){
+  const key=activeDailyKey(),u=v148FindUrge(key,urgeId);if(!u||u.outcome)return;
+  u.actions=u.actions||[];
+  const i=u.actions.indexOf(actionId);
+  if(i>=0){
+    u.actions.splice(i,1);u.actionXpAwarded=Math.max(0,Number(u.actionXpAwarded||0)-V148_ACTION_XP);
+    removeXP(V148_ACTION_XP,'Food Urge Prevention');
+  }else{
+    u.actions.push(actionId);u.actionXpAwarded=Number(u.actionXpAwarded||0)+V148_ACTION_XP;
+    addXP(V148_ACTION_XP,'Food Urge Prevention');
+  }
+}
+function v148PenaltyDeduct(label){
+  const deducted=Math.min(V148_FOOD_PENALTY,Math.max(0,Number(save.totalXP||0)));
+  if(deducted)removeXP(deducted,label);else{persist();render();}
+  save.eventLog=save.eventLog||[];
+  save.eventLog.unshift({level:save.currentLevel,title:`−${V148_FOOD_PENALTY} XP — ${label}`,kind:'penalty',ts:Date.now()});
+  return deducted;
+}
+function v148FinishFoodUrge(urgeId,outcome){
+  const key=activeDailyKey(),u=v148FindUrge(key,urgeId);if(!u||u.outcome)return;
+  u.outcome=outcome;u.completedAt=Date.now();u.penalties={};
+  if(outcome==='junk'||outcome==='both')u.penalties.junk={nominal:50,deducted:v148PenaltyDeduct('Eat Junk Food')};
+  if(outcome==='late'||outcome==='both')u.penalties.late={nominal:50,deducted:v148PenaltyDeduct('Late-Night Binge')};
+  persist();render();
+  const labels={prevented:'Urge passed ✓',junk:'Eat Junk Food • −50 XP',late:'Late-Night Binge • −50 XP',both:'Both outcomes logged • −100 XP'};
+  toast(labels[outcome]||'Food urge saved.',outcome==='prevented'?'success':'warn');
+}
+function v148UndoLastFoodUrge(){
+  const key=activeDailyKey(),arr=v148FoodState(key);if(!arr.length)return;
+  const u=arr[arr.length-1],actionXp=Math.max(0,Number(u.actionXpAwarded||0));
+  if(actionXp)removeXP(actionXp,'Food Urge Prevention');
+  const restore=(Number(u.penalties?.junk?.deducted||0)+Number(u.penalties?.late?.deducted||0));
+  arr.pop();
+  if(restore)addXP(restore,'Food Urge Undo');else{persist();render();}
+  toast('Last food urge entry undone.');
+}
+function v148OutcomeLabel(u){
+  return u?.outcome==='prevented'?'Prevented ✓':u?.outcome==='junk'?'Junk food −50':u?.outcome==='late'?'Late-night binge −50':u?.outcome==='both'?'Junk + late-night −100':'In progress';
+}
+function v148FoodDaySummary(key=activeDailyKey()){
+  const arr=v148FoodState(key),done=arr.filter(x=>x.outcome),prevented=done.filter(x=>x.outcome==='prevented').length;
+  const junk=done.filter(x=>x.outcome==='junk'||x.outcome==='both').length;
+  const late=done.filter(x=>x.outcome==='late'||x.outcome==='both').length;
+  const actionXp=arr.reduce((n,x)=>n+Number(x.actionXpAwarded||0),0);
+  const penalty=done.reduce((n,x)=>n+Number(x.penalties?.junk?.nominal||0)+Number(x.penalties?.late?.nominal||0),0);
+  return {arr,done,prevented,junk,late,actionXp,penalty};
+}
+function v148OpenFoodUrge(){
+  document.querySelector('.quest-info-overlay')?.remove();
+  const key=activeDailyKey(),u=v148CurrentFoodUrge(key),o=document.createElement('div');
+  const used=new Set(u.actions||[]),n=used.size;
+  o.className='quest-info-overlay quest-summon v148-food-overlay';
+  o.innerHTML=`<div class="quest-info-panel v148-food-panel">
+    <button class="quest-info-close">×</button>
+    <div class="quest-info-kicker">🛡️ FOOD URGE</div>
+    <div class="quest-info-title">Prevention checklist</div>
+    <div class="v148-food-sub">${n} / 10 tried · +${n*2} XP</div>
+    <div class="v148-checklist">
+      ${V148_FOOD_ACTIONS.map(a=>`<button data-v148-action="${a.id}" class="${used.has(a.id)?'done':''}"><span>${a.icon}</span><b>${escapeHtml(a.label)}</b><em>${used.has(a.id)?'✓':'+2'}</em></button>`).join('')}
+    </div>
+    <div class="v148-outcome-title">What happened?</div>
+    <div class="v148-outcomes">
+      <button data-v148-outcome="prevented" class="prevented">✓ Urge passed / didn’t eat</button>
+      <button data-v148-outcome="junk">🍔 Ate junk food · −50</button>
+      <button data-v148-outcome="late">🌙 Late-night binge · −50</button>
+      <button data-v148-outcome="both">🍔🌙 Both · −100</button>
+    </div>
+  </div>`;
+  document.body.appendChild(o);
+  const close=()=>o.remove();o.querySelector('.quest-info-close').onclick=close;o.onclick=e=>{if(e.target===o)close()};
+  o.querySelectorAll('[data-v148-action]').forEach(b=>b.onclick=()=>{const id=b.dataset.v148Action;close();v148ToggleFoodAction(u.id,id);setTimeout(v148OpenFoodUrge,0)});
+  o.querySelectorAll('[data-v148-outcome]').forEach(b=>b.onclick=()=>{const out=b.dataset.v148Outcome;close();v148FinishFoodUrge(u.id,out)});
+}
+
+/* Replace the old two penalty buttons with prevention-first logging. */
+v123RenderPenalties=function(){
+  const root=document.querySelector('#v123PenaltyPanel');if(!root)return;
+  const key=activeDailyKey(),s=v148FoodDaySummary(key),pending=v148PendingFoodUrge(key),last=s.arr[s.arr.length-1];
+  const summary=s.done.length?`${s.done.length} urge${s.done.length===1?'':'s'} · ${s.prevented} prevented${s.junk?` · ${s.junk} junk`:''}${s.late?` · ${s.late} late-night`:''}`:'No completed urges today';
+  root.innerHTML=`<div class="v148-food-home">
+    <span class="v123-penalty-icon">🛡️</span>
+    <span class="v123-penalty-copy"><strong>Food Urge Prevention</strong><small>${summary}${s.actionXp?` · +${s.actionXp} XP prevention`:''}</small></span>
+    <button class="v148-food-start">${pending?'Continue':'Start'}</button>
+  </div>
+  ${last?`<div class="v148-food-last"><span>Last: <b>${v148OutcomeLabel(last)}</b> · ${(last.actions||[]).length}/10 tried</span><button data-v148-undo>Undo last</button></div>`:''}`;
+  root.querySelector('.v148-food-start')?.addEventListener('click',v148OpenFoodUrge);
+  root.querySelector('[data-v148-undo]')?.addEventListener('click',v148UndoLastFoodUrge);
+};
+
+/* New logs appear in the daily XP graph. Old penalty history remains untouched. */
+const v148BaseDailyXpHistory=dailyXpHistory;
+dailyXpHistory=function(days=30){
+  const rows=v148BaseDailyXpHistory(days);
+  for(const r of rows){
+    const arr=save.daily?.[r.key]?.v148FoodUrges||[];
+    const net=arr.reduce((n,u)=>n+Number(u.actionXpAwarded||0)-Number(u.penalties?.junk?.nominal||0)-Number(u.penalties?.late?.nominal||0),0);
+    r.xp=Math.max(0,Number(r.xp||0)+net);
+  }
+  return rows;
+};
+
+function v148FoodStats(days=30){
+  const today=parseDateKey(localDateKey()),sessions=[];
+  for(let i=0;i<days;i++){
+    const key=localDateKey(addDays(today,-i));
+    for(const u of (save.daily?.[key]?.v148FoodUrges||[]))if(u?.outcome)sessions.push({...u,date:key});
+  }
+  const prevented=sessions.filter(x=>x.outcome==='prevented');
+  const incidents=sessions.filter(x=>x.outcome!=='prevented');
+  const junk=sessions.filter(x=>x.outcome==='junk'||x.outcome==='both');
+  const late=sessions.filter(x=>x.outcome==='late'||x.outcome==='both');
+  const avg=a=>a.length?(a.reduce((n,x)=>n+(x.actions||[]).length,0)/a.length):0;
+  const all10=incidents.filter(x=>(x.actions||[]).length===V148_FOOD_ACTIONS.length).length;
+  const actionRows=V148_FOOD_ACTIONS.map(a=>{
+    const used=sessions.filter(x=>(x.actions||[]).includes(a.id));
+    const ok=used.filter(x=>x.outcome==='prevented').length;
+    return {...a,used:used.length,ok,rate:used.length?Math.round(ok/used.length*100):null};
+  });
+  return {sessions,prevented,incidents,junk,late,avgPrevented:avg(prevented),avgIncident:avg(incidents),all10,actionRows};
+}
+function v148FoodStatsHtml(){
+  const s=v148FoodStats(30),rate=s.sessions.length?Math.round(s.prevented.length/s.sessions.length*100):0;
+  return `<section class="stats62-card v148-food-stats">
+    <span class="eyebrow">FOOD URGE PREVENTION · 30 DAYS</span>
+    <div class="v148-food-stat-grid">
+      <b>${s.sessions.length}<small>Urges logged</small></b>
+      <b>${s.prevented.length}<small>Prevented</small></b>
+      <b>${rate}%<small>Prevention rate</small></b>
+      <b>${s.junk.length}<small>Junk-food incidents</small></b>
+      <b>${s.late.length}<small>Late-night binges</small></b>
+      <b>${s.all10}/${s.incidents.length}<small>All 10 before incident</small></b>
+    </div>
+    <div class="v148-food-averages"><span>Avg actions before prevention <b>${s.avgPrevented.toFixed(1)}</b></span><span>Avg actions before incident <b>${s.avgIncident.toFixed(1)}</b></span></div>
+    <details class="v148-action-stats"><summary>Checklist effectiveness</summary>
+      <div>${s.actionRows.map(a=>`<div><span>${a.icon} ${escapeHtml(a.label)}</span><b>${a.used?`${a.ok}/${a.used} prevented · ${a.rate}%`:'Not tried yet'}</b></div>`).join('')}</div>
+    </details>
+  </section>`;
+}
+const v148BaseRenderStats=renderStats;
+renderStats=function(){
+  v148BaseRenderStats();
+  const root=document.querySelector('#statsDashboard .stats62')||document.querySelector('#statsDashboard');
+  if(root&&!root.querySelector('.v148-food-stats'))root.insertAdjacentHTML('beforeend',v148FoodStatsHtml());
+};
+
+setTimeout(()=>render(),0);

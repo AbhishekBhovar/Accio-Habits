@@ -2869,3 +2869,34 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
   letter-spacing:.13em!important;
   font-weight:800!important;
 }
+
+
+/* v148 — Food Urge Prevention */
+.v148-food-home{
+  display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:10px;align-items:center;
+  padding:14px;border:1px solid #3a3226;border-radius:18px;background:#110e0b;
+}
+.v148-food-home .v123-penalty-copy strong{color:#f0e6cf!important}
+.v148-food-home .v123-penalty-copy small{color:#aaa18f!important}
+.v148-food-start{min-width:72px;height:38px;border-radius:12px;border:1px solid #6c5828;background:#17130d;color:#e5bd4e;font-weight:850}
+.v148-food-last{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 4px 0;color:#9f988b;font-size:10px}
+.v148-food-last b{color:#d9d0bf}.v148-food-last button{border:0;background:none;color:#9f988b;text-decoration:underline;font-size:10px}
+.v148-food-panel{max-height:min(84vh,760px)!important;overflow:auto!important;padding-bottom:18px!important}
+.v148-food-sub{margin-top:4px;color:#b9ad96;font-size:11px;font-weight:750}
+.v148-checklist{display:grid;gap:7px;margin-top:16px}
+.v148-checklist button{display:grid;grid-template-columns:28px minmax(0,1fr) 34px;align-items:center;gap:8px;min-height:49px;padding:8px 10px;border:1px solid #34312a;border-radius:14px;background:#0b0d0c;color:#ede5d4;text-align:left}
+.v148-checklist button.done{border-color:#6d5a24;background:#121009}
+.v148-checklist span{font-size:18px}.v148-checklist b{font-size:11px;line-height:1.25}.v148-checklist em{font-style:normal;text-align:center;color:#d6ab42;font-size:10px;font-weight:900}
+.v148-checklist button.done em{color:#8fd5a7}
+.v148-outcome-title{margin:18px 0 8px;color:#9d9586;font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.v148-outcomes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.v148-outcomes button{min-height:48px;padding:8px;border:1px solid #543231;border-radius:13px;background:#140d0d;color:#e9d8d5;font-size:10px;font-weight:850;line-height:1.2}
+.v148-outcomes .prevented{grid-column:1/-1;border-color:#31513b;background:#0d140f;color:#b7e0c3}
+.v148-food-stats{margin-top:14px!important}
+.v148-food-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.v148-food-stat-grid b{display:flex;flex-direction:column;gap:3px;justify-content:center;min-height:66px;padding:8px;border:1px solid #32332d;border-radius:13px;background:#0b0d0c;text-align:center;font-size:18px;color:#eee4cf}
+.v148-food-stat-grid small{font-size:8px;line-height:1.15;color:#999183;font-weight:750}
+.v148-food-averages{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.v148-food-averages span{padding:9px;border-radius:12px;background:#0b0d0c;color:#9e9688;font-size:9px;line-height:1.25}.v148-food-averages b{display:block;margin-top:3px;color:#e3d7bf;font-size:15px}
+.v148-action-stats{margin-top:10px;border-top:1px solid #2e2f2a;padding-top:10px}.v148-action-stats summary{cursor:pointer;color:#d6ab42;font-size:10px;font-weight:850}.v148-action-stats>div{display:grid;gap:5px;margin-top:8px}.v148-action-stats>div>div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04)}.v148-action-stats span{font-size:9px;color:#c9c0af}.v148-action-stats b{font-size:9px;color:#8fd5a7;white-space:nowrap}
+@media(max-width:390px){.v148-food-stat-grid{grid-template-columns:repeat(2,1fr)}.v148-outcomes{grid-template-columns:1fr}.v148-outcomes .prevented{grid-column:auto}}
