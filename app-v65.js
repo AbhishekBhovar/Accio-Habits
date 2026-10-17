@@ -3772,3 +3772,58 @@ renderStats=function(){
 };
 
 setTimeout(()=>render(),0);
+
+
+/* =========================================================
+   v150 — Food Urge popup stays open during interaction
+   ========================================================= */
+v148OpenFoodUrge=function(){
+  document.querySelector('.quest-info-overlay')?.remove();
+  const key=activeDailyKey(),u=v148CurrentFoodUrge(key),o=document.createElement('div');
+  o.className='quest-info-overlay quest-summon v148-food-overlay';
+
+  const renderFoodUrgeModal=()=>{
+    const current=v148FindUrge(key,u.id)||u;
+    const used=new Set(current.actions||[]),n=used.size,finished=!!current.outcome;
+    o.innerHTML=`<div class="quest-info-panel v148-food-panel">
+      <button class="quest-info-close">×</button>
+      <div class="quest-info-kicker">🛡️ FOOD URGE</div>
+      <div class="quest-info-title">Prevention checklist</div>
+      <div class="v148-food-sub">${n} / 10 tried · +${n*2} XP</div>
+      <div class="v148-checklist">
+        ${V148_FOOD_ACTIONS.map(a=>`<button data-v148-action="${a.id}" class="${used.has(a.id)?'done':''}" ${finished?'disabled':''}><span>${a.icon}</span><b>${escapeHtml(a.label)}</b><em>${used.has(a.id)?'✓':'+2'}</em></button>`).join('')}
+      </div>
+      <div class="v148-outcome-title">What happened?</div>
+      <div class="v148-outcomes">
+        <button data-v148-outcome="prevented" class="prevented ${current.outcome==='prevented'?'selected':''}" ${finished?'disabled':''}>✓ Urge passed</button>
+        <button data-v148-outcome="junk" class="${current.outcome==='junk'?'selected':''}" ${finished?'disabled':''}>🍔 Junk food · −50</button>
+        <button data-v148-outcome="late" class="${current.outcome==='late'?'selected':''}" ${finished?'disabled':''}>🌙 Late-night binge · −50</button>
+        <button data-v148-outcome="both" class="${current.outcome==='both'?'selected':''}" ${finished?'disabled':''}>🍔🌙 Both · −100</button>
+      </div>
+      ${finished?`<div class="v150-food-saved">Saved · close with ×</div>`:''}
+    </div>`;
+
+    const close=()=>o.remove();
+    o.querySelector('.quest-info-close').onclick=(e)=>{e.preventDefault();e.stopPropagation();close();};
+
+    /* No backdrop dismissal: X is the only close control. */
+    o.onclick=e=>e.stopPropagation();
+    o.querySelector('.v148-food-panel')?.addEventListener('click',e=>e.stopPropagation());
+
+    o.querySelectorAll('[data-v148-action]').forEach(b=>b.onclick=(e)=>{
+      e.preventDefault();e.stopPropagation();
+      v148ToggleFoodAction(u.id,b.dataset.v148Action);
+      renderFoodUrgeModal();
+    });
+    o.querySelectorAll('[data-v148-outcome]').forEach(b=>b.onclick=(e)=>{
+      e.preventDefault();e.stopPropagation();
+      v148FinishFoodUrge(u.id,b.dataset.v148Outcome);
+      renderFoodUrgeModal();
+    });
+  };
+
+  document.body.appendChild(o);
+  renderFoodUrgeModal();
+};
+
+setTimeout(()=>render(),0);

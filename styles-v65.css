@@ -2973,3 +2973,42 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
   .v148-outcomes{gap:4px!important}
   .v148-outcomes button{min-height:34px!important;font-size:8px!important}
 }
+
+
+/* v150 — compact Continue + persistent Food Urge modal */
+.v148-food-home .v148-food-start{
+  width:auto!important;
+  min-width:108px!important;
+  min-height:42px!important;
+  padding:8px 15px!important;
+  border-radius:13px!important;
+  font-size:15px!important;
+  line-height:1!important;
+  font-weight:800!important;
+}
+.v148-food-overlay{
+  pointer-events:auto!important;
+}
+.v148-food-panel{
+  pointer-events:auto!important;
+}
+.v148-food-panel button{
+  touch-action:manipulation!important;
+}
+.v148-checklist button:disabled,
+.v148-outcomes button:disabled{
+  opacity:.78!important;
+}
+.v148-outcomes button.selected{
+  border-color:#d4af37!important;
+  box-shadow:0 0 0 1px rgba(212,175,55,.22) inset!important;
+}
+.v150-food-saved{
+  margin-top:6px;
+  text-align:center;
+  color:#9f998b;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
