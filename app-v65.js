@@ -3688,8 +3688,8 @@ function v148OpenFoodUrge(){
     </div>
     <div class="v148-outcome-title">What happened?</div>
     <div class="v148-outcomes">
-      <button data-v148-outcome="prevented" class="prevented">✓ Urge passed / didn’t eat</button>
-      <button data-v148-outcome="junk">🍔 Ate junk food · −50</button>
+      <button data-v148-outcome="prevented" class="prevented">✓ Urge passed</button>
+      <button data-v148-outcome="junk">🍔 Junk food · −50</button>
       <button data-v148-outcome="late">🌙 Late-night binge · −50</button>
       <button data-v148-outcome="both">🍔🌙 Both · −100</button>
     </div>
