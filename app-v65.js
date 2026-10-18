@@ -973,7 +973,7 @@ function renderBattle(){
     <h3>${stageQuestion(enc,state.stage)}</h3>
     <div class="adv60-choices">${choices.map((c,i)=>{
       const rank=readinessRank(c.cat),available=rank>=c.rank;
-      return `<button class="${available?'available':'locked'}" data-choice="${i}" ${available?'':'disabled'}><span>${c.icon}</span><div><b>${c.label}</b><small>${available?'CHOOSE':`${CAT_META[c.cat].name} ${c.rank} NEEDED • ${rank} NOW`}</small></div></button>`;
+      return `<button class="${available?'available':'locked'}" data-choice="${i}" ${available?'':'disabled'}><span class="v157-choice-number">${String(i+1).padStart(2,'0')}</span><div><b>${c.label}</b><small>${available?CAT_META[c.cat].name:`Requires ${CAT_META[c.cat].name} ${c.rank} · You have ${rank}`}</small></div></button>`;
     }).join('')}</div>
     ${retry.fails?`<p class="adv63-attempt">Failed attempts this battle: ${retry.fails}</p>`:''}
   </section>`;
@@ -1316,7 +1316,7 @@ showMagicLoadingScreen();
 // ===== v109 comprehensive habit-system redesign =====
 Object.assign(DATA.habits,{dailyMaxXP:295,weeklyMaxXP:80});
 DATA.habits.dailyHabits=[
-{id:'wake330',icon:'⏰',name:'Wake Up | 2:45 am',xp:20,rule:'Out of bed at 2:45 am',group:'Routine',keystone:true,perfect:true},
+{id:'wake330',icon:'⏰',name:'Get out of bed by 2:45 am',xp:20,rule:'Out of bed at 2:45 am',group:'Routine',keystone:true,perfect:true},
 {id:'vipassanaMorning',icon:'🧘',name:'Morning Anapana & Vipassana',xp:20,rule:'10 minutes',group:'Mindfulness',keystone:true,perfect:true},
 {id:'morningShower',icon:'🚿',name:'Morning Shower',xp:10,rule:'Before 7:00 am',group:'Routine',perfect:true},
 {id:'healthyBreakfast',icon:'🥣',name:'Healthy Breakfast',xp:20,rule:'Complete a healthy breakfast',group:'Nutrition',perfect:true},
@@ -1352,7 +1352,7 @@ function streakFor(predicate,endKey=localDateKey()){let n=0,d=parseDateKey(endKe
 function bestStreak(predicate){const keys=Object.keys(save.daily||{}).sort();let best=0,run=0,prev=null;for(const k of keys){if(prev&&localDateKey(addDays(parseDateKey(prev),1))!==k)run=0;if(predicate(k))run++;else run=0;best=Math.max(best,run);prev=k;}return best;}
 function celebration(kind,title,sub){const old=document.querySelector('.v109-celebrate');if(old)old.remove();const el=document.createElement('div');el.className=`v109-celebrate ${kind}`;el.innerHTML=`<div class="v109-magic-ring"></div><div class="v109-celebrate-card"><div class="v109-sigil">${kind==='meditation'?'🧘':kind==='keystone'?'🔑':'✦'}</div><small>${kind==='perfect'?'MAGICAL ACHIEVEMENT':'STREAK MILESTONE'}</small><h2>${escapeHtml(title)}</h2><p>${escapeHtml(sub||'')}</p></div>`;document.body.appendChild(el);setTimeout(()=>el.classList.add('show'),20);setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),500)},2800);}
 function awardMilestones(key,celebrate=false){save.v109Milestones=save.v109Milestones||{};const defs=[['keystone',k=>v109Status(k).keystoneDay,'Keystone Streak'],['perfect',k=>v109Status(k).perfectDay,'Perfect Day Streak'],['meditation',k=>dayHabitDone(k,'vipassanaMorning')&&dayHabitDone(k,'vipassanaNight'),'Meditation Streak']];for(const [type,pred,label] of defs){const n=streakFor(pred,key);const hit=V109_MILESTONES.find(x=>x[0]===n);if(!hit)continue;const token=`${type}:${n}:${key}`;if(save.v109Milestones[token])continue;save.v109Milestones[token]=true;addXP(hit[1],`${label} ${n} days`);if(celebrate)celebration(type,`${n} DAY ${label.toUpperCase()}`,`+${hit[1]} XP`);}}
-function evaluateV109(key,celebrate=false){const d=getDaily(key),s=v109Status(key);if(s.keystoneDay&&!d.v109KeystoneAwarded){d.v109KeystoneAwarded=true;addXP(50,'Keystone Day');if(celebrate)celebration('keystone','KEYSTONE DAY','4 / 4 COMPLETE • +50 XP');}if(s.perfectDay&&!d.v109PerfectAwarded){d.v109PerfectAwarded=true;if(celebrate)celebration('perfect','PERFECT DAY','All 11 core habits complete');}awardMilestones(key,celebrate);persist();}
+function evaluateV109(key,celebrate=false){const d=getDaily(key),s=v109Status(key);if(s.keystoneDay&&!d.v109KeystoneAwarded){d.v109KeystoneAwarded=true;addXP(50,'Keystone Day');if(celebrate)celebration('keystone','KEYSTONE DAY','4 / 4 COMPLETE • +50 XP');}if(s.perfectDay&&!d.v109PerfectAwarded){d.v109PerfectAwarded=true;if(celebrate)celebration('perfect','ESSENTIAL WINS','All 11 core habits complete');}awardMilestones(key,celebrate);persist();}
 function toggleHabit(id){ensureAudio();const key=activeDailyKey(),habit=DATA.habits.dailyHabits.find(h=>h.id===id);if(!habit||habit.input)return;const day=getDaily(key),entry=day.habits[id];if(entry?.completed){const xp=entry.xpAwarded??habit.xp;delete day.habits[id];removeXP(xp,habit.name);playChime('undo');render();return;}day.habits[id]={completed:true,xpAwarded:habit.xp,ts:Date.now()};addXP(habit.xp,habit.name);playChime('success');toast(`${habit.name} complete • +${habit.xp} XP`);evaluateV109(key,true);render();}
 function addWater(ml){const key=activeDailyKey(),day=getDaily(key),old=Number(day.waterMl||0),next=Math.min(3000,old+Number(ml||0)),oldXp=waterXp(old),newXp=waterXp(next);day.waterMl=next;day.habits.water={completed:next>=2500,xpAwarded:newXp,ts:Date.now()};if(newXp>oldXp)addXP(newXp-oldXp,'Water');else{persist();render();}toast(`Water • ${(next/1000).toFixed(1)} / 2.5 L • ${newXp}/25 XP`);evaluateV109(key,true);render();}
 function resetWater(){const key=activeDailyKey(),d=getDaily(key),xp=waterXp(d.waterMl);d.waterMl=0;delete d.habits.water;if(xp)removeXP(xp,'Water');else{persist();render();}}
@@ -1378,7 +1378,7 @@ function renderStats(){const root=document.querySelector('#statsDashboard');if(!
 const _v109Bind=bindXpHistory;function bindXpHistory(){document.querySelectorAll('[data-xp-range]').forEach(btn=>btn.onclick=()=>{ui.statsXpRange=Number(btn.dataset.xpRange);renderStats();});document.querySelectorAll('.xp-day-bar').forEach(btn=>btn.onclick=()=>{const detail=document.querySelector('#xpDayDetail');if(detail)detail.textContent=`${prettyDate(btn.dataset.date)} • ${btn.dataset.xp} XP`;});const sc=document.querySelector('#xpHistoryScroll');if(sc)requestAnimationFrame(()=>sc.scrollLeft=sc.scrollWidth);}
 
 // ===== v110 interaction + compact controls patch =====
-Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='wake330'),{name:'Wake Up | 2:45 am',rule:'Out of bed at 2:45 am'});
+Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='wake330'),{name:'Get out of bed by 2:45 am',rule:'Out of bed at 2:45 am'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='vipassanaMorning'),{name:'Morning Anapana & Vipassana — 10 min',rule:'Complete 10 minutes'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='morningShower'),{name:'Shower | 3:00 am',rule:'Shower at 3:00 am'});
 Object.assign(DATA.habits.dailyHabits.find(h=>h.id==='incline'),{name:'Incline Walk — 15 min',rule:'Minimum 15 minutes'});
@@ -2132,7 +2132,7 @@ function v123PerfectCoreXp(key=localDateKey()){
 }
 xpHistoryHtml = function(days){
   const rows=dailyXpHistory(days),ref=v123PerfectCoreXp(localDateKey()),pointGap=days<=31?14:days<=90?8:5,chartW=Math.max(300,(rows.length-1)*pointGap+16),plotH=140,peak=Math.max(400,...rows.map(x=>x.xp)),points=rows.map((x,i)=>`${(8+i*pointGap).toFixed(1)},${(plotH-(x.xp/peak*plotH)).toFixed(1)}`).join(' '),refY=plotH-(ref/peak*plotH);
-  return `<div class="xp-max-note">Reference: ${ref} XP — Current Perfect Day Core</div><div class="xp-history-scroll" id="xpHistoryScroll"><div class="v112-xp-line-wrap" style="width:${chartW}px"><svg class="xp-trend-line v112-line-only" style="width:${chartW}px" viewBox="0 0 ${chartW} ${plotH+22}" preserveAspectRatio="none"><line class="xp-core-line" x1="0" y1="${refY}" x2="${chartW}" y2="${refY}"></line><polyline points="${points}"></polyline>${rows.map((x,i)=>`<circle class="v112-xp-point" data-date="${x.key}" data-xp="${x.xp}" data-max="${ref}" cx="${8+i*pointGap}" cy="${plotH-(x.xp/peak*plotH)}" r="${days<=31?3:2.2}"></circle>`).join('')}${days<=31?rows.map((x,i)=>`<text x="${8+i*pointGap}" y="${plotH+18}" text-anchor="middle">${x.date.getDate()}</text>`).join(''):''}</svg></div></div>`;
+  return `<div class="xp-max-note">Reference: ${ref} XP — Essential Wins core</div><div class="xp-history-scroll" id="xpHistoryScroll"><div class="v112-xp-line-wrap" style="width:${chartW}px"><svg class="xp-trend-line v112-line-only" style="width:${chartW}px" viewBox="0 0 ${chartW} ${plotH+22}" preserveAspectRatio="none"><line class="xp-core-line" x1="0" y1="${refY}" x2="${chartW}" y2="${refY}"></line><polyline points="${points}"></polyline>${rows.map((x,i)=>`<circle class="v112-xp-point" data-date="${x.key}" data-xp="${x.xp}" data-max="${ref}" cx="${8+i*pointGap}" cy="${plotH-(x.xp/peak*plotH)}" r="${days<=31?3:2.2}"></circle>`).join('')}${days<=31?rows.map((x,i)=>`<text x="${8+i*pointGap}" y="${plotH+18}" text-anchor="middle">${x.date.getDate()}</text>`).join(''):''}</svg></div></div>`;
 };
 
 /* Keep locked habits out of per-habit Stats and update the water target-days figure. */
@@ -2170,7 +2170,7 @@ evaluateV109 = function(key,celebrate=false){
   }
   if(s.perfectDay&&!d.v109PerfectAwarded){
     d.v109PerfectAwarded=true;
-    if(celebrate)celebration('perfect','PERFECT DAY',`All ${s.perfectTotal} current core habits complete`);
+    if(celebrate)celebration('perfect','ESSENTIAL WINS',`All ${s.perfectTotal} current core habits complete`);
   }
   awardMilestones(key,celebrate);
   persist();
@@ -2628,7 +2628,7 @@ evaluateV109=function(key,celebrate=false){
   }
   if(s.perfectDay&&!d.v109PerfectAwarded){
     d.v109PerfectAwarded=true;
-    if(celebrate)celebration('perfect','PERFECT DAY','All 8 current core habits complete');
+    if(celebrate)celebration('perfect','ESSENTIAL WINS','All 8 current core habits complete');
   }
   awardMilestones(key,celebrate);
   persist();
@@ -2720,8 +2720,8 @@ function v133SceneConfig(enc){
 
 stageQuestion=function(enc,stage){
   const c=v133SceneConfig(enc);
-  if(c) return `What should Harry do next in ${enc.title}?`;
-  return 'What should Harry do next?';
+  if(c) return `What do you do?`;
+  return 'What do you do?';
 };
 
 stageChoices=function(enc,stage){
@@ -2763,7 +2763,7 @@ stagePrompt=function(enc,stage){
   const c=v133SceneConfig(enc);
   if(!c) return `The encounter is moving quickly. Stage ${stage+1} of ${enc.stages}.`;
   const beat=c.beats[Math.min(stage,c.beats.length-1)]||'the next move';
-  return `${enc.title} is unfolding in real time. Harry has to decide before the situation closes around him. Stage ${stage+1} of ${enc.stages}.`;
+  return c.beats[Math.min(stage,c.beats.length-1)]||'A decision must be made before the moment passes.';
 };
 
 setTimeout(()=>{try{renderBattle();}catch(e){console.error(e)}},0);
@@ -2996,7 +2996,7 @@ setTimeout(()=>{try{render();}catch(e){console.error('v135 render',e)}},0);
 {
   const byId=id=>DATA.habits.dailyHabits.find(h=>h.id===id);
   Object.assign(byId('wake330')||{},{
-    name:'Wake Up | 2:45 am',
+    name:'Get out of bed by 2:45 am',
     rule:'Out of bed at 2:45 am'
   });
   Object.assign(byId('morningShower')||{},{
@@ -3327,8 +3327,8 @@ function v145MovementState(key=activeDailyKey()){
   const d=getDaily(key);
   if(!Number.isFinite(Number(d.squatCount)))d.squatCount=0;
   if(!Number.isFinite(Number(d.calfRaiseCount)))d.calfRaiseCount=0;
-  if(!Number.isFinite(Number(d.squatXpAwarded)))d.squatXpAwarded=Math.min(10,Math.floor(d.squatCount/10));
-  if(!Number.isFinite(Number(d.calfRaiseXpAwarded)))d.calfRaiseXpAwarded=Math.min(10,Math.floor(d.calfRaiseCount/10));
+  if(!Number.isFinite(Number(d.squatXpAwarded)))d.squatXpAwarded=Math.min(10,Math.floor(d.squatCount/5));
+  if(!Number.isFinite(Number(d.calfRaiseXpAwarded)))d.calfRaiseXpAwarded=Math.min(10,Math.floor(d.calfRaiseCount/5));
   return d;
 }
 function v145ChangeMovement(kind,delta){
@@ -3338,14 +3338,14 @@ function v145ChangeMovement(kind,delta){
   const xpKey=isSquat?'squatXpAwarded':'calfRaiseXpAwarded';
   const label=isSquat?'Squats':'Calf Raises';
   const old=Math.max(0,Number(d[countKey]||0));
-  const next=Math.max(0,Math.min(100,old+Number(delta||0)));
+  const next=Math.max(0,Math.min(50,old+Number(delta||0)));
   const oldXp=Math.max(0,Number(d[xpKey]||0));
-  const newXp=Math.min(10,Math.floor(next/10));
+  const newXp=Math.min(10,Math.floor(next/5));
   d[countKey]=next; d[xpKey]=newXp;
   if(newXp>oldXp)addXP(newXp-oldXp,label);
   else if(newXp<oldXp)removeXP(oldXp-newXp,label);
   else{persist();render();}
-  toast(`${label} • ${next} / 100 • ${newXp}/10 XP`);
+  toast(`${label} • ${next} / 50 • ${newXp}/10 XP`);
   render();
 }
 function v145MovementRow(kind){
@@ -3359,11 +3359,11 @@ function v145MovementRow(kind){
     <span class="v125-steps-copy">
       <strong>${label}</strong>
       <small>${count} / 100 • ${xp}/10 XP</small>
-      <span class="v125-steps-track"><i style="width:${Math.min(100,count)}%"></i></span>
+      <span class="v125-steps-track"><i style="width:${Math.min(100,count*2)}%"></i></span>
     </span>
     <span class="v125-steps-actions">
       <button data-v145-move-minus="${kind}" ${count<=0?'disabled':''}>−10</button>
-      <button data-v145-move-plus="${kind}" ${count>=100?'disabled':''}>+10</button>
+      <button data-v145-move-plus="${kind}" ${count>=50?'disabled':''}>+10</button>
     </span>
   </div>`;
 }
@@ -3392,8 +3392,8 @@ const v145BaseReadinessPoints=readinessPoints;
 readinessPoints=function(){
   const p=v145BaseReadinessPoints();
   for(const d of Object.values(save.daily||{})){
-    p.combat+=Math.min(10,Math.floor(Math.max(0,Number(d?.squatCount||0))/10));
-    p.combat+=Math.min(10,Math.floor(Math.max(0,Number(d?.calfRaiseCount||0))/10));
+    p.combat+=Number(d?.squatCount||0)>=50?5:0;
+    p.combat+=Number(d?.calfRaiseCount||0)>=50?5:0;
   }
   return p;
 };
@@ -3451,7 +3451,7 @@ function v145CategoryStatus(key=activeDailyKey()){
     {id:'post',label:'Post-Workout',icon:'🥤',won:done('proteinCreatine')&&done('supplements')},
     {id:'nutrition',label:'Nutrition',icon:'🥗',won:done('healthyBreakfast')&&done('healthyLunch')},
     {id:'hydration',label:'Hydration',icon:'💧',won:Number(d.waterMl||0)>=target},
-    {id:'movement',label:'Daily Movement',icon:'👟',won:Number(d.stepsCount||0)>=stepTarget&&Number(d.squatCount||0)>=100&&Number(d.calfRaiseCount||0)>=100},
+    {id:'movement',label:'Daily Movement',icon:'👟',won:Number(d.stepsCount||0)>=stepTarget&&Number(d.squatCount||0)>=50&&Number(d.calfRaiseCount||0)>=50&&Number(d.wallPushupCount||0)>=50},
     {id:'recovery',label:'Recovery',icon:'🌙',won:done('bedtimeAnapana')&&Number(d.sleep?.totalHours||0)>=8}
   ];
   const won=categories.filter(x=>x.won).length;
@@ -3468,13 +3468,13 @@ function v145SyncWinDay(key=activeDailyKey(),celebrate=false){
   if(s.dayWon&&eligible&&!d.v145WinDayAwarded){
     d.v145WinDayAwarded=true;
     v145WinSyncing=true;
-    addXP(25,'Win the Day');
+    addXP(25,'The Playoffs');
     v145WinSyncing=false;
-    if(celebrate&&key===localDateKey())celebration('keystone','DAY WON',`${s.won} / 7 CATEGORIES • +25 XP`);
+    if(celebrate&&key===localDateKey())celebration('keystone','PLAYOFFS WON',`${s.won} / 7 CATEGORIES • +25 XP`);
   }else if((!s.dayWon||!eligible)&&d.v145WinDayAwarded){
     d.v145WinDayAwarded=false;
     v145WinSyncing=true;
-    removeXP(25,'Win the Day');
+    removeXP(25,'The Playoffs');
     v145WinSyncing=false;
   }
   return s;
@@ -3485,7 +3485,7 @@ function v145ShowWinPopup(){
   o.className='quest-info-overlay quest-summon v110-perfect-overlay';
   o.innerHTML=`<div class="quest-info-panel v110-perfect-panel v145-win-panel">
     <button class="quest-info-close">×</button>
-    <div class="quest-info-kicker">🏆 WIN THE DAY</div>
+    <div class="quest-info-kicker">🏀 THE PLAYOFFS</div>
     <div class="quest-info-title">${s.won} / 7 categories</div>
     <div class="v145-win-list">
       ${s.categories.map(x=>`<div class="${x.won?'done':''}"><span>${x.icon}</span><b>${x.label}</b><em>${x.won?'✓':'○'}</em></div>`).join('')}
@@ -3536,7 +3536,7 @@ renderDailyHabits=function(){
   if(strip){
     strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/${s.keyTotal}</button>
       <button id="openPerfect">✨ ${s.perfectDone}/${s.perfectTotal}</button>
-      <button id="openWinDay" class="${win.dayWon?'v145-won':''}">🏆 ${win.won}/7</button>`;
+      <button id="openWinDay" class="${win.dayWon?'v145-won':''}">🏀 ${win.won}/7</button>`;
     strip.querySelector('#openKeystones')?.addEventListener('click',showKeystonePopup);
     strip.querySelector('#openPerfect')?.addEventListener('click',showPerfectPopup);
     strip.querySelector('#openWinDay')?.addEventListener('click',v145ShowWinPopup);
@@ -4027,8 +4027,8 @@ setTimeout(()=>render(),0);
 
   const wake=byId('wake330');
   if(wake){
-    wake.name='Wake Up | 2:45 am';
-    wake.rule='Out of bed at 2:45 am';
+    wake.name='Get out of bed by 2:45 am';
+    wake.rule='Physically get out of bed by 2:45 am';
     wake.xp=50;
   }
 
@@ -4118,10 +4118,10 @@ setTimeout(()=>render(),0);
   q.innerHTML=`<div class="v156-champion-copy">
     <div class="v156-champion-text">
       <div class="v156-champion-line">Don’t quit.</div>
-      <div class="v156-champion-line">Suffer now and</div>
-      <div class="v156-champion-line">live the rest of</div>
-      <div class="v156-champion-line">your life as a</div>
-      <div class="v156-champion-line">champion.</div>
+      <div class="v156-champion-line">Suffer now,</div>
+      <div class="v156-champion-line">and live the rest</div>
+      <div class="v156-champion-line">of your life,</div>
+      <div class="v156-champion-line">as a champion.</div>
     </div>
     <div class="v156-champion-credit">Muhammad Ali</div>
   </div>`;
@@ -4134,4 +4134,160 @@ setTimeout(()=>render(),0);
   setTimeout(()=>q.remove(),5920);
 })();
 
+setTimeout(()=>render(),0);
+
+
+/* =====================================================
+ v157 — Essential Wins, Playoffs, Thala for a Reason,
+ movement targets, Adventure presentation and unified stats.
+ Existing saved completions and earned XP remain intact.
+ ===================================================== */
+const V157_ESSENTIAL_IDS=['gym','noUnplannedDinner','water','supplements','proteinCreatine'];
+const V157_KEYSTONE_IDS=['wake330','morningShower','gym','noUnplannedDinner'];
+V128_KEYSTONE_IDS.splice(0,V128_KEYSTONE_IDS.length,...V157_KEYSTONE_IDS);
+v123KeystoneIdsForDate=()=>[...V157_KEYSTONE_IDS];
+const v157Dinner={id:'noUnplannedDinner',icon:'🌙',name:'No unplanned eating after dinner',xp:0,rule:'Keep to your planned dinner; no unplanned eating afterwards',group:'Nutrition'};
+if(!DATA.habits.dailyHabits.find(h=>h.id===v157Dinner.id))DATA.habits.dailyHabits.push(v157Dinner);
+function v157Done(key,id){
+ const d=save.daily?.[key];
+ if(id==='water')return Number(d?.waterMl||0)>=v123WaterTargetForDate(key);
+ if(id==='noUnplannedDinner')return !!d?.habits?.noUnplannedDinner?.completed&&!((d?.v148FoodUrges||[]).some(u=>['late','both'].includes(u?.outcome)));
+ if(id==='sleep')return Number(d?.sleep?.totalHours||0)>=8;
+ if(id==='steps')return Number(d?.stepsCount||0)>=v125StepsTargetForLevel(Number(save.currentLevel||1));
+ if(id==='squat')return Number(d?.squatCount||0)>=50;
+ if(id==='calf')return Number(d?.calfRaiseCount||0)>=50;
+ if(id==='wall')return Number(d?.wallPushupCount||0)>=50;
+ return !!d?.habits?.[id]?.completed;
+}
+// Use the same predicates everywhere: the Today strip, popups, Stats and milestones.
+v109Status=function(key=activeDailyKey()){
+ const perfectDone=V157_ESSENTIAL_IDS.filter(id=>v157Done(key,id)).length;
+ const keyDone=V157_KEYSTONE_IDS.filter(id=>v157Done(key,id)).length;
+ return {perfectDone,keyDone,perfectTotal:5,keyTotal:4,perfectDay:perfectDone===5,keystoneDay:keyDone===4};
+};
+v123PerfectIdsForDate=()=>[...V157_ESSENTIAL_IDS];
+showPerfectPopup=function(){
+ document.querySelector('.quest-info-overlay')?.remove();
+ const key=activeDailyKey(),s=v109Status(key),o=document.createElement('div');
+ o.className='quest-info-overlay quest-summon v110-perfect-overlay';
+ o.innerHTML=`<div class="quest-info-panel v110-perfect-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">✨ ESSENTIAL WINS</div><div class="quest-info-title">${s.perfectDone} / 5 essential habits</div><div class="v110-perfect-list">${V157_ESSENTIAL_IDS.map(id=>{const h=DATA.habits.dailyHabits.find(x=>x.id===id),done=v157Done(key,id);return `<div class="${done?'done':''}"><span>${h?.icon||'✦'}</span><b>${escapeHtml(h?.name||id)}</b><em>${done?'✓':'○'}</em></div>`}).join('')}</div></div>`;
+ document.body.appendChild(o);o.querySelector('.quest-info-close').onclick=()=>o.remove();o.onclick=e=>{if(e.target===o)o.remove()};
+};
+showKeystonePopup=function(){
+ document.querySelector('.quest-info-overlay')?.remove();
+ const key=activeDailyKey(),s=v109Status(key),o=document.createElement('div');
+ o.className='quest-info-overlay quest-summon v109-keystone-overlay';
+ o.innerHTML=`<div class="quest-info-panel v109-keystone-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🔑 KEYSTONE HABITS</div><div class="quest-info-title">${s.keyDone} / 4 anchors</div><div class="v109-key-list">${V157_KEYSTONE_IDS.map(id=>{const h=DATA.habits.dailyHabits.find(x=>x.id===id),done=v157Done(key,id);return `<button class="v109-key-row ${done?'done':''}" data-v157-key="${id}"><span>${h?.icon||'✦'}</span><b>${escapeHtml(h?.name||id)}</b><em>${done?'✓':`+${h?.xp||0}`}</em></button>`}).join('')}</div></div>`;
+ document.body.appendChild(o);o.querySelector('.quest-info-close').onclick=()=>o.remove();o.onclick=e=>{if(e.target===o)o.remove()};
+ o.querySelectorAll('[data-v157-key]').forEach(b=>b.onclick=()=>{toggleHabit(b.dataset.v157Key);o.remove();showKeystonePopup()});
+};
+// Convert recorded food-urge incidents into a clear warning for the positive choice.
+function v157DinnerClean(key){return !((save.daily?.[key]?.v148FoodUrges||[]).some(u=>['late','both'].includes(u?.outcome)));}
+const v157OldToggleHabit=toggleHabit;
+toggleHabit=function(id){
+ if(id==='noUnplannedDinner'&&!v157DinnerClean(activeDailyKey()))return toast('A late-night eating incident is recorded for this day.','warn');
+ return v157OldToggleHabit(id);
+};
+function v157MovementChange(delta){
+ const key=activeDailyKey(),d=getDaily(key),old=Math.max(0,Number(d.wallPushupCount||0)),next=Math.max(0,Math.min(50,old+delta)),oldXp=Math.max(0,Number(d.wallPushupXpAwarded||0)),newXp=Math.min(10,Math.floor(next/5));
+ d.wallPushupCount=next;d.wallPushupXpAwarded=newXp;
+ if(newXp>oldXp)addXP(newXp-oldXp,'Wall Push-Ups');else if(newXp<oldXp)removeXP(oldXp-newXp,'Wall Push-Ups');else persist();
+ render();toast(`Wall Push-Ups • ${next} / 50 • ${newXp}/10 XP`);
+}
+function v157RenderWall(){
+ const el=document.querySelector('#v157WallRow');if(!el)return;
+ const d=getDaily(activeDailyKey()),count=Math.max(0,Number(d.wallPushupCount||0)),xp=Math.min(10,Number(d.wallPushupXpAwarded||0));
+ el.innerHTML=`<div class="v145-movement-row"><span class="v125-steps-icon">💪</span><span class="v125-steps-copy"><strong>Wall Push-Ups</strong><small>${count} / 50 • ${xp}/10 XP</small><span class="v125-steps-track"><i style="width:${Math.min(100,count*2)}%"></i></span></span><span class="v125-steps-actions"><button data-wall-minus ${count<=0?'disabled':''}>−10</button><button data-wall-plus ${count>=50?'disabled':''}>+10</button></span></div>`;
+ el.querySelector('[data-wall-minus]').onclick=()=>v157MovementChange(-10);
+ el.querySelector('[data-wall-plus]').onclick=()=>v157MovementChange(10);
+}
+// Existing Playoffs category function already requires 4/7 wins.
+// Readiness assignments are singular: no duplicate skill rewards.
+Object.assign(V135_HABIT_READINESS,{
+ wake330:{cat:'knowledge',pts:25,label:'Get out of bed by 2:45 am',tags:'🔑'},
+ morningShower:{cat:'knowledge',pts:15,label:'Shower at 3:00 am',tags:'🔑'},
+ gym:{cat:'combat',pts:25,label:'Gym',tags:'🔑'},
+ supplements:{cat:'magic',pts:10,label:'Supplements',tags:''},
+ proteinCreatine:{cat:'magic',pts:10,label:'Protein + Creatine Smoothie',tags:''},
+ incline:{cat:'combat',pts:15,label:'Incline Walk',tags:''},
+ bedtimeAnapana:{cat:'knowledge',pts:10,label:'Anapana before bed',tags:''},
+ water:{cat:'magic',pts:12,label:'Water',tags:''},
+ readStudy:{cat:'knowledge',pts:20,label:'Read / Study',tags:''},
+ afternoonNap:{cat:'assets',pts:10,label:'Afternoon Nap',tags:''},
+ noUnplannedDinner:{cat:'assets',pts:10,label:'No unplanned eating after dinner',tags:'🔑'}
+});
+const v157PriorReadiness=readinessPoints;
+readinessPoints=function(){const p=v157PriorReadiness();for(const d of Object.values(save.daily||{})){
+ if(Number(d.wallPushupCount||0)>=50)p.combat+=5;
+ }return p;};
+readinessSourceLabel=function(id){return {magic:'Hydration • nutrition • supplements • protein',combat:'Gym • incline • steps • movement • sport',knowledge:'Wake routine • shower • reading • Hindi • Anapana',assets:'Sleep • afternoon nap • sauna • evening discipline'}[id]||'';};
+// Thala awards on every 7th consecutive complete day per activity (7,14,21...),
+// including water and the three numeric movement activities.
+const V157_STREAK_IDS=()=>[...new Set([...DATA.habits.dailyHabits.filter(h=>h.id!=='vipassanaMorning'&&h.id!=='vipassanaNight').map(h=>h.id),'steps','squat','calf','wall'])];
+function v157Streak(key,id){
+ let n=0,dt=parseDateKey(key);
+ for(let i=0;i<10000;i++){const k=localDateKey(dt);if(!v157Done(k,id))break;n++;dt=addDays(dt,-1);}return n;
+}
+function v157Best(id){let best=0;for(const k of Object.keys(save.daily||{}))if(v157Done(k,id))best=Math.max(best,v157Streak(k,id));return best;}
+let v157AwardSync=false;
+function v157SyncThala(){
+ if(v157AwardSync)return;
+ const today=localDateKey(),key=today;
+ if(today<'2026-10-19')return;
+ const d=getDaily(key);d.v157ThalaAwards=d.v157ThalaAwards||{};
+ for(const id of V157_STREAK_IDS()){
+  const s=v157Streak(key,id),expected=s>0&&s%7===0;
+  if(expected&&!d.v157ThalaAwards[id]){
+   d.v157ThalaAwards[id]=true;v157AwardSync=true;addXP(50,'Thala for a Reason — '+id);v157AwardSync=false;
+   toast('THALA FOR A REASON! 7-day streak • +50 XP');
+  }else if(!expected&&d.v157ThalaAwards[id]){
+   d.v157ThalaAwards[id]=false;v157AwardSync=true;removeXP(50,'Thala for a Reason — '+id);v157AwardSync=false;
+  }
+ }
+}
+function v157ThalaStatus(key=activeDailyKey()){
+ const rows=V157_STREAK_IDS().map(id=>({id,n:v157Streak(key,id),h:DATA.habits.dailyHabits.find(h=>h.id===id)})).sort((a,b)=>b.n-a.n);
+ return {rows,progress:rows.length?Math.min(7,rows[0].n%7|| (rows[0].n?7:0)):0};
+}
+function v157ThalaPopup(){
+ document.querySelector('.quest-info-overlay')?.remove();const key=activeDailyKey(),s=v157ThalaStatus(key),o=document.createElement('div');o.className='quest-info-overlay quest-summon v110-perfect-overlay';
+ o.innerHTML=`<div class="quest-info-panel v110-perfect-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🏏 THALA FOR A REASON</div><div class="quest-info-title">Every 7 days • +50 XP per habit</div><div class="v110-perfect-list">${s.rows.filter(x=>x.n>0).slice(0,25).map(x=>`<div><span>${x.h?.icon||'🔥'}</span><b>${escapeHtml(x.h?.name||({steps:'Steps',squat:'Bodyweight Squats',calf:'Calf Raises',wall:'Wall Push-Ups'}[x.id]||x.id))}</b><em>${x.n} days</em></div>`).join('')||'<p>Complete a habit today to start a streak.</p>'}</div></div>`;
+ document.body.appendChild(o);o.querySelector('.quest-info-close').onclick=()=>o.remove();o.onclick=e=>{if(e.target===o)o.remove()};
+}
+const v157BaseDailyRender=renderDailyHabits;
+renderDailyHabits=function(){
+ v157BaseDailyRender();v157RenderWall();
+ document.querySelectorAll('[data-habit="noUnplannedDinner"] .habit-xp').forEach(el=>{if(el.textContent.trim()==='+0')el.textContent='✓';});
+ const recovery=document.querySelector('#v145RecoveryGroup'),nap=document.querySelector('#v155AfternoonNapRow'),ana=document.querySelector('#v145AnapanaRow');if(recovery&&nap&&ana)recovery.insertBefore(nap,ana);
+ const key=activeDailyKey(),s=v109Status(key),play=v145CategoryStatus(key),thala=v157ThalaStatus(key),strip=document.querySelector('#v109StatusStrip');
+ if(strip){strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/4</button><button id="openPerfect">✨ ${s.perfectDone}/5</button><button id="openWinDay" class="${play.dayWon?'v145-won':''}">🏀 ${play.won}/7</button><button id="openThala">🏏 ${thala.progress}/7</button>`;
+ strip.querySelector('#openKeystones').onclick=showKeystonePopup;strip.querySelector('#openPerfect').onclick=showPerfectPopup;strip.querySelector('#openWinDay').onclick=v145ShowWinPopup;strip.querySelector('#openThala').onclick=v157ThalaPopup;}
+};
+// Replace old summary badges; legacy achievements retain previously recorded values.
+const v157BaseRenderStats=renderStats;
+renderStats=function(){
+ v157BaseRenderStats();const root=document.querySelector('#statsDashboard');if(!root)return;
+ const overall=root.querySelector('.v109-overall');
+ if(overall){const ks=k=>v109Status(k).keystoneDay,es=k=>v109Status(k).perfectDay,po=k=>v145CategoryStatus(k).dayWon;
+ overall.innerHTML=`<div><span>🔑 Keystone Habits</span><strong>${streakFor(ks)} days</strong><small>Best ${bestStreak(ks)}</small></div><div><span>✨ Essential Wins</span><strong>${streakFor(es)} days</strong><small>Best ${bestStreak(es)}</small></div><div><span>🏀 The Playoffs</span><strong>${streakFor(po)} days</strong><small>Best ${bestStreak(po)}</small></div><div><span>🏏 Thala for a Reason</span><strong>${Object.values(save.daily||{}).reduce((n,d)=>n+Object.values(d.v157ThalaAwards||{}).filter(Boolean).length,0)} bonuses</strong><small>+50 XP each</small></div>`;
+ }
+ const movementStats=[['steps','👟 Steps','stepsCount',k=>v157Done(k,'steps')],['squat','🦵 Bodyweight Squats','squatCount',k=>v157Done(k,'squat')],['calf','🦶 Calf Raises','calfRaiseCount',k=>v157Done(k,'calf')],['wall','💪 Wall Push-Ups','wallPushupCount',k=>v157Done(k,'wall')]];
+ const cards=root.querySelector('.v109-habit-stats');
+ if(cards){cards.querySelectorAll('.v109-habit-card').forEach(card=>{if(/Morning Anapana|Morning Meditation|Vipassana/i.test(card.querySelector('summary')?.textContent||''))card.remove();});
+ for(const [id,title,counter,pred] of movementStats){const days=Object.keys(save.daily||{}),total=days.reduce((n,k)=>n+Math.max(0,Number(save.daily[k]?.[counter]||0)),0),last7=Array.from({length:7},(_,i)=>localDateKey(addDays(parseDateKey(localDateKey()),-i))).filter(pred).length;
+ cards.insertAdjacentHTML('beforeend',`<details class="stats62-card v109-habit-card"><summary><span>${title}</span><b>${last7}/7</b></summary><div class="v109-stat-grid"><b>${v157Streak(localDateKey(),id)}<small>Current streak</small></b><b>${v157Best(id)}<small>Best streak</small></b><b>${total}<small>Lifetime reps/steps</small></b></div></details>`);}
+ }
+ root.querySelectorAll('*').forEach(el=>{if(el.children.length===0&&el.textContent){el.textContent=el.textContent.replace(/Perfect Day/g,'Essential Wins').replace(/Perfect Days/g,'Essential Wins').replace(/Win the Day/g,'The Playoffs');}});
+ const rate=root.querySelector('.v109-rates');if(rate){const keys=[7,30];rate.innerHTML=keys.map(n=>{const keys=Array.from({length:n},(_,i)=>localDateKey(addDays(parseDateKey(localDateKey()),-i)));const won=keys.filter(k=>v109Status(k).perfectDay).length;return `<span>${n}-day Essential Wins <b>${won}/${n}</b></span>`}).join('');}
+};
+// Gamebook styling is applied after each encounter is rendered, keeping choice handlers intact.
+const v157BaseBattleRender=renderBattle;
+renderBattle=function(){v157BaseBattleRender();const hub=document.querySelector('#battleHub');if(!hub)return;
+ hub.querySelectorAll('.adv60-choices button').forEach((el,i)=>{const n=el.querySelector('.v157-choice-number');if(n)n.textContent=String(i+1).padStart(2,'0');});
+};
+// Ensure bonus checks happen after state-changing activities and render data is unified.
+const v157BaseRender=render;
+render=function(){v157BaseRender();if(!v157AwardSync)v157SyncThala();};
+const v157OldFoodOutcome=v148FinishFoodUrge;
+v148FinishFoodUrge=function(...args){const r=v157OldFoodOutcome(...args);render();return r;};
 setTimeout(()=>render(),0);

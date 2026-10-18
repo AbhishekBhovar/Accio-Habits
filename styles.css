@@ -1192,3 +1192,17 @@ body .topbar #networkBadge,
 @media (max-width:480px){
   .adv60-atmosphere:has(img.battle-remembrall){height:175px!important}
 }
+
+/* v157: four compact achievement counters, gamebook encounters */
+.v109-status-strip{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:7px!important}
+.v109-status-strip>button{min-width:0!important;padding:11px 3px!important;font-size:clamp(11px,3.4vw,16px)!important}
+#battleHub .adv60-top h2,#battleHub .adv60-story{font-family:Georgia,'Times New Roman',serif!important}
+#battleHub .adv60-story{font-size:1.13rem!important;line-height:1.7!important}
+#battleHub .adv60>h3{font-family:Georgia,'Times New Roman',serif!important;font-size:1.35rem!important;font-weight:500!important}
+#battleHub .adv60-choices{gap:0!important}
+#battleHub .adv60-choices button{border-radius:0!important;border:0!important;border-bottom:1px solid #54452a!important;background:transparent!important;padding:15px 8px!important;min-height:64px!important;box-shadow:none!important;align-items:flex-start!important;text-align:left!important}
+#battleHub .adv60-choices button b{font-family:Georgia,'Times New Roman',serif!important;font-size:1.06rem!important;font-weight:500!important;line-height:1.45!important}
+#battleHub .adv60-choices button small{font-size:.7rem!important;letter-spacing:.04em!important;opacity:.75!important}
+#battleHub .adv60-choices button.locked{opacity:.48!important}
+#battleHub .adv60-choices .v157-choice-number{font-family:Georgia,serif!important;color:#e7bd54!important;font-size:.95rem!important;margin-top:3px!important}
+.v156-champion-line{white-space:nowrap!important}

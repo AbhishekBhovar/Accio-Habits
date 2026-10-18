@@ -1,0 +1,14 @@
+Accio Habits v157 (built from supplied v156 ZIP)
+
+- Essential Wins: 5 core habits, independent of Keystone.
+- Keystone: get out of bed, shower, gym, no unplanned eating after dinner.
+- The Playoffs: 4 of 7 daily categories; movement requires steps plus 50 each squats, calf raises, wall push-ups.
+- THALA FOR A REASON: +50 XP on 7-day consecutive milestones per existing daily habit; new awards from 2026-10-19.
+- Stats updated for achievements and movement; history records not cleared.
+- Adventure styling revised to text-adventure layout.
+- Muhammad Ali quote stacked in sentence case.
+- Readiness mapping updated.
+
+Note: No unplanned eating after dinner is a zero-XP tracked completion item because v156 did not provide a positive checkbox. A recorded late-night binge also prevents its completion.
+
+Archive passed JavaScript syntax check; interactive mobile browser validation was blocked by test-browser network policy, so test in your deployment before production replacement.
