@@ -3061,49 +3061,50 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
 .v155-afternoon-nap .habit-copy small{display:none!important}
 
 /* =========================================================
-   v155 — Muhammad Ali quote screen
+   v156 — Muhammad Ali quote screen refinement
    ========================================================= */
-.v155-champion-overlay{
+.v156-champion-overlay{
   position:fixed;
   inset:0;
   z-index:2147483646;
   background:#070707;
   display:flex;
   align-items:center;
-  justify-content:flex-start;
-  padding:0 9vw;
+  justify-content:center;
+  padding:0 10vw;
   pointer-events:none;
   opacity:1;
   transition:opacity .28s ease;
 }
-.v155-champion-copy{
-  width:min(82vw,350px);
+.v156-champion-copy{
+  width:min(76vw,320px);
+  text-align:center;
   opacity:0;
   transform:translateY(2px);
   transition:opacity .16s ease,transform .16s ease;
 }
-.v155-champion-overlay.show-copy .v155-champion-copy{
+.v156-champion-overlay.show-copy .v156-champion-copy{
   opacity:1;
   transform:translateY(0);
 }
-.v155-champion-overlay.hide{opacity:0}
-.v155-champion-text{
+.v156-champion-overlay.hide{opacity:0}
+.v156-champion-text{
   color:#f4f1e9;
-  text-align:left;
+  text-align:center;
   font-family:Georgia,'Times New Roman',serif;
-  font-size:clamp(30px,8.1vw,38px);
-  line-height:1.16;
+  font-size:clamp(24px,6.3vw,31px);
+  line-height:1.18;
   font-weight:400;
-  letter-spacing:-.025em;
+  letter-spacing:-.01em;
 }
-.v155-champion-credit{
-  margin-top:12px;
+.v156-champion-line + .v156-champion-line{margin-top:10px}
+.v156-champion-credit{
+  margin-top:18px;
   color:#f4f1e9;
-  font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
-  font-size:11px;
+  text-align:center;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:12px;
   line-height:1;
-  font-weight:600;
+  font-weight:400;
   letter-spacing:.02em;
 }
-/* Neutralise the obsolete v154 accent treatment if its CSS remains cached. */
-.v155-champion-overlay span{color:inherit!important}

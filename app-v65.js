@@ -4112,19 +4112,25 @@ setTimeout(()=>render(),0);
 
 /* Seamless post-wand quote. The overlay exists underneath the wand animation
    before the launch blackout begins fading, so the Daily screen never flashes. */
-(function v155ChampionQuote(){
+(function v156ChampionQuote(){
   const q=document.createElement('div');
-  q.className='v155-champion-overlay';
-  q.innerHTML=`<div class="v155-champion-copy">
-    <div class="v155-champion-text">Don’t quit.<br>Suffer now and<br>live the rest of<br>your life as a<br>champion.</div>
-    <div class="v155-champion-credit">Muhammad Ali</div>
+  q.className='v156-champion-overlay';
+  q.innerHTML=`<div class="v156-champion-copy">
+    <div class="v156-champion-text">
+      <div class="v156-champion-line">Don’t quit.</div>
+      <div class="v156-champion-line">Suffer now and</div>
+      <div class="v156-champion-line">live the rest of</div>
+      <div class="v156-champion-line">your life as a</div>
+      <div class="v156-champion-line">champion.</div>
+    </div>
+    <div class="v156-champion-credit">Muhammad Ali</div>
   </div>`;
   document.body.appendChild(q);
 
-  /* The wand white-out/reveal begins at ~2550 ms. The black quote layer is
-     already directly beneath it, so the fade lands on the quote, not the app. */
+  /* The wand white-out/reveal begins at ~2550 ms. The quote layer is already
+     underneath it, so the fade lands directly on the quote, not the app. */
   setTimeout(()=>q.classList.add('show-copy'),2580);
-  setTimeout(()=>q.classList.add('hide'),5580);   // ~3 second hold
+  setTimeout(()=>q.classList.add('hide'),5580);   // 3 second hold
   setTimeout(()=>q.remove(),5920);
 })();
 
