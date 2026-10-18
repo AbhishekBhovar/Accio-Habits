@@ -3028,3 +3028,11 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
 
 /* v152 — saved outcome remains interactive */
 .v152-food-saved{margin-top:7px;text-align:center;font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#9f998d}
+
+/* v153 — unmistakable selected outcome state */
+.v148-outcomes button{transition:background .16s ease,border-color .16s ease,box-shadow .16s ease,color .16s ease!important}
+.v148-outcomes button.selected{font-weight:900!important;box-shadow:0 0 0 1px currentColor inset,0 0 18px rgba(212,175,55,.10)!important}
+.v148-outcomes button.prevented.selected{background:rgba(72,140,92,.22)!important;border-color:#78c892!important;color:#b8edc5!important}
+.v148-outcomes button[data-v148-outcome="junk"].selected,
+.v148-outcomes button[data-v148-outcome="late"].selected{background:rgba(133,49,49,.24)!important;border-color:#d36b6b!important;color:#f0b4b4!important}
+.v148-outcomes button[data-v148-outcome="both"].selected{background:rgba(118,33,33,.34)!important;border-color:#e07070!important;color:#ffd0d0!important;box-shadow:0 0 0 1px #e07070 inset,0 0 20px rgba(224,112,112,.12)!important}

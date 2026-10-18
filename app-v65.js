@@ -4001,10 +4001,10 @@ v148OpenFoodUrge=function(){
       </div>
       <div class="v148-outcome-title">What happened?</div>
       <div class="v148-outcomes">
-        <button type="button" data-v148-outcome="prevented" class="prevented ${current.outcome==='prevented'?'selected':''}">✓ Urge passed</button>
-        <button type="button" data-v148-outcome="junk" class="${current.outcome==='junk'?'selected':''}">🍔 Junk food · −50</button>
-        <button type="button" data-v148-outcome="late" class="${current.outcome==='late'?'selected':''}">🌙 Late-night binge · −50</button>
-        <button type="button" data-v148-outcome="both" class="${current.outcome==='both'?'selected':''}">🍔🌙 Both · −100</button>
+        <button type="button" data-v148-outcome="prevented" class="prevented ${current.outcome==='prevented'?'selected':''}">${current.outcome==='prevented'?'✓ Selected · ':''}Urge passed</button>
+        <button type="button" data-v148-outcome="junk" class="${current.outcome==='junk'?'selected':''}">${current.outcome==='junk'?'✓ Selected · ':''}🍔 Junk food · −50</button>
+        <button type="button" data-v148-outcome="late" class="${current.outcome==='late'?'selected':''}">${current.outcome==='late'?'✓ Selected · ':''}🌙 Late-night binge · −50</button>
+        <button type="button" data-v148-outcome="both" class="${current.outcome==='both'?'selected':''}">${current.outcome==='both'?'✓ Selected · ':''}🍔🌙 Both · −100</button>
       </div>
       ${current.outcome?`<div class="v152-food-saved">Outcome saved · you can still edit anything</div>`:''}
     </div>`;
