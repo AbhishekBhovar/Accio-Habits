@@ -3940,3 +3940,80 @@ v148OpenFoodUrge=function(){
 };
 
 setTimeout(()=>render(),0);
+
+
+/* =========================================================
+   v152 — Food Urge modal remains fully editable after outcome
+   ========================================================= */
+function v152RemovePenaltyEvent(label){
+  const title=`−${V148_FOOD_PENALTY} XP — ${label}`;
+  const i=(save.eventLog||[]).findIndex(e=>e.kind==='penalty'&&e.title===title);
+  if(i>=0)save.eventLog.splice(i,1);
+}
+function v152ClearFoodOutcome(u){
+  if(!u?.outcome)return;
+  const junkBack=Math.max(0,Number(u.penalties?.junk?.deducted||0));
+  const lateBack=Math.max(0,Number(u.penalties?.late?.deducted||0));
+  if(junkBack)v151SilentAddXP(junkBack,'Food Urge Outcome Edit');
+  if(lateBack)v151SilentAddXP(lateBack,'Food Urge Outcome Edit');
+  if(u.penalties?.junk)v152RemovePenaltyEvent('Eat Junk Food');
+  if(u.penalties?.late)v152RemovePenaltyEvent('Late-Night Binge');
+  u.outcome=null;u.completedAt=null;u.penalties={};persist();
+}
+v151ToggleFoodAction=function(urgeId,actionId){
+  const key=activeDailyKey(),u=v148FindUrge(key,urgeId);if(!u)return;
+  u.actions=u.actions||[];
+  const i=u.actions.indexOf(actionId);
+  if(i>=0){
+    u.actions.splice(i,1);
+    u.actionXpAwarded=Math.max(0,Number(u.actionXpAwarded||0)-V148_ACTION_XP);
+    v151SilentRemoveXP(V148_ACTION_XP,'Food Urge Prevention');
+  }else{
+    u.actions.push(actionId);
+    u.actionXpAwarded=Number(u.actionXpAwarded||0)+V148_ACTION_XP;
+    v151SilentAddXP(V148_ACTION_XP,'Food Urge Prevention');
+  }
+  persist();
+};
+v151FinishFoodUrge=function(urgeId,outcome){
+  const key=activeDailyKey(),u=v148FindUrge(key,urgeId);if(!u)return;
+  if(u.outcome===outcome){v152ClearFoodOutcome(u);return;}
+  if(u.outcome)v152ClearFoodOutcome(u);
+  u.outcome=outcome;u.completedAt=Date.now();u.penalties={};
+  if(outcome==='junk'||outcome==='both')u.penalties.junk={nominal:50,deducted:v151PenaltyDeduct('Eat Junk Food')};
+  if(outcome==='late'||outcome==='both')u.penalties.late={nominal:50,deducted:v151PenaltyDeduct('Late-Night Binge')};
+  persist();
+};
+v148OpenFoodUrge=function(){
+  document.querySelector('.quest-info-overlay')?.remove();
+  const key=activeDailyKey(),u=v148CurrentFoodUrge(key),o=document.createElement('div');
+  o.className='quest-info-overlay quest-summon v148-food-overlay';
+  const renderFoodUrgeModal=()=>{
+    const current=v148FindUrge(key,u.id)||u;
+    const used=new Set(current.actions||[]),n=used.size;
+    o.innerHTML=`<div class="quest-info-panel v148-food-panel">
+      <button type="button" class="quest-info-close" aria-label="Close">×</button>
+      <div class="quest-info-kicker">🛡️ FOOD URGE</div>
+      <div class="quest-info-title">Prevention checklist</div>
+      <div class="v148-food-sub">${n} / 10 tried · +${n*2} XP</div>
+      <div class="v148-checklist">
+        ${V148_FOOD_ACTIONS.map(a=>`<button type="button" data-v148-action="${a.id}" class="${used.has(a.id)?'done':''}"><span>${a.icon}</span><b>${escapeHtml(a.label)}</b><em>${used.has(a.id)?'✓':'+2'}</em></button>`).join('')}
+      </div>
+      <div class="v148-outcome-title">What happened?</div>
+      <div class="v148-outcomes">
+        <button type="button" data-v148-outcome="prevented" class="prevented ${current.outcome==='prevented'?'selected':''}">✓ Urge passed</button>
+        <button type="button" data-v148-outcome="junk" class="${current.outcome==='junk'?'selected':''}">🍔 Junk food · −50</button>
+        <button type="button" data-v148-outcome="late" class="${current.outcome==='late'?'selected':''}">🌙 Late-night binge · −50</button>
+        <button type="button" data-v148-outcome="both" class="${current.outcome==='both'?'selected':''}">🍔🌙 Both · −100</button>
+      </div>
+      ${current.outcome?`<div class="v152-food-saved">Outcome saved · you can still edit anything</div>`:''}
+    </div>`;
+    const closeBtn=o.querySelector('.quest-info-close');
+    if(closeBtn)closeBtn.onclick=(e)=>{e.preventDefault();e.stopPropagation();o.remove();render();};
+    o.querySelectorAll('[data-v148-action]').forEach(b=>{b.onclick=(e)=>{e.preventDefault();e.stopPropagation();v151ToggleFoodAction(u.id,b.dataset.v148Action);renderFoodUrgeModal();};});
+    o.querySelectorAll('[data-v148-outcome]').forEach(b=>{b.onclick=(e)=>{e.preventDefault();e.stopPropagation();v151FinishFoodUrge(u.id,b.dataset.v148Outcome);renderFoodUrgeModal();};});
+  };
+  o.addEventListener('click',e=>e.stopPropagation());
+  document.body.appendChild(o);renderFoodUrgeModal();
+};
+setTimeout(()=>render(),0);

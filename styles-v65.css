@@ -3025,3 +3025,6 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
   line-height:1!important;
   font-weight:850!important;
 }
+
+/* v152 — saved outcome remains interactive */
+.v152-food-saved{margin-top:7px;text-align:center;font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#9f998d}
