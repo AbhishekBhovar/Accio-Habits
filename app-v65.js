@@ -4128,21 +4128,23 @@ setTimeout(()=>render(),0);
   q.className='v156-champion-overlay';
   q.innerHTML=`<div class="v156-champion-copy">
     <div class="v156-champion-text">
-      <div class="v156-champion-line">Don’t quit.</div>
-      <div class="v156-champion-line">Suffer now,</div>
-      <div class="v156-champion-line">and live the rest</div>
-      <div class="v156-champion-line">of your life,</div>
-      <div class="v156-champion-line">as a champion.</div>
+      <div class="v156-champion-line v156-champion-line-lead">Don't quit.</div>
+      <div class="v156-champion-paragraph">
+        <div class="v156-champion-line">Suffer now,</div>
+        <div class="v156-champion-line">and live the rest</div>
+        <div class="v156-champion-line">of your life,</div>
+        <div class="v156-champion-line">as a champion.</div>
+      </div>
     </div>
-    <div class="v156-champion-credit">Muhammad Ali</div>
+    <div class="v156-champion-credit">— Muhammad Ali</div>
   </div>`;
   document.body.appendChild(q);
 
   /* The wand white-out/reveal begins at ~2550 ms. The quote layer is already
      underneath it, so the fade lands directly on the quote, not the app. */
-  setTimeout(()=>q.classList.add('show-copy'),2580);
-  setTimeout(()=>q.classList.add('hide'),5580);   // 3 second hold
-  setTimeout(()=>q.remove(),5920);
+  setTimeout(()=>q.classList.add('show-copy'),2520);
+  setTimeout(()=>q.classList.add('hide'),6480);
+  setTimeout(()=>q.remove(),7100);
 })();
 
 setTimeout(()=>render(),0);
@@ -4169,7 +4171,7 @@ const V157_ESSENTIAL_IDS=['gym','noUnplannedDinner','water','supplements','prote
 const V157_KEYSTONE_IDS=['wake330','morningShower','gym','noUnplannedDinner'];
 V128_KEYSTONE_IDS.splice(0,V128_KEYSTONE_IDS.length,...V157_KEYSTONE_IDS);
 v123KeystoneIdsForDate=()=>[...V157_KEYSTONE_IDS];
-const v157Dinner={id:'noUnplannedDinner',icon:'🌙',name:'No unplanned eating after dinner',xp:0,rule:'Keep to your planned dinner; no unplanned eating afterwards',group:'Nutrition'};
+const v157Dinner={id:'noUnplannedDinner',icon:'🌙',name:'No unplanned eating after dinner',xp:70,rule:'Keep to your planned dinner; no unplanned eating afterwards',group:'Nutrition'};
 if(!DATA.habits.dailyHabits.find(h=>h.id===v157Dinner.id))DATA.habits.dailyHabits.push(v157Dinner);
 function v157Done(key,id){
  const d=save.daily?.[key];
@@ -4206,25 +4208,35 @@ showKeystonePopup=function(){
 };
 // Convert recorded food-urge incidents into a clear warning for the positive choice.
 function v157DinnerClean(key){return !((save.daily?.[key]?.v148FoodUrges||[]).some(u=>['late','both'].includes(u?.outcome)));}
+// Repair the buggy zero-XP dinner state once for the currently viewed day.
+(function v159RepairDinnerFlag(){
+ if(save.v159DinnerFlagRepairDone)return;
+ const key=activeDailyKey();
+ const d=getDaily(key);
+ if(d?.habits?.noUnplannedDinner && Number(d.habits.noUnplannedDinner.xpAwarded||0)===0){
+  delete d.habits.noUnplannedDinner;
+ }
+ save.v159DinnerFlagRepairDone=true;
+ persist();
+})();
 const v157OldToggleHabit=toggleHabit;
 toggleHabit=function(id){
  if(id==='noUnplannedDinner'){
-  // This is a zero-XP checkbox. The legacy XP helpers return early for zero,
-  // so their normal persistence side-effect never happens. Save explicitly.
   const key=activeDailyKey();
   const day=getDaily(key);
   if(!day.habits)day.habits={};
   if(day.habits[id]?.completed){
+   const xp=Number(day.habits[id].xpAwarded||v157Dinner.xp||70)||70;
    delete day.habits[id];
-   persist();
-   render();
+   removeXP(xp,v157Dinner.name);
+   playChime('undo');
    return;
   }
   if(!v157DinnerClean(key))return toast('A late-night eating incident is recorded for this day.','warn');
-  day.habits[id]={completed:true,xpAwarded:0,ts:Date.now()};
-  persist();
-  evaluateV109(key,true);
-  render();
+  day.habits[id]={completed:true,xpAwarded:Number(v157Dinner.xp||70),ts:Date.now()};
+  addXP(Number(v157Dinner.xp||70),v157Dinner.name);
+  playChime('success');
+  toast(`${v157Dinner.name} complete • +${Number(v157Dinner.xp||70)} XP`);
   return;
  }
  return v157OldToggleHabit(id);
@@ -4339,7 +4351,6 @@ function v157ThalaPopup(){
 const v157BaseDailyRender=renderDailyHabits;
 renderDailyHabits=function(){
  v157BaseDailyRender();v157RenderWall();
- document.querySelectorAll('[data-habit="noUnplannedDinner"] .habit-xp').forEach(el=>{if(el.textContent.trim()==='+0')el.textContent='✓';});
  const recovery=document.querySelector('#v145RecoveryGroup'),nap=document.querySelector('#v155AfternoonNapRow'),ana=document.querySelector('#v145AnapanaRow');if(recovery&&nap&&ana)recovery.insertBefore(nap,ana);
  const key=activeDailyKey(),s=v109Status(key),play=v145CategoryStatus(key),thala=v157ThalaStatus(key),strip=document.querySelector('#v109StatusStrip');
  if(strip){strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/4</button><button id="openPerfect">✨ ${s.perfectDone}/5</button><button id="openWinDay" class="${play.dayWon?'v145-won':''}">🏀 ${play.won}/7</button><button id="openThala">🏏 ${thala.progress}/7</button>`;
