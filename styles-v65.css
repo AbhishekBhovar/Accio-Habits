@@ -3052,3 +3052,58 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
 .v154-champion-quote{max-width:330px;text-align:center;color:#f3f0e8;font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:1.28;font-weight:600;opacity:0;transform:translateY(3px);animation:v154QuoteIn .2s ease forwards}
 .v154-champion-quote span{color:#d5b24b}
 @keyframes v154QuoteIn{to{opacity:1;transform:translateY(0)}}
+
+
+/* =========================================================
+   v155 — Recovery / Afternoon Nap
+   ========================================================= */
+#v155AfternoonNapRow{margin-top:6px}
+.v155-afternoon-nap .habit-copy small{display:none!important}
+
+/* =========================================================
+   v155 — Muhammad Ali quote screen
+   ========================================================= */
+.v155-champion-overlay{
+  position:fixed;
+  inset:0;
+  z-index:2147483646;
+  background:#070707;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  padding:0 9vw;
+  pointer-events:none;
+  opacity:1;
+  transition:opacity .28s ease;
+}
+.v155-champion-copy{
+  width:min(82vw,350px);
+  opacity:0;
+  transform:translateY(2px);
+  transition:opacity .16s ease,transform .16s ease;
+}
+.v155-champion-overlay.show-copy .v155-champion-copy{
+  opacity:1;
+  transform:translateY(0);
+}
+.v155-champion-overlay.hide{opacity:0}
+.v155-champion-text{
+  color:#f4f1e9;
+  text-align:left;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:clamp(30px,8.1vw,38px);
+  line-height:1.16;
+  font-weight:400;
+  letter-spacing:-.025em;
+}
+.v155-champion-credit{
+  margin-top:12px;
+  color:#f4f1e9;
+  font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  font-size:11px;
+  line-height:1;
+  font-weight:600;
+  letter-spacing:.02em;
+}
+/* Neutralise the obsolete v154 accent treatment if its CSS remains cached. */
+.v155-champion-overlay span{color:inherit!important}
