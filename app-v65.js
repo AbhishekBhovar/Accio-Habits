@@ -3827,3 +3827,116 @@ v148OpenFoodUrge=function(){
 };
 
 setTimeout(()=>render(),0);
+
+
+/* =========================================================
+   v151 — Food Urge interaction hard fix
+   Keep the modal mounted while toggling checklist items.
+   X is the only close action; app re-renders after closing.
+   ========================================================= */
+function v151SilentAddXP(amount,source='Activity'){
+  const safe=Math.max(0,Math.round(Number(amount)||0));if(!safe)return;
+  save.totalXP+=safe;
+  logEvent(save.currentLevel,`+${safe} XP — ${source}`,'xp');
+  while(save.currentLevel<168){
+    const threshold=cumulativeXpForLevel(save.currentLevel+1);
+    if(save.totalXP<threshold)break;
+    save.currentLevel++;
+    levelUp(save.currentLevel);
+  }
+  persist();
+}
+function v151SilentRemoveXP(amount,source='Activity'){
+  const safe=Math.max(0,Math.round(Number(amount)||0));if(!safe)return;
+  save.totalXP=Math.max(0,save.totalXP-safe);
+  removeLatestXpEvent(safe,source);
+  syncProgressAfterXpRemoval();
+  persist();
+}
+function v151ToggleFoodAction(urgeId,actionId){
+  const key=activeDailyKey(),u=v148FindUrge(key,urgeId);if(!u||u.outcome)return;
+  u.actions=u.actions||[];
+  const i=u.actions.indexOf(actionId);
+  if(i>=0){
+    u.actions.splice(i,1);
+    u.actionXpAwarded=Math.max(0,Number(u.actionXpAwarded||0)-V148_ACTION_XP);
+    v151SilentRemoveXP(V148_ACTION_XP,'Food Urge Prevention');
+  }else{
+    u.actions.push(actionId);
+    u.actionXpAwarded=Number(u.actionXpAwarded||0)+V148_ACTION_XP;
+    v151SilentAddXP(V148_ACTION_XP,'Food Urge Prevention');
+  }
+}
+function v151PenaltyDeduct(label){
+  const deducted=Math.min(V148_FOOD_PENALTY,Math.max(0,Number(save.totalXP||0)));
+  if(deducted)v151SilentRemoveXP(deducted,label);
+  save.eventLog=save.eventLog||[];
+  save.eventLog.unshift({level:save.currentLevel,title:`−${V148_FOOD_PENALTY} XP — ${label}`,kind:'penalty',ts:Date.now()});
+  persist();
+  return deducted;
+}
+function v151FinishFoodUrge(urgeId,outcome){
+  const key=activeDailyKey(),u=v148FindUrge(key,urgeId);if(!u||u.outcome)return;
+  u.outcome=outcome;u.completedAt=Date.now();u.penalties={};
+  if(outcome==='junk'||outcome==='both')u.penalties.junk={nominal:50,deducted:v151PenaltyDeduct('Eat Junk Food')};
+  if(outcome==='late'||outcome==='both')u.penalties.late={nominal:50,deducted:v151PenaltyDeduct('Late-Night Binge')};
+  persist();
+}
+
+v148OpenFoodUrge=function(){
+  document.querySelector('.quest-info-overlay')?.remove();
+  const key=activeDailyKey(),u=v148CurrentFoodUrge(key),o=document.createElement('div');
+  o.className='quest-info-overlay quest-summon v148-food-overlay';
+
+  const renderFoodUrgeModal=()=>{
+    const current=v148FindUrge(key,u.id)||u;
+    const used=new Set(current.actions||[]),n=used.size,finished=!!current.outcome;
+    o.innerHTML=`<div class="quest-info-panel v148-food-panel">
+      <button class="quest-info-close" aria-label="Close">×</button>
+      <div class="quest-info-kicker">🛡️ FOOD URGE</div>
+      <div class="quest-info-title">Prevention checklist</div>
+      <div class="v148-food-sub">${n} / 10 tried · +${n*2} XP</div>
+      <div class="v148-checklist">
+        ${V148_FOOD_ACTIONS.map(a=>`<button type="button" data-v148-action="${a.id}" class="${used.has(a.id)?'done':''}" ${finished?'disabled':''}><span>${a.icon}</span><b>${escapeHtml(a.label)}</b><em>${used.has(a.id)?'✓':'+2'}</em></button>`).join('')}
+      </div>
+      <div class="v148-outcome-title">What happened?</div>
+      <div class="v148-outcomes">
+        <button type="button" data-v148-outcome="prevented" class="prevented ${current.outcome==='prevented'?'selected':''}" ${finished?'disabled':''}>✓ Urge passed</button>
+        <button type="button" data-v148-outcome="junk" class="${current.outcome==='junk'?'selected':''}" ${finished?'disabled':''}>🍔 Junk food · −50</button>
+        <button type="button" data-v148-outcome="late" class="${current.outcome==='late'?'selected':''}" ${finished?'disabled':''}>🌙 Late-night binge · −50</button>
+        <button type="button" data-v148-outcome="both" class="${current.outcome==='both'?'selected':''}" ${finished?'disabled':''}>🍔🌙 Both · −100</button>
+      </div>
+      ${finished?`<div class="v150-food-saved">Saved · close with ×</div>`:''}
+    </div>`;
+
+    const closeBtn=o.querySelector('.quest-info-close');
+    if(closeBtn)closeBtn.onclick=(e)=>{
+      e.preventDefault();e.stopPropagation();
+      o.remove();
+      render();
+    };
+
+    /* The overlay and panel never dismiss from ordinary taps. */
+    o.onclick=(e)=>{e.preventDefault();e.stopPropagation();};
+
+    o.querySelectorAll('[data-v148-action]').forEach(b=>{
+      b.onclick=(e)=>{
+        e.preventDefault();e.stopPropagation();
+        v151ToggleFoodAction(u.id,b.dataset.v148Action);
+        renderFoodUrgeModal();
+      };
+    });
+    o.querySelectorAll('[data-v148-outcome]').forEach(b=>{
+      b.onclick=(e)=>{
+        e.preventDefault();e.stopPropagation();
+        v151FinishFoodUrge(u.id,b.dataset.v148Outcome);
+        renderFoodUrgeModal();
+      };
+    });
+  };
+
+  document.body.appendChild(o);
+  renderFoodUrgeModal();
+};
+
+setTimeout(()=>render(),0);

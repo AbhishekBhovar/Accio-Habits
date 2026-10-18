@@ -3012,3 +3012,16 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
   letter-spacing:.08em;
   text-transform:uppercase;
 }
+
+
+/* v151 — smaller Start/Continue button */
+.v148-food-home .v148-food-start{
+  width:auto!important;
+  min-width:74px!important;
+  min-height:34px!important;
+  padding:6px 11px!important;
+  border-radius:11px!important;
+  font-size:11px!important;
+  line-height:1!important;
+  font-weight:850!important;
+}
