@@ -3036,3 +3036,19 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
 .v148-outcomes button[data-v148-outcome="junk"].selected,
 .v148-outcomes button[data-v148-outcome="late"].selected{background:rgba(133,49,49,.24)!important;border-color:#d36b6b!important;color:#f0b4b4!important}
 .v148-outcomes button[data-v148-outcome="both"].selected{background:rgba(118,33,33,.34)!important;border-color:#e07070!important;color:#ffd0d0!important;box-shadow:0 0 0 1px #e07070 inset,0 0 20px rgba(224,112,112,.12)!important}
+
+/* v154 — Disaster Prevention: one compact vertical checklist */
+.v148-food-panel .v148-checklist{display:flex!important;flex-direction:column!important;grid-template-columns:none!important;gap:5px!important;max-height:none!important;overflow:visible!important}
+.v148-food-panel .v148-checklist button{width:100%!important;min-height:37px!important;padding:5px 9px!important;display:grid!important;grid-template-columns:24px 1fr 28px!important;align-items:center!important;text-align:left!important;border-radius:9px!important}
+.v148-food-panel .v148-checklist button span{font-size:16px!important;text-align:center!important}
+.v148-food-panel .v148-checklist button b{font-size:11px!important;line-height:1.12!important}
+.v148-food-panel .v148-checklist button em{text-align:right!important;font-size:10px!important}
+.v154-prevention-quote{margin:3px 8px 7px;text-align:center;font-size:10px;line-height:1.25;font-style:italic;color:#d8cda8}
+.v148-food-panel{padding-top:15px!important}
+.v148-food-sub{margin-bottom:6px!important}
+/* v154 — quote after wand white-out */
+.v154-champion-overlay{position:fixed;inset:0;z-index:2147483646;display:flex;align-items:center;justify-content:center;padding:28px;background:#090909;opacity:0;pointer-events:none;transition:opacity .16s ease}
+.v154-champion-overlay.show{opacity:1}.v154-champion-overlay.hide{opacity:0;transition-duration:.3s}
+.v154-champion-quote{max-width:330px;text-align:center;color:#f3f0e8;font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:1.28;font-weight:600;opacity:0;transform:translateY(3px);animation:v154QuoteIn .2s ease forwards}
+.v154-champion-quote span{color:#d5b24b}
+@keyframes v154QuoteIn{to{opacity:1;transform:translateY(0)}}

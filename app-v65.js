@@ -3595,16 +3595,14 @@ setTimeout(()=>render(),0);
    v148 — Food Urge Prevention experiment
    ========================================================= */
 const V148_FOOD_ACTIONS=[
-  {id:'water',icon:'💧',label:'Have water'},
-  {id:'zeroDrink',icon:'☕',label:'Have a zero-calorie drink'},
-  {id:'proteinShake',icon:'🥤',label:'Try just drinking a protein shake'},
-  {id:'brushTeeth',icon:'🪥',label:'Brush teeth / close kitchen'},
-  {id:'move5',icon:'🚶',label:'Get up and move for 5 minutes'},
-  {id:'changeEnvironment',icon:'🧊',label:'Change the environment'},
+  {id:'water500',icon:'💧',label:'Drink 500 mL water'},
+  {id:'proteinShake',icon:'🥤',label:'Drink protein shake'},
+  {id:'psylliumWater',icon:'🌾',label:'Drink psyllium husk water'},
+  {id:'washFace',icon:'🧼',label:'Wash your face'},
+  {id:'moveReset',icon:'🚶',label:'20 squats or walk around the block'},
+  {id:'restartQuestion',icon:'🔁',label:'Do I really want to restart tomorrow?'},
   {id:'avalanche',icon:'🏔️',label:'Open Avalanche'},
-  {id:'motivationVideo',icon:'🎧',label:'Listen to a motivational video'},
-  {id:'entertainment',icon:'🎬',label:'Do a fun entertainment activity'},
-  {id:'meditation15',icon:'🧘',label:'Do 15 minutes of meditation'}
+  {id:'meditation5',icon:'🧘',label:'Meditate for 5 minutes'}
 ];
 const V148_ACTION_XP=2;
 const V148_FOOD_PENALTY=50;
@@ -3680,9 +3678,9 @@ function v148OpenFoodUrge(){
   o.className='quest-info-overlay quest-summon v148-food-overlay';
   o.innerHTML=`<div class="quest-info-panel v148-food-panel">
     <button class="quest-info-close">×</button>
-    <div class="quest-info-kicker">🛡️ FOOD URGE</div>
-    <div class="quest-info-title">Prevention checklist</div>
-    <div class="v148-food-sub">${n} / 10 tried · +${n*2} XP</div>
+    <div class="quest-info-kicker">🛡️ DISASTER PREVENTION</div>
+    <div class="quest-info-title">Prevention checklist</div><div class="v154-prevention-quote">“Your dreams are on the other side of this temptation.”</div>
+    <div class="v148-food-sub">${n} / ${V148_FOOD_ACTIONS.length} tried · +${n*2} XP</div>
     <div class="v148-checklist">
       ${V148_FOOD_ACTIONS.map(a=>`<button data-v148-action="${a.id}" class="${used.has(a.id)?'done':''}"><span>${a.icon}</span><b>${escapeHtml(a.label)}</b><em>${used.has(a.id)?'✓':'+2'}</em></button>`).join('')}
     </div>
@@ -3707,10 +3705,10 @@ v123RenderPenalties=function(){
   const summary=s.done.length?`${s.done.length} urge${s.done.length===1?'':'s'} · ${s.prevented} prevented${s.junk?` · ${s.junk} junk`:''}${s.late?` · ${s.late} late-night`:''}`:'No completed urges today';
   root.innerHTML=`<div class="v148-food-home">
     <span class="v123-penalty-icon">🛡️</span>
-    <span class="v123-penalty-copy"><strong>Food Urge Prevention</strong><small>${summary}${s.actionXp?` · +${s.actionXp} XP prevention`:''}</small></span>
-    <button class="v148-food-start">${pending?'Continue':'Start'}</button>
+    <span class="v123-penalty-copy"><strong>Disaster Prevention</strong><small>${summary}${s.actionXp?` · +${s.actionXp} XP prevention`:''}</small></span>
+    <button class="v148-food-start">Open Checklist</button>
   </div>
-  ${last?`<div class="v148-food-last"><span>Last: <b>${v148OutcomeLabel(last)}</b> · ${(last.actions||[]).length}/10 tried</span><button data-v148-undo>Undo last</button></div>`:''}`;
+  ${last?`<div class="v148-food-last"><span>Last: <b>${v148OutcomeLabel(last)}</b> · ${(last.actions||[]).length}/${V148_FOOD_ACTIONS.length} tried</span><button data-v148-undo>Undo last</button></div>`:''}`;
   root.querySelector('.v148-food-start')?.addEventListener('click',v148OpenFoodUrge);
   root.querySelector('[data-v148-undo]')?.addEventListener('click',v148UndoLastFoodUrge);
 };
@@ -3787,9 +3785,9 @@ v148OpenFoodUrge=function(){
     const used=new Set(current.actions||[]),n=used.size,finished=!!current.outcome;
     o.innerHTML=`<div class="quest-info-panel v148-food-panel">
       <button class="quest-info-close">×</button>
-      <div class="quest-info-kicker">🛡️ FOOD URGE</div>
-      <div class="quest-info-title">Prevention checklist</div>
-      <div class="v148-food-sub">${n} / 10 tried · +${n*2} XP</div>
+      <div class="quest-info-kicker">🛡️ DISASTER PREVENTION</div>
+      <div class="quest-info-title">Prevention checklist</div><div class="v154-prevention-quote">“Your dreams are on the other side of this temptation.”</div>
+      <div class="v148-food-sub">${n} / ${V148_FOOD_ACTIONS.length} tried · +${n*2} XP</div>
       <div class="v148-checklist">
         ${V148_FOOD_ACTIONS.map(a=>`<button data-v148-action="${a.id}" class="${used.has(a.id)?'done':''}" ${finished?'disabled':''}><span>${a.icon}</span><b>${escapeHtml(a.label)}</b><em>${used.has(a.id)?'✓':'+2'}</em></button>`).join('')}
       </div>
@@ -3893,9 +3891,9 @@ v148OpenFoodUrge=function(){
     const used=new Set(current.actions||[]),n=used.size,finished=!!current.outcome;
     o.innerHTML=`<div class="quest-info-panel v148-food-panel">
       <button class="quest-info-close" aria-label="Close">×</button>
-      <div class="quest-info-kicker">🛡️ FOOD URGE</div>
-      <div class="quest-info-title">Prevention checklist</div>
-      <div class="v148-food-sub">${n} / 10 tried · +${n*2} XP</div>
+      <div class="quest-info-kicker">🛡️ DISASTER PREVENTION</div>
+      <div class="quest-info-title">Prevention checklist</div><div class="v154-prevention-quote">“Your dreams are on the other side of this temptation.”</div>
+      <div class="v148-food-sub">${n} / ${V148_FOOD_ACTIONS.length} tried · +${n*2} XP</div>
       <div class="v148-checklist">
         ${V148_FOOD_ACTIONS.map(a=>`<button type="button" data-v148-action="${a.id}" class="${used.has(a.id)?'done':''}" ${finished?'disabled':''}><span>${a.icon}</span><b>${escapeHtml(a.label)}</b><em>${used.has(a.id)?'✓':'+2'}</em></button>`).join('')}
       </div>
@@ -3986,16 +3984,18 @@ v151FinishFoodUrge=function(urgeId,outcome){
 };
 v148OpenFoodUrge=function(){
   document.querySelector('.quest-info-overlay')?.remove();
-  const key=activeDailyKey(),u=v148CurrentFoodUrge(key),o=document.createElement('div');
+  const key=activeDailyKey(),pending=v148PendingFoodUrge(key),u=pending||{id:`draft-${Date.now()}-${Math.random().toString(36).slice(2,7)}`,ts:Date.now(),actions:[],actionXpAwarded:0,outcome:null,penalties:{}},o=document.createElement('div');
+  let persisted=!!pending;
+  const ensurePersisted=()=>{if(persisted)return;v148FoodState(key).push(u);persisted=true;persist();};
   o.className='quest-info-overlay quest-summon v148-food-overlay';
   const renderFoodUrgeModal=()=>{
     const current=v148FindUrge(key,u.id)||u;
     const used=new Set(current.actions||[]),n=used.size;
     o.innerHTML=`<div class="quest-info-panel v148-food-panel">
       <button type="button" class="quest-info-close" aria-label="Close">×</button>
-      <div class="quest-info-kicker">🛡️ FOOD URGE</div>
-      <div class="quest-info-title">Prevention checklist</div>
-      <div class="v148-food-sub">${n} / 10 tried · +${n*2} XP</div>
+      <div class="quest-info-kicker">🛡️ DISASTER PREVENTION</div>
+      <div class="quest-info-title">Prevention checklist</div><div class="v154-prevention-quote">“Your dreams are on the other side of this temptation.”</div>
+      <div class="v148-food-sub">${n} / ${V148_FOOD_ACTIONS.length} tried · +${n*2} XP</div>
       <div class="v148-checklist">
         ${V148_FOOD_ACTIONS.map(a=>`<button type="button" data-v148-action="${a.id}" class="${used.has(a.id)?'done':''}"><span>${a.icon}</span><b>${escapeHtml(a.label)}</b><em>${used.has(a.id)?'✓':'+2'}</em></button>`).join('')}
       </div>
@@ -4010,10 +4010,28 @@ v148OpenFoodUrge=function(){
     </div>`;
     const closeBtn=o.querySelector('.quest-info-close');
     if(closeBtn)closeBtn.onclick=(e)=>{e.preventDefault();e.stopPropagation();o.remove();render();};
-    o.querySelectorAll('[data-v148-action]').forEach(b=>{b.onclick=(e)=>{e.preventDefault();e.stopPropagation();v151ToggleFoodAction(u.id,b.dataset.v148Action);renderFoodUrgeModal();};});
-    o.querySelectorAll('[data-v148-outcome]').forEach(b=>{b.onclick=(e)=>{e.preventDefault();e.stopPropagation();v151FinishFoodUrge(u.id,b.dataset.v148Outcome);renderFoodUrgeModal();};});
+    o.querySelectorAll('[data-v148-action]').forEach(b=>{b.onclick=(e)=>{e.preventDefault();e.stopPropagation();ensurePersisted();v151ToggleFoodAction(u.id,b.dataset.v148Action);renderFoodUrgeModal();};});
+    o.querySelectorAll('[data-v148-outcome]').forEach(b=>{b.onclick=(e)=>{e.preventDefault();e.stopPropagation();ensurePersisted();v151FinishFoodUrge(u.id,b.dataset.v148Outcome);renderFoodUrgeModal();};});
   };
   o.addEventListener('click',e=>e.stopPropagation());
   document.body.appendChild(o);renderFoodUrgeModal();
 };
 setTimeout(()=>render(),0);
+
+
+/* =========================================================
+   v154 — post-wand champion quote
+   ========================================================= */
+(function v154ChampionQuote(){
+  function showChampionQuote(){
+    if(document.querySelector('.v154-champion-overlay'))return;
+    const q=document.createElement('div');
+    q.className='v154-champion-overlay';
+    q.innerHTML=`<div class="v154-champion-quote">Don’t quit. Suffer now and live the rest of your life as a <span>champion.</span></div>`;
+    document.body.appendChild(q);
+    requestAnimationFrame(()=>q.classList.add('show'));
+    setTimeout(()=>q.classList.add('hide'),2000);
+    setTimeout(()=>q.remove(),2350);
+  }
+  window.addEventListener('load',()=>setTimeout(showChampionQuote,2860),{once:true});
+})();
