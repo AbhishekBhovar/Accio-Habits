@@ -2758,12 +2758,23 @@ stageChoices=function(enc,stage){
   });
 };
 
-/* Make the story lead-in concrete too, without changing saved encounter progress. */
+/* Adventure narrative is independent of the correct action. Never expose a
+   choice label as scene prose (regression fixed after v157). */
+const V158_SCENE_NARRATIVE={
+  remembrall:[
+    'Malfoy rises above the Hogwarts courtyard, Neville’s Remembrall held just beyond reach. Below, the other students stare up as Harry lifts off after him. Malfoy grins and prepares his next move.',
+    'Malfoy twists on his broom and hurls the Remembrall into the open air. The glass sphere catches the light as it falls. Wind rushes past Harry, and the distance is closing fast.'
+  ]
+};
 stagePrompt=function(enc,stage){
-  const c=v133SceneConfig(enc);
-  if(!c) return `The encounter is moving quickly. Stage ${stage+1} of ${enc.stages}.`;
-  const beat=c.beats[Math.min(stage,c.beats.length-1)]||'the next move';
-  return c.beats[Math.min(stage,c.beats.length-1)]||'A decision must be made before the moment passes.';
+  const id=`${enc.book}-${enc.id}`;
+  const scenes=V158_SCENE_NARRATIVE[id]||V158_SCENE_NARRATIVE[enc.id];
+  if(scenes&&scenes.length)return scenes[Math.min(Math.max(0,stage),scenes.length-1)];
+  const stageNumber=Math.max(0,Number(stage)||0);
+  const first=`Harry finds himself in the middle of ${enc.title}. The situation is shifting, and every moment counts.`;
+  const later=`The danger in ${enc.title} has changed. The consequences of the last move are becoming clear, and Harry has only moments to respond.`;
+  const last=`The confrontation in ${enc.title} reaches a critical moment. Harry must hold his nerve as the situation develops around him.`;
+  return stageNumber===0?first:stageNumber>=Number(enc.stages||1)-1?last:later;
 };
 
 setTimeout(()=>{try{renderBattle();}catch(e){console.error(e)}},0);
@@ -3998,10 +4009,10 @@ v148OpenFoodUrge=function(){
       </div>
       <div class="v148-outcome-title">What happened?</div>
       <div class="v148-outcomes">
-        <button type="button" data-v148-outcome="prevented" class="prevented ${current.outcome==='prevented'?'selected':''}">${current.outcome==='prevented'?'✓ Selected · ':''}Urge passed</button>
-        <button type="button" data-v148-outcome="junk" class="${current.outcome==='junk'?'selected':''}">${current.outcome==='junk'?'✓ Selected · ':''}🍔 Junk food · −50</button>
-        <button type="button" data-v148-outcome="late" class="${current.outcome==='late'?'selected':''}">${current.outcome==='late'?'✓ Selected · ':''}🌙 Late-night binge · −50</button>
-        <button type="button" data-v148-outcome="both" class="${current.outcome==='both'?'selected':''}">${current.outcome==='both'?'✓ Selected · ':''}🍔🌙 Both · −100</button>
+        <button type="button" data-v148-outcome="prevented" class="prevented ${current.outcome==='prevented'?'selected':''}">Urge passed</button>
+        <button type="button" data-v148-outcome="junk" class="${current.outcome==='junk'?'selected':''}">🍔 Junk food · −50</button>
+        <button type="button" data-v148-outcome="late" class="${current.outcome==='late'?'selected':''}">🌙 Late-night binge · −50</button>
+        <button type="button" data-v148-outcome="both" class="${current.outcome==='both'?'selected':''}">🍔🌙 Both · −100</button>
       </div>
       ${current.outcome?`<div class="v152-food-saved">Outcome saved · you can still edit anything</div>`:''}
     </div>`;
@@ -4137,6 +4148,18 @@ setTimeout(()=>render(),0);
 setTimeout(()=>render(),0);
 
 
+/* One-time cleanup of Food Urge Prevention sessions recorded exclusively
+   during feature testing. Keep all pre-existing XP, penalty history, habits,
+   other daily data and adventure progress unchanged. */
+(function v158CleanFoodUrgeTesting(){
+ if(save.v158FoodUrgeTestResetDone)return;
+ for(const d of Object.values(save.daily||{})){
+  if(d && Object.prototype.hasOwnProperty.call(d,'v148FoodUrges'))delete d.v148FoodUrges;
+ }
+ save.v158FoodUrgeTestResetDone=true;
+ persist();
+})();
+
 /* =====================================================
  v157 — Essential Wins, Playoffs, Thala for a Reason,
  movement targets, Adventure presentation and unified stats.
@@ -4185,7 +4208,25 @@ showKeystonePopup=function(){
 function v157DinnerClean(key){return !((save.daily?.[key]?.v148FoodUrges||[]).some(u=>['late','both'].includes(u?.outcome)));}
 const v157OldToggleHabit=toggleHabit;
 toggleHabit=function(id){
- if(id==='noUnplannedDinner'&&!v157DinnerClean(activeDailyKey()))return toast('A late-night eating incident is recorded for this day.','warn');
+ if(id==='noUnplannedDinner'){
+  // This is a zero-XP checkbox. The legacy XP helpers return early for zero,
+  // so their normal persistence side-effect never happens. Save explicitly.
+  const key=activeDailyKey();
+  const day=getDaily(key);
+  if(!day.habits)day.habits={};
+  if(day.habits[id]?.completed){
+   delete day.habits[id];
+   persist();
+   render();
+   return;
+  }
+  if(!v157DinnerClean(key))return toast('A late-night eating incident is recorded for this day.','warn');
+  day.habits[id]={completed:true,xpAwarded:0,ts:Date.now()};
+  persist();
+  evaluateV109(key,true);
+  render();
+  return;
+ }
  return v157OldToggleHabit(id);
 };
 function v157MovementChange(delta){
@@ -4216,10 +4257,51 @@ Object.assign(V135_HABIT_READINESS,{
  afternoonNap:{cat:'assets',pts:10,label:'Afternoon Nap',tags:''},
  noUnplannedDinner:{cat:'assets',pts:10,label:'No unplanned eating after dinner',tags:'🔑'}
 });
-const v157PriorReadiness=readinessPoints;
-readinessPoints=function(){const p=v157PriorReadiness();for(const d of Object.values(save.daily||{})){
- if(Number(d.wallPushupCount||0)>=50)p.combat+=5;
- }return p;};
+/* v157 historical readiness weights. Changes to the current assignment must not
+   retroactively inflate earlier days. The baseline is the map in effect before
+   v157; the live map remains unchanged for days from rollout onward. */
+const V157_READINESS_START='2026-10-19';
+const V157_LEGACY_MAP={
+ water:{cat:'magic',pts:12},gym:{cat:'combat',pts:30},
+ wake330:{cat:'knowledge',pts:20},morningShower:{cat:'assets',pts:15},
+ healthyBreakfast:{cat:'magic',pts:10},supplements:{cat:'magic',pts:10},
+ healthyLunch:{cat:'magic',pts:10},proteinCreatine:{cat:'combat',pts:10},
+ fruit:{cat:'magic',pts:5},incline:{cat:'combat',pts:12},
+ hindiSpeaking:{cat:'knowledge',pts:15},saunaDaily:{cat:'assets',pts:12},
+ bedtimeAnapana:{cat:'knowledge',pts:10}
+};
+// Any previously configured supporting habits retain their old values, too.
+for(const [id,x] of Object.entries(V135_HABIT_READINESS)){
+ if(!Object.prototype.hasOwnProperty.call(V157_LEGACY_MAP,id) &&
+    !['afternoonNap','noUnplannedDinner','readStudy'].includes(id))
+   V157_LEGACY_MAP[id]={cat:x.cat,pts:x.pts};
+}
+// Read/Study existed before v157 with its pre-change reward.
+V157_LEGACY_MAP.readStudy={cat:'knowledge',pts:10};
+readinessPoints=function(){
+ const p={magic:0,combat:0,knowledge:0,assets:0};
+ for(const [date,d] of Object.entries(save.daily||{})){
+  const map=date<V157_READINESS_START?V157_LEGACY_MAP:V135_HABIT_READINESS;
+  for(const [id,e] of Object.entries(d.habits||{})){
+   if(!e?.completed)continue;
+   const x=map[id];if(x)p[x.cat]+=x.pts;
+  }
+  // Non-checklist activities keep their original earning rules.
+  const steps=Math.max(0,Number(d.stepsCount||0));
+  const target=v125StepsTargetForLevel(Number(save.currentLevel||1));
+  p.combat+=Math.floor(Math.min(steps,target)/1000)*2;
+  p.assets+=Math.min(16,Math.floor(Math.max(0,Number(d.sleep?.totalHours||0)))*2);
+  p.combat+=Number(d.squatCount||0)>=50?5:0;
+  p.combat+=Number(d.calfRaiseCount||0)>=50?5:0;
+  if(date>=V157_READINESS_START && Number(d.wallPushupCount||0)>=50)p.combat+=5;
+ }
+ for(const w of Object.values(save.weekly||{})){
+  const sport=(w.sportLog||[]).filter(x=>x?.v109).length;
+  const cycling=(w.cyclingLog||[]).filter(x=>x?.v113Interval).length;
+  p.combat+=sport*20+cycling*3;p.assets+=sport*4;
+ }
+ return p;
+};
 readinessSourceLabel=function(id){return {magic:'Hydration • nutrition • supplements • protein',combat:'Gym • incline • steps • movement • sport',knowledge:'Wake routine • shower • reading • Hindi • Anapana',assets:'Sleep • afternoon nap • sauna • evening discipline'}[id]||'';};
 // Thala awards on every 7th consecutive complete day per activity (7,14,21...),
 // including water and the three numeric movement activities.
@@ -4251,7 +4333,7 @@ function v157ThalaStatus(key=activeDailyKey()){
 }
 function v157ThalaPopup(){
  document.querySelector('.quest-info-overlay')?.remove();const key=activeDailyKey(),s=v157ThalaStatus(key),o=document.createElement('div');o.className='quest-info-overlay quest-summon v110-perfect-overlay';
- o.innerHTML=`<div class="quest-info-panel v110-perfect-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🏏 THALA FOR A REASON</div><div class="quest-info-title">Every 7 days • +50 XP per habit</div><div class="v110-perfect-list">${s.rows.filter(x=>x.n>0).slice(0,25).map(x=>`<div><span>${x.h?.icon||'🔥'}</span><b>${escapeHtml(x.h?.name||({steps:'Steps',squat:'Bodyweight Squats',calf:'Calf Raises',wall:'Wall Push-Ups'}[x.id]||x.id))}</b><em>${x.n} days</em></div>`).join('')||'<p>Complete a habit today to start a streak.</p>'}</div></div>`;
+ o.innerHTML=`<div class="quest-info-panel v110-perfect-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🏏 THALA FOR A REASON</div><div class="quest-info-title">Every 7 days</div><div class="v110-perfect-list">${s.rows.filter(x=>x.n>0).slice(0,25).map(x=>`<div><span>${x.h?.icon||'🔥'}</span><b>${escapeHtml(x.h?.name||({steps:'Steps',squat:'Bodyweight Squats',calf:'Calf Raises',wall:'Wall Push-Ups'}[x.id]||x.id))}</b><em>${x.n} days</em></div>`).join('')||''}</div></div>`;
  document.body.appendChild(o);o.querySelector('.quest-info-close').onclick=()=>o.remove();o.onclick=e=>{if(e.target===o)o.remove()};
 }
 const v157BaseDailyRender=renderDailyHabits;
