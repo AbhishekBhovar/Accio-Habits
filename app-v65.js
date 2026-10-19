@@ -3433,10 +3433,11 @@ habitRowsHtml=function(habits,day){
   family('TRAINING','gym',['fruit','incline','saunaDaily']);
   family('POST-WORKOUT','proteinCreatine',['supplements']);
 
-  if(map.healthyBreakfast || map.healthyLunch){
+  if(map.healthyBreakfast || map.healthyLunch || map.noUnplannedDinner){
     const nutrition=[];
     if(map.healthyBreakfast)nutrition.push(row('healthyBreakfast',false));
     if(map.healthyLunch)nutrition.push(row('healthyLunch',false));
+    if(map.noUnplannedDinner)nutrition.push(row('noUnplannedDinner',false));
     out.push(`<div class="v138-habit-family"><div class="v138-family-label">NUTRITION</div>${nutrition.join('')}</div>`);
   }
   if(map.water){
@@ -4136,7 +4137,7 @@ setTimeout(()=>render(),0);
         <div class="v156-champion-line">as a champion.</div>
       </div>
     </div>
-    <div class="v156-champion-credit">— Muhammad Ali</div>
+
   </div>`;
   document.body.appendChild(q);
 

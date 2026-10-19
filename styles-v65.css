@@ -3178,3 +3178,61 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
 #battleHub .adv60-choices button b{font-size:15px!important;font-weight:500!important;color:#f5efe2!important}
 #battleHub .adv60-choices button small{font-size:10px!important;letter-spacing:.08em!important;text-transform:uppercase!important;color:#b8aa85!important;opacity:.92!important}
 #battleHub .adv60-choices .v157-choice-number{font-size:12px!important;letter-spacing:.12em!important;color:#e7bd54!important;opacity:.95!important}
+
+
+/* =============================================================
+   v160 — unified design language: one rhythm for every panel.
+   Consolidated terminal rules intentionally supersede legacy v109–v159.
+   ============================================================= */
+:root{--ui-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;--ui-serif:Georgia,"Times New Roman",serif;--ui-text:#efe9dd;--ui-muted:#ada394;--ui-gold:#e0b84d;--ui-border:#574a2e;--ui-gap:10px;--ui-pad:14px;--ui-radius:15px}
+#view-today,#view-battle,#view-stats,.quest-info-overlay{font-family:var(--ui-sans)!important}
+/* Consistent daily section rhythm and shared item geometry */
+#dailyHabitList{display:flex!important;flex-direction:column!important;gap:14px!important}
+#dailyHabitList>.v138-habit-family,#v145MovementGroup,#v145RecoveryGroup{margin:0!important;padding:12px!important;border-radius:19px!important}
+#dailyHabitList .v138-family-label{font:700 11px/1.35 var(--ui-sans)!important;letter-spacing:.14em!important;margin:0 0 10px!important;color:var(--ui-muted)!important}
+#dailyHabitList .v138-habit-family>.habit-row,#dailyHabitList .v138-habit-family>.v138-habit-row,#dailyHabitList .v138-habit-family>.v138-linked-row,#dailyHabitList .v138-habit-family>.v138-standard-row{margin:0!important}
+#dailyHabitList .v138-habit-family{display:flex!important;flex-direction:column!important;gap:10px!important}
+#dailyHabitList .v138-habit-family .habit-row,#dailyHabitList .v138-habit-family .v138-row,#dailyHabitList .v138-habit-family .v138-linked-habit{min-height:58px!important;border-radius:14px!important}
+#dailyHabitList .habit-row,#dailyHabitList .v138-habit-row{padding:12px!important;box-sizing:border-box!important}
+#dailyHabitList .habit-copy strong,#dailyHabitList .v138-habit-family b{font-family:var(--ui-sans)!important;font-size:14px!important;line-height:1.35!important;letter-spacing:0!important}
+#dailyHabitList .habit-xp{font:700 14px/1 var(--ui-sans)!important;color:var(--ui-gold)!important}
+#v145MovementGroup .v145-movement-row,#v145MovementGroup .v125-steps-row{margin:0 0 10px!important;min-height:65px!important;padding:12px!important;box-sizing:border-box!important}
+#v145MovementGroup .v145-movement-row:last-child{margin-bottom:0!important}
+#v145MovementGroup .v145-movement-row strong,#v145MovementGroup .v125-steps-copy strong{font:650 14px/1.3 var(--ui-sans)!important}
+#v145MovementGroup .v145-movement-row small,#v145MovementGroup .v125-steps-copy small{font:400 11px/1.4 var(--ui-sans)!important}
+#v145RecoveryGroup .habit-row{margin:0 0 10px!important;min-height:58px!important}
+/* All four achievement panels share headings, cards, icon and count columns */
+.quest-info-overlay.quest-summon .quest-info-panel{width:min(91vw,400px)!important;max-width:400px!important;padding:24px 16px 18px!important;border-radius:24px!important;box-sizing:border-box!important}
+.quest-info-overlay.quest-summon .quest-info-kicker{font:750 15px/1.25 var(--ui-sans)!important;letter-spacing:.11em!important;color:var(--ui-gold)!important;text-align:center!important;margin:5px 26px 6px!important}
+.quest-info-overlay.quest-summon .quest-info-title{font:550 15px/1.3 var(--ui-serif)!important;letter-spacing:.035em!important;color:var(--ui-text)!important;text-align:center!important;text-decoration:none!important;margin:4px 20px 19px!important}
+.quest-info-overlay.quest-summon .quest-info-close{font:400 28px/1 var(--ui-sans)!important;top:12px!important;right:12px!important;color:#d3cec4!important}
+.quest-info-overlay.quest-summon .v109-key-list,.quest-info-overlay.quest-summon .v110-perfect-list,.quest-info-overlay.quest-summon .v145-win-list{display:grid!important;gap:10px!important;margin:12px 0 0!important}
+.quest-info-overlay.quest-summon .v109-key-row,.quest-info-overlay.quest-summon .v110-perfect-list>div,.quest-info-overlay.quest-summon .v145-win-list>div{display:grid!important;grid-template-columns:32px minmax(0,1fr) 42px!important;gap:10px!important;align-items:center!important;min-height:60px!important;padding:10px 12px!important;border:1px solid #51472f!important;border-radius:14px!important;background:#0c0e0d!important;box-sizing:border-box!important}
+.quest-info-overlay.quest-summon .v109-key-row>span,.quest-info-overlay.quest-summon .v110-perfect-list>div>span,.quest-info-overlay.quest-summon .v145-win-list>div>span{font-size:23px!important;text-align:center!important}
+.quest-info-overlay.quest-summon .v109-key-row b,.quest-info-overlay.quest-summon .v110-perfect-list b,.quest-info-overlay.quest-summon .v145-win-list b{font:600 15px/1.35 var(--ui-sans)!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;letter-spacing:0!important;color:var(--ui-text)!important}
+.quest-info-overlay.quest-summon .v109-key-row em,.quest-info-overlay.quest-summon .v110-perfect-list em,.quest-info-overlay.quest-summon .v145-win-list em{font:700 15px/1.2 var(--ui-sans)!important;text-align:right!important;color:var(--ui-gold)!important;white-space:nowrap!important}
+.quest-info-overlay.quest-summon .v110-perfect-list .done,.quest-info-overlay.quest-summon .v109-key-row.done,.quest-info-overlay.quest-summon .v145-win-list .done{border-color:#9b8038!important;background:#191a13!important}
+/* Shared stats and readiness layout */
+#statsDashboard .stats62-card,#statsDashboard .v109-overall>div{padding:14px!important;border-radius:16px!important}
+#statsDashboard .eyebrow,#statsDashboard .stats62-card>span.eyebrow{font:700 11px/1.3 var(--ui-sans)!important;letter-spacing:.13em!important}
+#statsDashboard .v109-stat-grid b{font:700 17px/1.3 var(--ui-sans)!important}
+#statsDashboard .v109-stat-grid small,#statsDashboard .v109-overall small{font:400 11px/1.4 var(--ui-sans)!important}
+#statsDashboard .v109-habit-card summary{font:600 14px/1.4 var(--ui-sans)!important;padding:13px!important}
+#battleHub .v135-readiness-card{padding:13px!important;min-height:0!important;border-radius:14px!important;margin-bottom:10px!important}
+#battleHub .v135-readiness-card b,#battleHub .v135-readiness-card strong{font-family:var(--ui-sans)!important;font-size:14px!important;line-height:1.4!important}
+#battleHub .v135-readiness-card small{font-family:var(--ui-sans)!important;font-size:11px!important;line-height:1.4!important}
+#battleHub .adv60-top h2{font-family:var(--ui-serif)!important;font-size:clamp(26px,6.5vw,36px)!important;line-height:1.15!important}
+#battleHub .adv60-story{font-family:var(--ui-serif)!important;font-size:16px!important;line-height:1.65!important;margin:19px 0 23px!important}
+#battleHub .adv60>h3{font:750 12px/1.4 var(--ui-sans)!important;letter-spacing:.13em!important;margin:0 0 12px!important}
+#battleHub .adv60-choices button b{font:500 15px/1.45 var(--ui-sans)!important}
+#battleHub .adv60-choices button small{font:500 10px/1.4 var(--ui-sans)!important;letter-spacing:.08em!important}
+/* Disaster Prevention: align typography with all other dialogs */
+.v148-food-panel .quest-info-kicker{font:750 15px/1.3 var(--ui-sans)!important;letter-spacing:.1em!important}
+.v148-food-panel .quest-info-title{font:550 15px/1.3 var(--ui-serif)!important;text-decoration:none!important}
+.v148-food-panel .v148-checklist button b{font:600 13px/1.3 var(--ui-sans)!important}
+/* Hand-painted handwriting, not ornate Edwardian/calligraphic script */
+.v156-champion-text{font-family:'Marker Felt','Chalkboard SE','Bradley Hand','Comic Sans MS',cursive!important;font-size:clamp(22px,5.35vw,27px)!important;font-weight:600!important;font-style:normal!important;letter-spacing:-.015em!important;line-height:1.22!important;text-shadow:0 0 14px rgba(228,205,154,.07)!important}
+.v156-champion-line-lead{margin-bottom:38px!important}
+.v156-champion-paragraph .v156-champion-line+.v156-champion-line{margin-top:7px!important}
+.v156-champion-copy{width:min(86vw,360px)!important}
+@media(max-width:390px){.quest-info-overlay.quest-summon .quest-info-panel{padding:20px 12px 15px!important}.quest-info-overlay.quest-summon .v109-key-row,.quest-info-overlay.quest-summon .v110-perfect-list>div,.quest-info-overlay.quest-summon .v145-win-list>div{padding:9px!important}.quest-info-overlay.quest-summon .v109-key-row b,.quest-info-overlay.quest-summon .v110-perfect-list b,.quest-info-overlay.quest-summon .v145-win-list b{font-size:14px!important}}
