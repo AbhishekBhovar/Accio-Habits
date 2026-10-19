@@ -3369,7 +3369,7 @@ function v145MovementRow(kind){
     <span class="v125-steps-icon">${icon}</span>
     <span class="v125-steps-copy">
       <strong>${label}</strong>
-      <small>${count} / 100 • ${xp}/10 XP</small>
+      <small>${count} / 50 • ${xp}/10 XP</small>
       <span class="v125-steps-track"><i style="width:${Math.min(100,count*2)}%"></i></span>
     </span>
     <span class="v125-steps-actions">
@@ -4137,7 +4137,7 @@ setTimeout(()=>render(),0);
         <div class="v156-champion-line">as a champion.</div>
       </div>
     </div>
-
+    
   </div>`;
   document.body.appendChild(q);
 
