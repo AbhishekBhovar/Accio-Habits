@@ -3610,6 +3610,7 @@ const V148_FOOD_ACTIONS=[
   {id:'washFace',icon:'🧼',label:'Wash your face'},
   {id:'moveReset',icon:'🚶',label:'20 squats or walk around the block'},
   {id:'restartQuestion',icon:'🔁',label:'Do I really want to restart tomorrow?'},
+  {id:'afterFeeling',icon:'💭',label:'How will I feel after eating this?'},
   {id:'avalanche',icon:'🏔️',label:'Open Avalanche'},
   {id:'meditation5',icon:'🧘',label:'Meditate for 5 minutes'}
 ];
@@ -4004,16 +4005,16 @@ v148OpenFoodUrge=function(){
       <button type="button" class="quest-info-close" aria-label="Close">×</button>
       <div class="quest-info-kicker">🛡️ DISASTER PREVENTION</div>
       <div class="quest-info-title">Prevention checklist</div><div class="v154-prevention-quote">“Your dreams are on the other side of this temptation.”</div>
-      <div class="v148-food-sub">${n} / ${V148_FOOD_ACTIONS.length} tried · +${n*2} XP</div>
+      <div class="v148-food-sub">${n} / ${V148_FOOD_ACTIONS.length} tried</div>
       <div class="v148-checklist">
-        ${V148_FOOD_ACTIONS.map(a=>`<button type="button" data-v148-action="${a.id}" class="${used.has(a.id)?'done':''}"><span>${a.icon}</span><b>${escapeHtml(a.label)}</b><em>${used.has(a.id)?'✓':'+2'}</em></button>`).join('')}
+        ${V148_FOOD_ACTIONS.map(a=>`<button type="button" data-v148-action="${a.id}" class="${used.has(a.id)?'done':''}"><span>${a.icon}</span><b>${escapeHtml(a.label)}</b><em>${used.has(a.id)?'✓':''}</em></button>`).join('')}
       </div>
       <div class="v148-outcome-title">What happened?</div>
       <div class="v148-outcomes">
         <button type="button" data-v148-outcome="prevented" class="prevented ${current.outcome==='prevented'?'selected':''}">Urge passed</button>
-        <button type="button" data-v148-outcome="junk" class="${current.outcome==='junk'?'selected':''}">🍔 Junk food · −50</button>
-        <button type="button" data-v148-outcome="late" class="${current.outcome==='late'?'selected':''}">🌙 Late-night binge · −50</button>
-        <button type="button" data-v148-outcome="both" class="${current.outcome==='both'?'selected':''}">🍔🌙 Both · −100</button>
+        <button type="button" data-v148-outcome="junk" class="${current.outcome==='junk'?'selected':''}">🍔 Junk food</button>
+        <button type="button" data-v148-outcome="late" class="${current.outcome==='late'?'selected':''}">🌙 Late-night binge</button>
+        <button type="button" data-v148-outcome="both" class="${current.outcome==='both'?'selected':''}">🍔🌙 Both</button>
       </div>
       ${current.outcome?`<div class="v152-food-saved">Outcome saved · you can still edit anything</div>`:''}
     </div>`;
