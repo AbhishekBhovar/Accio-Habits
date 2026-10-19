@@ -3229,3 +3229,32 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
  #v145MovementGroup .v125-steps-row,#v145MovementGroup .v145-movement-row{grid-template-columns:25px minmax(0,1fr) auto!important;gap:5px!important;padding:9px 5px!important}
  #v145MovementGroup .v125-steps-actions button{min-width:34px!important;font-size:10px!important}
 }
+/* v162: iPhone-sized layout correction; stable icon/text/reward columns. */
+#dailyHabitList .habit-row{display:grid!important;grid-template-columns:28px minmax(0,1fr) 52px!important;gap:8px!important;align-items:center!important;min-width:0!important;max-width:100%!important;padding:10px 9px!important;box-sizing:border-box!important}
+#dailyHabitList .habit-copy{min-width:0!important;max-width:100%!important;overflow:visible!important}
+#dailyHabitList .habit-copy strong{display:block!important;min-width:0!important;font-size:13px!important;line-height:1.32!important;overflow-wrap:anywhere!important;word-break:normal!important;white-space:normal!important}
+#dailyHabitList .habit-xp{width:52px!important;min-width:52px!important;max-width:52px!important;justify-self:end!important;text-align:right!important;white-space:nowrap!important;font-size:13px!important}
+#dailyHabitList .v138-linked-wrap{grid-template-columns:10px minmax(0,1fr)!important;gap:2px!important;padding-left:0!important}
+#dailyHabitList .v138-linked-wrap .habit-row{grid-template-columns:24px minmax(0,1fr) 51px!important;gap:6px!important;padding:9px 7px!important}
+#dailyHabitList .v138-habit-family,#v145RecoveryGroup{gap:7px!important;padding:8px!important}
+#dailyHabitList .v138-linked-row .habit-copy strong{font-size:12px!important}
+#v145MovementGroup .v125-steps-row,#v145MovementGroup .v145-movement-row{display:grid!important;grid-template-columns:23px minmax(0,1fr) 93px!important;gap:5px!important;padding:9px 6px!important;align-items:center!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
+#v145MovementGroup .v125-steps-copy{min-width:0!important;max-width:100%!important;overflow:hidden!important}
+#v145MovementGroup .v125-steps-copy strong{font-size:12px!important;overflow-wrap:anywhere!important;white-space:normal!important}
+#v145MovementGroup .v125-steps-actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:4px!important;width:93px!important;max-width:93px!important;min-width:0!important}
+#v145MovementGroup .v125-steps-actions button{width:100%!important;min-width:0!important;max-width:100%!important;padding:0 2px!important;font-size:10px!important;box-sizing:border-box!important}
+#v145MovementGroup .v125-steps-track{width:100%!important;max-width:100%!important}
+#v145RecoveryGroup .habit-row{margin:0!important;min-height:50px!important}
+#v145RecoveryGroup .sleep-card{margin:0!important}
+#battleHub .v135-readiness-card{min-height:0!important;padding:10px!important;margin:7px 0!important}
+#battleHub .v135-readiness-head strong{font-size:13px!important}
+
+/* v164 targeted sizing repair: do not rescale other components. */
+#view-stats .stats57-title h2,#view-stats .page-title h2{font-size:22px!important;line-height:1.2!important;margin:2px 0 8px!important;font-weight:700!important;letter-spacing:-.02em!important}
+#battleHub .v135-xp-note{font-size:11px!important;line-height:1.45!important;font-weight:400!important;letter-spacing:0!important;margin:10px 2px 2px!important;color:#968d80!important;max-width:48ch!important}
+#dailyHabitList .habit-row.water-row{display:grid!important;grid-template-columns:25px minmax(0,1fr) 104px!important;column-gap:6px!important;max-width:100%!important;min-width:0!important;padding:9px 8px!important;align-items:center!important}
+#dailyHabitList .water-row .habit-copy{min-width:0!important;overflow:hidden!important}
+#dailyHabitList .water-row .habit-copy strong{font-size:12px!important;line-height:1.25!important;overflow-wrap:normal!important;word-break:normal!important}
+#dailyHabitList .water-row .v110-water-buttons{display:grid!important;grid-template-columns:40px 60px!important;gap:4px!important;width:104px!important;min-width:0!important;max-width:104px!important;justify-self:end!important;box-sizing:border-box!important}
+#dailyHabitList .water-row .v110-water-buttons button{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;padding:0 2px!important;height:34px!important;font-size:11px!important;white-space:nowrap!important}
+#view-stats .v109-overall strong{font-size:17px!important;line-height:1.2!important}
