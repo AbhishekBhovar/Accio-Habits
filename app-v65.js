@@ -3755,16 +3755,16 @@ function v148FoodStats(days=30){
   return {sessions,prevented,incidents,junk,late,avgPrevented:avg(prevented),avgIncident:avg(incidents),all10,actionRows};
 }
 function v148FoodStatsHtml(){
-  const s=v148FoodStats(30),rate=s.sessions.length?Math.round(s.prevented.length/s.sessions.length*100):0;
+  const s=v148FoodStats(30),rate=s.sessions.length?`${Math.round(s.prevented.length/s.sessions.length*100)}%`:'—';
   return `<section class="stats62-card v148-food-stats">
     <span class="eyebrow">FOOD URGE PREVENTION · 30 DAYS</span>
     <div class="v148-food-stat-grid">
       <b>${s.sessions.length}<small>Urges logged</small></b>
       <b>${s.prevented.length}<small>Prevented</small></b>
-      <b>${rate}%<small>Prevention rate</small></b>
+      <b>${rate}<small>Prevention rate</small></b>
       <b>${s.junk.length}<small>Junk-food incidents</small></b>
       <b>${s.late.length}<small>Late-night binges</small></b>
-      <b>${s.all10}/${s.incidents.length}<small>All 10 before incident</small></b>
+      <b>${s.all10}/${s.incidents.length}<small>All 9 before incident</small></b>
     </div>
     <div class="v148-food-averages"><span>Avg actions before prevention <b>${s.avgPrevented.toFixed(1)}</b></span><span>Avg actions before incident <b>${s.avgIncident.toFixed(1)}</b></span></div>
     <details class="v148-action-stats"><summary>Checklist effectiveness</summary>
@@ -4161,6 +4161,18 @@ setTimeout(()=>render(),0);
   if(d && Object.prototype.hasOwnProperty.call(d,'v148FoodUrges'))delete d.v148FoodUrges;
  }
  save.v158FoodUrgeTestResetDone=true;
+ persist();
+})();
+
+/* v167 — user-requested one-time reset of Food Urge Prevention session history.
+   This deletes only feature-specific logs, not daily habits, XP, penalties,
+   or any other saved information. The guard protects all new entries. */
+(function v167ResetFoodUrgeSessions(){
+ if(save.v167FoodUrgeResetDone)return;
+ for(const day of Object.values(save.daily||{})){
+  if(day && Object.prototype.hasOwnProperty.call(day,'v148FoodUrges'))delete day.v148FoodUrges;
+ }
+ save.v167FoodUrgeResetDone=true;
  persist();
 })();
 

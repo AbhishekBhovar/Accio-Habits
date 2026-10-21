@@ -3249,3 +3249,38 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
 .v156-champion-text {font-family:'Segoe Print','Bradley Hand','Noteworthy',cursive!important;font-size:clamp(18px,4.8vw,23px)!important;font-weight:400!important;line-height:1.2!important;text-shadow:none!important;}
 .v156-champion-line-lead {margin-bottom:28px!important;}
 @media(max-width:390px){#dailyHabitList .habit-row{grid-template-columns:24px minmax(0,1fr) 42px!important;gap:6px!important;padding:9px 7px!important;}#dailyHabitList .habit-xp{width:42px!important;min-width:42px!important;}#v145MovementGroup .v125-steps-row,#v145MovementGroup .v145-movement-row{grid-template-columns:20px minmax(0,1fr) 88px!important;}#v145MovementGroup .v125-steps-actions{width:88px!important;max-width:88px!important;} }
+
+
+/* v167: only an explicitly chosen "Urge passed" outcome is green. */
+.v148-food-overlay .v148-outcomes button[data-v148-outcome="prevented"]:not(.selected) {
+  color:#ede5d7!important;
+  background:#100e0e!important;
+  border-color:#66552c!important;
+  box-shadow:none!important;
+}
+.v148-food-overlay .v148-outcomes button[data-v148-outcome="prevented"].selected {
+  color:#b8edc5!important;
+  background:rgba(72,140,92,.22)!important;
+  border-color:#78c892!important;
+}
+/* v167: collapsed Stats habit entries are single compact rows. */
+#view-stats .v109-habit-stats {display:grid!important;gap:7px!important;}
+#view-stats .v109-habit-stats > details.v109-habit-card {
+  padding:0!important;
+  margin:0!important;
+  min-height:0!important;
+  border-radius:12px!important;
+}
+#view-stats .v109-habit-stats > details.v109-habit-card > summary {
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:center!important;
+  gap:10px!important;
+  min-height:50px!important;
+  padding:10px 12px!important;
+  line-height:1.3!important;
+  font-size:13px!important;
+  font-weight:600!important;
+}
+#view-stats .v109-habit-stats > details.v109-habit-card > summary span {min-width:0!important;overflow-wrap:break-word!important;}
+#view-stats .v109-habit-stats > details.v109-habit-card > summary b {white-space:nowrap!important;font-size:13px!important;font-weight:600!important;}
