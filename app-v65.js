@@ -1361,7 +1361,7 @@ function logSaunaDaily(){const key=activeDailyKey(),d=getDaily(key),n=saunaSessi
 function applySaunaBank(){const key=activeDailyKey(),prev=localDateKey(addDays(parseDateKey(key),-1)),pd=save.daily?.[prev],d=getDaily(key);if(pd?.saunaBankTomorrow&&!d.saunaBankApplied&&!d.habits.saunaDaily?.completed){d.saunaBankApplied=true;d.habits.saunaDaily={completed:true,xpAwarded:30,banked:true,ts:Date.now()};addXP(30,'Sauna — banked yesterday');}}
 function saveSleep(){ensureAudio();const key=activeDailyKey(),day=getDaily(key),main=Math.max(0,Number(document.querySelector('#sleepHours').value)||0),nap=Math.max(0,Number(document.querySelector('#napHours').value)||0),total=main+nap;if(total<=0)return toast('Enter your sleep or nap hours first.','warn');const newXp=sleepXP(total),oldXp=day.sleep?.xpAwarded||0,delta=newXp-oldXp;day.sleep={mainHours:main,napHours:nap,totalHours:total,xpAwarded:newXp,scoreXp:newXp,savedAt:Date.now()};if(delta>0)addXP(delta,'Sleep');else if(delta<0)removeXP(-delta,'Sleep');else{persist();render();}toast(`Sleep saved • ${total.toFixed(1)}h • ${newXp}/50 XP`);render();}
 function habitRowsHtml(habits,day){return habits.map(h=>{if(h.id==='water'){const ml=Number(day.waterMl||0),xp=waterXp(ml);return `<div class="habit-row water-row ${ml>=2500?'done':''}"><span class="habit-icon">💧</span><span class="habit-copy"><strong>2.5 L Water by 8 PM</strong><small>${(ml/1000).toFixed(1)} / 2.5 L • ${xp}/25 XP</small></span><button class="water-quick" data-water="500">+0.5L</button></div>`;}if(h.id==='saunaDaily'){const n=Number(day.saunaSessions||0),done=day.habits?.saunaDaily?.completed;return `<button class="habit-row ${done?'done':''}" data-sauna><span class="habit-icon">🧖</span><span class="habit-copy"><strong>Sauna — 30 min</strong><small>${day.habits?.saunaDaily?.banked?'Banked yesterday ✓':n>=2?'Tomorrow banked ✓':done?'Tap again after another 30 min to bank tomorrow':'30 min = +30 XP'}</small></span><span class="habit-xp">${done?'✓':'+30'}</span></button>`;}const entry=day.habits[h.id],done=entry?.completed;return `<button class="habit-row ${done?'done':''}" data-habit="${h.id}"><span class="habit-icon">${h.icon}</span><span class="habit-copy"><strong>${escapeHtml(h.name)}</strong><small>${escapeHtml(h.rule||'')}</small></span><span class="habit-xp">${done?'↶':`+${h.xp}`}</span></button>`;}).join('');}
-function renderDailyHabits(){const key=activeDailyKey();applySaunaBank();const day=getDaily(key),list=document.querySelector('#dailyHabitList'),habits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),completed=habits.filter(h=>h.id==='water'?Number(day.waterMl||0)>=2500:day.habits[h.id]?.completed).length;document.querySelector('#routineBadge').textContent=`${completed} / ${habits.length}`;document.querySelector('#todayDateLabel').textContent=key===localDateKey()?'Today':`Yesterday · ${prettyDate(key)}`;list.innerHTML=habitRowsHtml(habits,day);list.querySelectorAll('[data-habit]').forEach(b=>b.onclick=()=>toggleHabit(b.dataset.habit));list.querySelectorAll('[data-water]').forEach(b=>b.onclick=()=>addWater(Number(b.dataset.water)));list.querySelectorAll('[data-sauna]').forEach(b=>b.onclick=logSaunaDaily);const s=v109Status(key),strip=document.querySelector('#v109StatusStrip');if(strip)strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/4</button><span>✨ ${s.perfectDone}/11</span><span>💧 ${(Number(day.waterMl||0)/1000).toFixed(1)}/2.5 L</span>`;const yBtn=document.querySelector('#v109Yesterday'),tBtn=document.querySelector('#v109Today');if(yBtn)yBtn.classList.toggle('active',key!==localDateKey());if(tBtn)tBtn.classList.toggle('active',key===localDateKey());document.querySelector('#openKeystones')?.addEventListener('click',showKeystonePopup);}
+function renderDailyHabits(){const key=activeDailyKey();applySaunaBank();const day=getDaily(key),list=document.querySelector('#dailyHabitList'),habits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),completed=habits.filter(h=>h.id==='water'?Number(day.waterMl||0)>=2500:day.habits[h.id]?.completed).length;document.querySelector('#routineBadge').textContent=`${completed} / ${habits.length}`;document.querySelector('#todayDateLabel').textContent=key===localDateKey()?'Today':`Yesterday · ${prettyDate(key)}`;list.innerHTML=habitRowsHtml(habits,day);list.querySelectorAll('[data-habit]').forEach(b=>b.onclick=()=>toggleHabit(b.dataset.habit));list.querySelectorAll('[data-water]').forEach(b=>b.onclick=()=>addWater(Number(b.dataset.water)));list.querySelectorAll('[data-sauna]').forEach(b=>b.onclick=logSaunaDaily);const s=v109Status(key),strip=document.querySelector('#v109StatusStrip');if(strip)strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/${V157_KEYSTONE_IDS.length}</button><span>✨ ${s.perfectDone}/11</span><span>💧 ${(Number(day.waterMl||0)/1000).toFixed(1)}/2.5 L</span>`;const yBtn=document.querySelector('#v109Yesterday'),tBtn=document.querySelector('#v109Today');if(yBtn)yBtn.classList.toggle('active',key!==localDateKey());if(tBtn)tBtn.classList.toggle('active',key===localDateKey());document.querySelector('#openKeystones')?.addEventListener('click',showKeystonePopup);}
 function renderSleep(){const day=getDaily(activeDailyKey()),s=day.sleep;const a=document.querySelector('#sleepHours'),b=document.querySelector('#napHours');if(document.activeElement!==a)a.value=s?.mainHours??'';if(document.activeElement!==b)b.value=s?.napHours??'';document.querySelector('#sleepXpPreview').textContent=`${s?.scoreXp??0} / 50 XP`;}
 function showKeystonePopup(){document.querySelector('.quest-info-overlay')?.remove();const key=activeDailyKey(),d=getDaily(key),s=v109Status(key),bottle=Number(save.v109Bottle||600);const overlay=document.createElement('div');overlay.className='quest-info-overlay quest-summon v109-keystone-overlay';overlay.innerHTML=`<div class="quest-info-panel v109-keystone-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🔑 KEYSTONE HABITS</div><div class="quest-info-title">${key===localDateKey()?"Today's anchors":"Yesterday's anchors"}</div><div class="v109-key-list">${[['wake330','⏰','Wake Up | 2:45 am',50],['vipassanaMorning','🧘','Morning Anapana & Vipassana',20],['gym','🏋️','Gym Workout',100]].map(x=>`<button data-keyhabit="${x[0]}" class="v109-key-row ${dayHabitDone(key,x[0])?'done':''}"><span>${x[1]}</span><b>${x[2]}</b><em>${dayHabitDone(key,x[0])?'✓':`+${x[3]}`}</em></button>`).join('')}<div class="v109-water-box"><div><b>💧 Water</b><em>${(Number(d.waterMl||0)/1000).toFixed(1)} / 2.5 L</em></div><div class="v109-water-track"><i style="width:${Math.min(100,Number(d.waterMl||0)/25)}%"></i></div><small>Bottle</small><div class="v109-bottles">${[600,1000,2200].map(n=>`<button data-bottle="${n}" class="${bottle===n?'active':''}">${n===1000?'1 L':n===2200?'2.2 L':'600 mL'}</button>`).join('')}</div><div class="v109-water-actions"><button data-addbottle="${bottle}">+ Finished bottle</button><button data-water500>+ 500 mL</button></div></div></div><div class="v109-key-footer">${s.keystoneDay?'🔑 Keystone Day complete ✓':'Complete all four → +50 XP'}</div></div>`;document.body.appendChild(overlay);const close=()=>overlay.remove();overlay.querySelector('.quest-info-close').onclick=close;overlay.onclick=e=>{if(e.target===overlay)close();};overlay.querySelectorAll('[data-keyhabit]').forEach(b=>b.onclick=()=>{toggleHabit(b.dataset.keyhabit);close();showKeystonePopup();});overlay.querySelectorAll('[data-bottle]').forEach(b=>b.onclick=()=>{save.v109Bottle=Number(b.dataset.bottle);persist();close();showKeystonePopup();});overlay.querySelector('[data-addbottle]').onclick=()=>{addWater(Number(overlay.querySelector('[data-addbottle]').dataset.addbottle));close();showKeystonePopup();};overlay.querySelector('[data-water500]').onclick=()=>{addWater(500);close();showKeystonePopup();};}
 function maybeShowQuestInfo(){const key='accioKeystoneShownV109';if(sessionStorage.getItem(key)==='1')return;sessionStorage.setItem(key,'1');showKeystonePopup();}
@@ -1422,7 +1422,7 @@ habitRowsHtml = function(habits,day){return habits.map(h=>{
  const entry=day.habits[h.id],done=entry?.completed;return `<button class="habit-row ${done?'done':''}" data-habit="${h.id}"><span class="habit-icon">${h.icon}</span><span class="habit-copy"><strong>${escapeHtml(h.name)}</strong><small>${escapeHtml(h.rule||'')}</small></span><span class="habit-xp">${done?'↶':`+${h.xp}`}</span></button>`;
 }).join('');}
 
-renderDailyHabits = function(){const key=activeDailyKey();applySaunaBank();const day=getDaily(key),list=document.querySelector('#dailyHabitList'),habits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),completed=habits.filter(h=>h.id==='water'?Number(day.waterMl||0)>=2500:day.habits[h.id]?.completed).length;document.querySelector('#routineBadge').textContent=`${completed} / ${habits.length}`;document.querySelector('#todayDateLabel').textContent=key===localDateKey()?'Today':`Yesterday · ${prettyDate(key)}`;list.innerHTML=habitRowsHtml(habits,day);list.querySelectorAll('[data-habit]').forEach(b=>b.onclick=()=>toggleHabit(b.dataset.habit));list.querySelectorAll('[data-water]').forEach(b=>b.onclick=()=>addWater(Number(b.dataset.water)));list.querySelectorAll('[data-water-minus]').forEach(b=>b.onclick=()=>removeWater(Number(b.dataset.waterMinus)));list.querySelectorAll('[data-sauna]').forEach(b=>b.onclick=showSaunaControls);const s=v109Status(key),strip=document.querySelector('#v109StatusStrip');if(strip)strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/4</button><button id="openPerfect">✨ ${s.perfectDone}/11</button><button id="openWater">💧 ${(Number(day.waterMl||0)/1000).toFixed(1)}/2.5 L</button>`;const yBtn=document.querySelector('#v109Yesterday'),tBtn=document.querySelector('#v109Today');if(yBtn)yBtn.classList.toggle('active',key!==localDateKey());if(tBtn)tBtn.classList.toggle('active',key===localDateKey());document.querySelector('#openKeystones')?.addEventListener('click',showKeystonePopup);document.querySelector('#openPerfect')?.addEventListener('click',showPerfectPopup);document.querySelector('#openWater')?.addEventListener('click',showWaterPopup);}
+renderDailyHabits = function(){const key=activeDailyKey();applySaunaBank();const day=getDaily(key),list=document.querySelector('#dailyHabitList'),habits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),completed=habits.filter(h=>h.id==='water'?Number(day.waterMl||0)>=2500:day.habits[h.id]?.completed).length;document.querySelector('#routineBadge').textContent=`${completed} / ${habits.length}`;document.querySelector('#todayDateLabel').textContent=key===localDateKey()?'Today':`Yesterday · ${prettyDate(key)}`;list.innerHTML=habitRowsHtml(habits,day);list.querySelectorAll('[data-habit]').forEach(b=>b.onclick=()=>toggleHabit(b.dataset.habit));list.querySelectorAll('[data-water]').forEach(b=>b.onclick=()=>addWater(Number(b.dataset.water)));list.querySelectorAll('[data-water-minus]').forEach(b=>b.onclick=()=>removeWater(Number(b.dataset.waterMinus)));list.querySelectorAll('[data-sauna]').forEach(b=>b.onclick=showSaunaControls);const s=v109Status(key),strip=document.querySelector('#v109StatusStrip');if(strip)strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/${V157_KEYSTONE_IDS.length}</button><button id="openPerfect">✨ ${s.perfectDone}/11</button><button id="openWater">💧 ${(Number(day.waterMl||0)/1000).toFixed(1)}/2.5 L</button>`;const yBtn=document.querySelector('#v109Yesterday'),tBtn=document.querySelector('#v109Today');if(yBtn)yBtn.classList.toggle('active',key!==localDateKey());if(tBtn)tBtn.classList.toggle('active',key===localDateKey());document.querySelector('#openKeystones')?.addEventListener('click',showKeystonePopup);document.querySelector('#openPerfect')?.addEventListener('click',showPerfectPopup);document.querySelector('#openWater')?.addEventListener('click',showWaterPopup);}
 
 function compactWaterHtml(d){const ml=Number(d.waterMl||0),pct=Math.min(100,Math.floor(ml/500)*20);return `<div class="v110-water-compact"><div class="v110-water-head"><span>💧 <b>Water</b><small>${(ml/1000).toFixed(1)} / 2.5 L</small></span><button data-water-plus>+500 mL</button></div><div class="v109-water-track v110-five-step"><i style="width:${pct}%"></i><span></span><span></span><span></span><span></span></div><div class="v110-water-meta"><b>${pct}%</b><button data-water-minus-popup ${ml<=0?'disabled':''}>↶ −500 mL</button></div></div>`;}
 function bindCompactWater(o,reopen){o.querySelector('[data-water-plus]')?.addEventListener('click',()=>{o.remove();addWater(500);reopen()});o.querySelector('[data-water-minus-popup]')?.addEventListener('click',()=>{o.remove();removeWater(500);reopen()});}
@@ -1467,7 +1467,7 @@ showSaunaControls = function(){
  document.body.appendChild(o);const close=()=>o.remove();o.querySelector('.quest-info-close').onclick=close;o.onclick=e=>{if(e.target===o)close()};o.querySelector('[data-sauna-add]')?.addEventListener('click',()=>{close();logSaunaDaily()});o.querySelector('[data-sauna-undo]').onclick=()=>{close();undoSaunaDaily()};
 };
 
-renderDailyHabits = function(){const key=activeDailyKey();applySaunaBank();const day=getDaily(key),list=document.querySelector('#dailyHabitList'),habits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),completed=habits.filter(h=>h.id==='water'?Number(day.waterMl||0)>=2500:day.habits[h.id]?.completed).length;document.querySelector('#routineBadge').textContent=`${completed} / ${habits.length}`;document.querySelector('#todayDateLabel').textContent=key===localDateKey()?'Today':`Yesterday · ${prettyDate(key)}`;list.innerHTML=habitRowsHtml(habits,day);list.querySelectorAll('[data-habit]').forEach(b=>b.onclick=()=>toggleHabit(b.dataset.habit));list.querySelectorAll('[data-water]').forEach(b=>b.onclick=()=>addWater(Number(b.dataset.water)));list.querySelectorAll('[data-water-minus]').forEach(b=>b.onclick=()=>removeWater(Number(b.dataset.waterMinus)));list.querySelectorAll('[data-sauna]').forEach(b=>b.onclick=showSaunaControls);const s=v109Status(key),strip=document.querySelector('#v109StatusStrip');if(strip)strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/4</button><button id="openPerfect">✨ ${s.perfectDone}/11</button>`;const yBtn=document.querySelector('#v109Yesterday'),tBtn=document.querySelector('#v109Today');if(yBtn)yBtn.classList.toggle('active',key!==localDateKey());if(tBtn)tBtn.classList.toggle('active',key===localDateKey());document.querySelector('#openKeystones')?.addEventListener('click',showKeystonePopup);document.querySelector('#openPerfect')?.addEventListener('click',showPerfectPopup);}
+renderDailyHabits = function(){const key=activeDailyKey();applySaunaBank();const day=getDaily(key),list=document.querySelector('#dailyHabitList'),habits=DATA.habits.dailyHabits.filter(h=>h.input!=='sleep'),completed=habits.filter(h=>h.id==='water'?Number(day.waterMl||0)>=2500:day.habits[h.id]?.completed).length;document.querySelector('#routineBadge').textContent=`${completed} / ${habits.length}`;document.querySelector('#todayDateLabel').textContent=key===localDateKey()?'Today':`Yesterday · ${prettyDate(key)}`;list.innerHTML=habitRowsHtml(habits,day);list.querySelectorAll('[data-habit]').forEach(b=>b.onclick=()=>toggleHabit(b.dataset.habit));list.querySelectorAll('[data-water]').forEach(b=>b.onclick=()=>addWater(Number(b.dataset.water)));list.querySelectorAll('[data-water-minus]').forEach(b=>b.onclick=()=>removeWater(Number(b.dataset.waterMinus)));list.querySelectorAll('[data-sauna]').forEach(b=>b.onclick=showSaunaControls);const s=v109Status(key),strip=document.querySelector('#v109StatusStrip');if(strip)strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/${V157_KEYSTONE_IDS.length}</button><button id="openPerfect">✨ ${s.perfectDone}/11</button>`;const yBtn=document.querySelector('#v109Yesterday'),tBtn=document.querySelector('#v109Today');if(yBtn)yBtn.classList.toggle('active',key!==localDateKey());if(tBtn)tBtn.classList.toggle('active',key===localDateKey());document.querySelector('#openKeystones')?.addEventListener('click',showKeystonePopup);document.querySelector('#openPerfect')?.addEventListener('click',showPerfectPopup);}
 
 xpHistoryHtml = function(days){const rows=dailyXpHistory(days),ref=295,pointGap=days<=31?14:days<=90?8:5,chartW=Math.max(300,(rows.length-1)*pointGap+16),plotH=140,peak=Math.max(400,...rows.map(x=>x.xp)),points=rows.map((x,i)=>`${(8+i*pointGap).toFixed(1)},${(plotH-(x.xp/peak*plotH)).toFixed(1)}`).join(' '),refY=plotH-(ref/peak*plotH);return `<div class="xp-max-note">Reference: ${ref} XP — Perfect Day Core</div><div class="xp-history-scroll" id="xpHistoryScroll"><div class="v112-xp-line-wrap" style="width:${chartW}px"><svg class="xp-trend-line v112-line-only" style="width:${chartW}px" viewBox="0 0 ${chartW} ${plotH+22}" preserveAspectRatio="none"><line class="xp-core-line" x1="0" y1="${refY}" x2="${chartW}" y2="${refY}"></line><polyline points="${points}"></polyline>${rows.map((x,i)=>`<circle class="v112-xp-point" data-date="${x.key}" data-xp="${x.xp}" data-max="${ref}" cx="${8+i*pointGap}" cy="${plotH-(x.xp/peak*plotH)}" r="${days<=31?3:2.2}"></circle>`).join('')}${days<=31?rows.map((x,i)=>`<text x="${8+i*pointGap}" y="${plotH+18}" text-anchor="middle">${x.date.getDate()}</text>`).join(''):''}</svg></div></div>`;}
 bindXpHistory = function(){const days=Number(ui.statsXpRange||30);document.querySelectorAll('[data-xp-range]').forEach(btn=>btn.onclick=()=>{ui.statsXpRange=Number(btn.dataset.xpRange);renderStats();});document.querySelectorAll('.v112-xp-point').forEach(pt=>pt.addEventListener('click',()=>{const d=parseDateKey(pt.dataset.date),label=d.toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short',year:'numeric'}),detail=document.querySelector('#xpDayDetail');if(detail)detail.textContent=`${label} • ${Number(pt.dataset.xp||0)} XP`;document.querySelectorAll('.v112-xp-point.selected').forEach(x=>x.classList.remove('selected'));pt.classList.add('selected');}));const scroll=document.querySelector('#xpHistoryScroll');if(scroll)requestAnimationFrame(()=>{scroll.scrollLeft=scroll.scrollWidth;});}
@@ -2531,7 +2531,7 @@ showKeystonePopup=function(){
   o.innerHTML=`<div class="quest-info-panel v109-keystone-panel">
     <button class="quest-info-close">×</button>
     <div class="quest-info-kicker">🔑 KEYSTONE HABITS</div>
-    <div class="quest-info-title">${s.keyDone} / 4 anchors</div>
+    <div class="quest-info-title">${s.keyDone} / ${V157_KEYSTONE_IDS.length} anchors</div>
     <div class="v109-key-list">
       ${allDone
         ? `<div class="v121-keystone-complete"><span>🔑</span><b>Keystone Day Complete</b><small>All four anchors complete • +50 XP</small></div>`
@@ -3032,7 +3032,7 @@ setTimeout(()=>{try{render();}catch(e){console.error('v135 render',e)}},0);
   });
   Object.assign(byId('saunaDaily')||{},{
     name:'Sauna | 30 min',
-    rule:'Post-workout when used'
+    rule:'Morning sauna session'
   });
   Object.assign(byId('proteinCreatine')||{},{
     name:'Protein + Creatine Smoothie',
@@ -3074,7 +3074,7 @@ function v138SaunaRow(h,day,linked=false){
   const done=!!day.habits?.saunaDaily?.completed;
   return `<button class="habit-row ${done?'done':''} ${linked?'v138-linked-row':''}" data-sauna>
     <span class="habit-icon">🧖</span>
-    <span class="habit-copy"><strong>Sauna | 30 min</strong><small>${done?'Completed · tap to undo':'Post-workout when used'}</small></span>
+    <span class="habit-copy"><strong>Sauna</strong><small>${done?'Completed · tap to undo':'Morning sauna session'}</small></span>
     <span class="habit-xp">${done?'↶':'+30'}</span>
   </button>`;
 }
@@ -3429,8 +3429,8 @@ habitRowsHtml=function(habits,day){
     out.push(v138Family(label,p,links));
   };
 
-  family('MORNING','wake330',['morningShower']);
-  family('TRAINING','gym',['fruit','incline','saunaDaily']);
+  family('MORNING','wake330',['readStudy','saunaDaily','morningShower']);
+  family('TRAINING','gym',['fruit','incline']);
   family('POST-WORKOUT','proteinCreatine',['supplements']);
 
   if(map.healthyBreakfast || map.healthyLunch || map.noUnplannedDinner){
@@ -3458,7 +3458,7 @@ function v145CategoryStatus(key=activeDailyKey()){
   const d=getDaily(key),target=v123WaterTargetForDate(key),stepTarget=v125StepsTargetForLevel(Number(save.currentLevel||1));
   const done=id=>dayHabitDone(key,id);
   const categories=[
-    {id:'morning',label:'Morning',icon:'🌅',won:done('wake330')&&done('morningShower')},
+    {id:'morning',label:'Morning',icon:'🌅',won:done('wake330')&&done('saunaDaily')},
     {id:'training',label:'Training',icon:'🏋️',won:done('gym')&&done('fruit')&&done('incline')},
     {id:'post',label:'Post-Workout',icon:'🥤',won:done('proteinCreatine')&&done('supplements')},
     {id:'nutrition',label:'Nutrition',icon:'🥗',won:done('healthyBreakfast')&&done('healthyLunch')},
@@ -4182,7 +4182,7 @@ setTimeout(()=>render(),0);
  Existing saved completions and earned XP remain intact.
  ===================================================== */
 const V157_ESSENTIAL_IDS=['gym','noUnplannedDinner','water','supplements','proteinCreatine'];
-const V157_KEYSTONE_IDS=['wake330','morningShower','gym','noUnplannedDinner'];
+const V157_KEYSTONE_IDS=['wake330','saunaDaily'];
 V128_KEYSTONE_IDS.splice(0,V128_KEYSTONE_IDS.length,...V157_KEYSTONE_IDS);
 v123KeystoneIdsForDate=()=>[...V157_KEYSTONE_IDS];
 const v157Dinner={id:'noUnplannedDinner',icon:'🌙',name:'No unplanned eating after dinner',xp:70,rule:'Keep to your planned dinner; no unplanned eating afterwards',group:'Nutrition'};
@@ -4202,7 +4202,7 @@ function v157Done(key,id){
 v109Status=function(key=activeDailyKey()){
  const perfectDone=V157_ESSENTIAL_IDS.filter(id=>v157Done(key,id)).length;
  const keyDone=V157_KEYSTONE_IDS.filter(id=>v157Done(key,id)).length;
- return {perfectDone,keyDone,perfectTotal:5,keyTotal:4,perfectDay:perfectDone===5,keystoneDay:keyDone===4};
+ return {perfectDone,keyDone,perfectTotal:5,keyTotal:V157_KEYSTONE_IDS.length,perfectDay:perfectDone===5,keystoneDay:keyDone===V157_KEYSTONE_IDS.length};
 };
 v123PerfectIdsForDate=()=>[...V157_ESSENTIAL_IDS];
 showPerfectPopup=function(){
@@ -4216,7 +4216,7 @@ showKeystonePopup=function(){
  document.querySelector('.quest-info-overlay')?.remove();
  const key=activeDailyKey(),s=v109Status(key),o=document.createElement('div');
  o.className='quest-info-overlay quest-summon v109-keystone-overlay';
- o.innerHTML=`<div class="quest-info-panel v109-keystone-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🔑 KEYSTONE HABITS</div><div class="quest-info-title">${s.keyDone} / 4 anchors</div><div class="v109-key-list">${V157_KEYSTONE_IDS.map(id=>{const h=DATA.habits.dailyHabits.find(x=>x.id===id),done=v157Done(key,id);return `<button class="v109-key-row ${done?'done':''}" data-v157-key="${id}"><span>${h?.icon||'✦'}</span><b>${escapeHtml(h?.name||id)}</b><em>${done?'✓':`+${h?.xp||0}`}</em></button>`}).join('')}</div></div>`;
+ o.innerHTML=`<div class="quest-info-panel v109-keystone-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🔑 KEYSTONE HABITS</div><div class="quest-info-title">${s.keyDone} / ${V157_KEYSTONE_IDS.length} anchors</div><div class="v109-key-list">${V157_KEYSTONE_IDS.map(id=>{const h=DATA.habits.dailyHabits.find(x=>x.id===id),done=v157Done(key,id);return `<button class="v109-key-row ${done?'done':''}" data-v157-key="${id}"><span>${h?.icon||'✦'}</span><b>${escapeHtml(h?.name||id)}</b><em>${done?'✓':`+${h?.xp||0}`}</em></button>`}).join('')}</div></div>`;
  document.body.appendChild(o);o.querySelector('.quest-info-close').onclick=()=>o.remove();o.onclick=e=>{if(e.target===o)o.remove()};
  o.querySelectorAll('[data-v157-key]').forEach(b=>b.onclick=()=>{toggleHabit(b.dataset.v157Key);o.remove();showKeystonePopup()});
 };
@@ -4272,14 +4272,15 @@ function v157RenderWall(){
 // Readiness assignments are singular: no duplicate skill rewards.
 Object.assign(V135_HABIT_READINESS,{
  wake330:{cat:'knowledge',pts:25,label:'Get out of bed by 2:45 am',tags:'🔑'},
- morningShower:{cat:'knowledge',pts:15,label:'Shower at 3:00 am',tags:'🔑'},
+ morningShower:{cat:'knowledge',pts:15,label:'Shower at 3:00 am',tags:''},
  gym:{cat:'combat',pts:25,label:'Gym',tags:'🔑'},
  supplements:{cat:'magic',pts:10,label:'Supplements',tags:''},
  proteinCreatine:{cat:'magic',pts:10,label:'Protein + Creatine Smoothie',tags:''},
  incline:{cat:'combat',pts:15,label:'Incline Walk',tags:''},
  bedtimeAnapana:{cat:'knowledge',pts:10,label:'Anapana before bed',tags:''},
  water:{cat:'magic',pts:12,label:'Water',tags:''},
- readStudy:{cat:'knowledge',pts:20,label:'Read / Study',tags:''},
+ readStudy:{cat:'knowledge',pts:20,label:'Morning reading',tags:''},
+ saunaDaily:{cat:'assets',pts:12,label:'Sauna',tags:'🔑'},
  afternoonNap:{cat:'assets',pts:10,label:'Afternoon Nap',tags:''},
  noUnplannedDinner:{cat:'assets',pts:10,label:'No unplanned eating after dinner',tags:'🔑'}
 });
@@ -4328,7 +4329,7 @@ readinessPoints=function(){
  }
  return p;
 };
-readinessSourceLabel=function(id){return {magic:'Hydration • nutrition • supplements • protein',combat:'Gym • incline • steps • movement • sport',knowledge:'Wake routine • shower • reading • Hindi • Anapana',assets:'Sleep • afternoon nap • sauna • evening discipline'}[id]||'';};
+readinessSourceLabel=function(id){return {magic:'Hydration • nutrition • supplements • protein',combat:'Gym • incline • steps • movement • sport',knowledge:'Morning reading • waking early • Anapana • Hindi',assets:'Sleep • afternoon nap • sauna • evening discipline'}[id]||'';};
 // Thala awards on every 7th consecutive complete day per activity (7,14,21...),
 // including water and the three numeric movement activities.
 const V157_STREAK_IDS=()=>[...new Set([...DATA.habits.dailyHabits.filter(h=>h.id!=='vipassanaMorning'&&h.id!=='vipassanaNight').map(h=>h.id),'steps','squat','calf','wall'])];
@@ -4359,7 +4360,7 @@ function v157ThalaStatus(key=activeDailyKey()){
 }
 function v157ThalaPopup(){
  document.querySelector('.quest-info-overlay')?.remove();const key=activeDailyKey(),s=v157ThalaStatus(key),o=document.createElement('div');o.className='quest-info-overlay quest-summon v110-perfect-overlay';
- o.innerHTML=`<div class="quest-info-panel v110-perfect-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🏏 THALA FOR A REASON</div><div class="quest-info-title">Every 7 days</div><div class="v110-perfect-list">${s.rows.filter(x=>x.n>0).slice(0,25).map(x=>`<div><span>${x.h?.icon||'🔥'}</span><b>${escapeHtml(x.h?.name||({steps:'Steps',squat:'Bodyweight Squats',calf:'Calf Raises',wall:'Wall Push-Ups'}[x.id]||x.id))}</b><em>${x.n} days</em></div>`).join('')||''}</div></div>`;
+ o.innerHTML=`<div class="quest-info-panel v110-perfect-panel"><button class="quest-info-close">×</button><div class="quest-info-kicker">🏏 THALA FOR A REASON</div><div class="quest-info-title">Every 7 days</div><div class="v110-perfect-list v168-thala-list">${s.rows.filter(x=>x.n>0).slice(0,25).map(x=>`<div><span>${x.h?.icon||'🔥'}</span><b>${escapeHtml(x.h?.name||({steps:'Steps',squat:'Bodyweight Squats',calf:'Calf Raises',wall:'Wall Push-Ups'}[x.id]||x.id))}</b><em>${x.n} ${x.n===1?'day':'days'}</em></div>`).join('')||''}</div></div>`;
  document.body.appendChild(o);o.querySelector('.quest-info-close').onclick=()=>o.remove();o.onclick=e=>{if(e.target===o)o.remove()};
 }
 const v157BaseDailyRender=renderDailyHabits;
@@ -4367,7 +4368,7 @@ renderDailyHabits=function(){
  v157BaseDailyRender();v157RenderWall();
  const recovery=document.querySelector('#v145RecoveryGroup'),nap=document.querySelector('#v155AfternoonNapRow'),ana=document.querySelector('#v145AnapanaRow');if(recovery&&nap&&ana)recovery.insertBefore(nap,ana);
  const key=activeDailyKey(),s=v109Status(key),play=v145CategoryStatus(key),thala=v157ThalaStatus(key),strip=document.querySelector('#v109StatusStrip');
- if(strip){strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/4</button><button id="openPerfect">✨ ${s.perfectDone}/5</button><button id="openWinDay" class="${play.dayWon?'v145-won':''}">🏀 ${play.won}/7</button><button id="openThala">🏏 ${thala.progress}/7</button>`;
+ if(strip){strip.innerHTML=`<button id="openKeystones">🔑 ${s.keyDone}/${V157_KEYSTONE_IDS.length}</button><button id="openPerfect">✨ ${s.perfectDone}/5</button><button id="openWinDay" class="${play.dayWon?'v145-won':''}">🏀 ${play.won}/7</button><button id="openThala">🏏 ${thala.progress}/7</button>`;
  strip.querySelector('#openKeystones').onclick=showKeystonePopup;strip.querySelector('#openPerfect').onclick=showPerfectPopup;strip.querySelector('#openWinDay').onclick=v145ShowWinPopup;strip.querySelector('#openThala').onclick=v157ThalaPopup;}
 };
 // Replace old summary badges; legacy achievements retain previously recorded values.
@@ -4398,3 +4399,162 @@ render=function(){v157BaseRender();if(!v157AwardSync)v157SyncThala();};
 const v157OldFoodOutcome=v148FinishFoodUrge;
 v148FinishFoodUrge=function(...args){const r=v157OldFoodOutcome(...args);render();return r;};
 setTimeout(()=>render(),0);
+
+/* ============================================================
+   v169 — Find Your Calm: low-friction, food-craving-only support.
+   Separate calm ledger; legacy food-urge XP/history untouched.
+   ============================================================ */
+const V169_CALM_ACTIVITIES={
+  leave:{icon:'🚪',title:'Step into another room',duration:'2 minutes',instructions:'Leave the food where it is. Sit somewhere comfortable in another room. You do not need to decide anything yet.',why:'A little distance can interrupt an automatic response.'},
+  breath:{icon:'🌬️',title:'Slow, comfortable breathing',duration:'1 minute',instructions:'Breathe gently in for about 4 seconds, then out for about 6. Do not force your breath. Repeat at a comfortable pace.',why:'Slower breathing may help ease physical tension.'},
+  app:{icon:'📵',title:'Close the delivery app',duration:'3 minutes',instructions:'Close the food-ordering app and put your phone face down. Make yourself comfortable. You can decide what to do later.',why:'A pause interrupts the browsing-to-ordering sequence.'},
+  song:{icon:'🎵',title:'Listen to one favourite song',duration:'One song',instructions:'Play a song you love. Listen to the whole track, noticing the rhythm, words or instruments.',why:'A familiar enjoyable experience can offer comfort and redirect attention.'},
+  anapana:{icon:'🧘',title:'Anapana',duration:'2 minutes',instructions:'Sit comfortably. Notice the natural sensation of breath around your nostrils. When thoughts wander to food, gently return to the breath.',why:'Practise noticing thoughts and urges without automatically reacting.'},
+  walk:{icon:'🌿',title:'Take a short walk',duration:'5 minutes',instructions:'Walk somewhere comfortable. Notice three things you can see and two sounds you can hear. This is not exercise to compensate for eating.',why:'A change of scenery can shift attention and soften a strong urge.'},
+  stretch:{icon:'🙆',title:'Release some tension',duration:'90 seconds',instructions:'Unclench your jaw and relax your shoulders. Slowly roll your shoulders five times, reach your arms gently upward, and loosen your hands.',why:'Gentle movement can ease the tension that sometimes accompanies stress.'},
+  connect:{icon:'💬',title:'Send a friendly message',duration:'2 minutes',instructions:'Text someone you like. Ask how their day is going, share something funny, or say hello. You need not mention food.',why:'A small moment of connection can provide comfort.'},
+  enjoy:{icon:'🎲',title:'Do one small enjoyable thing',duration:'5 minutes',instructions:'Pick one familiar activity now: a quick game, a few pages of a book, a puzzle, or a funny clip. Start with just five minutes.',why:'Making a pleasant alternative specific and easy can reduce decision fatigue.'},
+  rest:{icon:'🛋️',title:'Get comfortable and rest',duration:'2 minutes',instructions:'Find a comfortable seat or lie down. Unclench your jaw and let your shoulders drop. No need to accomplish anything.',why:'Sometimes tiredness calls for rest rather than effort.'}
+};
+const V169_CALM_CONTEXTS=[
+ {id:'food',label:'Food is right in front of me',first:'leave',second:'breath'},
+ {id:'delivery',label:'I want to order food',first:'app',second:'song'},
+ {id:'stress',label:'I feel stressed or upset',first:'breath',second:'song'},
+ {id:'bored',label:'I feel bored or restless',first:'song',second:'walk'},
+ {id:'tired',label:'I feel exhausted',first:'rest',second:'anapana'},
+ {id:'unsure',label:'I am not sure',first:'breath',second:'leave'}
+];
+function v169CalmSessions(){save.v169CalmSessions=save.v169CalmSessions||[];return save.v169CalmSessions;}
+function v169Month(key){return String(key).slice(0,7);}
+function v169MonthlySummary(month){
+ const entries=v169CalmSessions().filter(s=>v169Month(s.date)===month&&s.activity);
+ return {entries,days:new Set(entries.map(s=>s.date)).size};
+}
+function v169MonthlyAwards(){
+ // No reward merely for opening. Maximum one participation credit per day.
+ // The award is issued only after the month has finished, once per month.
+ save.v169CalmAwardedMonths=save.v169CalmAwardedMonths||{};
+ const nowMonth=v169Month(localDateKey());
+ const months=[...new Set(v169CalmSessions().map(s=>v169Month(s.date)))].filter(m=>m<nowMonth).sort();
+ for(const month of months){
+  if(save.v169CalmAwardedMonths[month])continue;
+  const info=v169MonthlySummary(month);
+  const xp=Math.min(100,info.days*5);
+  save.v169CalmAwardedMonths[month]={days:info.days,xp,awardedAt:Date.now()};
+  if(xp)addXP(xp,'Headmaster’s Awards — Find Your Calm '+month);
+  else persist();
+  return {month,days:info.days,xp};
+ }
+ return null;
+}
+function v169ShowCalmAward(award){
+ document.querySelector('.quest-info-overlay')?.remove();
+ const o=document.createElement('div');o.className='quest-info-overlay quest-summon v148-food-overlay';
+ o.innerHTML=`<div class="quest-info-panel v148-food-panel v169-calm-panel"><button class="quest-info-close" aria-label="Close">×</button><div class="v169-calm-emblem">✨</div><div class="quest-info-kicker">HOGWARTS MONTHLY RECOGNITION</div><h2>The Headmaster’s Awards</h2><p>For making space for yourself, one moment at a time.</p><div class="v169-award-amount">+${award.xp} XP</div><p>${award.days} ${award.days===1?'day':'days'} of calming practice · ${escapeHtml(award.month)}</p><button class="v169-calm-primary">Continue</button></div>`;
+ document.body.appendChild(o);
+ const close=()=>o.remove();o.querySelector('.quest-info-close').onclick=close;o.querySelector('.v169-calm-primary').onclick=close;
+}
+function v169RecordCalm(context,activity,feedback){
+ const day=localDateKey();
+ v169CalmSessions().push({id:`calm-${Date.now()}-${Math.random().toString(36).slice(2,7)}`,date:day,ts:Date.now(),context,activity,feedback:feedback||null});
+ persist();
+}
+function v169CalmRanked(ctx){
+ const c=V169_CALM_CONTEXTS.find(c=>c.id===ctx)||V169_CALM_CONTEXTS[5];
+ const options=[c.first,c.second,...Object.keys(V169_CALM_ACTIVITIES)];
+ const unique=[...new Set(options)];
+ const historical=v169CalmSessions().filter(s=>s.context===ctx);
+ // Only light personalisation: favour activities reported helpful at least twice;
+ // always preserve a context-specific easy first option.
+ const score=id=>historical.filter(s=>s.activity===id&&s.feedback==='better').length;
+ return [unique[0],...unique.slice(1).sort((a,b)=>score(b)-score(a))];
+}
+v148OpenFoodUrge=function(){
+ document.querySelector('.quest-info-overlay')?.remove();
+ const o=document.createElement('div');o.className='quest-info-overlay quest-summon v148-food-overlay';
+ let screen='home',context='unsure',selected=null,why=false,reported=false;
+ const contexts=V169_CALM_CONTEXTS;
+ function draw(){
+  const action=selected&&V169_CALM_ACTIVITIES[selected];
+  o.innerHTML=`<div class="quest-info-panel v148-food-panel v169-calm-panel">
+   <button type="button" class="quest-info-close" aria-label="Close">×</button>
+   <div class="v169-calm-emblem">🌿</div><div class="quest-info-kicker">FIND YOUR CALM</div>
+   <h2>${screen==='home'?'Just a moment.':screen==='activity'?'One small thing.':screen==='check'?'How do you feel now?':'You made space.'}</h2>
+   ${screen==='home'?`<p class="v169-calm-lead">You don't have to figure everything out right now.<br>Just take a moment.</p><div class="v169-calm-prompt">What feels hardest right now?</div><div class="v169-calm-choices">${contexts.map(c=>`<button data-context="${c.id}">${escapeHtml(c.label)}</button>`).join('')}</div><button class="v169-calm-secondary" data-go="unsure">Just suggest something</button><div class="v169-calm-hunger">If you're physically hungry, it's okay to eat. This space is for finding calm, not ignoring hunger.</div>`:''}
+   ${screen==='activity'?`<div class="v169-calm-action"><div class="v169-calm-duration">${action.icon} ${action.duration}</div><h3>${escapeHtml(action.title)}</h3><p>${escapeHtml(action.instructions)}</p><button class="v169-calm-why" data-why>Why might this help? ${why?'▴':'▾'}</button>${why?`<div class="v169-calm-explain">${escapeHtml(action.why)}</div>`:''}</div><button class="v169-calm-primary" data-done>I've taken a moment</button><button class="v169-calm-secondary" data-another>Try another activity</button><button class="v169-calm-text" data-home>Go back</button>`:''}
+   ${screen==='check'?`<p class="v169-calm-lead">Whatever you're feeling is okay. Did this give you a little relief?</p><div class="v169-calm-choices"><button data-feedback="better">Yes, a little</button><button data-feedback="same">Not really</button><button data-feedback="unsure">I'm not sure</button></div><button class="v169-calm-secondary" data-another>Try something else instead</button><button class="v169-calm-text" data-feedback="skipped">Finish without answering</button>`:''}
+   ${screen==='done'?`<p class="v169-calm-lead">You gave yourself a moment to choose. That's enough for now.</p><button class="v169-calm-primary" data-close>Done</button><button class="v169-calm-secondary" data-again>Try another calming activity</button>`:''}
+   </div>`;
+  o.querySelector('.quest-info-close').onclick=()=>o.remove();
+  o.querySelectorAll('[data-context]').forEach(b=>b.onclick=()=>{context=b.dataset.context;selected=v169CalmRanked(context)[0];screen='activity';draw()});
+  o.querySelector('[data-go]')?.addEventListener('click',()=>{context='unsure';selected=v169CalmRanked(context)[0];screen='activity';draw()});
+  o.querySelector('[data-why]')?.addEventListener('click',()=>{why=!why;draw()});
+  o.querySelector('[data-another]')?.addEventListener('click',()=>{const ranked=v169CalmRanked(context);selected=ranked[(ranked.indexOf(selected)+1)%ranked.length];why=false;screen='activity';draw()});
+  o.querySelector('[data-done]')?.addEventListener('click',()=>{screen='check';draw()});
+  o.querySelectorAll('[data-feedback]').forEach(b=>b.onclick=()=>{v169RecordCalm(context,selected,b.dataset.feedback);reported=true;screen='done';draw();render()});
+  o.querySelector('[data-home]')?.addEventListener('click',()=>{screen='home';draw()});
+  o.querySelector('[data-close]')?.addEventListener('click',()=>o.remove());
+  o.querySelector('[data-again]')?.addEventListener('click',()=>{selected=v169CalmRanked(context)[1]||v169CalmRanked(context)[0];screen='activity';why=false;draw()});
+ }
+ o.addEventListener('click',e=>{if(e.target===o)o.remove()});
+ document.body.appendChild(o);draw();
+};
+v123RenderPenalties=function(){
+ const root=document.querySelector('#v123PenaltyPanel');if(!root)return;
+ const month=v169Month(localDateKey()),info=v169MonthlySummary(month);
+ root.innerHTML=`<div class="v148-food-home v169-calm-home"><span class="v123-penalty-icon">🌿</span><span class="v123-penalty-copy"><strong>Find Your Calm</strong><small>A gentle moment for food cravings${info.days?` · ${info.days} ${info.days===1?'day':'days'} practised this month`:''}</small></span><button class="v148-food-start">Open</button></div>`;
+ root.querySelector('.v148-food-start')?.addEventListener('click',()=>{const award=v169MonthlyAwards();if(award)v169ShowCalmAward(award);else v148OpenFoodUrge()});
+};
+const v169OldRenderStats=renderStats;
+renderStats=function(){
+ v169OldRenderStats();
+ const root=document.querySelector('#statsDashboard');if(!root)return;
+ root.querySelectorAll('.v148-food-stats').forEach(e=>e.remove());
+ const month=v169Month(localDateKey()),info=v169MonthlySummary(month);
+ const helped=info.entries.filter(x=>x.feedback==='better').length;
+ const award=save.v169CalmAwardedMonths?.[month];
+ const card=document.createElement('section');card.className='stats62-card v169-calm-stats';
+ card.innerHTML=`<span class="eyebrow">🌿 FIND YOUR CALM · THIS MONTH</span><div class="v148-food-stat-grid"><b>${info.days}<small>Days practised</small></b><b>${info.entries.length}<small>Activities tried</small></b><b>${helped}<small>Reported helpful</small></b></div><p>Monthly Headmaster's Awards: quiet participation tracking. No immediate XP or food penalties.</p>`;
+ root.appendChild(card);
+};
+setTimeout(()=>render(),0);
+
+
+/* v170 — morning reading → sauna, visible 2-anchor Keystone and compact Thala labels. */
+(function(){
+ const reading=DATA.habits.dailyHabits.find(h=>h.id==='readStudy');
+ if(reading){reading.name='Morning Reading | 20 min';reading.rule='Read a book or script for 20 minutes while the sauna warms up';reading.group='Knowledge';}
+ const sauna=DATA.habits.dailyHabits.find(h=>h.id==='saunaDaily');
+ if(sauna){sauna.name='Sauna';sauna.rule='Use the sauna in the morning';}
+})();
+
+/* v170 — one-screen food craving toolkit, no extra steps, no instant XP. */
+v148OpenFoodUrge=function(){
+ document.querySelector('.quest-info-overlay')?.remove();
+ const o=document.createElement('div');o.className='quest-info-overlay quest-summon v148-food-overlay v170-calm-overlay';
+ const groups=[
+  ['CALM MY BODY',['breath','anapana','stretch']],
+  ['CHANGE MY ENVIRONMENT',['walk','leave','app']],
+  ['COMFORT & RECONNECT',['song','connect','enjoy']]
+ ];
+ const outcomeNames={passed:'Urge passed',junk:'Junk food',late:'Late-night binge',both:'Both'};
+ const active=new Set();let outcome='';
+ const body=groups.map(([group,ids])=>`<section class="v170-group"><h3>${group}</h3>${ids.map(id=>{const a=V169_CALM_ACTIVITIES[id];return `<button class="v170-action" data-calm-action="${id}" type="button"><span class="v170-action-icon">${a.icon}</span><span class="v170-action-copy"><b>${escapeHtml(a.title)}</b><small>${escapeHtml(a.instructions)}</small></span><span class="v170-tick" aria-hidden="true">○</span></button>`}).join('')}</section>`).join('');
+ o.innerHTML=`<div class="quest-info-panel v148-food-panel v170-calm-panel"><button class="quest-info-close" aria-label="Close" type="button">×</button><div class="v170-food-banner"><span>● FOOD URGE</span><h2>Find Your Calm</h2><p>Just take one small step. You don't need to solve everything right now.</p></div><div class="v170-actions">${body}</div><div class="v170-outcomes"><h3>WHAT HAPPENED?</h3><div class="v170-outcome-grid">${Object.entries(outcomeNames).map(([id,name])=>`<button type="button" data-calm-outcome="${id}">${escapeHtml(name)}</button>`).join('')}</div></div><p class="v170-hunger">If you're physically hungry, eating is okay. No pressure to complete everything.</p></div>`;
+ document.body.appendChild(o);
+ const close=()=>o.remove();o.querySelector('.quest-info-close').onclick=close;o.onclick=e=>{if(e.target===o)close();};
+ o.querySelectorAll('[data-calm-action]').forEach(b=>b.onclick=()=>{
+   const id=b.dataset.calmAction;
+   if(active.has(id)){active.delete(id);b.classList.remove('selected');b.querySelector('.v170-tick').textContent='○';return;}
+   active.add(id);b.classList.add('selected');b.querySelector('.v170-tick').textContent='✓';
+   v169RecordCalm('unsure',id,null);
+ });
+ o.querySelectorAll('[data-calm-outcome]').forEach(b=>b.onclick=()=>{
+   const value=b.dataset.calmOutcome;
+   outcome=outcome===value?'':value;
+   o.querySelectorAll('[data-calm-outcome]').forEach(button=>button.classList.toggle('selected',button.dataset.calmOutcome===outcome));
+   // Outcome recording is informational only and has no XP consequences.
+   if(outcome){const d=getDaily(localDateKey());d.v170CalmOutcome=outcome;persist();}
+   else {const d=getDaily(localDateKey());delete d.v170CalmOutcome;persist();}
+ });
+};
