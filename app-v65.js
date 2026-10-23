@@ -4558,3 +4558,67 @@ v148OpenFoodUrge=function(){
    else {const d=getDaily(localDateKey());delete d.v170CalmOutcome;persist();}
  });
 };
+
+
+/* v171 — Reading replaces Shower; one-screen, inline Find Your Calm. */
+(function(){
+ const habits=DATA.habits.dailyHabits;
+ const showerIndex=habits.findIndex(h=>h.id==='morningShower');
+ if(showerIndex>=0)habits.splice(showerIndex,1);
+ const reading=habits.find(h=>h.id==='readStudy');
+ if(reading){reading.name='Reading';reading.xp=15;reading.rule='Read for 20 minutes';reading.group='Knowledge';reading.readiness='knowledge';reading.readinessPoints=15;}
+ V135_HABIT_READINESS.readStudy={cat:'knowledge',pts:15,label:'Reading',tags:''};
+ delete V135_HABIT_READINESS.morningShower;
+ // Preserve historic readiness allocations from the earlier 20-point rule.
+ const baseReadiness=readinessPoints;
+ readinessPoints=function(){
+  const totals=baseReadiness();
+  for(const [date,day] of Object.entries(save.daily||{})){
+   if(date>=V157_READINESS_START && date<'2026-10-24' && day?.habits?.readStudy?.completed)totals.knowledge+=5;
+  }
+  return totals;
+ };
+ // Do not destroy any pre-existing Shower history. Only stop tracking it going forward.
+})();
+
+const V171_CALM_CATEGORIES=[
+ ['CALM MY BODY',[
+  ['breath','Slow breathing','In 4 · out 6'],
+  ['anapana','Anapana','Return to your breath'],
+  ['stretch','Release tension','Relax jaw and shoulders']]],
+ ['CHANGE MY ENVIRONMENT',[
+  ['walk','Short walk','Step outside briefly'],
+  ['leave','Another room','Leave the food behind'],
+  ['app','Close delivery apps','Put the phone aside']]],
+ ['COMFORT & RECONNECT',[
+  ['song','Listen to music','One favourite song'],
+  ['connect','Message someone','A quick hello'],
+  ['enjoy','Something enjoyable','A book, game or funny clip']]]
+];
+const V171_CALM_OUTCOMES=[['passed','Urge passed'],['junk','Junk food'],['late','Late-night binge'],['both','Both']];
+v123RenderPenalties=function(){
+ const root=document.querySelector('#v123PenaltyPanel');if(!root)return;
+ const day=localDateKey(),saved=getDaily(day),picked=new Set(saved.v171CalmActions||[]),outcome=saved.v170CalmOutcome||'';
+ root.innerHTML=`<div class="v171-calm"><div class="v171-calm-title"><span>🌿</span><strong>Find Your Calm</strong><small>Just one small step is enough.</small></div>
+ ${V171_CALM_CATEGORIES.map(([heading,items])=>`<section class="v171-calm-group"><h3>${heading}</h3><div class="v171-calm-actions">${items.map(([id,title,cue])=>`<button type="button" data-v171-calm="${id}" class="v171-calm-action ${picked.has(id)?'selected':''}" aria-pressed="${picked.has(id)}"><span class="v171-calm-icon">${V169_CALM_ACTIVITIES[id].icon}</span><span class="v171-calm-copy"><b>${title}</b><small>${cue}</small></span><span class="v171-calm-mark">${picked.has(id)?'✓':'○'}</span></button>`).join('')}</div></section>`).join('')}
+ <section class="v171-calm-outcomes"><h3>WHAT HAPPENED?</h3><div class="v171-calm-outcome-grid">${V171_CALM_OUTCOMES.map(([id,title])=>`<button type="button" data-v171-outcome="${id}" class="${outcome===id?'selected':''}" aria-pressed="${outcome===id}">${title}</button>`).join('')}</div></section></div>`;
+ root.querySelectorAll('[data-v171-calm]').forEach(btn=>btn.onclick=()=>{
+  const id=btn.dataset.v171Calm,d=getDaily(localDateKey());d.v171CalmActions=d.v171CalmActions||[];
+  if(d.v171CalmActions.includes(id))d.v171CalmActions=d.v171CalmActions.filter(x=>x!==id);
+  else {d.v171CalmActions.push(id);v169RecordCalm('unsure',id,null);}
+  persist();btn.classList.toggle('selected',d.v171CalmActions.includes(id));btn.setAttribute('aria-pressed',String(d.v171CalmActions.includes(id)));btn.querySelector('.v171-calm-mark').textContent=d.v171CalmActions.includes(id)?'✓':'○';
+ });
+ root.querySelectorAll('[data-v171-outcome]').forEach(btn=>btn.onclick=()=>{
+  const d=getDaily(localDateKey()),value=btn.dataset.v171Outcome;
+  d.v170CalmOutcome=d.v170CalmOutcome===value?'':value;
+  persist();root.querySelectorAll('[data-v171-outcome]').forEach(b=>{const yes=b.dataset.v171Outcome===d.v170CalmOutcome;b.classList.toggle('selected',yes);b.setAttribute('aria-pressed',String(yes));});
+ });
+ // Handle the monthly award unobtrusively when first interacting, not as a barrier to the toolkit.
+};
+// Keep the section title stable after every Today render.
+const v171BaseDailyRender=renderDailyHabits;
+renderDailyHabits=function(){
+ v171BaseDailyRender();
+ const heading=document.querySelector('.v123-penalty-heading h2');if(heading)heading.textContent='Food Urges';
+};
+setTimeout(()=>render(),0);
