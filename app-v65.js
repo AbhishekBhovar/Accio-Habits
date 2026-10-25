@@ -4592,16 +4592,16 @@ const V171_CALM_CATEGORIES=[
   ['app','Close delivery apps','Put the phone aside']]],
  ['COMFORT & RECONNECT',[
   ['song','Listen to music','One favourite song'],
-  ['connect','Message someone','A quick hello'],
+  ['connect','Remember the haters','They would hate to see you win'],
   ['enjoy','Something enjoyable','A book, game or funny clip']]]
 ];
-const V171_CALM_OUTCOMES=[['passed','Urge passed'],['junk','Junk food'],['late','Late-night binge'],['both','Both']];
+const V171_CALM_OUTCOMES=[['passed','Urge passed'],['junk','Junk food'],['late','Late-night binge']];
 v123RenderPenalties=function(){
  const root=document.querySelector('#v123PenaltyPanel');if(!root)return;
  const day=localDateKey(),saved=getDaily(day),picked=new Set(saved.v171CalmActions||[]),outcome=saved.v170CalmOutcome||'';
  root.innerHTML=`<div class="v171-calm"><div class="v171-calm-title"><span>🌿</span><strong>Find Your Calm</strong><small>Just one small step is enough.</small></div>
  ${V171_CALM_CATEGORIES.map(([heading,items])=>`<section class="v171-calm-group"><h3>${heading}</h3><div class="v171-calm-actions">${items.map(([id,title,cue])=>`<button type="button" data-v171-calm="${id}" class="v171-calm-action ${picked.has(id)?'selected':''}" aria-pressed="${picked.has(id)}"><span class="v171-calm-icon">${V169_CALM_ACTIVITIES[id].icon}</span><span class="v171-calm-copy"><b>${title}</b><small>${cue}</small></span><span class="v171-calm-mark">${picked.has(id)?'✓':'○'}</span></button>`).join('')}</div></section>`).join('')}
- <section class="v171-calm-outcomes"><h3>WHAT HAPPENED?</h3><div class="v171-calm-outcome-grid">${V171_CALM_OUTCOMES.map(([id,title])=>`<button type="button" data-v171-outcome="${id}" class="${outcome===id?'selected':''}" aria-pressed="${outcome===id}">${title}</button>`).join('')}</div></section></div>`;
+ <section class="v171-calm-outcomes"><h3>WHAT HAPPENED?</h3><div class="v171-calm-outcome-grid">${V171_CALM_OUTCOMES.map(([id,title])=>`<button type="button" data-v171-outcome="${id}" class="${(outcome===id||(outcome==='both'&&(id==='junk'||id==='late')))?'selected':''}" aria-pressed="${outcome===id||(outcome==='both'&&(id==='junk'||id==='late'))}">${title}</button>`).join('')}</div></section></div>`;
  root.querySelectorAll('[data-v171-calm]').forEach(btn=>btn.onclick=()=>{
   const id=btn.dataset.v171Calm,d=getDaily(localDateKey());d.v171CalmActions=d.v171CalmActions||[];
   if(d.v171CalmActions.includes(id))d.v171CalmActions=d.v171CalmActions.filter(x=>x!==id);
@@ -4610,8 +4610,18 @@ v123RenderPenalties=function(){
  });
  root.querySelectorAll('[data-v171-outcome]').forEach(btn=>btn.onclick=()=>{
   const d=getDaily(localDateKey()),value=btn.dataset.v171Outcome;
-  d.v170CalmOutcome=d.v170CalmOutcome===value?'':value;
-  persist();root.querySelectorAll('[data-v171-outcome]').forEach(b=>{const yes=b.dataset.v171Outcome===d.v170CalmOutcome;b.classList.toggle('selected',yes);b.setAttribute('aria-pressed',String(yes));});
+  const previous=d.v170CalmOutcome||'';
+  if(value==='passed') d.v170CalmOutcome=previous==='passed'?'':'passed';
+  else {
+   const chosen=new Set(previous==='both'?['junk','late']:(previous==='junk'||previous==='late'?[previous]:[]));
+   if(chosen.has(value))chosen.delete(value);else chosen.add(value);
+   d.v170CalmOutcome=chosen.size===2?'both':(chosen.size===1?[...chosen][0]:'');
+  }
+  persist();root.querySelectorAll('[data-v171-outcome]').forEach(b=>{
+   const v=b.dataset.v171Outcome,o=d.v170CalmOutcome;
+   const yes=o===v||(o==='both'&&(v==='junk'||v==='late'));
+   b.classList.toggle('selected',yes);b.setAttribute('aria-pressed',String(yes));
+  });
  });
  // Handle the monthly award unobtrusively when first interacting, not as a barrier to the toolkit.
 };
