@@ -4123,31 +4123,7 @@ setTimeout(()=>render(),0);
   renderAfternoonNap();
 })();
 
-/* Seamless post-wand quote. The overlay exists underneath the wand animation
-   before the launch blackout begins fading, so the Daily screen never flashes. */
-(function v156ChampionQuote(){
-  const q=document.createElement('div');
-  q.className='v156-champion-overlay';
-  q.innerHTML=`<div class="v156-champion-copy">
-    <div class="v156-champion-text">
-      <div class="v156-champion-line v156-champion-line-lead">Don't quit.</div>
-      <div class="v156-champion-paragraph">
-        <div class="v156-champion-line">Suffer now,</div>
-        <div class="v156-champion-line">and live the rest</div>
-        <div class="v156-champion-line">of your life,</div>
-        <div class="v156-champion-line">as a champion.</div>
-      </div>
-    </div>
-    
-  </div>`;
-  document.body.appendChild(q);
-
-  /* The wand white-out/reveal begins at ~2550 ms. The quote layer is already
-     underneath it, so the fade lands directly on the quote, not the app. */
-  setTimeout(()=>q.classList.add('show-copy'),2520);
-  setTimeout(()=>q.classList.add('hide'),6480);
-  setTimeout(()=>q.remove(),7100);
-})();
+/* v177: The startup quote was removed. The wand now reveals Today directly. */
 
 setTimeout(()=>render(),0);
 
@@ -4632,3 +4608,179 @@ renderDailyHabits=function(){
  const heading=document.querySelector('.v123-penalty-heading h2');if(heading)heading.textContent='Food Urges';
 };
 setTimeout(()=>render(),0);
+
+
+/* v174 — Essential Wins replaces Keystone as the automatic opening popup.
+   The Keystone strip button deliberately remains available on demand. */
+showPerfectPopup=function(){
+ document.querySelector('.quest-info-overlay')?.remove();
+ const key=activeDailyKey(),d=getDaily(key),st=v109Status(key),target=v123WaterTargetForDate(key),water=Number(d.waterMl||0);
+ const overlay=document.createElement('div');
+ overlay.className='quest-info-overlay quest-summon v110-perfect-overlay v174-essential-overlay';
+ const rows=V157_ESSENTIAL_IDS.map(id=>{
+   const h=DATA.habits.dailyHabits.find(x=>x.id===id),complete=v157Done(key,id);
+   if(id==='water')return `<div class="v174-essential-water ${complete?'done':''}"><span>💧</span><b>Water <small>${(water/1000).toFixed(1)} / ${(target/1000).toFixed(1)} L</small></b><div class="v174-water-controls"><button type="button" data-v174-water="-500" aria-label="Remove 500 millilitres">−</button><button type="button" data-v174-water="500" aria-label="Add 500 millilitres">+ 0.5 L</button></div></div>`;
+   return `<button type="button" data-v174-habit="${id}" class="v174-essential-row ${complete?'done':''}"><span>${h?.icon||'✦'}</span><b>${escapeHtml(h?.name||id)}</b><em>${complete?'✓':'○'}</em></button>`;
+ }).join('');
+ overlay.innerHTML=`<div class="quest-info-panel v110-perfect-panel v174-essential-panel"><button type="button" class="quest-info-close" aria-label="Close">×</button><div class="quest-info-kicker">✨ ESSENTIAL WINS</div><div class="quest-info-title">${st.perfectDone} / 5 complete</div><div class="v174-essential-list">${rows}</div></div>`;
+ document.body.appendChild(overlay);
+ const close=()=>overlay.remove();overlay.querySelector('.quest-info-close').onclick=close;
+ overlay.onclick=e=>{if(e.target===overlay)close()};
+ const refresh=()=>{close();showPerfectPopup()};
+ overlay.querySelectorAll('[data-v174-habit]').forEach(b=>b.onclick=()=>{toggleHabit(b.dataset.v174Habit);refresh()});
+ overlay.querySelectorAll('[data-v174-water]').forEach(b=>b.onclick=()=>{
+   const delta=Number(b.dataset.v174Water);
+   if(delta>0)addWater(delta);else if(typeof removeWater==='function')removeWater(-delta);
+   refresh();
+ });
+};
+maybeShowQuestInfo=function(){
+ const key='accioEssentialWinsShownV174';
+ if(sessionStorage.getItem(key)==='1')return;
+ sessionStorage.setItem(key,'1');
+ showPerfectPopup();
+};
+
+
+/* v175 — Three home progress shortcuts; Thala only celebrates newly-earned
+   seven-day milestones, with cumulative history preserved in Stats. */
+const v175PriorDailyRender=renderDailyHabits;
+renderDailyHabits=function(){
+ v175PriorDailyRender();
+ const strip=document.querySelector('#v109StatusStrip');
+ if(!strip)return;
+ strip.querySelector('#openThala')?.remove();
+ strip.classList.add('v175-three-shortcuts');
+};
+const v175PriorThalaSync=v157SyncThala;
+let v175MilestonePopupQueued=false;
+v157SyncThala=function(){
+ const key=localDateKey();
+ const before={...(getDaily(key).v157ThalaAwards||{})};
+ v175PriorThalaSync();
+ const after=getDaily(key).v157ThalaAwards||{};
+ const newMilestones=Object.keys(after).filter(id=>after[id]&&!before[id]);
+ if(!newMilestones.length)return;
+ // Collapse simultaneous achievements into a single celebration.
+ if(v175MilestonePopupQueued)return;
+ v175MilestonePopupQueued=true;
+ setTimeout(()=>{
+  v175MilestonePopupQueued=false;
+  const achievements=Object.keys(getDaily(key).v157ThalaAwards||{}).filter(id=>getDaily(key).v157ThalaAwards[id]&&!before[id]);
+  if(!achievements.length)return;
+  const overlay=document.createElement('div');
+  overlay.className='quest-info-overlay quest-summon v110-perfect-overlay v175-thala-milestone';
+  const lines=achievements.map(id=>{
+   const h=DATA.habits.dailyHabits.find(x=>x.id===id);
+   const name=h?.name||({steps:'Steps',squat:'Bodyweight Squats',calf:'Calf Raises',wall:'Wall Push-Ups'}[id]||id);
+   const days=v157Streak(key,id);
+   return `<div><span>${h?.icon||'🏏'}</span><b>${escapeHtml(name)}</b><em>${days} days</em></div>`;
+  }).join('');
+  overlay.innerHTML=`<div class="quest-info-panel v110-perfect-panel"><button type="button" class="quest-info-close" aria-label="Close">×</button><div class="quest-info-kicker">🏏 THALA FOR A REASON</div><div class="quest-info-title">Every 7 days</div><div class="v110-perfect-list v168-thala-list">${lines}</div></div>`;
+  const close=()=>overlay.remove();
+  overlay.querySelector('.quest-info-close').onclick=close;
+  overlay.onclick=e=>{if(e.target===overlay)close()};
+  document.body.appendChild(overlay);
+ },200);
+};
+
+
+/* ==============================================================
+   v177 — sustainable morning target and incremental Reading
+   Reading: 0–20 min in steps of 5. 1 min = 1 XP = 1 Knowledge.
+   Historical checkmarks, recorded XP and power remain untouched.
+   ============================================================= */
+(function(){
+ const wake=DATA.habits.dailyHabits.find(h=>h.id==='wake330');
+ if(wake){wake.name='Get out of bed by 6:00 am';wake.rule='Out of bed by 6:00 am · 14-day consistency phase';wake.xp=50;}
+ const reading=DATA.habits.dailyHabits.find(h=>h.id==='readStudy');
+ if(reading){reading.name='Reading';reading.xp=20;reading.rule='5-minute steps · up to 20 minutes';reading.readiness='knowledge';reading.readinessPoints=20;}
+ if(V135_HABIT_READINESS.wake330)V135_HABIT_READINESS.wake330.label='Get out of bed by 6:00 am';
+ if(V135_HABIT_READINESS.readStudy){V135_HABIT_READINESS.readStudy.label='Reading';V135_HABIT_READINESS.readStudy.pts=15;}
+
+ function minutes(day){
+   if(Number.isFinite(Number(day?.readingMinutes)) && day?.readingMinutes!==undefined && day?.readingMinutes!==null)
+     return Math.max(0,Math.min(20,Math.floor(Number(day.readingMinutes)/5)*5));
+   const entry=day?.habits?.readStudy;
+   // An old binary completed session is worth its previously credited amount,
+   // not a retroactive full 20 minutes.
+   return entry?.completed?Math.max(0,Math.min(20,Math.round(Number(entry.xpAwarded??15)/5)*5)):0;
+ }
+ const earlierReadiness=readinessPoints;
+ readinessPoints=function(){
+   const p=earlierReadiness();
+   for(const day of Object.values(save.daily||{})){
+     if(day?.readingMinutes===undefined || !day?.habits?.readStudy?.completed)continue;
+     const d=Number(day.readingMinutes);
+     if(Number.isFinite(d))p.knowledge+=Math.max(0,Math.min(20,d))-15;
+   }
+   return p;
+ };
+ // Reading must be adjusted via minutes so the normal checkbox never awards
+ // 20 XP in a single click or duplicates a previously credited session.
+ const earlierToggle=toggleHabit;
+ toggleHabit=function(id){
+   if(id==='readStudy')return changeReading(5);
+   return earlierToggle(id);
+ };
+ function changeReading(delta){
+   const key=activeDailyKey(),day=getDaily(key),old=minutes(day),next=Math.max(0,Math.min(20,old+delta));
+   if(next===old)return;
+   const credited=Number(day.habits?.readStudy?.xpAwarded||0);
+   // Preserve the original award when upgrading an old checkbox entry.
+   day.readingMinutes=next;
+   if(next>0)day.habits.readStudy={completed:true,xpAwarded:next,ts:day.habits?.readStudy?.ts||Date.now()};
+   else delete day.habits.readStudy;
+   const adjustment=next-credited;
+   if(adjustment>0)addXP(adjustment,'Reading');
+   else if(adjustment<0)removeXP(-adjustment,'Reading');
+   else {persist();render();}
+   if(delta>0)playChime('success');
+ }
+ const earlierDaily=renderDailyHabits;
+ renderDailyHabits=function(){
+   earlierDaily();
+   const day=getDaily(activeDailyKey()),value=minutes(day);
+   const row=document.querySelector('#dailyHabitList [data-habit="readStudy"]');
+   if(row){
+     const replacement=document.createElement('div');
+     replacement.className='habit-row v138-linked-row v177-reading-row'+(value>0?' done':'');
+     replacement.innerHTML=`<span class="habit-icon">📖</span><span class="habit-copy"><strong>Reading</strong><small>${value} / 20 min · ${value} XP · Knowledge & Focus</small></span><span class="v177-reading-actions"><button type="button" data-read-minus aria-label="Remove five minutes of reading" ${value===0?'disabled':''}>−</button><button type="button" data-read-plus aria-label="Add five minutes of reading" ${value>=20?'disabled':''}>+5</button></span>`;
+     row.replaceWith(replacement);
+     replacement.querySelector('[data-read-minus]').onclick=()=>changeReading(-5);
+     replacement.querySelector('[data-read-plus]').onclick=()=>changeReading(5);
+   }
+   const wakeRow=document.querySelector('#dailyHabitList [data-habit="wake330"]');
+   if(wakeRow){
+     const label=wakeRow.querySelector('.habit-copy strong');
+     if(label)label.textContent='Get out of bed by 6:00 am';
+     const rule=wakeRow.querySelector('.habit-copy small');
+     if(rule)rule.textContent='14-day consistency phase · protect your sleep';
+   }
+ };
+ const earlierKeystone=showKeystonePopup;
+ showKeystonePopup=function(){
+   earlierKeystone();
+   document.querySelectorAll('.v109-keystone-panel [data-keyhabit="wake330"] b').forEach(el=>el.textContent='Wake Up | 6:00 am');
+ };
+ const earlierStats=renderStats;
+ renderStats=function(){
+   earlierStats();
+   const root=document.querySelector('#statsDashboard');if(!root)return;
+   root.querySelectorAll('.v109-habit-card').forEach(card=>{
+     const summary=card.querySelector('summary');if(!summary)return;
+     const label=summary.querySelector('span');
+     if(label && /Get out of bed by 2:45|Wake Up \| 2:45/.test(label.textContent))label.textContent='⏰ Get out of bed by 6:00 am';
+     if(label && /Reading/i.test(label.textContent)){
+       const days=Array.from({length:7},(_,i)=>localDateKey(addDays(parseDateKey(localDateKey()),-i)));
+       const total=days.reduce((n,k)=>n+minutes(save.daily?.[k]),0);
+       const readDays=days.filter(k=>minutes(save.daily?.[k])>0).length;
+       label.textContent='📖 Reading';
+       let info=card.querySelector('.v177-reading-stat');
+       if(!info){info=document.createElement('div');info.className='v177-reading-stat';summary.insertAdjacentElement('afterend',info);}
+       info.textContent=`${total} minutes in the last 7 days · ${readDays} days practised · maximum 20 minutes/day`;
+     }
+   });
+ };
+ setTimeout(()=>render(),0);
+})();

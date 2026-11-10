@@ -3412,3 +3412,32 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
 #v123PenaltyPanel .v171-calm-outcome-grid{gap:4px!important}
 #v123PenaltyPanel .v171-calm-outcome-grid button{min-height:30px!important;padding:5px 4px!important;font:650 10px/1.2 system-ui,sans-serif!important;border-radius:8px!important}
 @media(max-width:390px){#v123PenaltyPanel .v171-calm-copy{gap:0 4px!important}#v123PenaltyPanel .v171-calm-copy b{font-size:10.5px!important}#v123PenaltyPanel .v171-calm-copy small{font-size:9.5px!important}}
+
+/* v174 Essential Wins launch panel: compact, tappable rows and half-litre controls. */
+.v174-essential-panel{width:min(92vw,410px)!important;max-width:410px!important;box-sizing:border-box!important}
+.v174-essential-list{display:grid;gap:8px;margin-top:12px}
+.v174-essential-row,.v174-essential-water{display:grid;grid-template-columns:25px minmax(0,1fr) auto;gap:9px;align-items:center;width:100%;box-sizing:border-box;min-height:49px;padding:10px 11px;border:1px solid #584b32;border-radius:11px;background:#151612;color:#e8e2d7;text-align:left}
+.v174-essential-row b,.v174-essential-water b{font-size:12px;line-height:1.3;min-width:0;white-space:normal;overflow-wrap:break-word}
+.v174-essential-row em{font-style:normal;color:#b7ab95;font-size:15px}
+.v174-essential-row.done,.v174-essential-water.done{border-color:#b99339}
+.v174-essential-row.done em{color:#e8be5d}
+.v174-essential-water b small{display:block;color:#b7ac97;font-weight:500;font-size:11px;margin-top:2px}
+.v174-water-controls{display:flex;gap:5px;align-items:center;white-space:nowrap}
+.v174-water-controls button{border:1px solid #9f7d37;border-radius:8px;background:#302619;color:#f1d68c;min-height:35px;padding:5px 9px;font-size:12px;font-weight:700;cursor:pointer}
+.v174-water-controls button:active{background:#7a602e}
+
+/* v175 — equal-sized Keystone, Essential Wins and Playoffs shortcuts. */
+.v109-status-strip.v175-three-shortcuts{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important}
+.v109-status-strip.v175-three-shortcuts>button{width:100%!important;min-width:0!important;box-sizing:border-box!important;padding:10px 5px!important;font-size:clamp(11px,3.25vw,15px)!important;white-space:nowrap!important}
+
+
+/* v177: short, thumb-friendly 5-minute reading controls; never overflow on iPhone. */
+#dailyHabitList .v177-reading-row {grid-template-columns:23px minmax(0,1fr) 88px!important;gap:6px!important;box-sizing:border-box!important;}
+#dailyHabitList .v177-reading-row .habit-copy {min-width:0!important;}
+#dailyHabitList .v177-reading-row .habit-copy strong {font-size:12px!important;}
+#dailyHabitList .v177-reading-row .habit-copy small {font-size:10px!important;line-height:1.2!important;}
+#dailyHabitList .v177-reading-actions {display:flex!important;gap:4px!important;width:88px!important;flex:0 0 88px!important;justify-content:flex-end!important;}
+#dailyHabitList .v177-reading-actions button {height:34px!important;min-width:38px!important;padding:0 6px!important;font-size:12px!important;line-height:1!important;background:#302e2b!important;border:1px solid #857659!important;border-radius:8px!important;color:#f2e9d1!important;font-weight:600!important;}
+#dailyHabitList .v177-reading-actions button:disabled {opacity:.35!important;}
+#view-stats .v177-reading-stat {padding:0 12px 12px;font-size:11px;color:#c4b9a1;line-height:1.35;}
+#view-stats details.v109-habit-card:not([open]) > .v177-reading-stat {display:none;}
