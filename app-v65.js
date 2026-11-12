@@ -4737,6 +4737,7 @@ v157SyncThala=function(){
    else {persist();render();}
    if(delta>0)playChime('success');
  }
+ window.accioAdjustReading=changeReading;
  const earlierDaily=renderDailyHabits;
  renderDailyHabits=function(){
    earlierDaily();
@@ -4783,4 +4784,125 @@ v157SyncThala=function(){
    });
  };
  setTimeout(()=>render(),0);
+})();
+
+
+/* ===============================================================
+   v178 — Hybrid experiment: a lightweight Today front page.
+   Do not replace/save/recalculate historic habit records or RPG rules.
+   The full legacy tracker and deep Adventure remain accessible.
+   =============================================================== */
+(function(){
+  const readingMinutes=d=>{
+    if(d?.readingMinutes!==undefined && d?.readingMinutes!==null)
+      return Math.max(0,Math.min(20,Math.floor(Number(d.readingMinutes||0)/5)*5));
+    const old=d?.habits?.readStudy;
+    return old?.completed?Math.max(0,Math.min(20,Math.round(Number(old.xpAwarded??15)/5)*5)):0;
+  };
+  function ensureReadingRow(){
+    const list=document.querySelector('#dailyHabitList');
+    if(!list || list.querySelector('.v178-reading-row, .v177-reading-row'))return;
+    // The older renderer can omit the original readStudy row. Insert it
+    // directly in the Morning family, rather than relying on that row.
+    const morning=[...list.querySelectorAll('.v138-habit-family')].find(el=>/MORNING/i.test(el.querySelector('.v138-family-label')?.textContent||''));
+    if(!morning)return;
+    const d=getDaily(activeDailyKey()),min=readingMinutes(d);
+    const reading=document.createElement('div');
+    reading.className='habit-row v178-reading-row'+(min>0?' done':'');
+    reading.innerHTML=`<span class="habit-icon">📖</span><span class="habit-copy"><strong>Reading</strong><small>${min}/20 min · ${min} XP · Knowledge &amp; Focus</small></span><span class="v178-read-controls"><button type="button" data-v178-read="-5" ${min===0?'disabled':''} aria-label="Remove 5 minutes of reading">−5</button><button type="button" data-v178-read="5" ${min===20?'disabled':''} aria-label="Add 5 minutes of reading">+5</button></span>`;
+    const wake=morning.querySelector('[data-habit="wake330"]');
+    if(wake){
+      // Ensure the row follows Wake and precedes Sauna.
+      const wrap=document.createElement('div');wrap.className='v138-linked-wrap v178-reading-wrap';
+      wrap.appendChild(reading);
+      wake.insertAdjacentElement('afterend',wrap);
+    }else morning.appendChild(reading);
+    reading.querySelectorAll('[data-v178-read]').forEach(b=>b.addEventListener('click',()=>window.accioAdjustReading?.(Number(b.dataset.v178Read))));
+  }
+  function ensureStructure(){
+    const zone=document.querySelector('#view-today .action-zone');
+    const heading=zone?.querySelector('.daily-heading');
+    const panel=zone?.querySelector('.daily-panel');
+    if(!zone||!heading||!panel)return;
+    if(!document.getElementById('v178Focus')){
+      const focus=document.createElement('section');
+      focus.id='v178Focus';focus.className='v178-focus';
+      heading.parentNode.insertBefore(focus,heading);
+    }
+    if(!document.getElementById('v178AllHabits')){
+      const details=document.createElement('details');
+      details.id='v178AllHabits';details.className='v178-all-habits';
+      const summary=document.createElement('summary');summary.innerHTML='<span>All daily habits</span><small>Open full tracker</small>';
+      details.appendChild(summary);
+      heading.parentNode.insertBefore(details,heading);
+      details.appendChild(heading);details.appendChild(panel);
+    }
+    // The weekly tracker is still complete, just behind an intentional fold.
+    const weeklyHeading=zone.querySelector('.v109-weekly-heading');
+    const weekly=zone.querySelector('.v109-weekly-panel');
+    if(weeklyHeading&&weekly&&!document.getElementById('v178Weekly')){
+      const details=document.createElement('details');details.id='v178Weekly';details.className='v178-all-habits';
+      const summary=document.createElement('summary');summary.innerHTML='<span>Weekly / Optional</span><small>View weekly goals</small>';
+      weeklyHeading.parentNode.insertBefore(details,weeklyHeading);
+      details.appendChild(summary);details.appendChild(weeklyHeading);details.appendChild(weekly);
+    }
+  }
+  function fixCompletedMarkers(){
+    document.querySelectorAll('#view-today .habit-row.done .habit-xp').forEach(el=>{
+      if(el.textContent.trim()==='↶'){
+        el.textContent='✓';el.title='Completed — tap habit to undo';
+        el.setAttribute('aria-label','Completed; tap habit to undo');
+      }
+    });
+  }
+  function renderFocus(){
+    const root=document.getElementById('v178Focus');if(!root)return;
+    const date=activeDailyKey(),d=getDaily(date);
+    const waking=!!d.habits?.wake330?.completed;
+    const sauna=!!d.habits?.saunaDaily?.completed;
+    const reading=readingMinutes(d);
+    const wins=Number(waking)+Number(sauna)+Number(reading>0);
+    let knowledge=0;
+    try{knowledge=Math.max(0,Math.round(Number(readinessPoints().knowledge||0)));}catch(_e){}
+    root.innerHTML=`<div class="v178-focus-top"><div><small>YOUR NEXT CHAPTER</small><h2>Three small wins</h2><p>Start where you are. Five minutes counts.</p></div><b>${wins}/3</b></div>
+      <div class="v178-focus-track"><i style="width:${wins/3*100}%"></i></div>
+      <div class="v178-focus-list">
+       <button type="button" data-v178-focus="wake" class="v178-focus-row ${waking?'complete':''}"><span>${waking?'✓':'⏰'}</span><strong>Wake by 6:00 am</strong><em>${waking?'Done':'+50 XP'}</em></button>
+       <div class="v178-focus-row ${reading>0?'complete':''}"><span>📖</span><div class="v178-focus-reading"><strong>Reading</strong><small>${reading}/20 min · +${reading} Knowledge &amp; Focus</small></div><div class="v178-focus-read-controls"><button type="button" data-v178-reading="-5" ${reading===0?'disabled':''} aria-label="Subtract 5 minutes">−5</button><button type="button" data-v178-reading="5" ${reading>=20?'disabled':''} aria-label="Add 5 minutes">+5</button></div></div>
+       <button type="button" data-v178-focus="sauna" class="v178-focus-row ${sauna?'complete':''}"><span>${sauna?'✓':'🧖'}</span><strong>Sauna</strong><em>${sauna?'Done':'+30 XP'}</em></button>
+      </div>
+      <div class="v178-focus-footer"><span>📚 Knowledge &amp; Focus <strong>${knowledge} points</strong></span><button type="button" data-v178-adventure>Adventure ›</button></div>`;
+    root.querySelector('[data-v178-focus="wake"]')?.addEventListener('click',()=>toggleHabit('wake330'));
+    root.querySelector('[data-v178-focus="sauna"]')?.addEventListener('click',()=>{
+      const existing=document.querySelector('#dailyHabitList [data-sauna]');
+      if(existing)existing.click();else toggleHabit('saunaDaily');
+    });
+    root.querySelectorAll('[data-v178-reading]').forEach(b=>b.addEventListener('click',()=>window.accioAdjustReading?.(Number(b.dataset.v178Reading))));
+    root.querySelector('[data-v178-adventure]')?.addEventListener('click',()=>document.querySelector('[data-view="battle"]')?.click());
+  }
+  const oldDaily=renderDailyHabits;
+  renderDailyHabits=function(){
+    oldDaily();
+    ensureReadingRow();
+    ensureStructure();
+    renderFocus();
+    fixCompletedMarkers();
+  };
+  const oldStats=renderStats;
+  renderStats=function(){
+    oldStats();
+    const root=document.querySelector('#statsDashboard');if(!root)return;
+    const cards=root.querySelector('.v109-habit-stats');if(!cards)return;
+    const matches=[...cards.querySelectorAll('.v109-habit-card')].filter(c=>/\bReading\b/i.test(c.querySelector('summary')?.textContent||''));
+    if(matches.length===0){
+      const dates=Array.from({length:7},(_,i)=>localDateKey(addDays(parseDateKey(localDateKey()),-i)));
+      const total=dates.reduce((n,k)=>n+readingMinutes(save.daily?.[k]),0);
+      const days=dates.filter(k=>readingMinutes(save.daily?.[k])>0).length;
+      const card=document.createElement('details');card.className='stats62-card v109-habit-card v178-reading-stats';
+      card.innerHTML=`<summary><span>📖 Reading</span><b>${days}/7</b></summary><div class="v178-stat-copy">${total} minutes this week · ${days} days practised · up to 20 minutes/day</div>`;
+      cards.prepend(card);
+    }
+  };
+  // No data migration. Existing checkpoints and optional missions are preserved.
+  setTimeout(()=>render(),0);
 })();

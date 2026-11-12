@@ -3441,3 +3441,44 @@ button,[role="button"],.habit-row,.bottom-nav,.quest-info-panel{touch-action:man
 #dailyHabitList .v177-reading-actions button:disabled {opacity:.35!important;}
 #view-stats .v177-reading-stat {padding:0 12px 12px;font-size:11px;color:#c4b9a1;line-height:1.35;}
 #view-stats details.v109-habit-card:not([open]) > .v177-reading-stat {display:none;}
+
+
+/* v178 Hybrid pilot — compact, hopeful first screen; deeper tasks on demand */
+#view-today .v178-focus{margin:6px 0 15px;padding:16px;border-radius:18px;background:linear-gradient(155deg,#282a2e,#191b20);border:1px solid #7c6a4a;box-shadow:0 8px 22px rgba(0,0,0,.18);color:#f2ece1;}
+#view-today .v178-focus-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#view-today .v178-focus-top small{font-size:10px;letter-spacing:.13em;color:#e3c68c;font-weight:650}
+#view-today .v178-focus-top h2{font-size:22px!important;line-height:1.2;margin:5px 0!important;color:#fff4da!important;font-family:inherit!important}
+#view-today .v178-focus-top p{font-size:12px;color:#c7c6c0;margin:4px 0 0}
+#view-today .v178-focus-top>b{flex:0 0 auto;font-size:18px;border:1px solid #7c735b;border-radius:11px;padding:8px 10px;background:#151618;color:#eed28f}
+#view-today .v178-focus-track{height:7px;border-radius:20px;background:#44454b;overflow:hidden;margin:14px 0 12px}
+#view-today .v178-focus-track i{display:block;height:100%;background:#dfbe73;transition:width .25s ease;border-radius:20px}
+#view-today .v178-focus-list{display:grid;gap:7px}
+#view-today .v178-focus-row{display:grid;grid-template-columns:27px minmax(0,1fr) auto;align-items:center;gap:9px;min-height:51px;width:100%;padding:9px 10px;border-radius:12px;background:#33363a;border:1px solid #626267;color:#f8f6ef;text-align:left;box-sizing:border-box}
+#view-today .v178-focus-row.complete{border-color:#6f9676;background:#293930}
+#view-today .v178-focus-row>span{font-size:20px;text-align:center;color:#add9b5}
+#view-today .v178-focus-row strong{font-size:13px;font-weight:650;line-height:1.2;min-width:0}
+#view-today .v178-focus-row em{font-size:11px;font-style:normal;color:#ead08c;white-space:nowrap}
+#view-today .v178-focus-reading{min-width:0;display:grid;gap:3px}
+#view-today .v178-focus-reading small{font-size:10px;color:#c8cace;white-space:normal;line-height:1.2}
+#view-today .v178-focus-read-controls{display:flex;gap:4px}
+#view-today .v178-focus-read-controls button{border:1px solid #9d8758;background:#272727;color:#f6d98b;border-radius:8px;min-width:34px;height:35px;padding:0 5px;font-size:12px;font-weight:700}
+#view-today .v178-focus-read-controls button:disabled{opacity:.3}
+#view-today .v178-focus-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:12px;color:#cfcfc8;font-size:11px}
+#view-today .v178-focus-footer strong{color:#f3d48d}
+#view-today .v178-focus-footer button{border:1px solid #84714d;border-radius:9px;background:#1b1b1d;color:#efd7a0;padding:8px;font-size:11px;white-space:nowrap}
+#view-today .v178-all-habits{margin:10px 0 15px}
+#view-today .v178-all-habits>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;padding:14px 15px;background:#1e2022;border:1px solid #52504a;border-radius:13px;color:#f1e9d8}
+#view-today .v178-all-habits>summary::-webkit-details-marker{display:none}
+#view-today .v178-all-habits>summary span{font-size:14px;font-weight:650}
+#view-today .v178-all-habits>summary small{font-size:11px;color:#c4bda9}
+#view-today .v178-all-habits[open]>summary{margin-bottom:12px}
+#view-today .v178-all-habits>.daily-heading,#view-today .v178-all-habits>.v109-weekly-heading{display:none!important}
+#view-today .v178-reading-row{display:grid!important;grid-template-columns:26px minmax(0,1fr) 82px!important;gap:8px!important;min-height:55px;padding:8px!important}
+#view-today .v178-reading-row .habit-copy small{font-size:10px!important;white-space:normal!important}
+#view-today .v178-read-controls{display:flex;gap:3px;justify-content:flex-end}
+#view-today .v178-read-controls button{min-width:36px;height:34px;padding:0 3px;border:1px solid #81704e;background:#242526;color:#f1d78d;font-size:11px;border-radius:8px}
+#view-today .v178-read-controls button:disabled{opacity:.3}
+#view-today .habit-row.done .habit-xp{font-size:16px!important;width:35px!important;min-width:35px!important;color:#a4d2a7!important;background:none!important;border:0!important;text-align:center}
+#view-today .v178-reading-stats .v178-stat-copy{padding:12px;font-size:11px;color:#c9c5bc}
+#view-stats .v178-stat-copy{padding:12px;font-size:11px;color:#c9c5bc}
+@media(max-width:380px){#view-today .v178-focus{padding:12px}#view-today .v178-focus-row{gap:5px;padding:8px 6px}#view-today .v178-focus-reading small{font-size:9px}#view-today .v178-focus-read-controls button{min-width:30px}}
