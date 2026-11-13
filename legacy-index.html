@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#030403">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Accio Habits">
+  <title>Accio Habits</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png?v=83">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=84">
+  <link rel="stylesheet" href="./styles-v65.css?v=178">
+
+
+<style id="hp64-dark-hufflepuff-palette">
+/* HP64 palette-only prototype: deeper page black + lifted neutral charcoal surfaces */
+:root{
+  --hp-page:#030403;
+  --hp-section:#121310;
+  --hp-card:#171815;
+  --hp-secondary:#1C1D19;
+  --hp-gold:#D4AF37;
+  --hp-text:#F2EBD7;
+  --hp-muted:#C8C2B0;
+}
+html, body, #app, .app, .app-shell, .page, main {
+  background-color: var(--hp-page) !important;
+}
+/* Broad existing surface selectors retained from prototype; palette only */
+.training-progress,
+.progress-card,
+.section-card,
+.week-card,
+.weekly-card,
+.missions-panel,
+.stats-panel,
+.adventure-card,
+.story-card,
+.sleep-card {
+  background: var(--hp-section) !important;
+}
+.mission-card,
+.habit-card,
+.task-card,
+.weekly-mission,
+.daily-mission,
+.stat-card,
+.choice-card,
+.option-card {
+  background: var(--hp-card) !important;
+}
+.date-pill,
+.pill,
+.badge,
+.input-wrap,
+input,
+select,
+textarea,
+.secondary-box {
+  background-color: var(--hp-secondary) !important;
+}
+</style>
+
+
+<style id="launch-blackout-critical">
+html,body{background:#000!important}
+#app{visibility:hidden!important}
+#launchBlackout{position:fixed;inset:0;z-index:2147483647;background:#000;display:block}
+</style>
+
+
+<style id="sleep-compact-v104">
+/* Compact Sleep mission: preserve full tracking without a separate oversized section. */
+.sleep-card-compact{margin-top:14px!important;padding:16px 18px!important;border-radius:24px!important;}
+.sleep-compact-head{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;margin-bottom:12px;}
+.sleep-compact-icon{font-size:27px;line-height:1;}
+.sleep-compact-head>strong{font-size:18px;color:var(--hp-text,#F2EBD7);}
+.sleep-compact-head>b{font-size:15px;color:var(--hp-gold,#D4AF37);white-space:nowrap;}
+.sleep-input-row-compact{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,.72fr) auto!important;gap:9px!important;align-items:end!important;}
+.sleep-input-row-compact label{font-size:12px!important;font-weight:700!important;color:var(--hp-muted,#C8C2B0)!important;min-width:0!important;}
+.sleep-input-row-compact input{box-sizing:border-box!important;width:100%!important;height:44px!important;margin-top:5px!important;padding:8px 10px!important;font-size:16px!important;font-weight:700!important;border-radius:13px!important;}
+.sleep-save-compact{width:auto!important;min-width:72px!important;height:44px!important;margin:0!important;padding:0 14px!important;border-radius:13px!important;font-size:15px!important;}
+@media(max-width:390px){.sleep-card-compact{padding:14px!important}.sleep-input-row-compact{grid-template-columns:minmax(0,1fr) minmax(0,.65fr) 68px!important;gap:7px!important}.sleep-save-compact{min-width:68px!important;padding:0 9px!important}}
+</style>
+</head>
+<body>
+
+  
+  <div id="launchBlackout" aria-hidden="true">
+    <div class="lumos-scene">
+      <div class="lumos-dust"></div>
+      <div class="lumos-wand">
+        <span class="lumos-wand-body"></span>
+        <span class="lumos-tip"></span>
+      </div>
+      <div class="lumos-halo lumos-halo-1"></div>
+      <div class="lumos-halo lumos-halo-2"></div>
+      
+      <div class="lumos-bloom"></div>
+      
+      
+      <div class="lumos-whiteout"></div>
+      <div class="launch-brand-card" aria-hidden="true">
+        <img class="launch-brand-logo" src="./accio-habit-logo.png" alt="">
+        <div class="launch-brand-title">Accio Habits</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <div>
+<h1>Accio Habits</h1>
+        <div id="v114HomeDate" class="v114-home-date"></div>
+      </div>
+      <span id="networkBadge" class="badge">Online</span>
+    </header>
+
+    <main>
+      <section id="view-today" class="view active">
+        <section id="statusZone" class="status-zone">
+          <div class="hero card compact-hero">
+            <div class="hero-row">
+              <div>
+                <span class="eyebrow" id="bookLabel">BATTLE TRAINING</span>
+                <h2 id="levelTitle">⚡ Preparing Harry</h2>
+                <p id="storyBeat" hidden></p>
+              </div>
+              
+            </div>
+            <div class="progress-track"><div id="xpBar" class="progress-fill"></div></div>
+            <div class="progress-meta"><span id="xpText">0 XP</span><span id="checkpointText">Next readiness award</span></div>
+          </div>
+
+          <div id="victoryBanner" class="victory-banner" hidden>
+            <div class="victory-spark">✦</div>
+            <div><span class="eyebrow">DAILY VICTORY</span><h3 id="victoryTitle">Perfect Day</h3><p id="victoryText"></p></div>
+            <div class="victory-seal">✓</div>
+          </div>
+
+          <div class="status-summary">
+            <div class="status-kpi"><span>Today</span><strong id="todayScore">0%</strong><small id="todayXp">0 XP</small></div>
+            <div class="status-kpi"><span>Streak</span><strong id="streakText">0 🔥</strong><small id="bestStreakText">Best 0</small></div>
+            <div class="status-kpi"><span>Readiness</span><strong id="ownedCount">0%</strong><small id="sagaPct">battle ready</small></div>
+          </div>
+        </section>
+
+        <section class="action-zone">
+          <div class="v109-day-nav"><button id="v109Yesterday">‹ Yesterday</button><button id="v109Today" class="active">Today</button><button id="v117Tomorrow">Tomorrow ›</button></div>
+          <div id="v109StatusStrip" class="v109-status-strip"></div>
+          <div class="zone-heading daily-heading compact-heading"><h2>Daily Missions</h2></div>
+          <div class="card mission-panel daily-panel">
+            <div class="section-head"><div><h3 id="todayDateLabel">Daily missions</h3></div><span id="routineBadge" class="mini-badge">0 / 11</span></div>
+            <div id="dailyHabitList" class="habit-list"></div>
+
+            <div id="v145MovementGroup" class="v138-habit-family v145-static-family">
+              <div class="v138-family-label">DAILY MOVEMENT</div>
+              <div id="v125StepsRow" class="v125-steps-wrap"></div>
+              <div id="v145SquatsRow"></div>
+              <div id="v145CalfRow"></div>
+              <div id="v157WallRow"></div>
+            </div>
+
+            <div id="v145RecoveryGroup" class="v138-habit-family v145-static-family">
+              <div class="v138-family-label">RECOVERY</div>
+              <div id="v145AnapanaRow"></div>
+              <div id="v155AfternoonNapRow"></div>
+              <div class="card sleep-card mission-panel sleep-card-compact v125-sleep-in-daily">
+                <div class="sleep-compact-head"><span class="sleep-compact-icon">😴</span><strong>Sleep</strong><b id="sleepXpPreview">0 / 40 XP</b></div>
+                <div class="sleep-input-row sleep-input-row-compact">
+                  <label>Main sleep<input id="sleepHours" type="number" inputmode="decimal" min="0" max="16" step="0.25" placeholder="6.5"></label>
+                  <label>Nap<input id="napHours" type="number" inputmode="decimal" min="0" max="8" step="0.25" placeholder="1"></label>
+                  <button id="saveSleep" class="primary sleep-save-compact">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="zone-heading compact-heading v109-weekly-heading"><h2>Weekly / Optional</h2></div>
+          <div class="card mission-panel v109-weekly-panel">
+            <div class="section-head"><h3>This week</h3><span id="weekLabel" class="mini-badge"></span></div>
+            <div id="weeklyMissionList" class="weekly-list"></div>
+          </div>
+
+          <div class="zone-heading compact-heading v123-penalty-heading v125-penalties-bottom"><h2>Food Urges</h2></div>
+          <div id="v123PenaltyPanel" class="v123-penalty-panel"></div>
+
+        </section>
+      </section>
+
+      <section id="view-battle" class="view"><div id="battleHub"></div></section>
+
+      <section id="view-stats" class="view">
+        <div class="section-head page-title stats57-title"><div><span class="eyebrow">YOUR PERFORMANCE</span><h2>Stats</h2></div></div>
+        <div id="statsDashboard"></div>
+        <div class="backup-inline"><span id="v125UnlockFooter" class="v125-unlock-footer"></span><span>Data</span><button id="exportSave" type="button">Export CSV</button><span>·</span><label>Import save<input id="importSave" type="file" accept="application/json,.json" hidden></label></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav bottom-nav-3" aria-label="Main navigation">
+      <button data-view="today" class="active">Today</button>
+      <button data-view="battle">Adventure</button>
+      <button data-view="stats">Stats</button>
+    </nav>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <div id="revealOverlay" class="reveal-overlay" hidden>
+    <div class="reveal-particles" aria-hidden="true">✦ · ✧ · ✦ · ✧ · ✦</div>
+    <div class="reveal-panel">
+      <span id="revealEyebrow" class="eyebrow">LEVEL UP</span>
+      <div id="revealArt" class="reveal-art">⚡</div>
+      <div id="revealRarity" class="reveal-rarity"></div>
+      <h2 id="revealTitle"></h2>
+      <p id="revealText"></p>
+      <div class="reveal-actions"><button id="revealNext" class="primary" type="button">Continue</button></div>
+    </div>
+  </div>
+
+  <script type="module" src="./app-v65.js?v=178"></script>
+
+<script>
+window.addEventListener('load', async () => {
+  try {
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(r => r.unregister()));
+    }
+    if ('caches' in window) {
+      const keys = await caches.keys();
+      await Promise.all(keys.map(k => caches.delete(k)));
+    }
+  } catch(e) { console.warn('cache cleanup', e); }
+});
+</script>
+</body>
+</html>
